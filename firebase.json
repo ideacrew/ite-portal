@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/apps/ite-portal",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
