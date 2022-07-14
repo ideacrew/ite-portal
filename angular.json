@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "ite-portal": "apps/ite-portal",
+    "ite-portal-e2e": "apps/ite-portal-e2e"
+  }
+}
