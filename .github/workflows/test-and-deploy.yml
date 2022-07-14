@@ -42,3 +42,43 @@ jobs:
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ite-portal
+          path: dist/apps/ite-portal
+  deploy:
+    environment: dev
+    needs: [main]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node16-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node16-
+      - name: Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v2
+        continue-on-error: true
+        with:
+          name: ite-portal
+          path: dist/apps/ite-portal
+      - name: Deploy Application(s)
+        if: success()
+        run: npx firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
+      - name: print log
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: firebase-log
+          path: /home/runner/.npm/_logs
