@@ -65,7 +65,7 @@ jobs:
             ${{ runner.os }}-node16-
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install
       - name: Download artifact
         id: download-artifact
         uses: actions/download-artifact@v2
