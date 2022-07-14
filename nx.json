@@ -2,7 +2,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "dbh",
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "trunk"
   },
   "cli": {
     "packageManager": "npm"

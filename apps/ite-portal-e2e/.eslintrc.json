@@ -7,6 +7,12 @@
       "rules": {}
     },
     {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["apps/ite-portal-e2e/tsconfig.json"]
+      }
+    },
+    {
       "files": ["src/plugins/index.js"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off",
