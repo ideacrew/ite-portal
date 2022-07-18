@@ -1,2 +1,8 @@
-<dbh-nx-welcome></dbh-nx-welcome>
 <h5>This is an h5</h5>
+<button (click)="getData()">Get Data</button>
+
+<div *ngIf="data$ | async as data">
+  <pre>
+    {{ data | json }}
+  </pre>
+</div>
