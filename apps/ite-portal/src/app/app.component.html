@@ -1,8 +1,37 @@
-<h5>This is an h5</h5>
-<button (click)="getData()">Get Data</button>
+<h1>Provider Extract Information</h1>
 
-<div *ngIf="data$ | async as data">
-  <pre>
-    {{ data | json }}
-  </pre>
+<div class="input-group">
+  <label for="coverage-start">Coverage Start Date</label>
+  <input type="date" name="coverage-start" id="coverage-start" />
 </div>
+
+<div class="input-group">
+  <label for="coverage-end">Coverage End Date</label>
+  <input type="date" name="coverage-end" id="coverage-end" />
+</div>
+
+<div class="input-group">
+  <label for="extract-date">Date Data was Extracted</label>
+  <input type="date" name="extract-date" id="extract-date" />
+</div>
+
+<fieldset>
+  <legend>Transaction Group:</legend>
+  <input
+    type="radio"
+    id="transaction-group-admission"
+    name="transaction-group"
+    value="admission"
+  />
+  <label for="transaction-group-admission">Admission</label>
+  <input
+    type="radio"
+    id="transaction-group-discharge"
+    name="transaction-group"
+    value="discharge"
+  />
+  <label for="transaction-group-discharge">Discharge</label>
+</fieldset>
+
+<br />
+<button (click)="sendData()">Send Data</button>
