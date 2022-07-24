@@ -8,6 +8,9 @@
       id="coverage-start"
       formControlName="coverage_start"
     />
+    <span *ngIf="debug">
+      Errors: {{ extractForm.get('coverage_start')!.errors | json }}</span
+    >
   </div>
 
   <div class="input-group">
@@ -18,6 +21,9 @@
       id="coverage-end"
       formControlName="coverage_end"
     />
+    <span *ngIf="debug">
+      Errors: {{ extractForm.get('coverage_end')!.errors | json }}</span
+    >
   </div>
 
   <div class="input-group">
@@ -28,6 +34,9 @@
       id="extract-date"
       formControlName="extracted_on"
     />
+    <span *ngIf="debug">
+      Errors: {{ extractForm.get('extracted_on')!.errors | json }}</span
+    >
   </div>
 
   <fieldset>
@@ -48,6 +57,9 @@
       formControlName="transaction_group"
     />
     <label for="transaction-group-discharge">Discharge</label>
+    <span *ngIf="debug">
+      Errors: {{ extractForm.get('transaction_group')!.errors | json }}</span
+    >
   </fieldset>
   <!-- <div class="input-group">
     <label for="file-upload">Upload Extract Here:</label>

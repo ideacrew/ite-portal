@@ -8,8 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { catchError, Observable, of } from 'rxjs';
-import { mockData } from './data';
+import { dateNotInFuture } from './date-validator';
 
 interface ExtractTransmissionForm {
   provider_gateway_identifier: FormControl<string | null>;
@@ -31,8 +30,6 @@ export class AppComponent {
   title = 'ite-portal';
   debug = true;
 
-  data$!: Observable<unknown>;
-
   extractForm!: FormGroup<ExtractTransmissionForm>;
 
   constructor(private http: HttpClient, private fb: FormBuilder) {
@@ -40,20 +37,17 @@ export class AppComponent {
       provider_gateway_identifier: this.fb.control('73982', [
         Validators.required,
       ]),
-      coverage_start: this.fb.control<string>('', [Validators.required]),
-      coverage_end: this.fb.control<string>('', [Validators.required]),
-      extracted_on: this.fb.control<string>('', [Validators.required]),
+      coverage_start: this.fb.control('', [
+        Validators.required,
+        dateNotInFuture,
+      ]),
+      coverage_end: this.fb.control('', [Validators.required, dateNotInFuture]),
+      extracted_on: this.fb.control('', [Validators.required, dateNotInFuture]),
       transaction_group: this.fb.control<TransactionGroup | null>(null, [
         Validators.required,
       ]),
       file_type: this.fb.control('Initial', [Validators.required]),
     });
-  }
-
-  getData() {
-    this.data$ = this.http
-      .get('https://ite-api.herokuapp.com/api/v1/extracts')
-      .pipe(catchError(() => of(mockData)));
   }
 
   sendData(): void {
