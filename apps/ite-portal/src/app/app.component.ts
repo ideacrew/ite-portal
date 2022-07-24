@@ -8,6 +8,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { lastDayOfMonth } from 'date-fns';
+
 import { dateNotInFuture } from './date-validator';
 
 interface ExtractTransmissionForm {
@@ -33,15 +35,25 @@ export class AppComponent {
   extractForm!: FormGroup<ExtractTransmissionForm>;
 
   constructor(private http: HttpClient, private fb: FormBuilder) {
+    const thisMonth = new Date().getMonth();
+    const lastMonth = thisMonth - 1;
+
+    // Get first and last day of last month
+    const lastMonthStart = new Date(new Date().getFullYear(), lastMonth, 1);
+    const lastMonthEnd = lastDayOfMonth(lastMonthStart);
+
     this.extractForm = this.fb.group({
       provider_gateway_identifier: this.fb.control('73982', [
         Validators.required,
       ]),
-      coverage_start: this.fb.control('', [
+      coverage_start: this.fb.control(
+        lastMonthStart.toISOString().slice(0, 10),
+        [Validators.required, dateNotInFuture]
+      ),
+      coverage_end: this.fb.control(lastMonthEnd.toISOString().slice(0, 10), [
         Validators.required,
         dateNotInFuture,
       ]),
-      coverage_end: this.fb.control('', [Validators.required, dateNotInFuture]),
       extracted_on: this.fb.control('', [Validators.required, dateNotInFuture]),
       transaction_group: this.fb.control<TransactionGroup | null>(null, [
         Validators.required,
