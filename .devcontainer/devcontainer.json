@@ -22,7 +22,8 @@
         "esbenp.prettier-vscode",
         "PKief.material-icon-theme",
         "Angular.ng-template",
-        "EditorConfig.EditorConfig"
+        "EditorConfig.EditorConfig",
+        "mongodb.mongodb-vscode"
       ]
     }
   },

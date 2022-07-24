@@ -1,37 +1,63 @@
 <h1>Provider Extract Information</h1>
+<form [formGroup]="extractForm">
+  <div class="input-group">
+    <label for="coverage-start">Coverage Start Date</label>
+    <input
+      type="date"
+      name="coverage-start"
+      id="coverage-start"
+      formControlName="coverage_start"
+    />
+  </div>
 
-<div class="input-group">
-  <label for="coverage-start">Coverage Start Date</label>
-  <input type="date" name="coverage-start" id="coverage-start" />
-</div>
+  <div class="input-group">
+    <label for="coverage-end">Coverage End Date</label>
+    <input
+      type="date"
+      name="coverage-end"
+      id="coverage-end"
+      formControlName="coverage_end"
+    />
+  </div>
 
-<div class="input-group">
-  <label for="coverage-end">Coverage End Date</label>
-  <input type="date" name="coverage-end" id="coverage-end" />
-</div>
+  <div class="input-group">
+    <label for="extract-date">Date Data was Extracted</label>
+    <input
+      type="date"
+      name="extract-date"
+      id="extract-date"
+      formControlName="extracted_on"
+    />
+  </div>
 
-<div class="input-group">
-  <label for="extract-date">Date Data was Extracted</label>
-  <input type="date" name="extract-date" id="extract-date" />
-</div>
+  <fieldset>
+    <legend>Transaction Group:</legend>
+    <input
+      type="radio"
+      id="transaction-group-admission"
+      name="transaction_group"
+      value="admission"
+      formControlName="transaction_group"
+    />
+    <label for="transaction-group-admission">Admission</label>
+    <input
+      type="radio"
+      id="transaction-group-discharge"
+      name="transaction_group"
+      value="discharge"
+      formControlName="transaction_group"
+    />
+    <label for="transaction-group-discharge">Discharge</label>
+  </fieldset>
+  <!-- <div class="input-group">
+    <label for="file-upload">Upload Extract Here:</label>
+    <input type="file" name="file-upload" id="file-upload" />
+  </div> -->
+</form>
 
-<fieldset>
-  <legend>Transaction Group:</legend>
-  <input
-    type="radio"
-    id="transaction-group-admission"
-    name="transaction-group"
-    value="admission"
-  />
-  <label for="transaction-group-admission">Admission</label>
-  <input
-    type="radio"
-    id="transaction-group-discharge"
-    name="transaction-group"
-    value="discharge"
-  />
-  <label for="transaction-group-discharge">Discharge</label>
-</fieldset>
+<h2>Form Value:</h2>
+<pre
+  >{{ extractForm.value | json }}
+</pre>
 
-<br />
 <button (click)="sendData()">Send Data</button>

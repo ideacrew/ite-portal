@@ -1,18 +1,18 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, Observable, of } from 'rxjs';
 import { mockData } from './data';
 
-export interface Transaction {
-  _id: {
-    $oid: string;
-  };
-  created_at: string;
-  extract_type: 'Admission' | 'Discharge' | 'Update';
-  failures: unknown;
-  payload: unknown;
-  provider_identifier: 'testing_db_connection';
-}
+// interface ExtractTransmissionForm {
+//   provider_gateway_identifier: '73982';
+//   coverage_start: string;
+//   coverage_end: string;
+//   extracted_on: string;
+//   transaction_group: 'admission' | 'discharge' | null;
+//   file_type: 'Initial';
+// }
 
 @Component({
   selector: 'dbh-root',
@@ -22,9 +22,19 @@ export interface Transaction {
 export class AppComponent {
   title = 'ite-portal';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private fb: FormBuilder) {}
 
   data$!: Observable<unknown>;
+
+  extractForm: FormGroup = this.fb.group({
+    provider_gateway_identifier: ['73982', Validators.required],
+    coverage_start: ['', Validators.required],
+    coverage_end: ['', Validators.required],
+    extracted_on: ['', Validators.required],
+    // eslint-disable-next-line unicorn/no-null
+    transaction_group: [null, Validators.required],
+    file_type: ['Initial', Validators.required],
+  });
 
   getData() {
     this.data$ = this.http
@@ -34,14 +44,13 @@ export class AppComponent {
 
   sendData(): void {
     this.http
-      .post('https://ite-api.herokuapp.com/api/v1/extracts/ingest', {
-        provider_gateway_identifier: '73982',
-        coverage_start: '2022-06-01',
-        coverage_end: '2022-06-30',
-        extracted_on: '2022-07-22',
-        transaction_group: 'discharge',
-        file_type: 'Initial',
-      })
+      .post(
+        // Url to post to
+        'https://ite-api.herokuapp.com/api/v1/extracts/ingest',
+
+        // body of the payload, here sending the entire form value
+        this.extractForm.value
+      )
       .subscribe();
   }
 }
