@@ -10,9 +10,9 @@ import {
 } from '@angular/forms';
 import { lastDayOfMonth } from 'date-fns';
 
-import { dateNotInFuture } from './date-validator';
+import { dateNotInFuture, startDateNotAfterEndDate } from './date-validator';
 
-interface ExtractTransmissionForm {
+export interface ExtractTransmissionForm {
   provider_gateway_identifier: FormControl<string | null>;
   coverage_start: FormControl<string | null>;
   coverage_end: FormControl<string | null>;
@@ -42,24 +42,30 @@ export class AppComponent {
     const lastMonthStart = new Date(new Date().getFullYear(), lastMonth, 1);
     const lastMonthEnd = lastDayOfMonth(lastMonthStart);
 
-    this.extractForm = this.fb.group({
-      provider_gateway_identifier: this.fb.control('73982', [
-        Validators.required,
-      ]),
-      coverage_start: this.fb.control(
-        lastMonthStart.toISOString().slice(0, 10),
-        [Validators.required, dateNotInFuture]
-      ),
-      coverage_end: this.fb.control(lastMonthEnd.toISOString().slice(0, 10), [
-        Validators.required,
-        dateNotInFuture,
-      ]),
-      extracted_on: this.fb.control('', [Validators.required, dateNotInFuture]),
-      transaction_group: this.fb.control<TransactionGroup | null>(null, [
-        Validators.required,
-      ]),
-      file_type: this.fb.control('Initial', [Validators.required]),
-    });
+    this.extractForm = this.fb.group(
+      {
+        provider_gateway_identifier: this.fb.control('73982', [
+          Validators.required,
+        ]),
+        coverage_start: this.fb.control(
+          lastMonthStart.toISOString().slice(0, 10),
+          [Validators.required, dateNotInFuture]
+        ),
+        coverage_end: this.fb.control(lastMonthEnd.toISOString().slice(0, 10), [
+          Validators.required,
+          dateNotInFuture,
+        ]),
+        extracted_on: this.fb.control('', [
+          Validators.required,
+          dateNotInFuture,
+        ]),
+        transaction_group: this.fb.control<TransactionGroup | null>(null, [
+          Validators.required,
+        ]),
+        file_type: this.fb.control('Initial', [Validators.required]),
+      },
+      { validators: startDateNotAfterEndDate }
+    );
   }
 
   sendData(): void {

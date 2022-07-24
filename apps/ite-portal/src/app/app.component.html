@@ -82,6 +82,12 @@
       >{{ extractForm.value | json }}
     </pre>
   </div>
+  <div class="column">
+    <h2>Form Errors:</h2>
+    <pre
+      >{{ extractForm.errors | json }}
+    </pre>
+  </div>
 </div>
 
 <button class="debug-toggle" type="button" (click)="debug = !debug">
