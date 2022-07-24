@@ -55,9 +55,23 @@
   </div> -->
 </form>
 
-<h2>Form Value:</h2>
-<pre
-  >{{ extractForm.value | json }}
-</pre>
+<button
+  [disabled]="extractForm.status === 'INVALID'"
+  type="button"
+  (click)="sendData()"
+>
+  Send Data
+</button>
 
-<button (click)="sendData()">Send Data</button>
+<div *ngIf="debug" class="debug-container">
+  <div class="column">
+    <h2>Form Value:</h2>
+    <pre
+      >{{ extractForm.value | json }}
+    </pre>
+  </div>
+</div>
+
+<button class="debug-toggle" type="button" (click)="debug = !debug">
+  Debugging {{ debug ? '❌' : '✅' }}
+</button>
