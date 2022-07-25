@@ -57,3 +57,21 @@ export const coveragePeriodNotTooLong: ValidatorFn = (
     return null;
   }
 };
+
+export const extractDateWithinCoveragePeriod: ValidatorFn = (
+  control: AbstractControl<FormGroup<ExtractTransmissionForm>>
+): ValidationErrors | null => {
+  const extractedOn = control.get('extracted_on');
+  const coverageEnd = control.get('coverage_end');
+
+  if (extractedOn && coverageEnd) {
+    const dataExtractDate = new Date(extractedOn.value);
+    const coverageEndDate = new Date(coverageEnd.value);
+
+    return dataExtractDate < coverageEndDate
+      ? { dataExtractedWithinCoveragePeriod: true }
+      : null;
+  } else {
+    return null;
+  }
+};
