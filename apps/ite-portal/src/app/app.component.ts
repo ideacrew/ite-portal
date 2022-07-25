@@ -30,7 +30,7 @@ type TransactionGroup = 'admission' | 'discharge';
 })
 export class AppComponent {
   title = 'ite-portal';
-  debug = true;
+  debug = false;
 
   extractForm!: FormGroup<ExtractTransmissionForm>;
 
