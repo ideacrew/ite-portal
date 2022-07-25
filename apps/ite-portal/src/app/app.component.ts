@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { lastDayOfMonth } from 'date-fns';
 
-import { dateNotInFuture, startDateNotAfterEndDate } from './date-validator';
+import { dateNotInFuture, coveragePeriodNotTooLong } from './date-validator';
 
 export interface ExtractTransmissionForm {
   provider_gateway_identifier: FormControl<string | null>;
@@ -64,7 +64,7 @@ export class AppComponent {
         ]),
         file_type: this.fb.control('Initial', [Validators.required]),
       },
-      { validators: startDateNotAfterEndDate }
+      { validators: coveragePeriodNotTooLong }
     );
   }
 
