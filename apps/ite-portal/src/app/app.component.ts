@@ -23,6 +23,7 @@ export interface ExtractTransmissionForm {
   coverage_end: FormControl<string | null>;
   extracted_on: FormControl<string | null>;
   transaction_group: FormControl<TransactionGroup | null>;
+  transactions: FormControl<unknown[] | null>;
   file_type: FormControl<string | null>;
 }
 
@@ -67,6 +68,9 @@ export class AppComponent {
         transaction_group: this.fb.control<TransactionGroup | null>(null, [
           Validators.required,
         ]),
+        transactions: this.fb.control<unknown[] | null>(null, [
+          Validators.required,
+        ]),
         file_type: this.fb.control('Initial', [Validators.required]),
       },
       {
@@ -80,7 +84,7 @@ export class AppComponent {
   }
 
   sendData(): void {
-    if (this.extractForm.status === 'VALID')
+    if (this.extractForm.status === 'VALID') {
       this.http
         .post(
           // Url to post to
@@ -90,5 +94,39 @@ export class AppComponent {
           this.extractForm.value
         )
         .subscribe();
+    }
+  }
+
+  fileSelected(files: FileList | null): void {
+    if (files) {
+      const csvAsObject: Array<Record<string, unknown>> = [];
+
+      const file: File | null = files.item(0);
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsText(file);
+        reader.addEventListener('load', () => {
+          const csvText = reader.result as string;
+
+          // Sheets uses a return and newline for each new row
+          const [rawHeaders, ...rawLines] = csvText.split('\r\n');
+
+          const headers = rawHeaders.split(',');
+
+          for (const line of rawLines) {
+            const record: Record<string, unknown> = {};
+            const currentLine = line.split(',');
+
+            for (const header of headers) {
+              record[header] = currentLine[headers.indexOf(header)];
+            }
+
+            csvAsObject.push(record);
+          }
+
+          this.extractForm.patchValue({ transactions: csvAsObject });
+        });
+      }
+    }
   }
 }

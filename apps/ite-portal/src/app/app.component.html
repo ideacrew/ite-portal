@@ -61,10 +61,17 @@
       Errors: {{ extractForm.get('transaction_group')!.errors | json }}</span
     >
   </fieldset>
-  <!-- <div class="input-group">
+  <div class="input-group">
     <label for="file-upload">Upload Extract Here:</label>
-    <input type="file" name="file-upload" id="file-upload" />
-  </div> -->
+    <input
+      #fileInput
+      type="file"
+      name="file-upload"
+      id="file-upload"
+      accept="text/csv"
+      (change)="fileSelected(fileInput.files)"
+    />
+  </div>
 </form>
 
 <button
