@@ -56,7 +56,15 @@
       value="discharge"
       formControlName="transaction_group"
     />
-    <label for="transaction-group-discharge">Discharge/Update</label>
+    <label for="transaction-group-discharge">Discharge</label>
+    <!-- <input
+      type="radio"
+      id="transaction-group-discharge"
+      name="transaction_group"
+      value="update"
+      formControlName="transaction_group"
+    />
+    <label for="transaction-group-discharge">Update</label> -->
     <span *ngIf="debug">
       Errors: {{ extractForm.get('transaction_group')!.errors | json }}</span
     >
@@ -92,7 +100,7 @@
   <div class="column">
     <h2>Form Errors:</h2>
     <pre
-      >{{ extractForm.errors | json }}
+      >{{ extractForm.errors | json }} {{ extractForm.status }}
     </pre>
   </div>
 </div>

@@ -23,11 +23,11 @@ export interface ExtractTransmissionForm {
   coverage_end: FormControl<string | null>;
   extracted_on: FormControl<string | null>;
   transaction_group: FormControl<TransactionGroup | null>;
-  transactions: FormControl<unknown[] | null>;
+  transactions: FormControl<Record<string, unknown>[] | null>;
   file_type: FormControl<string | null>;
 }
 
-type TransactionGroup = 'admission' | 'discharge';
+type TransactionGroup = 'admission' | 'discharge' | 'update';
 
 @Component({
   selector: 'dbh-root',
@@ -54,7 +54,7 @@ export class AppComponent {
           Validators.required,
         ]),
         coverage_start: this.fb.control(
-          lastMonthStart.toISOString().slice(0, 10),
+          lastMonthStart.toISOString().slice(0, 10), // 2022-10-01
           [Validators.required, dateNotInFuture]
         ),
         coverage_end: this.fb.control(lastMonthEnd.toISOString().slice(0, 10), [
@@ -68,7 +68,7 @@ export class AppComponent {
         transaction_group: this.fb.control<TransactionGroup | null>(null, [
           Validators.required,
         ]),
-        transactions: this.fb.control<unknown[] | null>(null, [
+        transactions: this.fb.control<Record<string, unknown>[] | null>(null, [
           Validators.required,
         ]),
         file_type: this.fb.control('Initial', [Validators.required]),

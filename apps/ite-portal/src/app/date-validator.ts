@@ -32,9 +32,13 @@ export const startDateNotAfterEndDate: ValidatorFn = (
 
   return coverageStart &&
     coverageEnd &&
-    new Date(coverageStart.value) > new Date(coverageEnd.value)
+    compareDates(new Date(coverageStart.value), new Date(coverageEnd.value))
     ? { startDateAfterEndDate: true }
     : null;
+};
+
+export const compareDates = (date1: Date, date2: Date): boolean => {
+  return date1 > date2;
 };
 
 export const coveragePeriodNotTooLong: ValidatorFn = (
