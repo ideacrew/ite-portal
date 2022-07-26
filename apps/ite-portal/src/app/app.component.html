@@ -135,15 +135,15 @@
       </p>
     </div>
   </ng-container>
+  <br />
+  <button
+    [disabled]="extractForm.status === 'INVALID'"
+    type="button"
+    (click)="sendData()"
+  >
+    Submit
+  </button>
 </form>
-
-<button
-  [disabled]="extractForm.status === 'INVALID'"
-  type="button"
-  (click)="sendData()"
->
-  Send Data
-</button>
 
 <div *ngIf="debug" class="debug-container">
   <div class="column">
