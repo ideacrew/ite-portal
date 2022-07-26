@@ -129,4 +129,12 @@ export class AppComponent {
       }
     }
   }
+
+  get coverage_start(): FormControl<string | null> {
+    return this.extractForm.get('coverage_start') as FormControl<string | null>;
+  }
+
+  get coverage_end(): FormControl<string | null> {
+    return this.extractForm.get('coverage_end') as FormControl<string | null>;
+  }
 }

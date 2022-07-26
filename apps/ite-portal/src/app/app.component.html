@@ -1,31 +1,66 @@
-<h1>Provider Extract Information</h1>
+<h1>Submit Provider Extract</h1>
 <form [formGroup]="extractForm">
-  <div class="input-group">
-    <label for="coverage-start">Coverage Start Date</label>
-    <input
-      type="date"
-      name="coverage-start"
-      id="coverage-start"
-      formControlName="coverage_start"
-    />
-    <span *ngIf="debug">
-      Errors: {{ extractForm.get('coverage_start')!.errors | json }}</span
-    >
+  <ng-container *ngIf="extractForm.errors">
+    <div class="error-message">
+      <p *ngIf="extractForm.errors['coveragePeriodTooLong']">
+        The coverage period must be 12 months or shorter.
+      </p>
+      <p *ngIf="extractForm.errors['dataExtractedWithinCoveragePeriod']">
+        Data extract date must be after coverage period.
+      </p>
+    </div>
+  </ng-container>
+
+  <h2>Select Coverage Period</h2>
+  <div class="coverage-period-selection">
+    <div class="input-group">
+      <label for="coverage-start">Coverage Start Date</label>
+      <input
+        type="date"
+        name="coverage-start"
+        id="coverage-start"
+        formControlName="coverage_start"
+      />
+      <ng-container *ngIf="coverage_start.errors && coverage_start.dirty">
+        <div class="error-message">
+          <p *ngIf="coverage_start.errors['required']">
+            Coverage start date is required.
+          </p>
+          <p *ngIf="coverage_start.errors['dateInFuture']">
+            Coverage start date cannot in the future.
+          </p>
+          <p
+            *ngIf="
+              extractForm.errors && extractForm.errors['startDateAfterEndDate']
+            "
+          >
+            Coverage start date must be earlier than coverage end date.
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-group">
+      <label for="coverage-end">Coverage End Date</label>
+      <input
+        type="date"
+        name="coverage-end"
+        id="coverage-end"
+        formControlName="coverage_end"
+      />
+      <ng-container *ngIf="coverage_end.errors && coverage_end.dirty">
+        <div class="error-message">
+          <p *ngIf="coverage_end.errors['required']">
+            Coverage end date is required.
+          </p>
+          <p *ngIf="coverage_end.errors['dateInFuture']">
+            Coverage end date cannot in the future.
+          </p>
+        </div>
+      </ng-container>
+    </div>
   </div>
 
-  <div class="input-group">
-    <label for="coverage-end">Coverage End Date</label>
-    <input
-      type="date"
-      name="coverage-end"
-      id="coverage-end"
-      formControlName="coverage_end"
-    />
-    <span *ngIf="debug">
-      Errors: {{ extractForm.get('coverage_end')!.errors | json }}</span
-    >
-  </div>
-
+  <h2>Data Extract Date</h2>
   <div class="input-group">
     <label for="extract-date">Date Data was Extracted</label>
     <input
@@ -40,7 +75,7 @@
   </div>
 
   <fieldset>
-    <legend>Transaction Group:</legend>
+    <legend><h2>Transaction File Type</h2></legend>
     <input
       type="radio"
       id="transaction-group-admission"
@@ -49,6 +84,7 @@
       formControlName="transaction_group"
     />
     <label for="transaction-group-admission">Admission</label>
+    <br />
     <input
       type="radio"
       id="transaction-group-discharge"
@@ -70,7 +106,7 @@
     >
   </fieldset>
   <div class="input-group">
-    <label for="file-upload">Upload Extract Here:</label>
+    <label for="file-upload"><h2>Upload Extract</h2></label>
     <input
       #fileInput
       type="file"

@@ -12,3 +12,20 @@
 button:disabled {
   cursor: not-allowed;
 }
+
+.coverage-period-selection {
+  display: flex;
+  gap: 2rem;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.input-group {
+  label {
+    display: block;
+  }
+}
