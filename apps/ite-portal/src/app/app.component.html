@@ -1,17 +1,9 @@
 <h1>Submit Provider Extract</h1>
 <form [formGroup]="extractForm">
-  <ng-container *ngIf="extractForm.errors">
-    <div class="error-message">
-      <p *ngIf="extractForm.errors['coveragePeriodTooLong']">
-        The coverage period must be 12 months or shorter.
-      </p>
-      <p *ngIf="extractForm.errors['dataExtractedWithinCoveragePeriod']">
-        Data extract date must be after coverage period.
-      </p>
-    </div>
-  </ng-container>
-
   <h2>Select Coverage Period</h2>
+  <p *ngIf="extractForm.errors && extractForm.errors['coveragePeriodTooLong']">
+    The coverage period must be 12 months or shorter.
+  </p>
   <div class="coverage-period-selection">
     <div class="input-group">
       <label for="coverage-start">Coverage Start Date</label>
@@ -31,7 +23,8 @@
           </p>
           <p
             *ngIf="
-              extractForm.errors && extractForm.errors['startDateAfterEndDate']
+              extractForm.errors &&
+              extractForm.errors['dataExtractedWithinCoveragePeriod']
             "
           >
             Coverage start date must be earlier than coverage end date.
@@ -69,9 +62,24 @@
       id="extract-date"
       formControlName="extracted_on"
     />
-    <span *ngIf="debug">
-      Errors: {{ extractForm.get('extracted_on')!.errors | json }}</span
+    <ng-container *ngIf="extracted_on.errors && extracted_on.dirty">
+      <div class="error-message">
+        <p *ngIf="extracted_on.errors['required']">
+          Extracted on date is required.
+        </p>
+        <p *ngIf="extracted_on.errors['dateInFuture']">
+          Extracted on date cannot in the future.
+        </p>
+      </div>
+    </ng-container>
+    <p
+      *ngIf="
+        extractForm.errors &&
+        extractForm.errors['dataExtractedWithinCoveragePeriod']
+      "
     >
+      Extracted on date must be after coverage period.
+    </p>
   </div>
 
   <fieldset>
@@ -101,9 +109,13 @@
       formControlName="transaction_group"
     />
     <label for="transaction-group-discharge">Update</label> -->
-    <span *ngIf="debug">
-      Errors: {{ extractForm.get('transaction_group')!.errors | json }}</span
-    >
+    <ng-container *ngIf="transaction_group.errors && transaction_group.dirty">
+      <div class="error-message">
+        <p *ngIf="transaction_group.errors['required']">
+          Coverage end date is required.
+        </p>
+      </div>
+    </ng-container>
   </fieldset>
   <div class="input-group">
     <label for="file-upload"><h2>Upload Extract</h2></label>
@@ -116,6 +128,13 @@
       (change)="fileSelected(fileInput.files)"
     />
   </div>
+  <ng-container *ngIf="transactions.errors">
+    <div class="error-message">
+      <p *ngIf="transactions.errors['required']">
+        A csv file must be selected to continue submission.
+      </p>
+    </div>
+  </ng-container>
 </form>
 
 <button

@@ -130,11 +130,28 @@ export class AppComponent {
     }
   }
 
+  // These are helper methods to get at the FormControl object in the template
   get coverage_start(): FormControl<string | null> {
     return this.extractForm.get('coverage_start') as FormControl<string | null>;
   }
 
   get coverage_end(): FormControl<string | null> {
     return this.extractForm.get('coverage_end') as FormControl<string | null>;
+  }
+
+  get extracted_on(): FormControl<string | null> {
+    return this.extractForm.get('extracted_on') as FormControl<string | null>;
+  }
+
+  get transaction_group(): FormControl<TransactionGroup | null> {
+    return this.extractForm.get(
+      'transaction_group'
+    ) as FormControl<TransactionGroup | null>;
+  }
+
+  get transactions(): FormControl<Record<string, unknown>[] | null> {
+    return this.extractForm.get('transactions') as FormControl<
+      Record<string, unknown>[] | null
+    >;
   }
 }
