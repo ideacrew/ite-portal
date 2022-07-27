@@ -4,6 +4,9 @@
   <p *ngIf="extractForm.errors && extractForm.errors['coveragePeriodTooLong']">
     The coverage period must be 12 months or shorter.
   </p>
+  <p *ngIf="extractForm.errors && extractForm.errors['startDateAfterEndDate']">
+    The coverage start date must be before the coverage end date.
+  </p>
   <div class="coverage-period-selection">
     <div class="input-group">
       <label for="coverage-start">Coverage Start Date</label>
