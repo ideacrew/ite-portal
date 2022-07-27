@@ -1,0 +1,171 @@
+<h2>Submit Provider Extract</h2>
+<form [formGroup]="extractForm">
+  <h3>Select Coverage Period</h3>
+  <p *ngIf="extractForm.errors && extractForm.errors['coveragePeriodTooLong']">
+    The coverage period must be 12 months or shorter.
+  </p>
+  <p *ngIf="extractForm.errors && extractForm.errors['startDateAfterEndDate']">
+    The coverage start date must be before the coverage end date.
+  </p>
+  <div class="coverage-period-selection">
+    <div class="input-group">
+      <label for="coverage-start">Coverage Start Date</label>
+      <input
+        type="date"
+        name="coverage-start"
+        id="coverage-start"
+        formControlName="coverage_start"
+      />
+      <ng-container *ngIf="coverage_start.errors && coverage_start.dirty">
+        <div class="error-message">
+          <p *ngIf="coverage_start.errors['required']">
+            Coverage start date is required.
+          </p>
+          <p *ngIf="coverage_start.errors['dateInFuture']">
+            Coverage start date cannot in the future.
+          </p>
+          <p
+            *ngIf="
+              extractForm.errors &&
+              extractForm.errors['dataExtractedWithinCoveragePeriod']
+            "
+          >
+            Coverage start date must be earlier than coverage end date.
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-group">
+      <label for="coverage-end">Coverage End Date</label>
+      <input
+        type="date"
+        name="coverage-end"
+        id="coverage-end"
+        formControlName="coverage_end"
+      />
+      <ng-container *ngIf="coverage_end.errors && coverage_end.dirty">
+        <div class="error-message">
+          <p *ngIf="coverage_end.errors['required']">
+            Coverage end date is required.
+          </p>
+          <p *ngIf="coverage_end.errors['dateInFuture']">
+            Coverage end date cannot be in the future.
+          </p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <h3>Data Extract Date</h3>
+  <div class="input-group">
+    <label for="extract-date">Date Data was Extracted</label>
+    <input
+      type="date"
+      name="extract-date"
+      id="extract-date"
+      formControlName="extracted_on"
+    />
+    <ng-container *ngIf="extracted_on.errors && extracted_on.dirty">
+      <div class="error-message">
+        <p *ngIf="extracted_on.errors['required']">
+          Extracted on date is required.
+        </p>
+        <p *ngIf="extracted_on.errors['dateInFuture']">
+          Extracted on date cannot in the future.
+        </p>
+      </div>
+    </ng-container>
+    <p
+      *ngIf="
+        extractForm.errors &&
+        extractForm.errors['dataExtractedWithinCoveragePeriod']
+      "
+    >
+      Extracted on date must be after coverage period.
+    </p>
+  </div>
+
+  <fieldset>
+    <legend><h3>Transaction File Type</h3></legend>
+    <input
+      type="radio"
+      id="transaction-group-admission"
+      name="transaction_group"
+      value="admission"
+      formControlName="transaction_group"
+    />
+    <label for="transaction-group-admission">Admission</label>
+    <br />
+    <input
+      type="radio"
+      id="transaction-group-discharge"
+      name="transaction_group"
+      value="discharge"
+      formControlName="transaction_group"
+    />
+    <label for="transaction-group-discharge">Discharge</label>
+    <!-- <input
+      type="radio"
+      id="transaction-group-discharge"
+      name="transaction_group"
+      value="update"
+      formControlName="transaction_group"
+    />
+    <label for="transaction-group-discharge">Update</label> -->
+    <ng-container *ngIf="transaction_group.errors && transaction_group.dirty">
+      <div class="error-message">
+        <p *ngIf="transaction_group.errors['required']">
+          Coverage end date is required.
+        </p>
+      </div>
+    </ng-container>
+  </fieldset>
+  <div class="input-group">
+    <label for="file-upload"><h3>Upload Extract</h3></label>
+    <input
+      #fileInput
+      type="file"
+      name="file-upload"
+      id="file-upload"
+      accept="text/csv"
+      (change)="fileSelected(fileInput.files)"
+    />
+  </div>
+  <ng-container *ngIf="transactions.errors">
+    <div class="error-message">
+      <p *ngIf="transactions.errors['required']">
+        A csv file must be selected to continue submission.
+      </p>
+      <p *ngIf="transactions.errors['notValidCsv']">
+        The selected csv file is not valid.
+      </p>
+    </div>
+  </ng-container>
+  <br />
+  <button
+    [disabled]="extractForm.status === 'INVALID' || this.sendingData"
+    type="button"
+    (click)="sendData()"
+  >
+    {{ sendingData ? 'Sending...' : 'Submit' }}
+  </button>
+</form>
+
+<div *ngIf="debug" class="debug-container">
+  <div class="column">
+    <h3>Form Value:</h3>
+    <pre
+      >{{ extractForm.value | json }}
+    </pre>
+  </div>
+  <div class="column">
+    <h3>Form Errors:</h3>
+    <pre
+      >{{ extractForm.errors | json }} {{ extractForm.status }}
+    </pre>
+  </div>
+</div>
+
+<!-- <button class="debug-toggle" type="button" (click)="debug = !debug">
+  Debugging {{ debug ? '❌' : '✅' }}
+</button> -->

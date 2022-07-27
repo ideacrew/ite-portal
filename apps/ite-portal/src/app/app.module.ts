@@ -4,10 +4,31 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
+import { RouterModule } from '@angular/router';
+import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule],
+  declarations: [
+    AppComponent,
+    SubmissionsListComponent,
+    SubmitExtractComponent,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      {
+        path: 'submissions',
+        component: SubmissionsListComponent,
+      },
+      {
+        path: '**',
+        component: SubmitExtractComponent,
+      },
+    ]),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

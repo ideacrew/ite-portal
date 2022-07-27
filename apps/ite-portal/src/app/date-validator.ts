@@ -6,8 +6,7 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { differenceInMonths } from 'date-fns';
-
-import { ExtractTransmissionForm } from './app.component';
+import { ExtractTransmissionForm } from './submit-extract/submit-extract.component';
 
 export const dateNotInFuture: ValidatorFn = (
   control: AbstractControl<string>
