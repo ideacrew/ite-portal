@@ -12,8 +12,8 @@ export interface ExtractSubmission {
   coverage_end: string;
   coverage_start: string;
   submission_date: string;
-  file_type: string | null;
-  transaction_group: string | null;
+  file_type: 'Initial' | null;
+  transaction_group: 'admission' | 'discharge' | null;
   number_of_transactions: number;
   transaction_failure_count: number;
   transaction_warning_count: number;
