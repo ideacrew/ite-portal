@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { lastDayOfMonth } from 'date-fns';
+import { tap, finalize } from 'rxjs/operators';
 
 import {
   dateNotInFuture,
@@ -37,6 +38,7 @@ type TransactionGroup = 'admission' | 'discharge' | 'update';
 export class AppComponent {
   title = 'ite-portal';
   debug = false;
+  sendingData = false;
 
   extractForm!: FormGroup<ExtractTransmissionForm>;
 
@@ -92,6 +94,13 @@ export class AppComponent {
 
           // body of the payload, here sending the entire form value
           this.extractForm.value
+        )
+        .pipe(
+          tap(() => (this.sendingData = true)),
+          finalize(() => {
+            this.sendingData = false;
+            this.extractForm.reset();
+          })
         )
         .subscribe();
     }

@@ -140,11 +140,11 @@
   </ng-container>
   <br />
   <button
-    [disabled]="extractForm.status === 'INVALID'"
+    [disabled]="extractForm.status === 'INVALID' || this.sendingData"
     type="button"
     (click)="sendData()"
   >
-    Submit
+    {{ sendingData ? 'Sending...' : 'Submit' }}
   </button>
 </form>
 
