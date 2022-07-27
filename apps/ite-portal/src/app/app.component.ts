@@ -99,6 +99,7 @@ export class AppComponent {
 
   fileSelected(files: FileList | null): void {
     if (files) {
+      this.transactions.setValue(null);
       const csvAsObject: Array<Record<string, unknown>> = [];
 
       const file: File | null = files.item(0);
@@ -111,20 +112,24 @@ export class AppComponent {
           // Sheets uses a return and newline for each new row
           const [rawHeaders, ...rawLines] = csvText.split('\r\n');
 
-          const headers = rawHeaders.split(',');
+          if (rawLines.length > 0) {
+            const headers = rawHeaders.split(',');
 
-          for (const line of rawLines) {
-            const record: Record<string, unknown> = {};
-            const currentLine = line.split(',');
+            for (const line of rawLines) {
+              const record: Record<string, unknown> = {};
+              const currentLine = line.split(',');
 
-            for (const header of headers) {
-              record[header] = currentLine[headers.indexOf(header)];
+              for (const header of headers) {
+                record[header] = currentLine[headers.indexOf(header)];
+              }
+
+              csvAsObject.push(record);
             }
 
-            csvAsObject.push(record);
+            this.extractForm.patchValue({ transactions: csvAsObject });
+          } else {
+            this.transactions.setErrors({ notValidCsv: true });
           }
-
-          this.extractForm.patchValue({ transactions: csvAsObject });
         });
       }
     }

@@ -133,6 +133,9 @@
       <p *ngIf="transactions.errors['required']">
         A csv file must be selected to continue submission.
       </p>
+      <p *ngIf="transactions.errors['notValidCsv']">
+        The selected csv file is not valid.
+      </p>
     </div>
   </ng-container>
   <br />
