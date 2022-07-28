@@ -86,35 +86,35 @@
   </div>
 
   <fieldset>
-    <legend><h3>Transaction File Type</h3></legend>
+    <legend><h3>Record File Type</h3></legend>
     <input
       type="radio"
-      id="transaction-group-admission"
-      name="transaction_group"
+      id="record-group-admission"
+      name="record_group"
       value="admission"
-      formControlName="transaction_group"
+      formControlName="record_group"
     />
-    <label for="transaction-group-admission">Admission</label>
+    <label for="record-group-admission">Admission</label>
     <br />
     <input
       type="radio"
-      id="transaction-group-discharge"
-      name="transaction_group"
+      id="record-group-discharge"
+      name="record_group"
       value="discharge"
-      formControlName="transaction_group"
+      formControlName="record_group"
     />
-    <label for="transaction-group-discharge">Discharge</label>
+    <label for="record-group-discharge">Discharge</label>
     <!-- <input
       type="radio"
-      id="transaction-group-discharge"
-      name="transaction_group"
+      id="record-group-discharge"
+      name="record_group"
       value="update"
-      formControlName="transaction_group"
+      formControlName="record_group"
     />
-    <label for="transaction-group-discharge">Update</label> -->
-    <ng-container *ngIf="transaction_group.errors && transaction_group.dirty">
+    <label for="record-group-discharge">Update</label> -->
+    <ng-container *ngIf="record_group.errors && record_group.dirty">
       <div class="error-message">
-        <p *ngIf="transaction_group.errors['required']">
+        <p *ngIf="record_group.errors['required']">
           Coverage end date is required.
         </p>
       </div>
@@ -131,12 +131,12 @@
       (change)="fileSelected(fileInput.files)"
     />
   </div>
-  <ng-container *ngIf="transactions.errors">
+  <ng-container *ngIf="records.errors">
     <div class="error-message">
-      <p *ngIf="transactions.errors['required']">
+      <p *ngIf="records.errors['required']">
         A csv file must be selected to continue submission.
       </p>
-      <p *ngIf="transactions.errors['notValidCsv']">
+      <p *ngIf="records.errors['notValidCsv']">
         The selected csv file is not valid.
       </p>
     </div>

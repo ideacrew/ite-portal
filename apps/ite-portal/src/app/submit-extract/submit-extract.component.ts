@@ -23,12 +23,12 @@ export interface ExtractTransmissionForm {
   coverage_start: FormControl<string | null>;
   coverage_end: FormControl<string | null>;
   extracted_on: FormControl<string | null>;
-  transaction_group: FormControl<TransactionGroup | null>;
-  transactions: FormControl<Record<string, unknown>[] | null>;
+  record_group: FormControl<RecordGroup | null>;
+  records: FormControl<Record<string, unknown>[] | null>;
   file_type: FormControl<string | null>;
 }
 
-type TransactionGroup = 'admission' | 'discharge' | 'update';
+type RecordGroup = 'admission' | 'discharge' | 'update';
 
 @Component({
   templateUrl: './submit-extract.component.html',
@@ -67,10 +67,10 @@ export class SubmitExtractComponent {
           Validators.required,
           dateNotInFuture,
         ]),
-        transaction_group: this.fb.control<TransactionGroup | null>(null, [
+        record_group: this.fb.control<RecordGroup | null>(null, [
           Validators.required,
         ]),
-        transactions: this.fb.control<Record<string, unknown>[] | null>(null, [
+        records: this.fb.control<Record<string, unknown>[] | null>(null, [
           Validators.required,
         ]),
         file_type: this.fb.control('Initial', [Validators.required]),
@@ -108,7 +108,7 @@ export class SubmitExtractComponent {
 
   fileSelected(files: FileList | null): void {
     if (files) {
-      this.transactions.setValue(null);
+      this.records.setValue(null);
       const csvAsObject: Array<Record<string, unknown>> = [];
 
       const file: File | null = files.item(0);
@@ -135,9 +135,9 @@ export class SubmitExtractComponent {
               csvAsObject.push(record);
             }
 
-            this.extractForm.patchValue({ transactions: csvAsObject });
+            this.extractForm.patchValue({ records: csvAsObject });
           } else {
-            this.transactions.setErrors({ notValidCsv: true });
+            this.records.setErrors({ notValidCsv: true });
           }
         });
       }
@@ -157,14 +157,14 @@ export class SubmitExtractComponent {
     return this.extractForm.get('extracted_on') as FormControl<string | null>;
   }
 
-  get transaction_group(): FormControl<TransactionGroup | null> {
+  get record_group(): FormControl<RecordGroup | null> {
     return this.extractForm.get(
-      'transaction_group'
-    ) as FormControl<TransactionGroup | null>;
+      'record_group'
+    ) as FormControl<RecordGroup | null>;
   }
 
-  get transactions(): FormControl<Record<string, unknown>[] | null> {
-    return this.extractForm.get('transactions') as FormControl<
+  get records(): FormControl<Record<string, unknown>[] | null> {
+    return this.extractForm.get('records') as FormControl<
       Record<string, unknown>[] | null
     >;
   }
