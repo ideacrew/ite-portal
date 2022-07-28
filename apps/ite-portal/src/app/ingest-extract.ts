@@ -5,7 +5,7 @@ export interface ExtractSubmission {
   submission_date: string;
   file_type: 'Initial' | null;
   record_group: 'admission' | 'discharge' | null;
-  number_of_records: number;
-  record_failure_count: number;
-  record_warning_count: number;
+  number_of_records: number | null;
+  record_failure_count: number | null;
+  record_warning_count: number | null;
 }
