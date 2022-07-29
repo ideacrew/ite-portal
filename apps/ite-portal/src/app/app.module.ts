@@ -7,12 +7,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
 import { RouterModule } from '@angular/router';
 import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
+import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubmissionsListComponent,
     SubmitExtractComponent,
+    SubmissionDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,6 +24,10 @@ import { SubmitExtractComponent } from './submit-extract/submit-extract.componen
       {
         path: 'submissions',
         component: SubmissionsListComponent,
+      },
+      {
+        path: 'submissions/:id',
+        component: SubmissionDetailComponent,
       },
       {
         path: '**',

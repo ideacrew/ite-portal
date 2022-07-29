@@ -8,4 +8,5 @@ export interface ExtractSubmission {
   number_of_records: number | null;
   record_failure_count: number | null;
   record_warning_count: number | null;
+  status: 'Valid' | 'Invalid';
 }
