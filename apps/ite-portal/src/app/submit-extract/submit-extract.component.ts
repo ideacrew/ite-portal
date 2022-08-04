@@ -82,7 +82,7 @@ export class SubmitExtractComponent {
         records: this.fb.control<Record<string, unknown>[] | null>(null, [
           Validators.required,
         ]),
-        file_name: this.fb.control('not set'),
+        file_name: this.fb.control(''),
         file_type: this.fb.control('Initial', [Validators.required])
       },
       {
@@ -127,7 +127,7 @@ export class SubmitExtractComponent {
         reader.readAsText(file);
         reader.addEventListener('load', () => {
           const csvText = reader.result as string;
-
+          
           // Sheets uses a return and newline for each new row
           const [rawHeaders, ...rawLines] = csvText.split('\r\n');
           if (rawLines.length > 0) {
