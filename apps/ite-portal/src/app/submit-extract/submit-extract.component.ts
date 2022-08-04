@@ -30,6 +30,7 @@ export interface ExtractTransmissionForm {
   record_group: FormControl<RecordGroup | null>;
   records: FormControl<Record<string, unknown>[] | null>;
   file_type: FormControl<string | null>;
+  file_name: FormControl<string | null>;
 }
 
 type RecordGroup = 'admission' | 'discharge' | 'update';
@@ -81,7 +82,8 @@ export class SubmitExtractComponent {
         records: this.fb.control<Record<string, unknown>[] | null>(null, [
           Validators.required,
         ]),
-        file_type: this.fb.control('Initial', [Validators.required]),
+        file_name: this.fb.control('not set'),
+        file_type: this.fb.control('Initial', [Validators.required])
       },
       {
         validators: [
@@ -118,17 +120,16 @@ export class SubmitExtractComponent {
     if (files) {
       this.records.setValue(null);
       const csvAsObject: Array<Record<string, unknown>> = [];
-
       const file: File | null = files.item(0);
       if (file) {
         const reader = new FileReader();
+        const fileName = file.name
         reader.readAsText(file);
         reader.addEventListener('load', () => {
           const csvText = reader.result as string;
 
           // Sheets uses a return and newline for each new row
           const [rawHeaders, ...rawLines] = csvText.split('\r\n');
-
           if (rawLines.length > 0) {
             const headers = rawHeaders.split(',');
 
@@ -142,8 +143,7 @@ export class SubmitExtractComponent {
 
               csvAsObject.push(record);
             }
-
-            this.extractForm.patchValue({ records: csvAsObject });
+            this.extractForm.patchValue({ records: csvAsObject, file_name: fileName });
             this.cdr.detectChanges();
           } else {
             this.records.setErrors({ notValidCsv: true });
