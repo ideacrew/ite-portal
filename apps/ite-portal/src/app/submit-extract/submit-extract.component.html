@@ -77,6 +77,7 @@
       </div>
     </ng-container>
     <p
+      data-cy="extract-date-error"
       *ngIf="
         extractForm.errors &&
         extractForm.errors['dataExtractedWithinCoveragePeriod']
@@ -132,6 +133,7 @@
       id="file-upload"
       accept="text/csv"
       (change)="fileSelected(fileInput.files)"
+      data-cy="file-upload"
     />
   </div>
   <ng-container *ngIf="records.errors">
