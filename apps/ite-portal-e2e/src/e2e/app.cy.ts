@@ -21,4 +21,3 @@ describe('ite-portal', () => {
     cy.wait('@submitExtract');
   });
 });
-``;
