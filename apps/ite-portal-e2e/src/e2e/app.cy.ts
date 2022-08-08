@@ -12,12 +12,13 @@ describe('ite-portal', () => {
 
     const today = new Date().toISOString().slice(0, 10);
     cy.get('[data-cy="extract-date"]').type(today);
+    cy.get('[data-cy="record-group-admission"]').click();
     cy.get('input[type=file]').selectFile('src/fixtures/test.csv', {
       force: true,
     });
-    cy.get('[data-cy="record-group-admission"]').click();
     cy.get('[data-cy="submit-extract"]').should('not.be.disabled');
     cy.get('[data-cy="submit-extract"]').click();
     cy.wait('@submitExtract');
   });
 });
+``;

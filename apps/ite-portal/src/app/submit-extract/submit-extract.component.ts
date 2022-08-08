@@ -1,7 +1,11 @@
 /* eslint-disable unicorn/no-null */
 /* eslint-disable @typescript-eslint/unbound-method */
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import {
   FormControl,
   FormBuilder,
@@ -42,7 +46,11 @@ export class SubmitExtractComponent {
 
   extractForm!: FormGroup<ExtractTransmissionForm>;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
+  ) {
     const thisMonth = new Date().getMonth();
     const lastMonth = thisMonth - 1;
 
@@ -139,7 +147,7 @@ export class SubmitExtractComponent {
 
             console.log('Patching value');
             this.extractForm.patchValue({ records: csvAsObject });
-            this.extractForm.updateValueAndValidity();
+            this.cdr.detectChanges();
           } else {
             this.records.setErrors({ notValidCsv: true });
           }
