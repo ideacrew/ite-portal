@@ -107,6 +107,8 @@ export class SubmitExtractComponent {
   }
 
   fileSelected(files: FileList | null): void {
+    console.log('fileSelected method running!');
+
     if (files) {
       this.records.setValue(null);
       const csvAsObject: Array<Record<string, unknown>> = [];
@@ -135,7 +137,9 @@ export class SubmitExtractComponent {
               csvAsObject.push(record);
             }
 
+            console.log('Patching value');
             this.extractForm.patchValue({ records: csvAsObject });
+            this.extractForm.updateValueAndValidity();
           } else {
             this.records.setErrors({ notValidCsv: true });
           }

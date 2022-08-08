@@ -64,6 +64,7 @@
       name="extract-date"
       id="extract-date"
       formControlName="extracted_on"
+      data-cy="extract-date"
     />
     <ng-container *ngIf="extracted_on.errors && extracted_on.dirty">
       <div class="error-message">
@@ -93,6 +94,7 @@
       name="record_group"
       value="admission"
       formControlName="record_group"
+      data-cy="record-group-admission"
     />
     <label for="record-group-admission">Admission</label>
     <br />
@@ -102,6 +104,7 @@
       name="record_group"
       value="discharge"
       formControlName="record_group"
+      data-cy="record-group-discharge"
     />
     <label for="record-group-discharge">Discharge</label>
     <!-- <input
@@ -146,6 +149,7 @@
     [disabled]="extractForm.status === 'INVALID' || this.sendingData"
     type="button"
     (click)="sendData()"
+    data-cy="submit-extract"
   >
     {{ sendingData ? 'Sending...' : 'Submit' }}
   </button>
