@@ -4,7 +4,7 @@ export interface ExtractSubmission {
   coverage_start: string;
   submission_date: string;
   file_type: 'Initial' | null;
-  record_group: 'admission' | 'discharge' | null;
+  record_group: 'admission' | 'discharge' | 'active' | null;
   number_of_records: number | null;
   record_failure_count: number | null;
   record_warning_count: number | null;
