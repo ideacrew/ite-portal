@@ -108,14 +108,15 @@
       data-cy="record-group-discharge"
     />
     <label for="record-group-discharge">Discharge</label>
-    <!-- <input
+    <br />
+    <input
       type="radio"
-      id="record-group-discharge"
+      id="record-group-active"
       name="record_group"
-      value="update"
+      value="active"
       formControlName="record_group"
     />
-    <label for="record-group-discharge">Update</label> -->
+    <label for="record-group-active">Active</label>
     <ng-container *ngIf="record_group.errors && record_group.dirty">
       <div class="error-message">
         <p *ngIf="record_group.errors['required']">

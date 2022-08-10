@@ -32,7 +32,7 @@ export interface ExtractTransmissionForm {
   file_type: FormControl<string | null>;
 }
 
-type RecordGroup = 'admission' | 'discharge' | 'update';
+type RecordGroup = 'admission' | 'discharge' | 'active';
 
 @Component({
   templateUrl: './submit-extract.component.html',
