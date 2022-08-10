@@ -83,7 +83,7 @@ export class SubmitExtractComponent {
           Validators.required,
         ]),
         file_name: this.fb.control(''),
-        file_type: this.fb.control('Initial', [Validators.required])
+        file_type: this.fb.control('Initial', [Validators.required]),
       },
       {
         validators: [
@@ -123,11 +123,11 @@ export class SubmitExtractComponent {
       const file: File | null = files.item(0);
       if (file) {
         const reader = new FileReader();
-        const fileName = file.name
+        const fileName = file.name;
         reader.readAsText(file);
         reader.addEventListener('load', () => {
           const csvText = reader.result as string;
-          
+
           // Sheets uses a return and newline for each new row
           const [rawHeaders, ...rawLines] = csvText.split('\r\n');
           if (rawLines.length > 0) {
@@ -143,7 +143,10 @@ export class SubmitExtractComponent {
 
               csvAsObject.push(record);
             }
-            this.extractForm.patchValue({ records: csvAsObject, file_name: fileName });
+            this.extractForm.patchValue({
+              records: csvAsObject,
+              file_name: fileName,
+            });
             this.cdr.detectChanges();
           } else {
             this.records.setErrors({ notValidCsv: true });
