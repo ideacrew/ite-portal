@@ -5,6 +5,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
+  ViewChild,
 } from '@angular/core';
 import {
   FormControl,
@@ -47,31 +49,38 @@ export class SubmitExtractComponent {
 
   extractForm!: FormGroup<ExtractTransmissionForm>;
 
+  get lastMonthStart(): Date {
+    const thisMonth = new Date().getMonth();
+
+    const lastMonth = thisMonth - 1;
+
+    return new Date(new Date().getFullYear(), lastMonth, 1);
+  }
+
+  get lastMonthEnd(): Date {
+    return lastDayOfMonth(this.lastMonthStart);
+  }
+
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef
   ) {
-    const thisMonth = new Date().getMonth();
-    const lastMonth = thisMonth - 1;
-
-    // Get first and last day of last month
-    const lastMonthStart = new Date(new Date().getFullYear(), lastMonth, 1);
-    const lastMonthEnd = lastDayOfMonth(lastMonthStart);
-
     this.extractForm = this.fb.group(
       {
         provider_gateway_identifier: this.fb.control('73982', [
           Validators.required,
         ]),
         coverage_start: this.fb.control(
-          lastMonthStart.toISOString().slice(0, 10), // 2022-10-01
+          this.lastMonthStart.toISOString().slice(0, 10), // 2022-10-01
           [Validators.required, dateNotInFuture]
         ),
-        coverage_end: this.fb.control(lastMonthEnd.toISOString().slice(0, 10), [
-          Validators.required,
-          dateNotInFuture,
-        ]),
+        coverage_end: this.fb.control(
+          this.lastMonthEnd.toISOString().slice(0, 10),
+          [Validators.required, dateNotInFuture]
+        ),
         extracted_on: this.fb.control('', [
           Validators.required,
           dateNotInFuture,
@@ -109,7 +118,13 @@ export class SubmitExtractComponent {
           tap(() => (this.sendingData = true)),
           finalize(() => {
             this.sendingData = false;
-            this.extractForm.reset();
+            this.extractForm.reset({
+              coverage_start: this.lastMonthStart.toISOString().slice(0, 10),
+              coverage_end: this.lastMonthEnd.toISOString().slice(0, 10),
+            });
+            if (this.fileInput.nativeElement) {
+              this.fileInput.nativeElement.value = '';
+            }
           })
         )
         .subscribe();
