@@ -15,7 +15,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { lastDayOfMonth } from 'date-fns';
-import { tap, finalize } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, of, Subject } from 'rxjs';
+import { finalize, catchError, shareReplay } from 'rxjs/operators';
 
 import {
   dateNotInFuture,
@@ -45,7 +46,10 @@ type RecordGroup = 'admission' | 'discharge' | 'active';
 export class SubmitExtractComponent {
   title = 'ite-portal';
   debug = false;
-  sendingData = false;
+  sendingData = new BehaviorSubject(false);
+  sendingData$ = this.sendingData.asObservable().pipe(shareReplay(1));
+  result = new Subject<string | null>();
+  result$ = this.result.asObservable();
 
   extractForm!: FormGroup<ExtractTransmissionForm>;
 
@@ -106,6 +110,8 @@ export class SubmitExtractComponent {
 
   sendData(): void {
     if (this.extractForm.status === 'VALID') {
+      this.sendingData.next(true);
+      this.result.next(null);
       this.http
         .post(
           // Url to post to
@@ -115,16 +121,22 @@ export class SubmitExtractComponent {
           this.extractForm.value
         )
         .pipe(
-          tap(() => (this.sendingData = true)),
           finalize(() => {
-            this.sendingData = false;
+            this.sendingData.next(false);
+            this.result.next('File submitted successfully');
             this.extractForm.reset({
               coverage_start: this.lastMonthStart.toISOString().slice(0, 10),
               coverage_end: this.lastMonthEnd.toISOString().slice(0, 10),
+              extracted_on: '',
             });
             if (this.fileInput.nativeElement) {
               this.fileInput.nativeElement.value = '';
             }
+          }),
+          catchError((error: unknown) => {
+            console.log('catchError', { error });
+            this.result.next('Error submitting file');
+            return of(EMPTY);
           })
         )
         .subscribe();

@@ -149,14 +149,16 @@
   </ng-container>
   <br />
   <button
-    [disabled]="extractForm.status === 'INVALID' || this.sendingData"
+    [disabled]="extractForm.status === 'INVALID' || (sendingData$ | async)"
     type="button"
     (click)="sendData()"
     data-cy="submit-extract"
   >
-    {{ sendingData ? 'Sending Extract...' : 'Submit' }}
+    {{ (sendingData$ | async) ? 'Sending Extract...' : 'Submit' }}
   </button>
 </form>
+
+<div class="result">{{ result$ | async }}</div>
 
 <div *ngIf="debug" class="debug-container">
   <div class="column">
