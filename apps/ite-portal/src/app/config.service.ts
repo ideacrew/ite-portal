@@ -7,5 +7,7 @@ export class ConfigService {
   baseApiUrl = `https://ite-api.herokuapp.com`;
   environment = 'local';
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
+  constructor() {
+    console.log('Hello from config service constructor');
+  }
 }
