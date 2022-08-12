@@ -4,10 +4,32 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ConfigService {
-  baseApiUrl = `https://ite-api.herokuapp.com`;
+  baseApiUrl!: string;
   environment = 'local';
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {
-    console.log('Hello from config service constructor');
+    const [urlEnvironment] = window.location.host.split('.');
+    console.log({ urlEnv: urlEnvironment });
+
+    if (urlEnvironment.includes('markgoho')) {
+      this.baseApiUrl = `https://ite-api.herokuapp.com`;
+      this.environment = 'local';
+    }
+
+    if (
+      urlEnvironment.includes('dbh-ite') &&
+      !urlEnvironment.includes('staging')
+    ) {
+      this.baseApiUrl = `https://ite-api.herokuapp.com`;
+      this.environment = 'dev;';
+    }
+
+    if (urlEnvironment.includes('staging')) {
+      console.log('Staging environment');
+      this.baseApiUrl = `https://ite-api-staging.herokuapp.com`;
+      this.environment = 'uat';
+    }
+
+    console.log({ baseApiUrl: this.baseApiUrl, environment: this.environment });
   }
 }
