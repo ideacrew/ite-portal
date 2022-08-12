@@ -64,7 +64,7 @@ jobs:
       - run: npx nx affected --target=build --parallel=3
       - run: npx nx affected --target=e2e
       - name: Upload build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ite-portal
           path: dist/apps/ite-portal
@@ -89,7 +89,7 @@ jobs:
         run: npm install
       - name: Download artifact
         id: download-artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         continue-on-error: true
         with:
           name: ite-portal
@@ -99,6 +99,7 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}'
           projectId: dbh-ite
+          target: dbh-ite
           channelId: live
       - name: print log
         uses: actions/upload-artifact@v1
