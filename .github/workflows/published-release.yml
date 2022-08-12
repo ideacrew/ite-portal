@@ -1,0 +1,78 @@
+name: Test and Deploy
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: install dependencies and verify Cypress
+        env:
+          # make sure every Cypress install prints minimal information
+          CI: 1
+        # print Cypress and OS info
+        run: npm ci
+      - run: npx nx affected --target=build --parallel=3
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ite-portal
+          path: dist/apps/ite-portal
+  deploy:
+    environment: uat
+    needs: [main]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node16-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node16-
+      - name: Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm install
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v3
+        continue-on-error: true
+        with:
+          name: ite-portal
+          path: dist/apps/ite-portal
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}'
+          projectId: dbh-ite
+          target: dbh-ite-staging
+          channelId: live
+      - name: print log
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: firebase-log
+          path: /home/runner/.npm/_logs
