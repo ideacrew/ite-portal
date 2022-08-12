@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "dbh-ite"
+  },
+  "targets": {
+    "dbh-ite": {
+      "hosting": {
+        "dbh-ite": [
+          "dbh-ite"
+        ],
+        "dbh-ite-staging": [
+          "dbh-ite-staging"
+        ]
+      }
+    }
   }
 }
