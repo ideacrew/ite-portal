@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -8,7 +8,6 @@ import { SubmissionsListComponent } from './submissions-list/submissions-list.co
 import { RouterModule } from '@angular/router';
 import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
 import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
-import { ConfigService } from './config.service';
 
 @NgModule({
   declarations: [
