@@ -9,6 +9,18 @@ import { RouterModule } from '@angular/router';
 import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
 import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
 
+function initializeApp(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const [urlEnv] = window.location.host.split('.');
+    console.log({ urlEnv });
+    // Do some asynchronous stuff
+    resolve();
+  });
+}
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +47,11 @@ import { SubmissionDetailComponent } from './submission-detail/submission-detail
       },
     ]),
   ],
-  providers: [],
+  providers: [{
+    provide: APP_INITIALIZER,
+    useFactory: () => initializeApp,
+    multi: true
+   }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
