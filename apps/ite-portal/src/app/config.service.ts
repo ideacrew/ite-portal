@@ -11,23 +11,19 @@ export class ConfigService {
     const [urlEnvironment] = window.location.host.split('.');
     console.log({ urlEnv: urlEnvironment });
 
-    if (urlEnvironment.includes('markgoho')) {
-      this.baseApiUrl = `https://ite-api.herokuapp.com`;
-      this.environment = 'local';
-    }
-
     if (
       urlEnvironment.includes('dbh-ite') &&
       !urlEnvironment.includes('staging')
     ) {
       this.baseApiUrl = `https://ite-api.herokuapp.com`;
       this.environment = 'dev;';
-    }
-
-    if (urlEnvironment.includes('staging')) {
+    } else if (urlEnvironment.includes('staging')) {
       console.log('Staging environment');
       this.baseApiUrl = `https://ite-api-staging.herokuapp.com`;
       this.environment = 'uat';
+    } else {
+      this.baseApiUrl = `https://ite-api.herokuapp.com`;
+      this.environment = 'local';
     }
 
     console.log({ baseApiUrl: this.baseApiUrl, environment: this.environment });
