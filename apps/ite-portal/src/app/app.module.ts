@@ -21,7 +21,7 @@ function initializeApp(config: ConfigService): Promise<unknown> {
 
     if (urlEnvironment.includes('staging')) {
       console.log('Staging environment');
-      config.baseApiUrl = `https://ite-api.herokuapp-staging.com`;
+      config.baseApiUrl = `https://ite-api-staging.herokuapp.com`;
       config.environment = 'uat';
     }
 
