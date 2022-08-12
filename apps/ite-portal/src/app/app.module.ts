@@ -18,9 +18,6 @@ function initializeApp(): Promise<any> {
   });
 }
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +47,7 @@ function initializeApp(): Promise<any> {
   providers: [{
     provide: APP_INITIALIZER,
     useFactory: () => initializeApp,
-    multi: true
+    multi: true,
    }],
   bootstrap: [AppComponent],
 })
