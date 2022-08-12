@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs';
+import { ConfigService } from '../config.service';
 
 export interface ExtractDetail {
   _id: {
@@ -56,10 +57,14 @@ export class SubmissionDetailComponent {
     map((parameters: ParamMap) => parameters.get('id')),
     switchMap((id: string | null) =>
       this.http.get<ExtractDetail>(
-        `https://ite-api.herokuapp.com/api/v1/extracts/${id ?? 'fake-value'}`
+        `${this.config.baseApiUrl}/api/v1/extracts/${id ?? 'fake-value'}`
       )
     )
   );
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private config: ConfigService
+  ) {}
 }

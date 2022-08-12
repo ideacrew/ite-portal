@@ -17,6 +17,7 @@ import {
 import { lastDayOfMonth } from 'date-fns';
 import { BehaviorSubject, EMPTY, of, Subject } from 'rxjs';
 import { finalize, catchError, shareReplay } from 'rxjs/operators';
+import { ConfigService } from '../config.service';
 
 import {
   dateNotInFuture,
@@ -70,7 +71,8 @@ export class SubmitExtractComponent {
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private config: ConfigService
   ) {
     this.extractForm = this.fb.group(
       {
@@ -115,7 +117,7 @@ export class SubmitExtractComponent {
       this.http
         .post(
           // Url to post to
-          'https://ite-api.herokuapp.com/api/v1/extracts/ingest',
+          `${this.config.baseApiUrl}/api/v1/extracts/ingest`,
 
           // body of the payload, here sending the entire form value
           this.extractForm.value
