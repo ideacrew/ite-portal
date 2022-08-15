@@ -114,7 +114,6 @@ export class SubmitExtractComponent {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
       this.result.next(null);
-      console.log(this.extractForm.value);
       this.http
         .post(
           // Url to post to
