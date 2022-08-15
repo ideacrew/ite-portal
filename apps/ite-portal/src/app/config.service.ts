@@ -16,7 +16,7 @@ export class ConfigService {
       !urlEnvironment.includes('staging')
     ) {
       this.baseApiUrl = `https://ite-api.herokuapp.com`;
-      this.environment = 'dev;';
+      this.environment = 'dev';
     } else if (urlEnvironment.includes('staging')) {
       console.log('Staging environment');
       this.baseApiUrl = `https://ite-api-staging.herokuapp.com`;
