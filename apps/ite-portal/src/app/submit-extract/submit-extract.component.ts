@@ -76,7 +76,7 @@ export class SubmitExtractComponent {
   ) {
     this.extractForm = this.fb.group(
       {
-        provider_gateway_identifier: this.fb.control('279', [
+        provider_gateway_identifier: this.fb.control('772', [
           Validators.required,
         ]),
         coverage_start: this.fb.control(
@@ -114,11 +114,11 @@ export class SubmitExtractComponent {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
       this.result.next(null);
+      console.log(this.extractForm.value);
       this.http
         .post(
           // Url to post to
           `${this.config.baseApiUrl}/api/v1/extracts/ingest`,
-
           // body of the payload, here sending the entire form value
           this.extractForm.value
         )
