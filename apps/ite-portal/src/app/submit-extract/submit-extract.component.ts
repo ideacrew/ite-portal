@@ -76,7 +76,7 @@ export class SubmitExtractComponent {
   ) {
     this.extractForm = this.fb.group(
       {
-        provider_gateway_identifier: this.fb.control('73982', [
+        provider_gateway_identifier: this.fb.control('279', [
           Validators.required,
         ]),
         coverage_start: this.fb.control(
