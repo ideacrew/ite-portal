@@ -31,13 +31,10 @@ export interface ExtractTransmissionForm {
   coverage_start: FormControl<string | null>;
   coverage_end: FormControl<string | null>;
   extracted_on: FormControl<string | null>;
-  record_group: FormControl<RecordGroup | null>;
   records: FormControl<Record<string, unknown>[] | null>;
   file_type: FormControl<string | null>;
   file_name: FormControl<string | null>;
 }
-
-type RecordGroup = 'admission' | 'discharge' | 'active';
 
 @Component({
   templateUrl: './submit-extract.component.html',
@@ -90,9 +87,6 @@ export class SubmitExtractComponent {
         extracted_on: this.fb.control('', [
           Validators.required,
           dateNotInFuture,
-        ]),
-        record_group: this.fb.control<RecordGroup | null>(null, [
-          Validators.required,
         ]),
         records: this.fb.control<Record<string, unknown>[] | null>(null, [
           Validators.required,
@@ -195,12 +189,6 @@ export class SubmitExtractComponent {
 
   get extracted_on(): FormControl<string | null> {
     return this.extractForm.get('extracted_on') as FormControl<string | null>;
-  }
-
-  get record_group(): FormControl<RecordGroup | null> {
-    return this.extractForm.get(
-      'record_group'
-    ) as FormControl<RecordGroup | null>;
   }
 
   get records(): FormControl<Record<string, unknown>[] | null> {

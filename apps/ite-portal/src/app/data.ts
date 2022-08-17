@@ -8,18 +8,16 @@ export const mockData = [
       $oid: '62d1e02bfca84ec6ebd5cdf8',
     },
     created_at: '2022-07-15T21:46:19.862Z',
-    extract_type: 'Admission',
     failures: null,
     payload: {
       provider_identifier: 'testing_db_connection',
-      extract_type: 'Admission',
+
       client: 'Testing client',
       services: ['Not feeling well'],
       controller: 'api/v1/extracts',
       action: 'ingest',
       extract: {
         provider_identifier: 'testing_db_connection',
-        extract_type: 'Admission',
       },
     },
     provider_identifier: 'testing_db_connection',
@@ -31,18 +29,17 @@ export const mockData = [
       $oid: '62d1e1442d7ac00005527587',
     },
     created_at: '2022-07-15T21:50:59.496Z',
-    extract_type: 'Admission',
+
     failures: null,
     payload: {
       provider_identifier: 'testing_db_connection',
-      extract_type: 'Admission',
+
       client: 'Testing client',
       services: ['Not feeling well'],
       controller: 'api/v1/extracts',
       action: 'ingest',
       extract: {
         provider_identifier: 'testing_db_connection',
-        extract_type: 'Admission',
       },
     },
     provider_identifier: 'testing_db_connection',
@@ -54,18 +51,17 @@ export const mockData = [
       $oid: '62d1e15a2d7ac00005527588',
     },
     created_at: '2022-07-15T21:51:22.576Z',
-    extract_type: 'Admission',
+
     failures: null,
     payload: {
       provider_identifier: 'second_test',
-      extract_type: 'Admission',
+
       client: 'Testing client',
       services: ['Not feeling well'],
       controller: 'api/v1/extracts',
       action: 'ingest',
       extract: {
         provider_identifier: 'second_test',
-        extract_type: 'Admission',
       },
     },
     provider_identifier: 'second_test',
@@ -77,18 +73,17 @@ export const mockData = [
       $oid: '62d1e55753151700058c1588',
     },
     created_at: '2022-07-15T22:08:23.642Z',
-    extract_type: 'Discharge',
+
     failures: null,
     payload: {
       provider_identifier: 'discharge_test',
-      extract_type: 'Discharge',
+
       client: 'Testing client',
       services: ['Not feeling well'],
       controller: 'api/v1/extracts',
       action: 'ingest',
       extract: {
         provider_identifier: 'discharge_test',
-        extract_type: 'Discharge',
       },
     },
     provider_identifier: 'discharge_test',
@@ -100,18 +95,17 @@ export const mockData = [
       $oid: '62d1e5d8fca84ec6ebd5cdf9',
     },
     created_at: '2022-07-15T22:10:32.926Z',
-    extract_type: 'Admission',
+
     failures: null,
     payload: {
       provider_identifier: 'testing_db_connection',
-      extract_type: 'Admission',
+
       client: 'Testing client',
       services: ['Not feeling well'],
       controller: 'api/v1/extracts',
       action: 'ingest',
       extract: {
         provider_identifier: 'testing_db_connection',
-        extract_type: 'Admission',
       },
     },
     provider_identifier: 'testing_db_connection',
@@ -123,18 +117,17 @@ export const mockData = [
       $oid: '62d574384c58c70005a03eaf',
     },
     created_at: '2022-07-18T14:54:48.674Z',
-    extract_type: 'Discharge',
+
     failures: null,
     payload: {
       provider_identifier: 'ip_whitelist',
-      extract_type: 'Discharge',
+
       client: 'Testing client',
       services: ['Not feeling well'],
       controller: 'api/v1/extracts',
       action: 'ingest',
       extract: {
         provider_identifier: 'ip_whitelist',
-        extract_type: 'Discharge',
       },
     },
     provider_identifier: 'ip_whitelist',
@@ -146,18 +139,17 @@ export const mockData = [
       $oid: '62d579264c58c70005a03eb0',
     },
     created_at: '2022-07-18T15:15:50.811Z',
-    extract_type: 'Discharge',
+
     failures: null,
     payload: {
       provider_identifier: 'removed_api',
-      extract_type: 'Discharge',
+
       client: 'Testing client',
       services: ['Not feeling well'],
       controller: 'api/v1/extracts',
       action: 'ingest',
       extract: {
         provider_identifier: 'removed_api',
-        extract_type: 'Discharge',
       },
     },
     provider_identifier: 'removed_api',

@@ -86,45 +86,6 @@
       Extracted on date must be after coverage period.
     </p>
   </div>
-
-  <fieldset>
-    <legend><h3>Record File Type</h3></legend>
-    <input
-      type="radio"
-      id="record-group-admission"
-      name="record_group"
-      value="admission"
-      formControlName="record_group"
-      data-cy="record-group-admission"
-    />
-    <label for="record-group-admission">Admission</label>
-    <br />
-    <input
-      type="radio"
-      id="record-group-discharge"
-      name="record_group"
-      value="discharge"
-      formControlName="record_group"
-      data-cy="record-group-discharge"
-    />
-    <label for="record-group-discharge">Discharge</label>
-    <br />
-    <input
-      type="radio"
-      id="record-group-active"
-      name="record_group"
-      value="active"
-      formControlName="record_group"
-    />
-    <label for="record-group-active">Active</label>
-    <ng-container *ngIf="record_group.errors && record_group.dirty">
-      <div class="error-message">
-        <p *ngIf="record_group.errors['required']">
-          Coverage end date is required.
-        </p>
-      </div>
-    </ng-container>
-  </fieldset>
   <div class="input-group">
     <label for="file-upload"><h3>Upload Extract</h3></label>
     <input

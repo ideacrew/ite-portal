@@ -16,7 +16,6 @@ describe('ite-portal', () => {
     // Fill out the form
     const today = new Date().toISOString().slice(0, 10);
     getExtractDate().type(today);
-    cy.get('[data-cy="record-group-admission"]').click();
     cy.get('[data-cy="file-upload"]').selectFile('src/fixtures/test.csv');
     cy.get('[data-cy="submit-extract"]').should('not.be.disabled');
     cy.get('[data-cy="submit-extract"]').click();
