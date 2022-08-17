@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, shareReplay, Subject, tap } from 'rxjs';
+import { BehaviorSubject, map, shareReplay, tap } from 'rxjs';
 import { ConfigService } from './config.service';
 
 export interface ProviderProfile {
@@ -54,7 +54,7 @@ export interface Email {
   providedIn: 'root',
 })
 export class ProviderProfileService {
-  currentProvider = new Subject<ProviderProfile>();
+  currentProvider = new BehaviorSubject<ProviderProfile | undefined>(undefined);
   currentProvider$ = this.currentProvider.asObservable().pipe(shareReplay(1));
 
   constructor(private config: ConfigService, private http: HttpClient) {

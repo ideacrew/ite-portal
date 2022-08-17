@@ -4,7 +4,7 @@
 
 <ng-container *ngIf="submission$ | async as submission">
   <div class="file-info">
-    <span>Provider: </span> <span>Provider Name</span>
+    <span>Provider: </span> <span>{{ providerName$ | async }}</span>
   </div>
   <div class="file-info">
     <span>Reporting Period: </span>

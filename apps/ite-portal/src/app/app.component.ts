@@ -15,9 +15,10 @@ import {
 export class AppComponent {
   test!: boolean;
 
-  profileName$: Observable<string> = this.providerProfile.currentProvider$.pipe(
-    map((profile: ProviderProfile) => profile.provider_name)
-  );
+  profileName$: Observable<string | undefined> =
+    this.providerProfile.currentProvider$.pipe(
+      map((profile: ProviderProfile | undefined) => profile?.provider_name)
+    );
 
   constructor(private providerProfile: ProviderProfileService) {}
 }

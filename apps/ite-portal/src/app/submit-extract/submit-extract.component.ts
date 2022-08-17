@@ -25,6 +25,7 @@ import {
   startDateNotAfterEndDate,
   extractDateWithinCoveragePeriod,
 } from '../date-validator';
+import { ProviderProfileService } from '../provider-profile.service';
 
 export interface ExtractTransmissionForm {
   provider_gateway_identifier: FormControl<string | null>;
@@ -69,13 +70,16 @@ export class SubmitExtractComponent {
     private http: HttpClient,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private config: ConfigService
+    private config: ConfigService,
+    private providerProfile: ProviderProfileService
   ) {
     this.extractForm = this.fb.group(
       {
-        provider_gateway_identifier: this.fb.control('772', [
-          Validators.required,
-        ]),
+        provider_gateway_identifier: this.fb.control(
+          this.providerProfile.currentProvider.value
+            ?.provider_gateway_identifier ?? '000',
+          [Validators.required]
+        ),
         coverage_start: this.fb.control(
           this.lastMonthStart.toISOString().slice(0, 10), // 2022-10-01
           [Validators.required, dateNotInFuture]
@@ -120,6 +124,9 @@ export class SubmitExtractComponent {
             this.sendingData.next(false);
             this.result.next('File submitted successfully');
             this.extractForm.reset({
+              provider_gateway_identifier:
+                this.providerProfile.currentProvider.value
+                  ?.provider_gateway_identifier ?? '000',
               coverage_start: this.lastMonthStart.toISOString().slice(0, 10),
               coverage_end: this.lastMonthEnd.toISOString().slice(0, 10),
               extracted_on: '',

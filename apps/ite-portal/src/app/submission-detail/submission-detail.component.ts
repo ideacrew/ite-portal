@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs';
+import { filter, map, Observable, switchMap } from 'rxjs';
 import { ConfigService } from '../config.service';
+import {
+  ProviderProfile,
+  ProviderProfileService,
+} from '../provider-profile.service';
 
 export interface ExtractDetail {
   _id: {
@@ -62,9 +66,15 @@ export class SubmissionDetailComponent {
     )
   );
 
+  providerName$: Observable<string | undefined> =
+    this.providerProfile.currentProvider$.pipe(
+      map((provider: ProviderProfile | undefined) => provider?.provider_name)
+    );
+
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private config: ConfigService
+    private config: ConfigService,
+    private providerProfile: ProviderProfileService
   ) {}
 }
