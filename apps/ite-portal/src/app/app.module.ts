@@ -30,8 +30,12 @@ import { SubmissionDetailComponent } from './submission-detail/submission-detail
         component: SubmissionDetailComponent,
       },
       {
-        path: '**',
+        path: 'submit-extract',
         component: SubmitExtractComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'submit-extract',
       },
     ]),
   ],
