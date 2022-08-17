@@ -1,4 +1,22 @@
-<h2>Submission Detail Page</h2>
-<pre>
-  {{ submission$ | async | json }}
-</pre>
+<h1>Submission Summary</h1>
+
+<h2>File Information</h2>
+
+<ng-container *ngIf="submission$ | async as submission">
+  <div class="file-info">
+    <span>Provider: </span> <span>Provider Name</span>
+  </div>
+  <div class="file-info">
+    <span>Reporting Period: </span>
+    <span
+      >{{ submission.coverage_start }} to {{ submission.coverage_end }}</span
+    >
+  </div>
+  <div class="file-info">
+    <span>File Info: </span> <span>{{ submission.file_name }} </span>
+  </div>
+  <div class="file-info">
+    <span>Submission Date: </span>
+    <span>{{ submission.created_at | date }} </span>
+  </div>
+</ng-container>
