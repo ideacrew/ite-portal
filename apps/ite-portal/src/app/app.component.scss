@@ -1,11 +1,12 @@
 :host {
   display: grid;
   grid-template-columns: 16rem 1fr;
-  grid-template-rows: 5rem 1fr;
+  grid-template-rows: 5rem calc(100vh - 5rem);
   grid-template-areas:
     'header header'
     'nav main';
   height: 100vh;
+  overflow: hidden;
 }
 
 .header {
@@ -15,7 +16,7 @@
   align-items: center;
   background-color: #28323f;
   color: white;
-  padding: 1.25rem;
+  padding: 1.5rem;
   max-height: 5rem;
 
   h1 {
@@ -63,5 +64,6 @@
 
 main {
   grid-area: main;
-  padding: 1rem;
+  padding: 1.5rem;
+  overflow-y: auto;
 }
