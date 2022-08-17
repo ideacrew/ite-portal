@@ -8,6 +8,7 @@ import { SubmissionsListComponent } from './submissions-list/submissions-list.co
 import { RouterModule } from '@angular/router';
 import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
 import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SubmissionDetailComponent } from './submission-detail/submission-detail
     SubmissionsListComponent,
     SubmitExtractComponent,
     SubmissionDetailComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,10 @@ import { SubmissionDetailComponent } from './submission-detail/submission-detail
       {
         path: 'submit-extract',
         component: SubmitExtractComponent,
+      },
+      {
+        path: 'provider-profile',
+        component: UserProfileComponent,
       },
       {
         path: '**',

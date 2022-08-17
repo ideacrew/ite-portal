@@ -1,7 +1,7 @@
 <header class="header">
   <span class="application-name">ITE Portal</span>
-  <span class="provider-info"
-    >Provider Name
+  <a class="provider-info" routerLink="/provider-profile">
+    {{ profileName$ | async }}
     <svg
       class="icon user-avatar"
       width="32"
@@ -15,7 +15,7 @@
         fill="white"
       />
     </svg>
-  </span>
+  </a>
 </header>
 <nav class="nav">
   <ul>

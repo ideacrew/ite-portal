@@ -9,7 +9,6 @@ export class ConfigService {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {
     const [urlEnvironment] = window.location.host.split('.');
-    console.log({ urlEnv: urlEnvironment });
 
     if (
       urlEnvironment.includes('dbh-ite') &&
@@ -18,14 +17,11 @@ export class ConfigService {
       this.baseApiUrl = `https://ite-api.herokuapp.com`;
       this.environment = 'dev';
     } else if (urlEnvironment.includes('staging')) {
-      console.log('Staging environment');
       this.baseApiUrl = `https://ite-api-staging.herokuapp.com`;
       this.environment = 'uat';
     } else {
       this.baseApiUrl = `https://ite-api.herokuapp.com`;
       this.environment = 'local';
     }
-
-    console.log({ baseApiUrl: this.baseApiUrl, environment: this.environment });
   }
 }
