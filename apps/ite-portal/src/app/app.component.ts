@@ -13,8 +13,6 @@ import {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  test!: boolean;
-
   profileName$: Observable<string | undefined> =
     this.providerProfile.currentProvider$.pipe(
       map((profile: ProviderProfile | undefined) => profile?.provider_name)
