@@ -8,8 +8,8 @@
       <th>Start Date</th>
       <th>End Date</th>
       <th>Total Records</th>
-      <th>Failures</th>
-      <th>Warnings</th>
+      <th>Pass</th>
+      <th>Fail</th>
     </tr>
   </thead>
   <tbody>
@@ -21,24 +21,17 @@
       <td>{{ submission.coverage_start }}</td>
       <td>{{ submission.coverage_end }}</td>
       <td>{{ submission.number_of_records ?? 'no value' }}</td>
-      <td>{{ submission.record_failure_count ?? 'no value' }}</td>
-      <td>{{ submission.record_warning_count ?? 'no value' }}</td>
+      <td>{{ submission.pass_count ?? 'no value' }}</td>
+      <td>{{ submission.fail_count ?? 'no value' }}</td>
     </tr>
   </tbody>
 </table>
 
-<p>Total records = Valid + Failure + Warning</p>
+<p>Total records = Pass + Fail</p>
 <p>
-  Valid: Count of unique records with NO failure and NO warning in any of the
-  data fields.
+  Pass: Count of unique records with NO errors in any of the data fields.
 </p>
 <p>
-  Failure: Count of unique records with a failure in one or more data fields. A
-  failure record will not be accepted for further process. and needs to be
-  resubmitted.
-</p>
-<p>
-  Warning: Count of unique records with a warning in one or more data fields but
-  no records have a failure. A warning record should be reviewed and correct
-  information should be resubmitted whenever possible.
+  Fail: Count of unique records with a failure in one or more data fields. A
+  failure record will not be accepted for further process and needs to be resubmitted.
 </p>
