@@ -37,7 +37,7 @@ export interface ExtractRecordValidation {
   critical_errors: Validation[];
   fatal_errors: Validation[];
   payload: ExtractRecordData;
-  status: 'Pass' | 'Fail';
+  status: ValidationStatus;
   updated_at: string;
   warnings: Validation[];
 }
@@ -61,11 +61,14 @@ export type ValidationCategory =
   | 'Wrong Format';
 
 export interface ExtractRecordData {
+  // Key Fields
   admission_date: string;
   arrests_past_30days: string;
   client_id: string;
   collateral: string;
   dob: string;
+
+  // Required Fields
   education: string;
   employment: string;
   episode_id: string;
@@ -74,6 +77,8 @@ export interface ExtractRecordData {
   gender: string;
   last_contact_date: string;
   last_name: string;
+
+  // Optional Fields
   num_of_prior_admissions: string;
   num_of_prior_episodes: string;
   primary_language: string;
@@ -82,6 +87,9 @@ export interface ExtractRecordData {
   record_type: string;
   treatment_type: string;
 }
+
+export type ValidationStatus = 'Pass' | 'Fail';
+
 @Component({
   selector: 'dbh-submission-detail',
   templateUrl: './submission-detail.component.html',

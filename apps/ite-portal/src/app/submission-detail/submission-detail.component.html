@@ -25,21 +25,17 @@
       <h2>Validation Summary</h2>
       <div class="file-info">
         <span>Passing Records</span>
-        <span
-          >{{ submission.records | recordCount: 'Pass' }} /
-          {{
-            (submission.records | recordCount: 'Pass':'relative') + '%'
-          }}</span
-        >
+        <dbh-record-count
+          [records]="submission.records"
+          status="Pass"
+        ></dbh-record-count>
       </div>
       <div class="file-info">
         <span>Failing Records </span>
-        <span
-          >{{ submission.records | recordCount: 'Fail' }} /
-          {{
-            (submission.records | recordCount: 'Fail':'relative') + '%'
-          }}</span
-        >
+        <dbh-record-count
+          [records]="submission.records"
+          status="Fail"
+        ></dbh-record-count>
       </div>
       <div class="file-info">
         <span>Total Records Submitted </span>

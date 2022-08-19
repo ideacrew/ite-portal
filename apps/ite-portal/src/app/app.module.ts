@@ -10,6 +10,7 @@ import { SubmitExtractComponent } from './submit-extract/submit-extract.componen
 import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RecordCountPipe } from './record-count.pipe';
+import { RecordCountComponent } from './record-count/record-count.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { RecordCountPipe } from './record-count.pipe';
     SubmissionDetailComponent,
     UserProfileComponent,
     RecordCountPipe,
+    RecordCountComponent,
   ],
   imports: [
     BrowserModule,
