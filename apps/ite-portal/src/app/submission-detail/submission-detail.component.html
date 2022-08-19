@@ -20,18 +20,31 @@
     <span>{{ submission.created_at | date }} </span>
   </div>
 
-  <h2>Validation Summary</h2>
-  <div class="file-info">
-    <span>Passing Records</span>
-    <span>{{ submission.records | recordCount: 'Fail' }}</span>
-  </div>
-  <div class="file-info">
-    <span>Failing Records </span>
-    <span>{{ submission.records | recordCount: 'Pass' }}</span>
-  </div>
-  <div class="file-info">
-    <span>Total Records Submitted </span>
-    <span>{{ submission.records.length }} </span>
+  <div class="summary-with-chart">
+    <div class="summary">
+      <h2>Validation Summary</h2>
+      <div class="file-info">
+        <span>Passing Records</span>
+        <span>{{ submission.records | recordCount: 'Pass' }}</span>
+      </div>
+      <div class="file-info">
+        <span>Failing Records </span>
+        <span>{{ submission.records | recordCount: 'Fail' }}</span>
+      </div>
+      <div class="file-info">
+        <span>Total Records Submitted </span>
+        <span>{{ submission.records.length }} </span>
+      </div>
+    </div>
+    <div
+      class="chart"
+      [style.--pass]="
+        (submission.records | recordCount: 'Pass':'relative') + '%'
+      "
+      [style.--fail]="
+        (submission.records | recordCount: 'Fail':'relative') + '%'
+      "
+    ></div>
   </div>
 
   <p>

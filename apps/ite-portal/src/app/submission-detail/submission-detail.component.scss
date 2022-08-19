@@ -5,3 +5,19 @@
     width: 13rem;
   }
 }
+
+.summary-with-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.chart {
+  height: 6rem;
+  width: 6rem;
+  background: conic-gradient(
+    #e1e1e1 0% var(--pass),
+    #666666 var(--pass) var(--fail)
+  );
+  border-radius: 50%;
+}
