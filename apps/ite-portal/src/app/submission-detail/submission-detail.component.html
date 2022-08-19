@@ -1,15 +1,15 @@
 <h1>Submission Summary</h1>
 
-<h2>File Information</h2>
-
 <ng-container *ngIf="submission$ | async as submission">
+  <h2>File Information</h2>
   <div class="file-info">
     <span>Provider: </span> <span>{{ providerName$ | async }}</span>
   </div>
   <div class="file-info">
     <span>Reporting Period: </span>
     <span
-      >{{ submission.coverage_start }} to {{ submission.coverage_end }}</span
+      >{{ submission.coverage_start | date }} to
+      {{ submission.coverage_end | date }}</span
     >
   </div>
   <div class="file-info">
@@ -19,4 +19,33 @@
     <span>Submission Date: </span>
     <span>{{ submission.created_at | date }} </span>
   </div>
+
+  <h2>Validation Summary</h2>
+  <div class="file-info">
+    <span>Passing Records</span>
+    <span>{{ submission.records | recordCount: 'Fail' }}</span>
+  </div>
+  <div class="file-info">
+    <span>Failing Records </span>
+    <span>{{ submission.records | recordCount: 'Pass' }}</span>
+  </div>
+  <div class="file-info">
+    <span>Total Records Submitted </span>
+    <span>{{ submission.records.length }} </span>
+  </div>
+
+  <p>
+    Pass: Counts the number of unique records that have no fatal or critical
+    error identified in any of the key fields or required fields. It may include
+    records that have warnings associated with optional fields only.
+  </p>
+
+  <p>
+    Fail: Counts the number of unique records that have at least one fatal or
+    critical error identified in one or more key fields or required fields.
+    These records may have warnings associated with optional fields in addition
+    to fatal or critical errors. Records in this category will not be considered
+    valid and the provider must resubmit the correct data for these failed
+    records.
+  </p>
 </ng-container>

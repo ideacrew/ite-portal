@@ -21,42 +21,18 @@ export interface ExtractSubmissionResponse {
   extracted_on: string;
   file_name: string | null;
   provider_gateway_identifier: string;
+  records: ExtractRecordValidation[];
   status: string | null;
   updated_at: string;
-  records: ExtractRecordValidationResponse[];
 }
 
-export interface ExtractRecordData {
-  admission_date: string;
-  arrests_past_30days: string;
-  client_id: string;
-  collateral: string;
-  dob: string;
-  education: string;
-  employment: string;
-  episode_id: string;
-  ethnicity: string;
-  first_name: string;
-  gender: string;
-  last_contact_date: string;
-  last_name: string;
-  num_of_prior_admissions: string;
-  num_of_prior_episodes: string;
-  primary_language: string;
-  provider_id: string;
-  race: string;
-  record_type: string;
-  treatment_type: string;
-}
-
-export interface ExtractRecordValidationResponse {
+export interface ExtractRecordValidation {
   _id: {
     $oid: string;
   };
   extract_id: {
     $oid: string;
   };
-
   created_at: string;
   critical_errors: Validation[];
   fatal_errors: Validation[];
@@ -81,9 +57,31 @@ export type ValidationCategory =
   | 'Invalid Field Length'
   | 'Invalid Value'
   | 'Missing Value'
-  | 'Potential error'
+  | 'Potential Error'
   | 'Wrong Format';
 
+export interface ExtractRecordData {
+  admission_date: string;
+  arrests_past_30days: string;
+  client_id: string;
+  collateral: string;
+  dob: string;
+  education: string;
+  employment: string;
+  episode_id: string;
+  ethnicity: string;
+  first_name: string;
+  gender: string;
+  last_contact_date: string;
+  last_name: string;
+  num_of_prior_admissions: string;
+  num_of_prior_episodes: string;
+  primary_language: string;
+  provider_id: string;
+  race: string;
+  record_type: string;
+  treatment_type: string;
+}
 @Component({
   selector: 'dbh-submission-detail',
   templateUrl: './submission-detail.component.html',

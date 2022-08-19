@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
 import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { RecordCountPipe } from './record-count.pipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     SubmitExtractComponent,
     SubmissionDetailComponent,
     UserProfileComponent,
+    RecordCountPipe,
   ],
   imports: [
     BrowserModule,
