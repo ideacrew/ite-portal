@@ -8,8 +8,11 @@ import {
   ProviderProfileService,
 } from '../provider-profile.service';
 
-export interface ExtractDetail {
+export interface ExtractSubmissionResponse {
   _id: {
+    $oid: string;
+  };
+  provider_id: {
     $oid: string;
   };
   coverage_end: string; // e.g. "2022-02-01"
@@ -17,38 +20,69 @@ export interface ExtractDetail {
   created_at: string;
   extracted_on: string;
   file_name: string | null;
-  file_type: string;
   provider_gateway_identifier: string;
-  record_group: string;
   status: string | null;
   updated_at: string;
-  records: ExtractRecord[];
+  records: ExtractRecordValidationResponse[];
 }
 
-export interface ExtractRecord {
+export interface ExtractRecordData {
+  admission_date: string;
+  arrests_past_30days: string;
+  client_id: string;
+  collateral: string;
+  dob: string;
+  education: string;
+  employment: string;
+  episode_id: string;
+  ethnicity: string;
+  first_name: string;
+  gender: string;
+  last_contact_date: string;
+  last_name: string;
+  num_of_prior_admissions: string;
+  num_of_prior_episodes: string;
+  primary_language: string;
+  provider_id: string;
+  race: string;
+  record_type: string;
+  treatment_type: string;
+}
+
+export interface ExtractRecordValidationResponse {
   _id: {
     $oid: string;
   };
+  extract_id: {
+    $oid: string;
+  };
+
   created_at: string;
-  failures: RecordFailure[];
-  payload: Record<string, string | number | boolean>;
-  status: 'Valid' | 'Invalid';
+  critical_errors: Validation[];
+  fatal_errors: Validation[];
+  payload: ExtractRecordData;
+  status: 'Pass' | 'Fail';
   updated_at: string;
-  warnings: RecordFailure[];
+  warnings: Validation[];
 }
 
-type PropertyFailure = Record<string, string[]>;
+export type Validation = Partial<
+  Record<keyof ExtractRecordData, ValidationMessage>
+>;
 
-export interface RecordFailure {
-  client: PropertyFailure;
-  extracted_on: ['must be a date'];
-  last_contact_date: [
-    {
-      text: 'Should be included';
-      warning: true;
-    }
-  ];
+export interface ValidationMessage {
+  text: string;
+  category: ValidationCategory | null;
 }
+
+export type ValidationCategory =
+  | 'Data Inconsistency'
+  | 'Invalid Field'
+  | 'Invalid Field Length'
+  | 'Invalid Value'
+  | 'Missing Value'
+  | 'Potential error'
+  | 'Wrong Format';
 
 @Component({
   selector: 'dbh-submission-detail',
@@ -60,7 +94,7 @@ export class SubmissionDetailComponent {
     filter((parameters: ParamMap) => parameters.has('id')),
     map((parameters: ParamMap) => parameters.get('id')),
     switchMap((id: string | null) =>
-      this.http.get<ExtractDetail>(
+      this.http.get<ExtractSubmissionResponse>(
         `${this.config.baseApiUrl}/api/v1/extracts/${id ?? 'fake-value'}`
       )
     )
