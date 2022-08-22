@@ -55,6 +55,20 @@
 
   <p>Pass: Records with (a) warning(s) only or no errors.</p>
   <p>Fail: Records with at least one fatal or critical error.</p>
+
+  <h2>Error Summary</h2>
+  <div class="file-info">
+    <span>Fatal errors</span>
+    <span>{{ submission.records | errorCount: 'Fatal' }} </span>
+  </div>
+  <div class="file-info">
+    <span>Critical errors</span>
+    <span>{{ submission.records | errorCount: 'Critical' }} </span>
+  </div>
+  <div class="file-info">
+    <span>Warnings</span>
+    <span>{{ submission.records | errorCount: 'Warning' }} </span>
+  </div>
   <p>Fatal error: an error in a key field</p>
   <p>Critical error: an error in a required field</p>
   <p>Warning: an error in an optional field</p>
