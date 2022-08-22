@@ -51,14 +51,17 @@ export interface ValidationMessage {
   category: ValidationCategory | null;
 }
 
-export type ValidationCategory =
-  | 'Data Inconsistency'
-  | 'Invalid Field'
-  | 'Invalid Field Length'
-  | 'Invalid Value'
-  | 'Missing Value'
-  | 'Potential Error'
-  | 'Wrong Format';
+export const validationCategory = [
+  'Data Inconsistency',
+  'Invalid Field',
+  'Invalid Field Length',
+  'Invalid Value',
+  'Missing Value',
+  'Potential Error',
+  'Wrong Format',
+] as const;
+
+export type ValidationCategory = typeof validationCategory[number];
 
 export interface ExtractRecordData {
   // Key Fields

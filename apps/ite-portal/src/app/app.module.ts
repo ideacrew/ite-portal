@@ -12,6 +12,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RecordCountPipe } from './record-count.pipe';
 import { RecordCountComponent } from './record-count/record-count.component';
 import { ErrorCountPipe } from './error-count.pipe';
+import { ErrorsByCategoryComponent } from './errors-by-category/errors-by-category.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ErrorCountPipe } from './error-count.pipe';
     RecordCountPipe,
     ErrorCountPipe,
     RecordCountComponent,
+    ErrorsByCategoryComponent,
   ],
   imports: [
     BrowserModule,

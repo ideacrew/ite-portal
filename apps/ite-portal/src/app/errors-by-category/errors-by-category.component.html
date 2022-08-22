@@ -1,0 +1,28 @@
+<ng-container *ngIf="records">
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Fatal Errors</th>
+        <th>Critical Errors</th>
+        <th>Warnings</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <td>
+          {{ category }}
+        </td>
+        <td>
+          {{ records | errorCount: 'Fatal':category }}
+        </td>
+        <td>
+          {{ records | errorCount: 'Critical':category }}
+        </td>
+        <td>
+          {{ records | errorCount: 'Warning':category }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

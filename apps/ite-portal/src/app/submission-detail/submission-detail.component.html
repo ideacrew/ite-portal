@@ -69,6 +69,11 @@
     <span>Warnings</span>
     <span>{{ submission.records | errorCount: 'Warning' }} </span>
   </div>
+
+  <h2>Issues by Category</h2>
+  <dbh-errors-by-category
+    [records]="submission.records"
+  ></dbh-errors-by-category>
   <p>Fatal error: an error in a key field</p>
   <p>Critical error: an error in a required field</p>
   <p>Warning: an error in an optional field</p>

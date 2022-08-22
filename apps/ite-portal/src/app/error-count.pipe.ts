@@ -1,6 +1,11 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 import { Pipe, PipeTransform } from '@angular/core';
-import { ExtractRecordValidation } from './submission-detail/submission-detail.component';
+import {
+  ExtractRecordValidation,
+  Validation,
+  ValidationCategory,
+  ValidationMessage,
+} from './submission-detail/submission-detail.component';
 
 const errorMapping: Record<ErrorType, ErrorKey> = {
   Fatal: 'fatal_errors',
@@ -18,15 +23,31 @@ type ErrorKey = 'fatal_errors' | 'critical_errors' | 'warnings';
 export class ErrorCountPipe implements PipeTransform {
   transform(
     records: ExtractRecordValidation[],
-    typeToCount: ErrorType
+    typeToCount: ErrorType,
+    category?: ValidationCategory
     // form: 'relative' | 'absolute' = 'absolute'
   ): number {
     const errorKey = errorMapping[typeToCount];
 
-    const allErrorsOfType: number = records.flatMap(
+    const allErrorsOfType: Validation[] = records.flatMap(
       (record) => record[errorKey]
-    ).length;
+    );
 
-    return allErrorsOfType;
+    console.log(typeToCount, category, { allErrorsOfType });
+
+    let categoryCount = 0;
+    if (category) {
+      for (const error of allErrorsOfType) {
+        for (const prop in error) {
+          const message: ValidationMessage | undefined =
+            error[prop as keyof Validation];
+          if (message?.category === category) {
+            categoryCount++;
+          }
+        }
+      }
+    }
+
+    return category ? categoryCount : allErrorsOfType.length;
   }
 }
