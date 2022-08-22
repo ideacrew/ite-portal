@@ -42,9 +42,9 @@ export interface ExtractRecordValidation {
   warnings: Validation[];
 }
 
-export type Validation = Partial<
-  Record<keyof ExtractRecordData, ValidationMessage>
->;
+export type RecordKeys = keyof ExtractRecordData;
+
+export type Validation = Partial<Record<RecordKeys, ValidationMessage>>;
 
 export interface ValidationMessage {
   text: string;

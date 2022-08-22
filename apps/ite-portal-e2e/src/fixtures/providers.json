@@ -1,0 +1,55 @@
+[
+  {
+    "_id": { "$oid": "62faba50f50adc000594c5ce" },
+    "adult_care": true,
+    "child_care": true,
+    "created_at": "2022-08-15T21:27:44.613Z",
+    "extracts": [],
+    "is_active": true,
+    "mh": true,
+    "npi": "7483939891",
+    "office_locations": [
+      {
+        "_id": { "$oid": "62faba50f50adc000594c5cd" },
+        "address": {
+          "_id": { "$oid": "62faba50f50adc000594c5cf" },
+          "address_line1": "line1",
+          "address_line2": "",
+          "city": "washington",
+          "created_at": null,
+          "dc_ward": "",
+          "state": "dc",
+          "updated_at": null,
+          "zip": "12345"
+        },
+        "created_at": "2022-08-15T21:27:44.613Z",
+        "emails": [
+          {
+            "_id": { "$oid": "62faba50f50adc000594c5d1" },
+            "address": "narf@example.com",
+            "created_at": null,
+            "updated_at": null
+          }
+        ],
+        "is_primary": true,
+        "phones": [
+          {
+            "_id": { "$oid": "62faba50f50adc000594c5d0" },
+            "area_code": "123",
+            "created_at": null,
+            "extension": "",
+            "full_phone_number": "",
+            "number": "4567890",
+            "updated_at": null
+          }
+        ],
+        "updated_at": "2022-08-15T21:27:44.613Z"
+      }
+    ],
+    "provider_gateway_identifier": "772",
+    "provider_name": "Cypress Provider",
+    "provider_nick_name": "CyProvider",
+    "sud": true,
+    "updated_at": "2022-08-17T14:03:27.768Z"
+  }
+]

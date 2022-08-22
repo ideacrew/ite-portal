@@ -14,10 +14,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { lastDayOfMonth } from 'date-fns';
 import { BehaviorSubject, EMPTY, of, Subject } from 'rxjs';
 import { finalize, catchError, shareReplay } from 'rxjs/operators';
+import { lastDayOfMonth } from 'date-fns';
+
 import { ConfigService } from '../config.service';
+import { ExtractRecordData } from '../submission-detail/submission-detail.component';
 
 import {
   dateNotInFuture,
@@ -26,13 +28,14 @@ import {
   extractDateWithinCoveragePeriod,
 } from '../date-validator';
 import { ProviderProfileService } from '../provider-profile.service';
+import { convertCsvToJson } from '../convert-csv-to-json';
 
 export interface ExtractTransmissionForm {
   provider_gateway_identifier: FormControl<string | null>;
   coverage_start: FormControl<string | null>;
   coverage_end: FormControl<string | null>;
   extracted_on: FormControl<string | null>;
-  records: FormControl<Record<string, unknown>[] | null>;
+  records: FormControl<ExtractRecordData[] | null>;
   file_type: FormControl<string | null>;
   file_name: FormControl<string | null>;
 }
@@ -92,7 +95,7 @@ export class SubmitExtractComponent {
           Validators.required,
           dateNotInFuture,
         ]),
-        records: this.fb.control<Record<string, unknown>[] | null>(null, [
+        records: this.fb.control<ExtractRecordData[] | null>(null, [
           Validators.required,
         ]),
         file_name: this.fb.control(''),
@@ -148,7 +151,6 @@ export class SubmitExtractComponent {
   fileSelected(files: FileList | null): void {
     if (files) {
       this.records.setValue(null);
-      const csvAsObject: Array<Record<string, unknown>> = [];
       const file: File | null = files.item(0);
       if (file) {
         const reader = new FileReader();
@@ -156,24 +158,11 @@ export class SubmitExtractComponent {
         reader.readAsText(file);
         reader.addEventListener('load', () => {
           const csvText = reader.result as string;
-
+          const recordData: ExtractRecordData[] = convertCsvToJson(csvText);
           // Sheets uses a return and newline for each new row
-          const [rawHeaders, ...rawLines] = csvText.split('\r\n');
-          if (rawLines.length > 0) {
-            const headers = rawHeaders.split(',');
-
-            for (const line of rawLines) {
-              const record: Record<string, unknown> = {};
-              const currentLine = line.split(',');
-
-              for (const header of headers) {
-                record[header] = currentLine[headers.indexOf(header)];
-              }
-
-              csvAsObject.push(record);
-            }
+          if (recordData.length > 0) {
             this.extractForm.patchValue({
-              records: csvAsObject,
+              records: recordData,
               file_name: fileName,
             });
             this.cdr.detectChanges();
