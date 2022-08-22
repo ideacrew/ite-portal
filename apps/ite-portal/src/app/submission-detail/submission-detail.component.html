@@ -53,18 +53,9 @@
     ></div>
   </div>
 
-  <p>
-    Pass: Counts the number of unique records that have no fatal or critical
-    error identified in any of the key fields or required fields. It may include
-    records that have warnings associated with optional fields only.
-  </p>
-
-  <p>
-    Fail: Counts the number of unique records that have at least one fatal or
-    critical error identified in one or more key fields or required fields.
-    These records may have warnings associated with optional fields in addition
-    to fatal or critical errors. Records in this category will not be considered
-    valid and the provider must resubmit the correct data for these failed
-    records.
-  </p>
+  <p>Pass: Records with (a) warning(s) only or no errors.</p>
+  <p>Fail: Records with at least one fatal or critical error.</p>
+  <p>Fatal error: an error in a key field</p>
+  <p>Critical error: an error in a required field</p>
+  <p>Warning: an error in an optional field</p>
 </ng-container>
