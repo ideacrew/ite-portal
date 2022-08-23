@@ -3,95 +3,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, switchMap } from 'rxjs';
 import { ConfigService } from '../config.service';
+import { ExtractSubmissionResponse } from '../models';
 import {
   ProviderProfile,
   ProviderProfileService,
 } from '../provider-profile.service';
-
-export interface ExtractSubmissionResponse {
-  _id: {
-    $oid: string;
-  };
-  provider_id: {
-    $oid: string;
-  };
-  coverage_end: string; // e.g. "2022-02-01"
-  coverage_start: string;
-  created_at: string;
-  extracted_on: string;
-  file_name: string | null;
-  provider_gateway_identifier: string;
-  records: ExtractRecordValidation[];
-  status: string | null;
-  updated_at: string;
-}
-
-export interface ExtractRecordValidation {
-  _id: {
-    $oid: string;
-  };
-  extract_id: {
-    $oid: string;
-  };
-  created_at: string;
-  critical_errors: Validation[];
-  fatal_errors: Validation[];
-  payload: ExtractRecordData;
-  status: ValidationStatus;
-  updated_at: string;
-  warnings: Validation[];
-}
-
-export type RecordKeys = keyof ExtractRecordData;
-
-export type Validation = Partial<Record<RecordKeys, ValidationMessage>>;
-
-export interface ValidationMessage {
-  text: string;
-  category: ValidationCategory | null;
-}
-
-export const validationCategory = [
-  'Data Inconsistency',
-  'Invalid Field',
-  'Invalid Field Length',
-  'Invalid Value',
-  'Missing Value',
-  'Potential Error',
-  'Wrong Format',
-] as const;
-
-export type ValidationCategory = typeof validationCategory[number];
-
-export interface ExtractRecordData {
-  // Key Fields
-  admission_date: string;
-  arrests_past_30days: string;
-  client_id: string;
-  collateral: string;
-  dob: string;
-
-  // Required Fields
-  education: string;
-  employment: string;
-  episode_id: string;
-  ethnicity: string;
-  first_name: string;
-  gender: string;
-  last_contact_date: string;
-  last_name: string;
-
-  // Optional Fields
-  num_of_prior_admissions: string;
-  num_of_prior_episodes: string;
-  primary_language: string;
-  provider_id: string;
-  race: string;
-  record_type: string;
-  treatment_type: string;
-}
-
-export type ValidationStatus = 'Pass' | 'Fail';
 
 @Component({
   selector: 'dbh-submission-detail',

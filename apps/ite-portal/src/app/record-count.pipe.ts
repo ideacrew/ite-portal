@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 import { Pipe, PipeTransform } from '@angular/core';
-import { ExtractRecordValidation } from './submission-detail/submission-detail.component';
+
+import { ExtractRecordValidation } from './models';
 
 @Pipe({
   name: 'recordCount',

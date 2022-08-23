@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 import {
-  ExtractRecordValidation,
   ValidationCategory,
-} from '../submission-detail/submission-detail.component';
-import { validationCategory } from '../submission-detail/submission-detail.component';
+  validationCategory,
+  ExtractRecordValidation,
+} from '../models';
+
 @Component({
   selector: 'dbh-errors-by-category',
   templateUrl: './errors-by-category.component.html',

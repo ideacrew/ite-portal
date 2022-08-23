@@ -19,7 +19,6 @@ import { finalize, catchError, shareReplay } from 'rxjs/operators';
 import { lastDayOfMonth } from 'date-fns';
 
 import { ConfigService } from '../config.service';
-import { ExtractRecordData } from '../submission-detail/submission-detail.component';
 
 import {
   dateNotInFuture,
@@ -29,6 +28,7 @@ import {
 } from '../date-validator';
 import { ProviderProfileService } from '../provider-profile.service';
 import { convertCsvToJson } from '../convert-csv-to-json';
+import { ExtractRecordData } from '../models';
 
 export interface ExtractTransmissionForm {
   provider_gateway_identifier: FormControl<string | null>;

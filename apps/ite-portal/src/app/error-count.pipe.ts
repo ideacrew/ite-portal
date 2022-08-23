@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 import { Pipe, PipeTransform } from '@angular/core';
+
 import {
   ExtractRecordValidation,
-  Validation,
   ValidationCategory,
+  Validation,
   ValidationMessage,
-} from './submission-detail/submission-detail.component';
+} from './models';
 
 const errorMapping: Record<ErrorType, ErrorKey> = {
   Fatal: 'fatal_errors',

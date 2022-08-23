@@ -1,16 +1,11 @@
-import {
-  ExtractRecordData,
-  RecordKeys,
-} from './submission-detail/submission-detail.component';
+import { ExtractRecordData, RecordKeys } from './models';
 
 export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
-  console.log({ csv });
   // Container list for the JSON data
   const csvAsObject: ExtractRecordData[] = [];
 
   // Begin by separating headers from lines
   const [rawHeaders, ...rawLines] = csv.split('\r\n');
-  console.log({ rawHeaders, rawLines });
 
   if (rawLines.length > 0) {
     const headers: RecordKeys[] = rawHeaders.split(',') as RecordKeys[];

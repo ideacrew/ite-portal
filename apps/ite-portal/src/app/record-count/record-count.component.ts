@@ -1,9 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-import {
-  ExtractRecordValidation,
-  ValidationStatus,
-} from '../submission-detail/submission-detail.component';
+import { ExtractRecordValidation, ValidationStatus } from '../models';
 
 @Component({
   selector: 'dbh-record-count',
