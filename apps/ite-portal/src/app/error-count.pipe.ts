@@ -34,7 +34,6 @@ export class ErrorCountPipe implements PipeTransform {
       (record) => record[errorKey]
     );
 
-    console.log(typeToCount, category, { allErrorsOfType });
 
     let categoryCount = 0;
     if (category) {
