@@ -90,7 +90,7 @@ jobs:
           name: ite-portal
           path: dist/apps/ite-portal
   deploy-firebase:
-    environment: dev
+    environment: gcp-dev
     needs: [main]
     runs-on: ubuntu-latest
     steps:
@@ -117,7 +117,7 @@ jobs:
           name: firebase-log
           path: /home/runner/.npm/_logs
   deploy-aws:
-    environment: dev
+    environment: aws-dev
     needs: [main, prep]
     runs-on: ubuntu-latest
     permissions:
