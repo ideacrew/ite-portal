@@ -16,6 +16,7 @@ import { ErrorsByCategoryComponent } from './errors-by-category/errors-by-catego
 import { IssuesByDataFieldComponent } from './issues-by-data-field/issues-by-data-field.component';
 import { RecordsWithErrorTypePipe } from './records-with-error-type.pipe';
 import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
+import { RecordListComponent } from './record-list/record-list.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
     IssuesByDataFieldComponent,
     RecordsWithErrorTypePipe,
     GroupByDataFieldPipe,
+    RecordListComponent,
   ],
   imports: [
     BrowserModule,

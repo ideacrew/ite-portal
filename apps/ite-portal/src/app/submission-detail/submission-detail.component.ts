@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
@@ -40,7 +39,6 @@ export class SubmissionDetailComponent {
     );
 
   constructor(
-    private http: HttpClient,
     private route: ActivatedRoute,
     private providerExtractService: ProviderExtractService,
     private providerProfile: ProviderProfileService

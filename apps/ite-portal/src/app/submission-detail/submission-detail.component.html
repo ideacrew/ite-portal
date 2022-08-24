@@ -81,10 +81,25 @@
   <p>Fatal error: an error in a key field</p>
   <p>Critical error: an error in a required field</p>
   <p>Warning: an error in an optional field</p>
+</ng-container>
 
-  <!-- <h2>Issues by Data Field</h2>
-  <h3>Fatal Errors (Key Fields)</h3> -->
-  <!-- <dbh-issues-by-data-field
-    [issuesByDataField]="submission.records | recordsWithErrorType: 'Fatal'"
-  ></dbh-issues-by-data-field> -->
+<ng-container *ngIf="submissionV2$ | async as submission">
+  <h2>List of Records in this Submission</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Identifier</th>
+        <th>Pass/Fail</th>
+        <th>Fatal Errors</th>
+        <th>Critical Errors</th>
+        <th>Warnings</th>
+      </tr>
+    </thead>
+    <tbody>
+      <dbh-record-list
+        *ngFor="let record of submission.records"
+        [record]="record"
+      ></dbh-record-list>
+    </tbody>
+  </table>
 </ng-container>
