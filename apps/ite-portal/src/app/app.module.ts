@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DataAccessModule } from '@dbh/provider-extract/data-access';
 
 import { AppComponent } from './app.component';
 import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
@@ -17,6 +18,8 @@ import { IssuesByDataFieldComponent } from './issues-by-data-field/issues-by-dat
 import { RecordsWithErrorTypePipe } from './records-with-error-type.pipe';
 import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
 import { RecordListComponent } from './record-list/record-list.component';
+import { RecordDetailComponent } from './record-detail/record-detail.component';
+import { ErrorGroupComponent } from './error-group/error-group.component';
 
 @NgModule({
   declarations: [
@@ -33,15 +36,22 @@ import { RecordListComponent } from './record-list/record-list.component';
     RecordsWithErrorTypePipe,
     GroupByDataFieldPipe,
     RecordListComponent,
+    RecordDetailComponent,
+    ErrorGroupComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    DataAccessModule,
     RouterModule.forRoot([
       {
         path: 'submissions',
         component: SubmissionsListComponent,
+      },
+      {
+        path: 'submissions/:id/records/:recordId',
+        component: RecordDetailComponent,
       },
       {
         path: 'submissions/:id',

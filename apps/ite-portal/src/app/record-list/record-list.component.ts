@@ -14,7 +14,14 @@ export class RecordListComponent {
   @Input() record!: ExtractRecordValidationV2;
 
   get identifier(): string {
-    return `${this.record.payload.client_id}_${this.record.payload.admission_date}_${this.record.payload.record_type}${this.record.payload.treatment_type}`;
+    const { client_id, admission_date, record_type, treatment_type } =
+      this.record.payload;
+
+    return `${client_id ?? 'no-client-id'}_${
+      admission_date ?? 'no-admission-date'
+    }_${record_type ?? 'no-record-type'}${
+      treatment_type ?? 'no-treatment-type'
+    }`;
   }
 
   get fatalErrorCount(): number {

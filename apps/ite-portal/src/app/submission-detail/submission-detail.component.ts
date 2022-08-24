@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 
 import {
+  convertExtractSubmissionToV2,
   ExtractSubmissionResponseV2,
   ProviderExtractService,
 } from '@dbh/provider-extract/data-access';
@@ -11,7 +12,6 @@ import {
   ProviderProfile,
   ProviderProfileService,
 } from '../provider-profile.service';
-import { convertExtractSubmissionToV2 } from '@dbh/provider-extract/util';
 
 @Component({
   selector: 'dbh-submission-detail',

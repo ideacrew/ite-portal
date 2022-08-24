@@ -3,8 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import {
   ErrorType,
   ExtractRecordValidation,
+  getExtractRecordsByErrorType,
 } from '@dbh/provider-extract/data-access';
-import { getExtractRecordsByErrorType } from '@dbh/provider-extract/util';
 
 @Pipe({
   name: 'recordsWithErrorType',

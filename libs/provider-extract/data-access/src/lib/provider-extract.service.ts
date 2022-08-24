@@ -3,7 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
-import { ExtractSubmission, ExtractSubmissionResponse } from './models';
+import {
+  ExtractSubmission,
+  ExtractSubmissionResponse,
+  ExtractSubmissionResponseV2,
+} from './models';
+import { convertExtractSubmissionToV2 } from './util';
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +35,13 @@ export class ProviderExtractService {
     return this.http.get<ExtractSubmissionResponse>(
       `${this.config.baseApiUrl}/api/v1/extracts/${id}`
     );
+  }
+
+  getExtractSubmissionV2(id: string): Observable<ExtractSubmissionResponseV2> {
+    return this.http
+      .get<ExtractSubmissionResponse>(
+        `${this.config.baseApiUrl}/api/v1/extracts/${id}`
+      )
+      .pipe(map((submission) => convertExtractSubmissionToV2(submission)));
   }
 }
