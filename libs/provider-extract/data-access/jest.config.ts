@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'provider-extract-data-access',
   preset: '../../../jest.preset.js',
