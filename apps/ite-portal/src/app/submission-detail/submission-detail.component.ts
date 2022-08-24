@@ -4,16 +4,15 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 
 import {
-  ExtractSubmissionResponse,
   ExtractSubmissionResponseV2,
+  ProviderExtractService,
 } from '@dbh/provider-extract/data-access';
 
-import { ConfigService } from '../config.service';
-import { convertExtractSubmissionToV2 } from '../get-issues-by-data.v2';
 import {
   ProviderProfile,
   ProviderProfileService,
 } from '../provider-profile.service';
+import { convertExtractSubmissionToV2 } from '@dbh/provider-extract/util';
 
 @Component({
   selector: 'dbh-submission-detail',
@@ -25,9 +24,7 @@ export class SubmissionDetailComponent {
     filter((parameters: ParamMap) => parameters.has('id')),
     map((parameters: ParamMap) => parameters.get('id')),
     switchMap((id: string | null) =>
-      this.http.get<ExtractSubmissionResponse>(
-        `${this.config.baseApiUrl}/api/v1/extracts/${id ?? 'fake-value'}`
-      )
+      this.providerExtractService.getExtractSubmission(id ?? 'fake-value')
     ),
     shareReplay(1)
   );
@@ -45,7 +42,7 @@ export class SubmissionDetailComponent {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private config: ConfigService,
+    private providerExtractService: ProviderExtractService,
     private providerProfile: ProviderProfileService
   ) {}
 }

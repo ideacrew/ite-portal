@@ -1,8 +1,8 @@
 <h1>Submission Summary</h1>
 
-<pre>
+<!-- <pre>
   {{ submissionV2$ | async | json }}
-</pre>
+</pre> -->
 
 <ng-container *ngIf="submission$ | async as submission">
   <h2>File Information</h2>
@@ -82,8 +82,8 @@
   <p>Critical error: an error in a required field</p>
   <p>Warning: an error in an optional field</p>
 
-  <h2>Issues by Data Field</h2>
-  <h3>Fatal Errors (Key Fields)</h3>
+  <!-- <h2>Issues by Data Field</h2>
+  <h3>Fatal Errors (Key Fields)</h3> -->
   <!-- <dbh-issues-by-data-field
     [issuesByDataField]="submission.records | recordsWithErrorType: 'Fatal'"
   ></dbh-issues-by-data-field> -->

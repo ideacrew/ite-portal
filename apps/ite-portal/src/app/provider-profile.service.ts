@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, shareReplay, tap } from 'rxjs';
 
-import { ConfigService } from './config.service';
+import { ConfigService } from '@dbh/api-config';
 
 export interface ProviderProfile {
   _id: {

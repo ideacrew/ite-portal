@@ -1,4 +1,7 @@
-import { ExtractRecordData, ExtractRecordField } from '@dbh/provider-extract/data-access';
+import {
+  ExtractRecordData,
+  ExtractRecordField,
+} from '@dbh/provider-extract/data-access';
 
 export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
   // Container list for the JSON data

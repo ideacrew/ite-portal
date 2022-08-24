@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/no-null */
 /* eslint-disable @typescript-eslint/unbound-method */
-import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -15,12 +14,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { BehaviorSubject, EMPTY, of, Subject } from 'rxjs';
-import { finalize, catchError, shareReplay } from 'rxjs/operators';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { lastDayOfMonth } from 'date-fns';
 
+import { ProviderExtractService } from '@dbh/provider-extract/data-access';
 import { ExtractRecordData } from '@dbh/provider-extract/data-access';
 
-import { ConfigService } from '../config.service';
 import {
   dateNotInFuture,
   coveragePeriodNotTooLong,
@@ -70,10 +69,9 @@ export class SubmitExtractComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   constructor(
-    private http: HttpClient,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private config: ConfigService,
+    private providerExtractService: ProviderExtractService,
     private providerProfile: ProviderProfileService
   ) {
     this.extractForm = this.fb.group(
@@ -115,15 +113,17 @@ export class SubmitExtractComponent {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
       this.result.next(null);
-      this.http
-        .post(
-          // Url to post to
-          `${this.config.baseApiUrl}/api/v1/extracts/ingest`,
-          // body of the payload, here sending the entire form value
-          this.extractForm.value
-        )
+      this.providerExtractService
+        .sendData(this.extractForm.value)
         .pipe(
-          finalize(() => {
+          catchError((error: unknown) => {
+            console.log('catchError', { error });
+            this.result.next('Error submitting file');
+            return of(EMPTY);
+          })
+        )
+        .subscribe({
+          complete: () => {
             this.sendingData.next(false);
             this.result.next('File submitted successfully');
             this.extractForm.reset({
@@ -137,14 +137,8 @@ export class SubmitExtractComponent {
             if (this.fileInput.nativeElement) {
               this.fileInput.nativeElement.value = '';
             }
-          }),
-          catchError((error: unknown) => {
-            console.log('catchError', { error });
-            this.result.next('Error submitting file');
-            return of(EMPTY);
-          })
-        )
-        .subscribe();
+          },
+        });
     }
   }
 

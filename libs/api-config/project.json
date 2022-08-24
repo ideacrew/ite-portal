@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/api-config/src",
+  "prefix": "dbh",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api-config"],
+      "options": {
+        "jestConfig": "libs/api-config/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/api-config/**/*.ts",
+          "libs/api-config/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

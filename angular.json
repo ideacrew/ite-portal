@@ -2,8 +2,10 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "api-config": "libs/api-config",
     "ite-portal": "apps/ite-portal",
     "ite-portal-e2e": "apps/ite-portal-e2e",
-    "provider-extract-data-access": "libs/provider-extract/data-access"
+    "provider-extract-data-access": "libs/provider-extract/data-access",
+    "provider-extract-util": "libs/provider-extract/util"
   }
 }

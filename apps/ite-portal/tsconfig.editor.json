@@ -1,6 +1,11 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts", "../../libs/provider-extract/data-access/src/lib/models/ingest-extract.ts"],
+  "include": [
+    "**/*.ts",
+    "../../libs/provider-extract/data-access/src/lib/models/ingest-extract.ts",
+    "../../libs/provider-extract/util/src/lib/get-issues-by-data-field.spec.ts",
+    "../../libs/api-config/src/lib/config.service.ts"
+  ],
   "compilerOptions": {
     "types": ["jest", "node"]
   }
