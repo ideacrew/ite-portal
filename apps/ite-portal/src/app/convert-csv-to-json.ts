@@ -1,4 +1,4 @@
-import { ExtractRecordData, RecordKeys } from './models';
+import { ExtractRecordData, ExtractRecordField } from './models';
 
 export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
   // Container list for the JSON data
@@ -8,7 +8,9 @@ export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
   const [rawHeaders, ...rawLines] = csv.split('\r\n');
 
   if (rawLines.length > 0) {
-    const headers: RecordKeys[] = rawHeaders.split(',') as RecordKeys[];
+    const headers: ExtractRecordField[] = rawHeaders.split(
+      ','
+    ) as ExtractRecordField[];
     const parsedLines = rawLines.filter((line) => line.length > 0);
     for (const line of parsedLines) {
       const record: Partial<ExtractRecordData> = {};

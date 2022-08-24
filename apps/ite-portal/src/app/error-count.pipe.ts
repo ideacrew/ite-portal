@@ -6,17 +6,9 @@ import {
   ValidationCategory,
   Validation,
   ValidationMessage,
+  ErrorType,
+  errorMapping,
 } from './models';
-
-const errorMapping: Record<ErrorType, ErrorKey> = {
-  Fatal: 'fatal_errors',
-  Critical: 'critical_errors',
-  Warning: 'warnings',
-};
-
-type ErrorType = 'Fatal' | 'Critical' | 'Warning';
-
-type ErrorKey = 'fatal_errors' | 'critical_errors' | 'warnings';
 
 @Pipe({
   name: 'errorCount',
@@ -33,7 +25,6 @@ export class ErrorCountPipe implements PipeTransform {
     const allErrorsOfType: Validation[] = records.flatMap(
       (record) => record[errorKey]
     );
-
 
     let categoryCount = 0;
     if (category) {

@@ -13,6 +13,9 @@ import { RecordCountPipe } from './record-count.pipe';
 import { RecordCountComponent } from './record-count/record-count.component';
 import { ErrorCountPipe } from './error-count.pipe';
 import { ErrorsByCategoryComponent } from './errors-by-category/errors-by-category.component';
+import { IssuesByDataFieldComponent } from './issues-by-data-field/issues-by-data-field.component';
+import { RecordsWithErrorTypePipe } from './records-with-error-type';
+import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { ErrorsByCategoryComponent } from './errors-by-category/errors-by-catego
     ErrorCountPipe,
     RecordCountComponent,
     ErrorsByCategoryComponent,
+    IssuesByDataFieldComponent,
+    RecordsWithErrorTypePipe,
+    GroupByDataFieldPipe,
   ],
   imports: [
     BrowserModule,

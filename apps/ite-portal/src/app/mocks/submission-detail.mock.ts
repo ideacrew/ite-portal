@@ -1,4 +1,4 @@
-import { ExtractSubmissionResponse } from '../submission-detail/submission-detail.component';
+import { ExtractSubmissionResponse } from '../models';
 
 /* eslint-disable unicorn/no-null */
 export const submissionDetail: ExtractSubmissionResponse = {

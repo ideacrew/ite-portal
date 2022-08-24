@@ -26,4 +26,4 @@ export interface ExtractRecordData {
   treatment_type: string;
 }
 
-export type RecordKeys = keyof ExtractRecordData;
+export type ExtractRecordField = keyof ExtractRecordData;
