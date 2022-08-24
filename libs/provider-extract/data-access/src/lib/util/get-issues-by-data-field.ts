@@ -1,11 +1,11 @@
 import {
   errorMapping,
   ErrorType,
-  ExtractRecordValidation,
   ExtractRecordField,
-  Validation,
+  ExtractRecordValidation,
   IssuesByDataField,
-} from '@dbh/provider-extract/data-access';
+  Validation,
+} from '../models';
 
 export const getExtractRecordsByErrorType = (
   records: ExtractRecordValidation[],

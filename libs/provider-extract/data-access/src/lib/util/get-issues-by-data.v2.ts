@@ -8,7 +8,7 @@ import {
   Validation,
   ValidationMessage,
   ValidationV2,
-} from '@dbh/provider-extract/data-access';
+} from '../models';
 
 export const convertValidationToValidationV2 = (
   validation: Validation,
