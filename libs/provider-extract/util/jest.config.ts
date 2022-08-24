@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 export default {
   displayName: 'provider-extract-util',
   preset: '../../../jest.preset.js',
