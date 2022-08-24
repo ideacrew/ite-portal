@@ -1,5 +1,4 @@
-import { ExtractRecordValidation } from '@dbh/provider-extract/data-access';
-
+import { ExtractRecordValidation } from '../models';
 import {
   getAffectedRecords,
   getIssuesByDataField,
