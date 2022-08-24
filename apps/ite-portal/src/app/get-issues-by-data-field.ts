@@ -5,7 +5,7 @@ import {
   ExtractRecordField,
   Validation,
   IssuesByDataField,
-} from './models';
+} from '@dbh/provider-extract/data-access';
 
 export const getExtractRecordsByErrorType = (
   records: ExtractRecordValidation[],

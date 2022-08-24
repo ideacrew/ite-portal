@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ExtractRecordValidation } from './models';
+import { ExtractRecordValidation } from '@dbh/provider-extract/data-access';
 
 @Pipe({
   name: 'recordCount',

@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
-import { ConfigService } from '../config.service';
-import { convertExtractSubmissionToV2 } from '../get-issues-by-data.v2';
+
 import {
   ExtractSubmissionResponse,
   ExtractSubmissionResponseV2,
-} from '../models';
+} from '@dbh/provider-extract/data-access';
+
+import { ConfigService } from '../config.service';
+import { convertExtractSubmissionToV2 } from '../get-issues-by-data.v2';
 import {
   ProviderProfile,
   ProviderProfileService,

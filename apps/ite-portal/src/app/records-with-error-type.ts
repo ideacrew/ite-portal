@@ -1,7 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { getExtractRecordsByErrorType } from './get-issues-by-data-field';
-import { ErrorType, ExtractRecordValidation } from './models';
 
+import {
+  ErrorType,
+  ExtractRecordValidation,
+} from '@dbh/provider-extract/data-access';
+
+import { getExtractRecordsByErrorType } from './get-issues-by-data-field';
 @Pipe({
   name: 'recordsWithErrorType',
 })

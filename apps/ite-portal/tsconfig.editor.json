@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "../../libs/provider-extract/data-access/src/lib/models/ingest-extract.ts"],
   "compilerOptions": {
     "types": ["jest", "node"]
   }

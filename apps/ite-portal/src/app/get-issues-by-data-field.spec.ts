@@ -1,9 +1,10 @@
+import { ExtractRecordValidation } from '@dbh/provider-extract/data-access';
+
 import {
   getAffectedRecords,
   getIssuesByDataField,
   getUniqueFieldNames,
 } from './get-issues-by-data-field';
-import { ExtractRecordValidation } from './models';
 
 const mockRecords: ExtractRecordValidation[] = [
   {

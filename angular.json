@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "ite-portal": "apps/ite-portal",
-    "ite-portal-e2e": "apps/ite-portal-e2e"
+    "ite-portal-e2e": "apps/ite-portal-e2e",
+    "provider-extract-data-access": "libs/provider-extract/data-access"
   }
 }

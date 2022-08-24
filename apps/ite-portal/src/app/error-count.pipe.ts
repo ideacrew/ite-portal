@@ -8,7 +8,7 @@ import {
   ValidationMessage,
   ErrorType,
   errorMapping,
-} from './models';
+} from '@dbh/provider-extract/data-access';
 
 @Pipe({
   name: 'errorCount',

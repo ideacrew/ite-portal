@@ -4,7 +4,7 @@ import {
   ValidationCategory,
   validationCategory,
   ExtractRecordValidation,
-} from '../models';
+} from '@dbh/provider-extract/data-access';
 
 @Component({
   selector: 'dbh-errors-by-category',

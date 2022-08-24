@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
+
+import { ExtractSubmission } from '@dbh/provider-extract/data-access';
+
 import { ConfigService } from '../config.service';
-import { ExtractSubmission } from '../ingest-extract';
 
 @Component({
   templateUrl: './submissions-list.component.html',

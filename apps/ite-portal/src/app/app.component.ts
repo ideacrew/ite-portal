@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
+
 import {
   ProviderProfile,
   ProviderProfileService,

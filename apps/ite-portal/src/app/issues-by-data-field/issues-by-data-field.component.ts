@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IssuesByDataField } from '../models/issues-by-data-field';
+import { IssuesByDataField } from '@dbh/provider-extract/data-access';
 
 @Component({
   selector: 'dbh-issues-by-data-field',

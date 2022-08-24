@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, shareReplay, tap } from 'rxjs';
+
 import { ConfigService } from './config.service';
 
 export interface ProviderProfile {
