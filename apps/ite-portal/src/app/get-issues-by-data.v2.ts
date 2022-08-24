@@ -14,10 +14,13 @@ export const convertValidationToValidationV2 = (
   validation: Validation,
   errorType: ErrorType
 ): ValidationV2 => {
+  const { text, category } = getMessageFromValidation(validation);
+
   return {
     errorType,
     fieldName: getFieldNameFromValidation(validation),
-    message: getMessageFromValidation(validation),
+    text,
+    category,
   };
 };
 
@@ -31,7 +34,9 @@ export const getMessageFromValidation = (
   validation: Validation
 ): ValidationMessage => {
   const fieldName = getFieldNameFromValidation(validation);
-  return validation[fieldName] as ValidationMessage;
+  const message = validation[fieldName] as ValidationMessage;
+
+  return message;
 };
 
 export const convertRecordValidationToV2 = (

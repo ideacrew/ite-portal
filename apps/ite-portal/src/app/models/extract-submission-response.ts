@@ -1,4 +1,7 @@
-import { ExtractRecordValidation, ExtractRecordValidationV2 } from './extract-record-validation';
+import {
+  ExtractRecordValidation,
+  ExtractRecordValidationV2,
+} from './extract-record-validation';
 
 export interface ExtractSubmissionResponse {
   _id: {

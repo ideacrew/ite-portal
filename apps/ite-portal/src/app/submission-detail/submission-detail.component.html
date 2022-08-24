@@ -1,5 +1,9 @@
 <h1>Submission Summary</h1>
 
+<pre>
+  {{ submissionV2$ | async | json }}
+</pre>
+
 <ng-container *ngIf="submission$ | async as submission">
   <h2>File Information</h2>
   <div class="file-info">
