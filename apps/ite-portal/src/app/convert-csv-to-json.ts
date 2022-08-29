@@ -33,7 +33,7 @@ export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
 };
 
 const lineHasValue = (rawLine: string): boolean => {
-  const notOnlyCommas = /[^,\s]/.test(rawLine);
+  const notOnlyCommas = /[^\s,]/.test(rawLine);
   const hasLineLength = rawLine.length > 0;
 
   return notOnlyCommas && hasLineLength;
