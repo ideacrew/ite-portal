@@ -10,9 +10,7 @@ export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
   // Begin by separating headers from lines
   const [rawHeaders, ...rawLines] = csv.split('\r\n');
 
-  const filteredLines = rawLines.filter((rawLine) =>
-    firstCharacterIsValid(rawLine)
-  );
+  const filteredLines = rawLines.filter((rawLine) => lineHasValue(rawLine));
 
   if (filteredLines.length > 0) {
     const headers: ExtractRecordField[] = rawHeaders.split(
@@ -34,11 +32,9 @@ export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
   return csvAsObject;
 };
 
-const firstCharacterIsValid = (rawLine: string): boolean => {
-  const firstCharacter = rawLine.charAt(0);
-  const isNotAComma = firstCharacter !== ',';
-
+const lineHasValue = (rawLine: string): boolean => {
+  const notOnlyCommas = /[^,\s]/.test(rawLine);
   const hasLineLength = rawLine.length > 0;
 
-  return isNotAComma && hasLineLength;
+  return notOnlyCommas && hasLineLength;
 };
