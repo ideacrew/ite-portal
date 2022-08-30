@@ -162,6 +162,7 @@ export class SubmitExtractComponent {
             this.cdr.detectChanges();
           } else {
             this.records.setErrors({ notValidCsv: true });
+            this.cdr.detectChanges();
           }
         });
       }
