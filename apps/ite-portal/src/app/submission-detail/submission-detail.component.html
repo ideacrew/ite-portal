@@ -61,7 +61,7 @@
   <table>
     <thead>
       <tr>
-        <th>Identifier</th>
+        <th>Record ID</th>
         <th>Pass/Fail</th>
         <th>Fatal Errors</th>
         <th>Critical Errors</th>
@@ -70,7 +70,7 @@
     </thead>
     <tbody>
       <dbh-record-list
-        *ngFor="let record of submission.records"
+        *ngFor="let record of submission.records | recordSort"
         [record]="record"
       ></dbh-record-list>
     </tbody>

@@ -20,6 +20,7 @@ import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
 import { RecordListComponent } from './record-list/record-list.component';
 import { RecordDetailComponent } from './record-detail/record-detail.component';
 import { ErrorGroupComponent } from './error-group/error-group.component';
+import { RecordSortPipe } from './record-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ErrorGroupComponent } from './error-group/error-group.component';
     RecordListComponent,
     RecordDetailComponent,
     ErrorGroupComponent,
+    RecordSortPipe,
   ],
   imports: [
     BrowserModule,
