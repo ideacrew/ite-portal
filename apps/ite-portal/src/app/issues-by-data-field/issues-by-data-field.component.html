@@ -1,4 +1,4 @@
-<ng-container *ngIf="issuesByDataField">
+<ng-container>
   <table>
     <thead>
       <tr>
@@ -7,20 +7,6 @@
         <!-- <th>Category</th> -->
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let issue of issuesByDataField">
-        <td>
-          {{ issue.fieldName }}
-        </td>
-        <td>
-          {{ issue.affectedRecords }}
-        </td>
-        <!-- <td class="category-list">
-          <span *ngFor="let category of issue.categoryCounts"
-            >{{ category.categoryName }} ({{ category.recordCount }})</span
-          >
-        </td> -->
-      </tr>
-    </tbody>
+    <tbody></tbody>
   </table>
 </ng-container>

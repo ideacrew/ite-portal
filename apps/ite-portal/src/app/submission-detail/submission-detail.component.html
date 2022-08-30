@@ -57,22 +57,41 @@
 </ng-container>
 
 <ng-container *ngIf="submissionV2$ | async as submission">
-  <h2>Issues by Record</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Record ID</th>
-        <th>Pass/Fail</th>
-        <th>Fatal Errors</th>
-        <th>Critical Errors</th>
-        <th>Warnings</th>
-      </tr>
-    </thead>
-    <tbody>
-      <dbh-record-list
-        *ngFor="let record of submission.records | recordSort"
-        [record]="record"
-      ></dbh-record-list>
-    </tbody>
-  </table>
+  <ng-container *ngIf="viewType === 'record'; else dataField">
+    <div class="group-header">
+      <h2>Issues by Record</h2>
+      <button (click)="viewType = 'dataField'" class="button" type="button">
+        View Issues by Data Field
+      </button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Record ID</th>
+          <th>Pass/Fail</th>
+          <th>Fatal Errors</th>
+          <th>Critical Errors</th>
+          <th>Warnings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <dbh-record-list
+          *ngFor="let record of submission.records | recordSort"
+          [record]="record"
+        ></dbh-record-list>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <ng-template #dataField>
+    <div class="group-header">
+      <h2>Issues by Data Field</h2>
+      <button (click)="viewType = 'record'" class="button" type="button">
+        View Issues by Record
+      </button>
+    </div>
+    <dbh-issues-by-data-field
+      [records]="submission.records"
+    ></dbh-issues-by-data-field>
+  </ng-template>
 </ng-container>
