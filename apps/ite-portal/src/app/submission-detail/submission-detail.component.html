@@ -24,28 +24,9 @@
     <span>{{ submission.created_at | date }} </span>
   </div>
 
-  <div class="summary-with-chart">
-    <div class="summary">
-      <h2>Validation Summary</h2>
-      <div class="file-info">
-        <span>Passing Records</span>
-        <dbh-record-count
-          [records]="submission.records"
-          status="Pass"
-        ></dbh-record-count>
-      </div>
-      <div class="file-info">
-        <span>Failing Records </span>
-        <dbh-record-count
-          [records]="submission.records"
-          status="Fail"
-        ></dbh-record-count>
-      </div>
-      <div class="file-info">
-        <span>Total Records Submitted </span>
-        <span>{{ submission.records.length }} </span>
-      </div>
-    </div>
+  <div class="summary">
+    <h2>Validation Breakdown</h2>
+    <h3>Records Submitted: {{ submission.records.length }}</h3>
     <div
       class="chart"
       [style.--pass]="
@@ -55,36 +36,28 @@
         (submission.records | recordCount: 'Fail':'relative') + '%'
       "
     ></div>
+    <div class="legend">
+      <div class="fail">
+        <span class="color-block"></span>
+        <span>Fail {{ submission.records | recordCount: 'Fail' }}</span>
+        <span>{{ submission.records | recordCount: 'Fail':'relative' }}%</span>
+      </div>
+      <div class="pass">
+        <span class="color-block"></span>
+        <span>Pass {{ submission.records | recordCount: 'Pass' }}</span>
+        <span>{{ submission.records | recordCount: 'Pass':'relative' }}%</span>
+      </div>
+    </div>
+    <details class="definitions">
+      <summary>Definitions</summary>
+      <p>Pass: Records with (a) warning(s) only or no errors.</p>
+      <p>Fail: Records with at least one fatal or critical error.</p>
+    </details>
   </div>
-
-  <p>Pass: Records with (a) warning(s) only or no errors.</p>
-  <p>Fail: Records with at least one fatal or critical error.</p>
-
-  <h2>Error Summary</h2>
-  <div class="file-info">
-    <span>Fatal errors</span>
-    <span>{{ submission.records | errorCount: 'Fatal' }} </span>
-  </div>
-  <div class="file-info">
-    <span>Critical errors</span>
-    <span>{{ submission.records | errorCount: 'Critical' }} </span>
-  </div>
-  <div class="file-info">
-    <span>Warnings</span>
-    <span>{{ submission.records | errorCount: 'Warning' }} </span>
-  </div>
-
-  <h2>Issues by Category</h2>
-  <dbh-errors-by-category
-    [records]="submission.records"
-  ></dbh-errors-by-category>
-  <p>Fatal error: an error in a key field</p>
-  <p>Critical error: an error in a required field</p>
-  <p>Warning: an error in an optional field</p>
 </ng-container>
 
 <ng-container *ngIf="submissionV2$ | async as submission">
-  <h2>List of Records in this Submission</h2>
+  <h2>Issues by Record</h2>
   <table>
     <thead>
       <tr>
