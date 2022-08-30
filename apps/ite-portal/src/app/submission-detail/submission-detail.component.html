@@ -12,8 +12,8 @@
   <div class="file-info">
     <span>Reporting Period: </span>
     <span
-      >{{ submission.coverage_start | date }} to
-      {{ submission.coverage_end | date }}</span
+      >{{ submission.coverage_start | slice: 0:10 | date }} to
+      {{ submission.coverage_end | slice: 0:10 | date }}</span
     >
   </div>
   <div class="file-info">
@@ -21,7 +21,7 @@
   </div>
   <div class="file-info">
     <span>Submission Date: </span>
-    <span>{{ submission.created_at | date }} </span>
+    <span>{{ submission.created_at | slice: 0:10 | date }} </span>
   </div>
 
   <div class="summary">
