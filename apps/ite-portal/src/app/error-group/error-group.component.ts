@@ -11,6 +11,12 @@ import {
   styleUrls: ['./error-group.component.scss'],
 })
 export class ErrorGroupComponent {
+  fieldType: Record<ErrorType, string> = {
+    Fatal: 'Key',
+    Critical: 'Required',
+    Warning: 'Optional',
+  };
+
   @Input() errorType!: ErrorType | undefined;
   @Input() record!: ExtractRecordValidationV2;
 
@@ -22,6 +28,14 @@ export class ErrorGroupComponent {
     );
 
     return filteredErrors;
+  }
+
+  get fieldTypeName(): string {
+    return this.fieldType[this.errorType ?? 'Warning'];
+  }
+
+  get errorCount(): number {
+    return this.errors.length;
   }
 
   get errorHeading(): string {

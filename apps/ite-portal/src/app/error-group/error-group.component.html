@@ -1,19 +1,25 @@
-<h2>{{ errorHeading }}</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Field Name</th>
-      <th>Category</th>
-      <th>Message</th>
-      <th>Data Input</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let error of errors">
-      <td>{{ error.fieldName }}</td>
-      <td>{{ error.category }}</td>
-      <td>{{ error.text }}</td>
-      <td>{{ record.payload[error.fieldName] }}</td>
-    </tr>
-  </tbody>
-</table>
+<ng-container *ngIf="errorCount > 0">
+  <h2>
+    {{ errorHeading }} ({{ errorCount }} {{ fieldTypeName }} Field{{
+      errorCount === 1 ? '' : 's'
+    }})
+  </h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Field Name</th>
+        <th>Category</th>
+        <th>Message</th>
+        <th>Data Input</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let error of errors">
+        <td>{{ error.fieldName }}</td>
+        <td>{{ error.category }}</td>
+        <td>{{ error.text }}</td>
+        <td>{{ record.payload[error.fieldName] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

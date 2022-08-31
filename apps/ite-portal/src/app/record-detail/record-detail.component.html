@@ -1,6 +1,5 @@
 <ng-container *ngIf="vm$ | async as vm">
   <h1>Validation Results for {{ vm.record!.payload | getRecordIdentifier }}</h1>
-
   <dbh-error-group errorType="Fatal" [record]="vm.record!"></dbh-error-group>
   <dbh-error-group errorType="Critical" [record]="vm.record!"></dbh-error-group>
   <dbh-error-group errorType="Warning" [record]="vm.record!"></dbh-error-group>
