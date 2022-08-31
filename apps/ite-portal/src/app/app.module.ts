@@ -23,6 +23,7 @@ import { ErrorGroupComponent } from './error-group/error-group.component';
 import { RecordSortPipe } from './record-sort.pipe';
 import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-error-row.component';
 import { FileInformationComponent } from './file-information/file-information.component';
+import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FileInformationComponent } from './file-information/file-information.co
     RecordSortPipe,
     DataFieldErrorRowComponent,
     FileInformationComponent,
+    DataFieldChartComponent,
   ],
   imports: [
     BrowserModule,

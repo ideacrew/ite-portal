@@ -2,6 +2,8 @@
   <h1>Record Detail</h1>
   <h2>{{ vm.record!.payload | getRecordIdentifier }}</h2>
   <dbh-file-information [submission]="vm.submission"></dbh-file-information>
+  <dbh-data-field-chart [record]="vm.record!"></dbh-data-field-chart>
+
   <dbh-error-group errorType="Fatal" [record]="vm.record!"></dbh-error-group>
   <dbh-error-group errorType="Critical" [record]="vm.record!"></dbh-error-group>
   <dbh-error-group errorType="Warning" [record]="vm.record!"></dbh-error-group>

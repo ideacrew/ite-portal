@@ -45,7 +45,7 @@ export class RecordDetailComponent {
     submissionResponse: this.submissionResponse$,
   }).pipe(
     map(({ recordId, submissionResponse }) => {
-      const { records } = submissionResponse;
+      const records = submissionResponse.records;
       const matchingRecord = records.find(
         (record) => record._id.$oid === recordId
       );
