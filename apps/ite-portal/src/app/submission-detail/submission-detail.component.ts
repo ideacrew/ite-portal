@@ -8,11 +8,6 @@ import {
   ProviderExtractService,
 } from '@dbh/provider-extract/data-access';
 
-import {
-  ProviderProfile,
-  ProviderProfileService,
-} from '../provider-profile.service';
-
 @Component({
   selector: 'dbh-submission-detail',
   templateUrl: './submission-detail.component.html',
@@ -35,14 +30,8 @@ export class SubmissionDetailComponent {
       map((submission) => convertExtractSubmissionToV2(submission))
     );
 
-  providerName$: Observable<string | undefined> =
-    this.providerProfile.currentProvider$.pipe(
-      map((provider: ProviderProfile | undefined) => provider?.provider_name)
-    );
-
   constructor(
     private route: ActivatedRoute,
-    private providerExtractService: ProviderExtractService,
-    private providerProfile: ProviderProfileService
+    private providerExtractService: ProviderExtractService
   ) {}
 }
