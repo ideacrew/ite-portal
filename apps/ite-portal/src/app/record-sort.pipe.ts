@@ -25,11 +25,23 @@ export class RecordSortPipe implements PipeTransform {
         (error) => error.errorType === 'Critical'
       ).length;
 
-      // If fatal error counts are equal, use critical errors to sort
+      const countOfWarningsA = recordA.errors.filter(
+        (error) => error.errorType === 'Warning'
+      ).length;
+      const countOfWarningsB = recordB.errors.filter(
+        (error) => error.errorType === 'Warning'
+      ).length;
+
+      // If fatal error counts are equal, use critical errors, but if those are the same
+      // use warnings to determine order
       if (countOfRecordAFatalErrors === countOfRecordBFatalErrors) {
-        return countOfRecordACriticalErrors > countOfRecordBCriticalErrors
-          ? -1
-          : 1;
+        if (countOfRecordACriticalErrors === countOfRecordBCriticalErrors) {
+          return countOfWarningsA > countOfWarningsB ? -1 : 1;
+        } else {
+          return countOfRecordACriticalErrors > countOfRecordBCriticalErrors
+            ? -1
+            : 1;
+        }
       } else {
         return countOfRecordAFatalErrors > countOfRecordBFatalErrors ? -1 : 1;
       }
