@@ -37,15 +37,15 @@
       "
     ></div>
     <div class="legend">
-      <div class="fail">
-        <span class="color-block"></span>
-        <span>Fail {{ submission.records | recordCount: 'Fail' }}</span>
-        <span>{{ submission.records | recordCount: 'Fail':'relative' }}%</span>
-      </div>
       <div class="pass">
         <span class="color-block"></span>
         <span>Pass {{ submission.records | recordCount: 'Pass' }}</span>
         <span>{{ submission.records | recordCount: 'Pass':'relative' }}%</span>
+      </div>
+      <div class="fail">
+        <span class="color-block"></span>
+        <span>Fail {{ submission.records | recordCount: 'Fail' }}</span>
+        <span>{{ submission.records | recordCount: 'Fail':'relative' }}%</span>
       </div>
     </div>
     <details class="definitions">

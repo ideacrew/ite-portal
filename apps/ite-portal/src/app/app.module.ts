@@ -21,6 +21,7 @@ import { RecordListComponent } from './record-list/record-list.component';
 import { RecordDetailComponent } from './record-detail/record-detail.component';
 import { ErrorGroupComponent } from './error-group/error-group.component';
 import { RecordSortPipe } from './record-sort.pipe';
+import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-error-row.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { RecordSortPipe } from './record-sort.pipe';
     RecordDetailComponent,
     ErrorGroupComponent,
     RecordSortPipe,
+    DataFieldErrorRowComponent,
   ],
   imports: [
     BrowserModule,

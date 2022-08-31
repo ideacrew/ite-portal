@@ -19,7 +19,7 @@ import {
   styleUrls: ['./submission-detail.component.scss'],
 })
 export class SubmissionDetailComponent {
-  viewType: 'record' | 'dataField' = 'record';
+  viewType: 'record' | 'dataField' = 'dataField';
 
   submission$ = this.route.paramMap.pipe(
     filter((parameters: ParamMap) => parameters.has('id')),

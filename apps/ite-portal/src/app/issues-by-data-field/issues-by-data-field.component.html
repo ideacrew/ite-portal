@@ -1,12 +1,59 @@
-<ng-container>
-  <table>
-    <thead>
-      <tr>
-        <th>Field Name</th>
-        <th># of Records</th>
-        <!-- <th>Category</th> -->
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</ng-container>
+<h3>Fatal Errors (Key Fields)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Field Name</th>
+      <th># of Records</th>
+      <th>Category (# of errors)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <dbh-data-field-error-row
+      *ngFor="let field of fatalFields | keyvalue: originalOrder"
+      [dataField]="field.value"
+      [countOfRecordsWithIssue]="getCountOfRecordsWithFieldError(field.value)"
+      [categoriesWithError]="getCategoriesWithCount(field.value)"
+      errorType="Fatal"
+    ></dbh-data-field-error-row>
+  </tbody>
+</table>
+
+<h3>Critical Errors (Required Fields)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Field Name</th>
+      <th># of Records</th>
+      <th>Category (# of errors)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <dbh-data-field-error-row
+      *ngFor="let field of criticalFields | keyvalue: originalOrder"
+      [dataField]="field.value"
+      [countOfRecordsWithIssue]="getCountOfRecordsWithFieldError(field.value)"
+      [categoriesWithError]="getCategoriesWithCount(field.value)"
+      errorType="Critical"
+    ></dbh-data-field-error-row>
+  </tbody>
+</table>
+
+<h3>Warnings (Optional Fields)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Field Name</th>
+      <th># of Records</th>
+      <th>Category (# of errors)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <dbh-data-field-error-row
+      *ngFor="let field of warningFields | keyvalue: originalOrder"
+      [dataField]="field.value"
+      [countOfRecordsWithIssue]="getCountOfRecordsWithFieldError(field.value)"
+      [categoriesWithError]="getCategoriesWithCount(field.value)"
+      errorType="Warning"
+    ></dbh-data-field-error-row>
+  </tbody>
+</table>
