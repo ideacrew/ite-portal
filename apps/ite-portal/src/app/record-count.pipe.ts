@@ -19,6 +19,6 @@ export class RecordCountPipe implements PipeTransform {
 
     return form === 'absolute'
       ? recordCount
-      : (recordCount / totalRecords) * 100;
+      : Math.floor((recordCount / totalRecords) * 100);
   }
 }
