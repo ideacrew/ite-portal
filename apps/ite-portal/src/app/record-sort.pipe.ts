@@ -18,7 +18,21 @@ export class RecordSortPipe implements PipeTransform {
         (error) => error.errorType === 'Fatal'
       ).length;
 
-      return countOfRecordAFatalErrors > countOfRecordBFatalErrors ? -1 : 1;
+      const countOfRecordACriticalErrors = recordA.errors.filter(
+        (error) => error.errorType === 'Critical'
+      ).length;
+      const countOfRecordBCriticalErrors = recordB.errors.filter(
+        (error) => error.errorType === 'Critical'
+      ).length;
+
+      // If fatal error counts are equal, use critical errors to sort
+      if (countOfRecordAFatalErrors === countOfRecordBFatalErrors) {
+        return countOfRecordACriticalErrors > countOfRecordBCriticalErrors
+          ? -1
+          : 1;
+      } else {
+        return countOfRecordAFatalErrors > countOfRecordBFatalErrors ? -1 : 1;
+      }
     });
 
     return sortedRecords;
