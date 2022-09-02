@@ -24,6 +24,7 @@ import { RecordSortPipe } from './record-sort.pipe';
 import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-error-row.component';
 import { FileInformationComponent } from './file-information/file-information.component';
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { DataFieldChartComponent } from './data-field-chart/data-field-chart.com
     DataFieldErrorRowComponent,
     FileInformationComponent,
     DataFieldChartComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +74,10 @@ import { DataFieldChartComponent } from './data-field-chart/data-field-chart.com
       {
         path: 'provider-profile',
         component: UserProfileComponent,
+      },
+      {
+        path: 'log-in',
+        component: LogInComponent,
       },
       {
         path: '**',

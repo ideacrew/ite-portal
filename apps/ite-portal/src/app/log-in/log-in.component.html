@@ -1,0 +1,31 @@
+<h1>ITE Login</h1>
+<form [formGroup]="userForm">
+  <div class="input-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      formControlName="email"
+      placeholder="name@example.com"
+      data-cy="email"
+    />
+    <label for="email">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      formControlName="password"
+      data-cy="password"
+    />
+  </div>
+  <button
+    type="button"
+    data-cy="submit-user"
+    (click)="verifyUser()"
+  >
+    Sign In
+  </button>
+</form>
+
+<div class="result">{{ result$ | async }}</div>
