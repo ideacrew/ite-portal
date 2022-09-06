@@ -1,20 +1,15 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FormControl,
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { BehaviorSubject, EMPTY, of, Subject } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
-import { ProviderExtractService } from '@dbh/provider-extract/data-access';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
+
 import { passwordDoesNotContainEmail } from '../password-validator';
+import { AuthService } from '../auth.service';
 
 export interface UserLoginForm {
   email: FormControl<string | null>;
@@ -27,28 +22,26 @@ export interface UserLoginForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogInComponent {
-  title = 'ite-portal';
-  sendingData = new BehaviorSubject(false);
+  private sendingData = new BehaviorSubject(false);
   sendingData$ = this.sendingData.asObservable().pipe(shareReplay(1));
-  result = new Subject<string | null>();
+
+  private result = new Subject<string | null>();
   result$ = this.result.asObservable();
 
   userForm!: FormGroup<UserLoginForm>;
 
-  constructor(
-    private fb: FormBuilder,
-    private cdr: ChangeDetectorRef,
-    private providerExtractService: ProviderExtractService
-  ) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.userForm = this.fb.group(
       {
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         email: this.fb.control('', [Validators.required, Validators.email]),
         password: this.fb.control('', [
+          // eslint-disable-next-line @typescript-eslint/unbound-method
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern(
-            '(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^a-zA-Zd ]).+'
-          ),
+          // Validators.pattern(
+          //   '(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^a-zA-Zd ]).+'
+          // ),
         ]),
       },
       {
@@ -57,30 +50,18 @@ export class LogInComponent {
     );
   }
 
-  showPassword: boolean = false;
+  showPassword = false;
+
   showHidePassword() {
     this.showPassword = !this.showPassword;
   }
 
-  verifyUser(): void {
+  loginUser(): void {
     if (this.userForm.status === 'VALID') {
-      this.sendingData.next(true);
-      this.result.next(null);
-      this.providerExtractService
-        .sendUser(this.userForm.value)
-        .pipe(
-          catchError((error: unknown) => {
-            console.log('catchError', { error });
-            this.result.next('Error signing in');
-            return of(EMPTY);
-          })
-        )
-        .subscribe({
-          complete: () => {
-            this.sendingData.next(false);
-            this.result.next('verified user!');
-          },
-        });
+      const { email, password } = this.userForm.value;
+      if (email && password) {
+        this.authService.login({ email, password });
+      }
     }
   }
 }

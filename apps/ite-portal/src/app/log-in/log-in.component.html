@@ -26,10 +26,10 @@
     [disabled]="userForm.status === 'INVALID'"
     type="button"
     data-cy="submit-user"
-    (click)="verifyUser()"
+    (click)="loginUser()"
   >
     Sign In
   </button>
-</form>
 
-<div class="result">{{ result$ | async }}</div>
+  {{ userForm.get('password')?.errors | json }}
+</form>

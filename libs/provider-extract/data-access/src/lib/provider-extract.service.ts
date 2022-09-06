@@ -25,15 +25,6 @@ export class ProviderExtractService {
     );
   }
 
-  sendUser(formValue: unknown): Observable<unknown> {
-    return this.http.post(
-      // Url to post to
-      `${this.config.baseApiUrl}/session`,
-      // body of the payload, here sending the entire form value
-      formValue
-    );
-  }
-
   getSubmissions(): Observable<ExtractSubmission[]> {
     return this.http
       .get<ExtractSubmission[]>(`${this.config.baseApiUrl}/api/v1/extracts`)
