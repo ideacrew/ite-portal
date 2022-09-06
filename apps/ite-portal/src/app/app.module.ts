@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataAccessModule } from '@dbh/provider-extract/data-access';
@@ -24,6 +24,8 @@ import { RecordSortPipe } from './record-sort.pipe';
 import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-error-row.component';
 import { FileInformationComponent } from './file-information/file-information.component';
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { AuthInterceptor } from './auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { DataFieldChartComponent } from './data-field-chart/data-field-chart.com
     DataFieldErrorRowComponent,
     FileInformationComponent,
     DataFieldChartComponent,
+    LogInComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,12 +77,18 @@ import { DataFieldChartComponent } from './data-field-chart/data-field-chart.com
         component: UserProfileComponent,
       },
       {
+        path: 'log-in',
+        component: LogInComponent,
+      },
+      {
         path: '**',
-        redirectTo: 'submit-extract',
+        redirectTo: 'log-in',
       },
     ]),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
