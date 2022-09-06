@@ -17,7 +17,7 @@ describe('ite-portal', () => {
       },
       { fixture: 'providers.json' }
     );
-    cy.visit('/'); // Initial intercept setup
+    cy.visit('/submit-extract'); // Initial intercept setup
   });
 
   it('should fill out the entire form with valid data', () => {
