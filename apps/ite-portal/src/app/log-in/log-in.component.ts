@@ -14,6 +14,7 @@ import {
 import { BehaviorSubject, EMPTY, of, Subject } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { ProviderExtractService } from '@dbh/provider-extract/data-access';
+import { passwordDoesNotContainEmail } from '../password-validator';
 
 export interface UserLoginForm {
   email: FormControl<string | null>;
@@ -37,36 +38,49 @@ export class LogInComponent {
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private providerExtractService: ProviderExtractService,
-  )
-  {
+    private providerExtractService: ProviderExtractService
+  ) {
     this.userForm = this.fb.group(
       {
-        email: this.fb.control(''),
-        password: this.fb.control(''),
+        email: this.fb.control('', [Validators.required, Validators.email]),
+        password: this.fb.control('', [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            '(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^a-zA-Zd ]).+'
+          ),
+        ]),
+      },
+      {
+        validators: [passwordDoesNotContainEmail],
       }
     );
+  }
 
+  showPassword: boolean = false;
+  showHidePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
-  };
   verifyUser(): void {
-    this.sendingData.next(true);
-    this.result.next(null);
-    this.providerExtractService
-      .sendUser(this.userForm.value)
-      .pipe(
-        catchError((error: unknown) => {
-          console.log('catchError', { error });
-          this.result.next('Error signing in');
-          return of(EMPTY);
-        })
-      )
-      .subscribe({
-        complete: () => {
-          this.sendingData.next(false);
-          this.result.next('verified user!');
-        },
-      });
-
-  };
-};
+    if (this.userForm.status === 'VALID') {
+      this.sendingData.next(true);
+      this.result.next(null);
+      this.providerExtractService
+        .sendUser(this.userForm.value)
+        .pipe(
+          catchError((error: unknown) => {
+            console.log('catchError', { error });
+            this.result.next('Error signing in');
+            return of(EMPTY);
+          })
+        )
+        .subscribe({
+          complete: () => {
+            this.sendingData.next(false);
+            this.result.next('verified user!');
+          },
+        });
+    }
+  }
+}

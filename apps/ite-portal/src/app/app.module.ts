@@ -47,7 +47,7 @@ import { LogInComponent } from './log-in/log-in.component';
     DataFieldErrorRowComponent,
     FileInformationComponent,
     DataFieldChartComponent,
-    LogInComponent
+    LogInComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +81,7 @@ import { LogInComponent } from './log-in/log-in.component';
       },
       {
         path: '**',
-        redirectTo: 'submit-extract',
+        redirectTo: 'log-in',
       },
     ]),
   ],
