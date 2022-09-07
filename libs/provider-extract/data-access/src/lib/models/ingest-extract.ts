@@ -8,4 +8,5 @@ export interface ExtractSubmission {
   fail_count: number | null;
   pass_count: number | null;
   status: 'Valid' | 'Invalid';
+  provider_name: string;
 }

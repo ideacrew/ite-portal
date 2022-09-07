@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th *ngIf="isDBHUser">Provider Name</th>
       <th>ID</th>
       <th>Submission Date</th>
       <th>Start Date</th>
@@ -14,6 +15,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let submission of submissions$ | async">
+      <td *ngIf="isDBHUser">{{ submission.provider_name }}</td>
       <td>
         <a [routerLink]="submission.id">{{ submission.id }}</a>
       </td>

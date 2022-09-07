@@ -5,6 +5,7 @@ import {
   ExtractSubmission,
   ProviderExtractService,
 } from '@dbh/provider-extract/data-access';
+import { AuthService } from '../auth.service';
 
 @Component({
   templateUrl: './submissions-list.component.html',
@@ -15,5 +16,10 @@ export class SubmissionsListComponent {
   submissions$: Observable<ExtractSubmission[]> =
     this.providerExtractService.getSubmissions();
 
-  constructor(private providerExtractService: ProviderExtractService) {}
+  isDBHUser = this.authService.isDBHUser;
+
+  constructor(
+    private providerExtractService: ProviderExtractService,
+    private authService: AuthService
+  ) {}
 }

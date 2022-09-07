@@ -19,6 +19,7 @@ export interface ExtractSubmissionResponse {
   records: ExtractRecordValidation[];
   status: string | null;
   updated_at: string;
+  provider_name: string;
 }
 
 export interface ExtractSubmissionResponseV2 {
@@ -37,4 +38,5 @@ export interface ExtractSubmissionResponseV2 {
   records: ExtractRecordValidationV2[];
   status: string | null;
   updated_at: string;
+  provider_name: string;
 }
