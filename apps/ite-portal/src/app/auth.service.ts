@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
+import { Router } from '@angular/router';
 
 interface TokenResponse {
   session: SessionObject;
@@ -17,7 +18,11 @@ interface SessionObject {
 export class AuthService {
   token!: string;
 
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+    private router: Router
+  ) {}
 
   login({ email, password }: { email: string; password: string }): void {
     this.http
@@ -32,6 +37,11 @@ export class AuthService {
           this.token = response.session.jwt;
         })
       )
-      .subscribe();
+      .subscribe({
+        complete: () => {
+          console.log('Login complete, what next?');
+          void this.router.navigate(['/']);
+        },
+      });
   }
 }

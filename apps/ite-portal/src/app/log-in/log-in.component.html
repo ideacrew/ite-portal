@@ -1,5 +1,5 @@
-<h1>ITE Login</h1>
-<form [formGroup]="userForm">
+<form [formGroup]="userForm" class="login-form">
+  <h1>ITE Login</h1>
   <div class="input-group">
     <label for="email">Email</label>
     <input
@@ -18,9 +18,13 @@
       formControlName="password"
       data-cy="password"
     />
-    <div data-cy="show-password" (click)="showHidePassword()">
+    <button
+      data-cy="show-password"
+      (click)="showPassword = !showPassword"
+      class="toggle-password"
+    >
       {{ showPassword ? 'hide password' : 'show password' }}
-    </div>
+    </button>
   </div>
   <button
     [disabled]="userForm.status === 'INVALID'"
@@ -30,6 +34,4 @@
   >
     Sign In
   </button>
-
-  {{ userForm.get('password')?.errors | json }}
 </form>

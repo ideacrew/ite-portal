@@ -28,6 +28,7 @@ export class LogInComponent {
   private result = new Subject<string | null>();
   result$ = this.result.asObservable();
 
+  showPassword = false;
   userForm!: FormGroup<UserLoginForm>;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
@@ -48,12 +49,6 @@ export class LogInComponent {
         validators: [passwordDoesNotContainEmail],
       }
     );
-  }
-
-  showPassword = false;
-
-  showHidePassword() {
-    this.showPassword = !this.showPassword;
   }
 
   loginUser(): void {

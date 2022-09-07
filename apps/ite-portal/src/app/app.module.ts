@@ -26,6 +26,8 @@ import { FileInformationComponent } from './file-information/file-information.co
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { AuthInterceptor } from './auth-interceptor.service';
+import { PortalComponent } from './portal/portal.component';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { AuthInterceptor } from './auth-interceptor.service';
     FileInformationComponent,
     DataFieldChartComponent,
     LogInComponent,
+    PortalComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,32 +60,40 @@ import { AuthInterceptor } from './auth-interceptor.service';
     DataAccessModule,
     RouterModule.forRoot([
       {
-        path: 'submissions',
-        component: SubmissionsListComponent,
-      },
-      {
-        path: 'submissions/:id/records/:recordId',
-        component: RecordDetailComponent,
-      },
-      {
-        path: 'submissions/:id',
-        component: SubmissionDetailComponent,
-      },
-      {
-        path: 'submit-extract',
-        component: SubmitExtractComponent,
-      },
-      {
-        path: 'provider-profile',
-        component: UserProfileComponent,
-      },
-      {
-        path: 'log-in',
+        path: 'login',
         component: LogInComponent,
       },
       {
+        path: '',
+        component: PortalComponent,
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'submissions',
+            component: SubmissionsListComponent,
+          },
+          {
+            path: 'submissions/:id/records/:recordId',
+            component: RecordDetailComponent,
+          },
+          {
+            path: 'submissions/:id',
+            component: SubmissionDetailComponent,
+          },
+          {
+            path: 'submit-extract',
+            component: SubmitExtractComponent,
+          },
+          {
+            path: 'provider-profile',
+            component: UserProfileComponent,
+          },
+        ],
+      },
+
+      {
         path: '**',
-        redirectTo: 'log-in',
+        redirectTo: '',
       },
     ]),
   ],
