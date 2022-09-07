@@ -8,5 +8,8 @@ import { AuthService, TokenObject } from '../auth.service';
 export class PortalComponent {
   token: TokenObject = this.authService.decodedToken;
 
+  isProvider = this.authService.isProvider;
+  isDBHUser = this.authService.isDBHUser;
+
   constructor(private authService: AuthService) {}
 }

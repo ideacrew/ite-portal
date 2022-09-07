@@ -18,9 +18,13 @@
   </a>
 </header>
 <nav class="nav">
+  <span class="menu-parent">Provider Gateway</span>
   <ul>
     <li>
-      <a routerLink="submit-extract" routerLinkActive="active"
+      <a
+        *ngIf="isProvider"
+        routerLink="submit-extract"
+        routerLinkActive="active"
         >Submit New Extract</a
       >
     </li>

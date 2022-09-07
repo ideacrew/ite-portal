@@ -49,6 +49,14 @@ export class AuthService {
     return this.decodedToken.provider_id ?? '000';
   }
 
+  get isProvider(): boolean {
+    return this.decodedToken.provider;
+  }
+
+  get isDBHUser(): boolean {
+    return this.decodedToken.dbh_user;
+  }
+
   get providerName(): string {
     return this.decodedToken.provider_name ?? 'Unknown';
   }
@@ -75,7 +83,7 @@ export class AuthService {
       .subscribe({
         complete: () => {
           console.log('Login complete, what next?');
-          void this.router.navigate(['/submit-extract']);
+          void this.router.navigate(['/submissions']);
         },
       });
   }

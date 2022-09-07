@@ -28,6 +28,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { AuthInterceptor } from './auth-interceptor.service';
 import { PortalComponent } from './portal/portal.component';
 import { AuthGuard } from './auth.guard';
+import { ProviderGuard } from './provider.guard';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { AuthGuard } from './auth.guard';
           {
             path: 'submit-extract',
             component: SubmitExtractComponent,
+            canActivate: [ProviderGuard],
           },
           {
             path: 'provider-profile',
@@ -90,7 +92,7 @@ import { AuthGuard } from './auth.guard';
           },
           {
             path: '',
-            redirectTo: 'submit-extract',
+            redirectTo: 'submissions',
             pathMatch: 'full',
           },
         ],
