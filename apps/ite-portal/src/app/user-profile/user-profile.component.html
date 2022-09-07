@@ -1,32 +1,3 @@
-<h1>Provider Profile</h1>
+<h1>User Profile for {{ email }}</h1>
 
-<ng-container *ngIf="providerProfile$ | async as profile">
-  <h2>{{ profile.provider_name }}</h2>
-  <span>Nickname: {{ profile.provider_nick_name }}</span>
-  <div class="profile-info">Active: {{ profile.is_active }}</div>
-  <div class="profile-info">Mental Health: {{ profile.mh }}</div>
-  <div class="profile-info">Substance Use: {{ profile.sud }}</div>
-  <div class="profile-info">Adult Care: {{ profile.adult_care }}</div>
-  <div class="profile-info">Child Care: {{ profile.child_care }}</div>
-  <div class="profile-info">NPI: {{ profile.npi }}</div>
-  <div class="profile-info">
-    Provider Gateway ID: {{ profile.provider_gateway_identifier }}
-  </div>
-  <div class="profile-info">Created: {{ profile.created_at | date }}</div>
-
-  <h3>Contact Info</h3>
-
-  <div class="contact-info">
-    Address: {{ profile.office_locations[0].address.address_line1 }},
-    {{ profile.office_locations[0].address.city }},
-    {{ profile.office_locations[0].address.state }},
-    {{ profile.office_locations[0].address.zip }}
-  </div>
-
-  <div class="contact-info">
-    Phone: {{ profile.office_locations[0].phones[0].number }}
-  </div>
-  <div class="contact-info">
-    Email: {{ profile.office_locations[0].emails[0].address }}
-  </div>
-</ng-container>
+<button type="button" class="button" (click)="logout()">Log Out</button>

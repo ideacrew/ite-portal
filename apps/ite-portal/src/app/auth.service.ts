@@ -41,6 +41,10 @@ export class AuthService {
     return this.token;
   }
 
+  get email(): string {
+    return this.decodedToken.email;
+  }
+
   get providerGatewayId(): string {
     return this.decodedToken.provider_gateway_identifier ?? '000';
   }
@@ -86,5 +90,13 @@ export class AuthService {
           void this.router.navigate(['/submissions']);
         },
       });
+  }
+
+  logout(): void {
+    this.http.delete(`${this.config.baseApiUrl}/session`).subscribe({
+      complete: () => {
+        void this.router.navigate(['/login']);
+      },
+    });
   }
 }

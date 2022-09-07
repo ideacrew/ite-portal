@@ -58,13 +58,13 @@ export class ProviderProfileService {
   currentProvider = new BehaviorSubject<ProviderProfile | undefined>(undefined);
   currentProvider$ = this.currentProvider.asObservable().pipe(shareReplay(1));
 
-  constructor(private config: ConfigService, private http: HttpClient) {
-    this.getProviderProfile();
-  }
+  constructor(private config: ConfigService, private http: HttpClient) {}
 
-  getProviderProfile(): void {
+  getProviderProfile(id: string): void {
     this.http
-      .get<ProviderProfile[]>(`${this.config.baseApiUrl}/api/v1/providers`)
+      .get<ProviderProfile[]>(
+        `${this.config.baseApiUrl}/api/v1/providers/${id}`
+      )
       .pipe(
         map((providers: ProviderProfile[]) => providers[0]),
         tap((provider: ProviderProfile) => this.currentProvider.next(provider))

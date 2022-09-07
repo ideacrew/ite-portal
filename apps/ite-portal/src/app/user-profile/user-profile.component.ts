@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { ProviderProfileService } from '../provider-profile.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent {
-  providerProfile$ = this.providerProfile.currentProvider$;
+  email = this.authService.email;
 
-  constructor(private providerProfile: ProviderProfileService) {}
+  constructor(private authService: AuthService) {}
+
+  logout(): void {
+    this.authService.logout();
+  }
 }
