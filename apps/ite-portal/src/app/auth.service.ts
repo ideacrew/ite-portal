@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
+import jwt_decode from 'jwt-decode';
 
 import { ConfigService } from '@dbh/api-config';
 import { Router } from '@angular/router';
@@ -14,9 +15,26 @@ interface SessionObject {
   email: string;
 }
 
+export interface TokenObject {
+  exp: number;
+  iss: string;
+  auth_token: string;
+  dbh_user: boolean;
+  provider: boolean;
+  provider_gateway_identifier: string | null;
+  provider_id: string | null;
+  email: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   token!: string;
+
+  get decodedToken(): TokenObject {
+    return this.token
+      ? jwt_decode<TokenObject>(this.token)
+      : ({} as TokenObject);
+  }
 
   constructor(
     private http: HttpClient,
