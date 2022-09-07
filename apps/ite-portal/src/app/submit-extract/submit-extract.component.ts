@@ -26,7 +26,6 @@ import {
   startDateNotAfterEndDate,
   extractDateWithinCoveragePeriod,
 } from '../date-validator';
-import { ProviderProfileService } from '../provider-profile.service';
 import { convertCsvToJson } from '../convert-csv-to-json';
 import { AuthService } from '../auth.service';
 

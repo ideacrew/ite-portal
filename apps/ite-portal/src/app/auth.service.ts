@@ -49,6 +49,10 @@ export class AuthService {
     return this.decodedToken.provider_id ?? '000';
   }
 
+  get providerName(): string {
+    return this.decodedToken.provider_name ?? 'Unknown';
+  }
+
   constructor(
     private http: HttpClient,
     private config: ConfigService,

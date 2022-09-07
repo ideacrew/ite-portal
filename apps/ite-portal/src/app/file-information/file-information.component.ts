@@ -1,15 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { map, Observable } from 'rxjs';
 
 import {
   ExtractSubmissionResponse,
   ExtractSubmissionResponseV2,
 } from '@dbh/provider-extract/data-access';
 
-import {
-  ProviderProfile,
-  ProviderProfileService,
-} from '../provider-profile.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'dbh-file-information',
@@ -17,10 +13,8 @@ import {
   styleUrls: ['./file-information.component.scss'],
 })
 export class FileInformationComponent {
-  providerName$: Observable<string | undefined> =
-    this.providerProfileService.currentProvider$.pipe(
-      map((provider: ProviderProfile | undefined) => provider?.provider_name)
-    );
+  providerName: string = this.authService.providerName;
+
   @Input() submission!: ExtractSubmissionResponseV2 | ExtractSubmissionResponse;
-  constructor(private providerProfileService: ProviderProfileService) {}
+  constructor(private authService: AuthService) {}
 }
