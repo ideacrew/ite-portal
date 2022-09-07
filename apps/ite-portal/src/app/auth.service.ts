@@ -58,7 +58,7 @@ export class AuthService {
       .subscribe({
         complete: () => {
           console.log('Login complete, what next?');
-          void this.router.navigate(['/']);
+          void this.router.navigate(['/submit-extract']);
         },
       });
   }

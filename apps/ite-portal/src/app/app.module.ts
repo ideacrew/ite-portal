@@ -88,12 +88,12 @@ import { AuthGuard } from './auth.guard';
             path: 'provider-profile',
             component: UserProfileComponent,
           },
+          {
+            path: '',
+            redirectTo: 'submit-extract',
+            pathMatch: 'full',
+          },
         ],
-      },
-
-      {
-        path: '**',
-        redirectTo: '',
       },
     ]),
   ],

@@ -1,4 +1,5 @@
 import { getExtractDate } from '../support/app.po';
+import { login } from '../support/login';
 
 describe('ite-portal', () => {
   beforeEach(() => {
@@ -17,7 +18,17 @@ describe('ite-portal', () => {
       },
       { fixture: 'providers.json' }
     );
-    cy.visit('/submit-extract'); // Initial intercept setup
+
+    cy.intercept(
+      {
+        method: 'POST',
+        url: '**/session',
+      },
+      { fixture: 'session.json' }
+    ).as('login');
+    cy.visit('/login'); // Initial intercept setup
+    login();
+    cy.wait('@login');
   });
 
   it('should fill out the entire form with valid data', () => {
