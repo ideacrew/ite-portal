@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard implements CanActivate {
   canActivate(): boolean {
-    if (this.auth.token) {
+    if (this.auth.rawToken) {
       return true;
     } else {
       void this.router.navigate(['/login']);

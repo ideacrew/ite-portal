@@ -24,16 +24,29 @@ export interface TokenObject {
   provider_gateway_identifier: string | null;
   provider_id: string | null;
   email: string;
+  provider_name: string | null;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  token!: string;
+  private token!: string;
 
   get decodedToken(): TokenObject {
     return this.token
       ? jwt_decode<TokenObject>(this.token)
       : ({} as TokenObject);
+  }
+
+  get rawToken(): string {
+    return this.token;
+  }
+
+  get providerGatewayId(): string {
+    return this.decodedToken.provider_gateway_identifier ?? '000';
+  }
+
+  get providerId(): string {
+    return this.decodedToken.provider_id ?? '000';
   }
 
   constructor(
