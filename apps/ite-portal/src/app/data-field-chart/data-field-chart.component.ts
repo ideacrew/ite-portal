@@ -55,9 +55,7 @@ export class DataFieldChartComponent {
       (error) => error.errorType === errorType
     );
 
-    const relativeErrorCount = Math.floor(
-      (errors.length / this.totalDataFieldCount) * 100
-    );
+    const relativeErrorCount = (errors.length / this.totalDataFieldCount) * 100;
 
     return {
       errorType,
@@ -71,6 +69,33 @@ export class DataFieldChartComponent {
       fatal: this.getErrorInformation('Fatal'),
       critical: this.getErrorInformation('Critical'),
       warning: this.getErrorInformation('Warning'),
+    };
+  }
+
+  get roundPercentages() {
+    const { fatal, critical, warning } = this.errorInformation;
+    const valid = this.validRelativeCount;
+    const percents = [
+      fatal.relativeErrorCount,
+      critical.relativeErrorCount,
+      warning.relativeErrorCount,
+      valid,
+    ];
+    let rounds = percents.map((x) => Math.floor(x));
+    let decs = percents.map((x) => x - Math.floor(x));
+    let total = rounds.reduce((a, b) => a + b, 0);
+    while (total < 100) {
+      let i = decs.indexOf(Math.max(...decs));
+      decs[i] = 0;
+      rounds[i] += 1;
+      total += 1;
+    }
+
+    return {
+      fatal: rounds[0],
+      critical: rounds[1],
+      warning: rounds[2],
+      valid: rounds[3],
     };
   }
 
@@ -89,7 +114,7 @@ export class DataFieldChartComponent {
   }
 
   get validRelativeCount(): number {
-    return Math.floor(
+    return (
       (this.dataFieldsWithoutErrors.length / this.totalDataFieldCount) * 100
     );
   }

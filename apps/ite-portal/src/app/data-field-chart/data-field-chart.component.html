@@ -14,7 +14,7 @@
         >Fatal Error
         {{ errorInformation.fatal.totalCountOfFieldsWithError }}</span
       >
-      <span>{{ errorInformation.fatal.relativeErrorCount }}%</span>
+      <span>{{ roundPercentages.fatal }}%</span>
     </div>
     <div class="critical">
       <span class="color-block"></span>
@@ -22,7 +22,7 @@
         >Critical Error
         {{ errorInformation.critical.totalCountOfFieldsWithError }}</span
       >
-      <span>{{ errorInformation.critical.relativeErrorCount }}%</span>
+      <span>{{ roundPercentages.critical }}%</span>
     </div>
     <div class="warning">
       <span class="color-block"></span>
@@ -30,12 +30,12 @@
         >Warning
         {{ errorInformation.warning.totalCountOfFieldsWithError }}</span
       >
-      <span>{{ errorInformation.warning.relativeErrorCount }}%</span>
+      <span>{{ roundPercentages.warning }}%</span>
     </div>
     <div class="valid">
       <span class="color-block"></span>
       <span>Valid {{ dataFieldsWithoutErrors.length }} </span>
-      <span>{{ validRelativeCount }}%</span>
+      <span>{{ roundPercentages.valid }}%</span>
     </div>
   </div>
 </ng-container>
