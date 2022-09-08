@@ -17,8 +17,8 @@ export class RecordCountPipe implements PipeTransform {
       (record) => record.status === typeToCount
     ).length;
 
-    return form === 'absolute'
-      ? recordCount
-      : Math.floor((recordCount / totalRecords) * 100);
+    let percentage = (recordCount / totalRecords) * 100;
+
+    return form === 'absolute' ? recordCount : Math.round(percentage);
   }
 }
