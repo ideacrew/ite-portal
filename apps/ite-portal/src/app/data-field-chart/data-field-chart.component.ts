@@ -81,13 +81,13 @@ export class DataFieldChartComponent {
       warning.relativeErrorCount,
       valid,
     ];
-    let rounds = percents.map((x) => Math.floor(x));
-    let decs = percents.map((x) => x - Math.floor(x));
+    const rounds = percents.map((x) => Math.floor(x));
+    const decs = percents.map((x) => x - Math.floor(x));
     let total = rounds.reduce((a, b) => a + b, 0);
     while (total < 100) {
-      let i = decs.indexOf(Math.max(...decs));
-      decs[i] = 0;
-      rounds[i] += 1;
+      const index = decs.indexOf(Math.max(...decs));
+      decs[index] = 0;
+      rounds[index] += 1;
       total += 1;
     }
 
