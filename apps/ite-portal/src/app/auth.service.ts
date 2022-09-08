@@ -69,7 +69,28 @@ export class AuthService {
     private http: HttpClient,
     private config: ConfigService,
     private router: Router
-  ) {}
+  ) {
+    const tokenFromStorage = this.getJwt();
+    if (tokenFromStorage) {
+      this.token = tokenFromStorage;
+    }
+  }
+
+  clearJwt(): void {
+    localStorage.removeItem('__jwt_authorization_current_token');
+  }
+
+  setJwt(currentToken: string): void {
+    localStorage.setItem('__jwt_authorization_current_token', currentToken);
+  }
+
+  getJwt(): string | null {
+    const currentToken = localStorage.getItem(
+      '__jwt_authorization_current_token'
+    );
+
+    return currentToken;
+  }
 
   login({ email, password }: { email: string; password: string }): void {
     this.http
@@ -82,6 +103,7 @@ export class AuthService {
       .pipe(
         tap((response: TokenResponse) => {
           this.token = response.session.jwt;
+          this.setJwt(response.session.jwt);
         })
       )
       .subscribe({
@@ -95,6 +117,7 @@ export class AuthService {
   logout(): void {
     this.http.delete(`${this.config.baseApiUrl}/session`).subscribe({
       complete: () => {
+        this.clearJwt();
         void this.router.navigate(['/login']);
       },
     });

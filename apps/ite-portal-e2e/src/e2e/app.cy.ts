@@ -1,5 +1,19 @@
 import { getExtractDate } from '../support/app.po';
-import { login } from '../support/login';
+
+const cypressToken = (userType: 'dbh' | 'provider' | 'both'): string => {
+  const exp = Date.now() + 1000 * 60 * 60 * 24 * 7;
+  const email = `${userType}_user@example.com`;
+  const token = JSON.stringify({
+    dbh_user: userType === 'dbh' || userType === 'both',
+    provider: userType === 'provider' || userType === 'both',
+    provider_gateway_identifier: '123',
+    provider_id: 'a1b2c3',
+    email,
+    iss: 'Cypress',
+    exp,
+  });
+  return `cypressToken.${btoa(token)}`;
+};
 
 describe('ite-portal', () => {
   beforeEach(() => {
@@ -13,26 +27,28 @@ describe('ite-portal', () => {
 
     cy.intercept(
       {
+        method: 'POST',
+        url: '**/api/v1/extracts',
+      },
+      {}
+    ).as('submitExtract');
+
+    cy.intercept(
+      {
         method: 'GET',
         url: '**/api/v1/providers',
       },
       { fixture: 'providers.json' }
     );
 
-    cy.intercept(
-      {
-        method: 'POST',
-        url: '**/session',
-      },
-      { fixture: 'session.json' }
-    ).as('login');
-    cy.visit('/login'); // Initial intercept setup
-    login();
-    cy.wait('@login');
+    window.localStorage.setItem(
+      '__jwt_authorization_current_token',
+      cypressToken('provider')
+    );
+    cy.visit('/submit-extract');
   });
 
   it('should fill out the entire form with valid data', () => {
-    // Fill out the form
     const today = new Date().toISOString().slice(0, 10);
     getExtractDate().type(today);
     cy.get('[data-cy="file-upload"]').selectFile('src/fixtures/test.csv');

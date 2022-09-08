@@ -1,6 +1,0 @@
-{
-  "session": {
-    "jwt": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjMxNTk5NjQsImlzcyI6IlJhaWxzSnd0QXV0aCIsImF1dGhfdG9rZW4iOiJvUThENzhOVlk4NzF6TlVGU01LanpvRXIiLCJkYmhfdXNlciI6dHJ1ZSwicHJvdmlkZXIiOmZhbHNlLCJwcm92aWRlcl9nYXRld2F5X2lkZW50aWZpZXIiOm51bGwsInByb3ZpZGVyX2lkIjpudWxsLCJlbWFpbCI6ImRiaF91c2VyQGlkZWFjcmV3LmNvbSJ9.YHYvmp9W_PXEiQiIGsi8dUCbY9fi3nftMdRM35HE9Lk",
-    "email": "'bob@example.com"
-  }
-}
