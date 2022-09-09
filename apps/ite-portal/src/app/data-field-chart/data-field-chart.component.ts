@@ -72,33 +72,6 @@ export class DataFieldChartComponent {
     };
   }
 
-  get roundPercentages() {
-    const { fatal, critical, warning } = this.errorInformation;
-    const valid = this.validRelativeCount;
-    const percents = [
-      fatal.relativeErrorCount,
-      critical.relativeErrorCount,
-      warning.relativeErrorCount,
-      valid,
-    ];
-    const rounds = percents.map((x) => Math.floor(x));
-    const decs = percents.map((x) => x - Math.floor(x));
-    let total = rounds.reduce((a, b) => a + b, 0);
-    while (total < 100) {
-      const index = decs.indexOf(Math.max(...decs));
-      decs[index] = 0;
-      rounds[index] += 1;
-      total += 1;
-    }
-
-    return {
-      fatal: rounds[0],
-      critical: rounds[1],
-      warning: rounds[2],
-      valid: rounds[3],
-    };
-  }
-
   get errorPercentages() {
     const { fatal, critical, warning } = this.errorInformation;
 
