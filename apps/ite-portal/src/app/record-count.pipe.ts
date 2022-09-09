@@ -11,14 +11,14 @@ export class RecordCountPipe implements PipeTransform {
     records: ExtractRecordValidation[],
     typeToCount: 'Pass' | 'Fail',
     form: 'relative' | 'absolute' = 'absolute'
-  ): number {
+  ): number | string {
     const totalRecords = records.length;
     const recordCount = records.filter(
       (record) => record.status === typeToCount
     ).length;
 
-    const percentage = (recordCount / totalRecords) * 100;
+    const percentage = ((recordCount / totalRecords) * 100).toFixed(1);
 
-    return form === 'absolute' ? recordCount : Math.round(percentage);
+    return form === 'absolute' ? recordCount : percentage;
   }
 }
