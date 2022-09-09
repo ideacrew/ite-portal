@@ -31,6 +31,11 @@
           >Previous Submissions</a
         >
       </li>
+      <li *ngIf="isDBHUser">
+        <a routerLink="submission-status" routerLinkActive="active"
+          >Submission Status</a
+        >
+      </li>
     </ul>
   </div>
 </nav>

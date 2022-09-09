@@ -7,6 +7,7 @@ import {
   ExtractSubmission,
   ExtractSubmissionResponse,
   ExtractSubmissionResponseV2,
+  SubmissionStatus,
 } from './models';
 import { convertExtractSubmissionToV2 } from './util';
 
@@ -29,6 +30,12 @@ export class ProviderExtractService {
     return this.http
       .get<ExtractSubmission[]>(`${this.config.baseApiUrl}/api/v1/extracts`)
       .pipe(map((extracts) => extracts.slice(0, 10)));
+  }
+
+  getSubmissionStatus(): Observable<SubmissionStatus[]> {
+    return this.http.get<SubmissionStatus[]>(
+      `${this.config.baseApiUrl}/api/v1/providers/submission_summary`
+    );
   }
 
   getExtractSubmission(id: string): Observable<ExtractSubmissionResponse> {

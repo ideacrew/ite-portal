@@ -29,6 +29,7 @@ import { AuthInterceptor } from './auth-interceptor.service';
 import { PortalComponent } from './portal/portal.component';
 import { AuthGuard } from './auth.guard';
 import { ProviderGuard } from './provider.guard';
+import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ProviderGuard } from './provider.guard';
     DataFieldChartComponent,
     LogInComponent,
     PortalComponent,
+    ProvidersSubmissionStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +91,10 @@ import { ProviderGuard } from './provider.guard';
           {
             path: 'provider-profile',
             component: UserProfileComponent,
+          },
+          {
+            path: 'submission-status',
+            component: ProvidersSubmissionStatusComponent,
           },
           {
             path: '',
