@@ -18,22 +18,21 @@
   </a>
 </header>
 <nav class="nav">
-  <span class="menu-parent">Provider Gateway</span>
-  <ul>
-    <li>
-      <a
-        *ngIf="isProvider"
-        routerLink="submit-extract"
-        routerLinkActive="active"
-        >Submit New Extract</a
-      >
-    </li>
-    <li>
-      <a routerLink="submissions" routerLinkActive="active"
-        >Previous Submissions</a
-      >
-    </li>
-  </ul>
+  <div class="menu-group">
+    <span class="menu-parent">Provider Gateway</span>
+    <ul>
+      <li *ngIf="isProvider">
+        <a routerLink="submit-extract" routerLinkActive="active"
+          >Submit New Extract</a
+        >
+      </li>
+      <li>
+        <a routerLink="submissions" routerLinkActive="active"
+          >Previous Submissions</a
+        >
+      </li>
+    </ul>
+  </div>
 </nav>
 <main>
   <router-outlet></router-outlet>

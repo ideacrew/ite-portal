@@ -45,7 +45,7 @@
 
 .nav {
   grid-area: nav;
-  padding: 0.75rem 1.5rem;
+  padding: 1.25rem 1.5rem;
   background-color: #455561;
 
   ul {
@@ -76,4 +76,8 @@ main {
 
 .menu-parent {
   color: white;
+}
+
+.menu-group + .menu-group {
+  margin-top: 1rem;
 }
