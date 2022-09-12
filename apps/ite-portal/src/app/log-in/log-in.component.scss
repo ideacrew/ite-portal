@@ -2,7 +2,7 @@
   display: grid;
   place-items: center;
   height: 100vh;
-  --open-eye: #612c00;
+  --invalid-color: #a21e1f;
 }
 
 .login-form {
@@ -66,6 +66,6 @@
 }
 
 .error {
-  color: #a21e1f;
+  color: var(--invalid-color);
   margin-bottom: 1rem;
 }
