@@ -1,3 +1,40 @@
-<pre>
-  {{ submissionStatus$ | async | json }}
-</pre>
+<h1>Provider Submission Overview</h1>
+<h2>Reporting Period:</h2>
+
+<div class="input-group">
+  <label for="month">Month</label>
+  <select name="month" id="month">
+    <option value="8">August</option>
+  </select>
+</div>
+<div class="input-group">
+  <label for="year">Year</label>
+  <select name="year" id="year">
+    <option value="2022">2022</option>
+  </select>
+</div>
+
+<h2>Provider Submission Summary</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Provider Name</th>
+      <th>Submission Date</th>
+      <th>Submitted On</th>
+      <th>Total Records</th>
+      <th>Pass</th>
+      <th>Fail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let submission of submissionStatus$ | async">
+      <td>{{ submission.provider_name }}</td>
+
+      <td>{{ submission.status }}</td>
+      <td>{{ submission.submitted_on }}</td>
+      <td>{{ submission.total_records }}</td>
+      <td>{{ submission.pass }}</td>
+      <td>{{ submission.fail }}</td>
+    </tr>
+  </tbody>
+</table>
