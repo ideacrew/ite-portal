@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 
 import { ConfigService } from '@dbh/api-config';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 interface TokenResponse {
   session: SessionObject;
@@ -92,8 +93,14 @@ export class AuthService {
     return currentToken;
   }
 
-  login({ email, password }: { email: string; password: string }): void {
-    this.http
+  login({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }): Observable<unknown> {
+    return this.http
       .post<TokenResponse>(
         // Url to post to
         `${this.config.baseApiUrl}/session`,
@@ -104,14 +111,9 @@ export class AuthService {
         tap((response: TokenResponse) => {
           this.token = response.session.jwt;
           this.setJwt(response.session.jwt);
-        })
-      )
-      .subscribe({
-        complete: () => {
-          console.log('Login complete, what next?');
           void this.router.navigate(['/submissions']);
-        },
-      });
+        })
+      );
   }
 
   logout(): void {

@@ -10,12 +10,12 @@ import { shareReplay } from 'rxjs/operators';
 
 import { passwordDoesNotContainEmail } from '../password-validator';
 import { AuthService } from '../auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface UserLoginForm {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
 }
-
 @Component({
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
@@ -55,7 +55,11 @@ export class LogInComponent {
     if (this.userForm.status === 'VALID') {
       const { email, password } = this.userForm.value;
       if (email && password) {
-        this.authService.login({ email, password });
+        this.authService.login({ email, password }).subscribe({
+          error: (message: HttpErrorResponse) => {
+            this.result.next(String(message.error));
+          },
+        });
       }
     }
   }
