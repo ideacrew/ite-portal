@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { BehaviorSubject, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 import { passwordDoesNotContainEmail } from '../password-validator';
@@ -16,14 +16,6 @@ export interface UserLoginForm {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
 }
-
-interface allErrorResponse {
-  error: ErrorResponse;
-}
-interface ErrorResponse {
-  error: string;
-}
-
 @Component({
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
