@@ -19,7 +19,7 @@ export class ConfigService {
       this.baseApiUrl = `https://ite-api-staging.herokuapp.com`;
       this.environment = 'uat';
     } else {
-      this.baseApiUrl = `http://ite-api.herokuapp.com`;
+      this.baseApiUrl = `http://localhost:4000`;
       this.environment = 'local';
     }
   }

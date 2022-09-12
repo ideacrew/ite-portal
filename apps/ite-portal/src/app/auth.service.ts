@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import jwt_decode from 'jwt-decode';
@@ -93,7 +93,13 @@ export class AuthService {
     return currentToken;
   }
 
-  login({ email, password }: { email: string; password: string }): Observable<unknown> {
+  login({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }): Observable<unknown> {
     return this.http
       .post<TokenResponse>(
         // Url to post to
@@ -107,9 +113,8 @@ export class AuthService {
           this.setJwt(response.session.jwt);
           void this.router.navigate(['/submissions']);
         })
-      )
+      );
   }
-
 
   logout(): void {
     this.http.delete(`${this.config.baseApiUrl}/session`).subscribe({

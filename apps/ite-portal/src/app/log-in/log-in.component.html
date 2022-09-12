@@ -12,20 +12,22 @@
     />
     <label for="email">Password</label>
     <div class="password-input">
-    <input
-      [type]="showPassword ? 'text' : 'password'"
-      name="password"
-      id="password"
-      formControlName="password"
-      data-cy="password"
-    />
-    <button
-      data-cy="show-password"
-      (click)="showPassword = !showPassword"
-      class="toggle-password eye-button {{ showPassword ? 'closed' : 'open' }}"
-    >
-      {{ showPassword ? 'hide password' : 'show password' }}
-    </button>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        name="password"
+        id="password"
+        formControlName="password"
+        data-cy="password"
+      />
+      <button
+        data-cy="show-password"
+        (click)="showPassword = !showPassword"
+        class="toggle-password eye-button {{
+          showPassword ? 'closed' : 'open'
+        }}"
+      >
+        {{ showPassword ? 'hide password' : 'show password' }}
+      </button>
     </div>
   </div>
   <div class="result error">{{ result$ | async }}</div>

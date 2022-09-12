@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 import { passwordDoesNotContainEmail } from '../password-validator';
@@ -15,6 +15,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export interface UserLoginForm {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
+}
+
+interface allErrorResponse {
+  error: ErrorResponse;
+}
+interface ErrorResponse {
+  error: string;
 }
 
 @Component({
@@ -53,14 +60,13 @@ export class LogInComponent {
   }
 
   loginUser(): void {
-    this.result.next(null);
     if (this.userForm.status === 'VALID') {
       const { email, password } = this.userForm.value;
       if (email && password) {
         this.authService.login({ email, password }).subscribe({
-          error: (msg: HttpErrorResponse) => {
-            this.result.next(msg.error.error);
-          }
+          error: (message: HttpErrorResponse) => {
+            this.result.next(String(message.error));
+          },
         });
       }
     }
