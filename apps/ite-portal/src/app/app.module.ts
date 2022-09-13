@@ -30,6 +30,7 @@ import { PortalComponent } from './portal/portal.component';
 import { AuthGuard } from './auth.guard';
 import { ProviderGuard } from './provider.guard';
 import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ProvidersSubmissionStatusComponent } from './providers-submission-statu
     LogInComponent,
     PortalComponent,
     ProvidersSubmissionStatusComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +97,10 @@ import { ProvidersSubmissionStatusComponent } from './providers-submission-statu
           {
             path: 'submission-status',
             component: ProvidersSubmissionStatusComponent,
+          },
+          {
+            path: 'reset-password',
+            component: ResetPasswordComponent,
           },
           {
             path: '',
