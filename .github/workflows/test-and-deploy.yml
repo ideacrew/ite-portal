@@ -6,7 +6,6 @@ on:
       - 'firestore.rules'
       - 'apps/**'
       - 'libs/**'
-      - 'firebase.json'
       - 'package-lock.json'
       - 'package.json'
     branches:
@@ -82,33 +81,6 @@ jobs:
         with:
           name: ite-portal
           path: dist/apps/ite-portal
-  deploy-firebase:
-    environment: gcp-dev
-    needs: [main]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Download artifact
-        id: download-artifact
-        uses: actions/download-artifact@v3
-        continue-on-error: true
-        with:
-          name: ite-portal
-          path: dist/apps/ite-portal
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        if: steps.download-artifact.outcome == 'success'
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}'
-          projectId: dbh-ite
-          target: dbh-ite
-          channelId: live
-      - name: print log
-        uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: firebase-log
-          path: /home/runner/.npm/_logs
   deploy-aws:
     environment: aws-dev
     needs: [main, prep]
