@@ -30,6 +30,7 @@ import { PortalComponent } from './portal/portal.component';
 import { AuthGuard } from './auth.guard';
 import { ProviderGuard } from './provider.guard';
 import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
+import { ValidDataComponent } from './valid-data/valid-data.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ProvidersSubmissionStatusComponent } from './providers-submission-statu
     LogInComponent,
     PortalComponent,
     ProvidersSubmissionStatusComponent,
+    ValidDataComponent,
   ],
   imports: [
     BrowserModule,
