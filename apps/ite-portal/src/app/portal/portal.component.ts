@@ -11,5 +11,11 @@ export class PortalComponent {
   isProvider = this.authService.isProvider;
   isDBHUser = this.authService.isDBHUser;
 
+  get applicationName(): string {
+    return this.isProvider && !this.isDBHUser
+      ? 'Provider Gateway'
+      : 'ITE Portal';
+  }
+
   constructor(private authService: AuthService) {}
 }
