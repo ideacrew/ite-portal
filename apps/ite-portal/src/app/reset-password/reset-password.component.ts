@@ -25,6 +25,8 @@ export class ResetPasswordComponent {
   result$ = this.result.asObservable();
 
   showPassword = false;
+  showPasswordConfirmation = false;
+  showCurrentPassword = false;
   passwordForm!: FormGroup<PasswordResetForm>;
 
   constructor(
@@ -38,25 +40,25 @@ export class ResetPasswordComponent {
         // eslint-disable-next-line @typescript-eslint/unbound-method
         Validators.required,
         Validators.minLength(8),
-        // Validators.pattern(
-        //   '(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^a-zA-Zd ]).+'
-        // ),
+        Validators.pattern(
+          '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9 ]).+'
+        ),
       ]),
       password: this.fb.control('', [
         // eslint-disable-next-line @typescript-eslint/unbound-method
         Validators.required,
         Validators.minLength(8),
-        // Validators.pattern(
-        //   '(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^a-zA-Zd ]).+'
-        // ),
+        Validators.pattern(
+          '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9 ]).+'
+        ),
       ]),
       password_confirmation: this.fb.control('', [
         // eslint-disable-next-line @typescript-eslint/unbound-method
         Validators.required,
         Validators.minLength(8),
-        // Validators.pattern(
-        //   '(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^a-zA-Zd ]).+'
-        // ),
+        Validators.pattern(
+          '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9 ]).+'
+        ),
       ]),
     });
   }
@@ -78,5 +80,22 @@ export class ResetPasswordComponent {
           });
       }
     }
+  }
+
+  // These are helper methods to get at the FormControl object in the template
+  get current_password(): FormControl<string | null> {
+    return this.passwordForm.get('current_password') as FormControl<
+      string | null
+    >;
+  }
+
+  get password(): FormControl<string | null> {
+    return this.passwordForm.get('password') as FormControl<string | null>;
+  }
+
+  get password_confirmation(): FormControl<string | null> {
+    return this.passwordForm.get('password_confirmation') as FormControl<
+      string | null
+    >;
   }
 }

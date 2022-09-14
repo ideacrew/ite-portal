@@ -40,9 +40,9 @@ export class LogInComponent {
           // eslint-disable-next-line @typescript-eslint/unbound-method
           Validators.required,
           Validators.minLength(8),
-          // Validators.pattern(
-          //   '(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^a-zA-Zd ]).+'
-          // ),
+          Validators.pattern(
+            '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9 ]).+'
+          ),
         ]),
       },
       {
