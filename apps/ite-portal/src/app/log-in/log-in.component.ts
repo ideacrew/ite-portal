@@ -10,7 +10,6 @@ import { shareReplay } from 'rxjs/operators';
 
 import { passwordDoesNotContainEmail } from '../password-validator';
 import { AuthService } from '../auth.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 export interface UserLoginForm {
   email: FormControl<string | null>;
@@ -56,8 +55,10 @@ export class LogInComponent {
       const { email, password } = this.userForm.value;
       if (email && password) {
         this.authService.login({ email, password }).subscribe({
-          error: (message: HttpErrorResponse) => {
-            this.result.next(String(message.error));
+          error: () => {
+            this.result.next(
+              'Invalid credentials, please contact your administrator if you need help.'
+            );
           },
         });
       }
