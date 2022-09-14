@@ -74,19 +74,19 @@ import { ValidDataComponent } from './valid-data/valid-data.component';
         canActivate: [AuthGuard],
         children: [
           {
-            path: 'submissions',
+            path: 'provider-gateway/submissions',
             component: SubmissionsListComponent,
           },
           {
-            path: 'submissions/:id/records/:recordId',
+            path: 'provider-gateway/submissions/:id/records/:recordId',
             component: RecordDetailComponent,
           },
           {
-            path: 'submissions/:id',
+            path: 'provider-gateway/submissions/:id',
             component: SubmissionDetailComponent,
           },
           {
-            path: 'submit-extract',
+            path: 'provider-gateway/submit-extract',
             component: SubmitExtractComponent,
             canActivate: [ProviderGuard],
           },
@@ -95,12 +95,12 @@ import { ValidDataComponent } from './valid-data/valid-data.component';
             component: UserProfileComponent,
           },
           {
-            path: 'submission-status',
+            path: 'provider-gateway/submission-status',
             component: ProvidersSubmissionStatusComponent,
           },
           {
             path: '',
-            redirectTo: 'submissions',
+            redirectTo: 'provider-gateway',
             pathMatch: 'full',
           },
         ],

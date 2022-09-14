@@ -45,7 +45,7 @@ describe('ite-portal', () => {
       '__jwt_authorization_current_token',
       cypressToken('provider')
     );
-    cy.visit('/submit-extract');
+    cy.visit('/provider-gateway/submit-extract');
   });
 
   it('should fill out the entire form with valid data', () => {

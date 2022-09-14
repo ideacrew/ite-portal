@@ -111,7 +111,7 @@ export class AuthService {
         tap((response: TokenResponse) => {
           this.token = response.session.jwt;
           this.setJwt(response.session.jwt);
-          void this.router.navigate(['/submissions']);
+          void this.router.navigate(['/provider-gateway/submissions']);
         })
       );
   }

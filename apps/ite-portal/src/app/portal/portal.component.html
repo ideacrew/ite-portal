@@ -5,17 +5,21 @@
       <div class="menu-parent">Provider Gateway</div>
       <ul>
         <li *ngIf="isProvider">
-          <a routerLink="submit-extract" routerLinkActive="active"
+          <a
+            routerLink="provider-gateway/submit-extract"
+            routerLinkActive="active"
             >Submit New File</a
           >
         </li>
         <li>
-          <a routerLink="submissions" routerLinkActive="active"
+          <a routerLink="provider-gateway/submissions" routerLinkActive="active"
             >Submission History</a
           >
         </li>
         <li *ngIf="isDBHUser">
-          <a routerLink="submission-status" routerLinkActive="active"
+          <a
+            routerLink="provider-gateway/submission-status"
+            routerLinkActive="active"
             >Submission Status</a
           >
         </li>
