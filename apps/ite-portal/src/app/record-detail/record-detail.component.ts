@@ -13,7 +13,6 @@ import {
   shareReplay,
   switchMap,
 } from 'rxjs';
-import { ProviderProfileService } from '../provider-profile.service';
 
 interface VM {
   submission: ExtractSubmissionResponseV2;
@@ -56,7 +55,6 @@ export class RecordDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private providerExtractService: ProviderExtractService,
-    private providerProfile: ProviderProfileService
+    private providerExtractService: ProviderExtractService
   ) {}
 }

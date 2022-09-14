@@ -31,6 +31,7 @@ import { AuthGuard } from './auth.guard';
 import { ProviderGuard } from './provider.guard';
 import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ValidDataComponent } from './valid-data/valid-data.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     PortalComponent,
     ProvidersSubmissionStatusComponent,
     ResetPasswordComponent,
+    ValidDataComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,19 +76,19 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
         canActivate: [AuthGuard],
         children: [
           {
-            path: 'submissions',
+            path: 'provider-gateway/submissions',
             component: SubmissionsListComponent,
           },
           {
-            path: 'submissions/:id/records/:recordId',
+            path: 'provider-gateway/submissions/:id/records/:recordId',
             component: RecordDetailComponent,
           },
           {
-            path: 'submissions/:id',
+            path: 'provider-gateway/submissions/:id',
             component: SubmissionDetailComponent,
           },
           {
-            path: 'submit-extract',
+            path: 'provider-gateway/submit-extract',
             component: SubmitExtractComponent,
             canActivate: [ProviderGuard],
           },
@@ -95,7 +97,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
             component: UserProfileComponent,
           },
           {
-            path: 'submission-status',
+            path: 'provider-gateway/submission-status',
             component: ProvidersSubmissionStatusComponent,
           },
           {
@@ -104,7 +106,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
           },
           {
             path: '',
-            redirectTo: 'submissions',
+            redirectTo: 'provider-gateway',
             pathMatch: 'full',
           },
         ],
