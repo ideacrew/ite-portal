@@ -31,6 +31,8 @@ import { AuthGuard } from './auth.guard';
 import { ProviderGuard } from './provider.guard';
 import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
 import { ValidDataComponent } from './valid-data/valid-data.component';
+import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
+import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { ValidDataComponent } from './valid-data/valid-data.component';
     PortalComponent,
     ProvidersSubmissionStatusComponent,
     ValidDataComponent,
+    ProviderGatewayComponent,
+    ValidationBreakdownComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +101,10 @@ import { ValidDataComponent } from './valid-data/valid-data.component';
           {
             path: 'provider-gateway/submission-status',
             component: ProvidersSubmissionStatusComponent,
+          },
+          {
+            path: 'provider-gateway',
+            component: ProviderGatewayComponent,
           },
           {
             path: '',

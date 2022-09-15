@@ -28,13 +28,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let submission of submissionStatus$ | async">
-      <td>{{ submission.provider_name }}</td>
-
+      <td>{{ submission.providerName }}</td>
       <td>{{ submission.status }}</td>
-      <td>{{ submission.submitted_on }}</td>
-      <td>{{ submission.total_records }}</td>
+      <!-- <td>{{ submission.submittedOn }}</td>
+      <td>{{ submission.totalRecords }}</td>
       <td>{{ submission.pass }}</td>
-      <td>{{ submission.fail }}</td>
+      <td>{{ submission.fail ?? 'N/A' }}</td> -->
     </tr>
   </tbody>
 </table>

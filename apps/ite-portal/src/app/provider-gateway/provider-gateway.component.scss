@@ -1,0 +1,22 @@
+:host {
+  --warning-color: #e5a900;
+  --error-color: #a21e1f;
+  --font-color: #323130;
+}
+
+.status-label {
+  border-radius: 1.5rem;
+  padding: 0.25rem 1rem;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.error {
+  background-color: var(--error-color);
+  color: #fff;
+}
+
+.warning {
+  background-color: var(--warning-color);
+}

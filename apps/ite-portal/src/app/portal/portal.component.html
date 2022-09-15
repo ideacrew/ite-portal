@@ -2,7 +2,12 @@
   <span class="application-title">{{ applicationName }}</span>
   <nav class="nav">
     <div class="menu-group">
-      <div class="menu-parent">Provider Gateway</div>
+      <a
+        class="menu-parent"
+        routerLink="provider-gateway"
+        routerLinkActive="active"
+        >Provider Gateway</a
+      >
       <ul>
         <li *ngIf="isProvider">
           <a

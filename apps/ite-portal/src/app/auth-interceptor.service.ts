@@ -2,8 +2,10 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs';
 
 import { AuthService } from './auth.service';
 
@@ -22,9 +24,19 @@ export class AuthInterceptor implements HttpInterceptor {
       const authRequest = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${authToken}`),
       });
-      return next.handle(authRequest);
-    } else {
-      return next.handle(request);
+      return next.handle(authRequest).pipe(
+        // eslint-disable-next-line @typescript-eslint/require-await
+        catchError(async (error: HttpErrorResponse) => {
+          if (error.status === 401 || error.status === 403) {
+            console.log({ error });
+            await this.auth.clearCredentialsAndGoToLogin();
+          }
+
+          throw new Error('Not authorized');
+        })
+      );
     }
+
+    return next.handle(request);
   }
 }

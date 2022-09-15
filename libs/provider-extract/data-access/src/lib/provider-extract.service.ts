@@ -8,8 +8,10 @@ import {
   ExtractSubmissionResponse,
   ExtractSubmissionResponseV2,
   SubmissionStatus,
+  SubmissionSummary,
 } from './models';
 import { convertExtractSubmissionToV2 } from './util';
+import { convertSummaryToStatus } from './util/convert-summary-to-status';
 
 @Injectable({
   providedIn: 'root',
@@ -33,9 +35,15 @@ export class ProviderExtractService {
   }
 
   getSubmissionStatus(): Observable<SubmissionStatus[]> {
-    return this.http.get<SubmissionStatus[]>(
-      `${this.config.baseApiUrl}/api/v1/providers/submission_summary`
-    );
+    return this.http
+      .get<SubmissionSummary[]>(
+        `${this.config.baseApiUrl}/api/v1/providers/submission_summary`
+      )
+      .pipe(
+        map((summary) =>
+          summary.map((status) => convertSummaryToStatus(status))
+        )
+      );
   }
 
   getExtractSubmission(id: string): Observable<ExtractSubmissionResponse> {

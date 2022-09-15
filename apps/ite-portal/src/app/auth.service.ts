@@ -124,4 +124,11 @@ export class AuthService {
       },
     });
   }
+
+  async clearCredentialsAndGoToLogin(): Promise<void> {
+    // const deleteCall$ = this.http.delete(`${this.config.baseApiUrl}/session`);
+    // await lastValueFrom(deleteCall$);
+    this.clearJwt();
+    await this.router.navigate(['/login']);
+  }
 }

@@ -1,0 +1,19 @@
+<h2>Validation Breakdown</h2>
+<h3>Records Submitted: {{ totalRecords }}</h3>
+<div
+  class="chart"
+  [style.--pass]="pass + '%'"
+  [style.--fail]="fail + '%'"
+></div>
+<div class="legend">
+  <div class="pass">
+    <span class="color-block"></span>
+    <span>Pass {{ pass }}</span>
+    <span>{{ passPercentage }}%</span>
+  </div>
+  <div class="fail">
+    <span class="color-block"></span>
+    <span>Fail {{ fail }}</span>
+    <span>{{ failPercentage }}%</span>
+  </div>
+</div>
