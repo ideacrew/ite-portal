@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
-import { ProviderExtractService } from '@dbh/provider-extract/data-access';
+import {
+  ProviderExtractService,
+  SubmissionStatus,
+} from '@dbh/provider-extract/data-access';
 
 @Component({
   templateUrl: './providers-submission-status.component.html',
@@ -19,5 +22,23 @@ export class ProvidersSubmissionStatusComponent {
     const year = today.getFullYear();
 
     return `${lastMonthsName}, ${year}`;
+  }
+
+  serviceType(submission: SubmissionStatus): string {
+    const { mh, sud } = submission;
+
+    if (mh && sud) {
+      return 'MH & SUD';
+    }
+
+    if (mh && !sud) {
+      return 'MH';
+    }
+
+    if (!mh && sud) {
+      return 'SUD';
+    }
+
+    return '';
   }
 }

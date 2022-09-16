@@ -19,6 +19,7 @@
   <thead>
     <tr>
       <th>Provider Name</th>
+      <th>Service Type</th>
       <th>Submission Date</th>
       <th>Submitted On</th>
       <th>Total Records</th>
@@ -29,6 +30,9 @@
   <tbody>
     <tr *ngFor="let submission of submissionStatus$ | async">
       <td>{{ submission.providerName }}</td>
+      <td class="service-type">
+        {{ serviceType(submission) }}
+      </td>
       <td>{{ submission.status }}</td>
       <td>
         {{
