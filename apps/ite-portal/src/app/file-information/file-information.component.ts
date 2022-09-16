@@ -10,4 +10,5 @@ export class FileInformationComponent {
   @Input() fileName!: string | null;
   @Input() reportingPeriod!: string;
   @Input() submissionDate!: string;
+  @Input() submissionId: string | undefined;
 }

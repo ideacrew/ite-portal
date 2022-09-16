@@ -7,7 +7,15 @@
   <span>{{ reportingPeriod }}</span>
 </div>
 <div class="file-info">
-  <span>File Name: </span> <span>{{ fileName }} </span>
+  <span>File Name: </span>
+  <a
+    *ngIf="submissionId; else plainText"
+    [routerLink]="['/provider-gateway/submissions', submissionId]"
+    >{{ fileName }}
+  </a>
+  <ng-template #plainText>
+    <span>{{ fileName }}</span>
+  </ng-template>
 </div>
 <div class="file-info">
   <span>Submission Date: </span>

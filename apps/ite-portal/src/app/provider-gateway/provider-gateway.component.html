@@ -37,6 +37,7 @@
         [fileName]="submissions[0].fileName"
         [reportingPeriod]="thisReportingPeriod"
         [submissionDate]="submissions[0].submittedOn"
+        [submissionId]="submissions[0].extractId ?? ''"
       ></dbh-file-information>
       <dbh-validation-breakdown
         [totalRecords]="submissions[0].totalRecords ?? 0"
