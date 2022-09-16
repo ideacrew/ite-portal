@@ -4,6 +4,10 @@
   left: 1rem;
 }
 
+h2 {
+  margin-bottom: 0.5rem;
+}
+
 .debug-container {
   display: flex;
   gap: 2rem;
@@ -27,6 +31,7 @@ fieldset {
 .input-group {
   label {
     display: block;
+    margin-bottom: 0.25rem;
   }
 }
 

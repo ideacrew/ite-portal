@@ -1,6 +1,6 @@
-<h1>Submit New BHSD (Behavioral Health Supplemental Data) File</h1>
+<h1>Submit New Behavioral Health Supplemental Data (BHSD) File</h1>
 <form [formGroup]="extractForm">
-  <h3>Select Coverage Period</h3>
+  <h2>Select BHSD Reporting Period</h2>
   <p *ngIf="extractForm.errors && extractForm.errors['coveragePeriodTooLong']">
     The coverage period must be 12 months or shorter.
   </p>
@@ -9,7 +9,7 @@
   </p>
   <div class="coverage-period-selection">
     <div class="input-group">
-      <label for="coverage-start">Coverage Start Date</label>
+      <label for="coverage-start">Start Date</label>
       <input
         type="date"
         name="coverage-start"
@@ -36,7 +36,7 @@
       </ng-container>
     </div>
     <div class="input-group">
-      <label for="coverage-end">Coverage End Date</label>
+      <label for="coverage-end">End Date</label>
       <input
         type="date"
         name="coverage-end"
@@ -56,9 +56,9 @@
     </div>
   </div>
 
-  <h3>Data Extract Date</h3>
+  <h2>BHSD Extract Date</h2>
   <div class="input-group">
-    <label for="extract-date">Date Data was Extracted</label>
+    <label for="extract-date">Date BHSD was Extracted from EHR System</label>
     <input
       type="date"
       name="extract-date"
@@ -87,7 +87,7 @@
     </p>
   </div>
   <div class="input-group">
-    <label for="file-upload"><h3>Upload Extract</h3></label>
+    <label for="file-upload"><h2>Choose BHSD CSV File</h2></label>
     <input
       #fileInput
       type="file"
