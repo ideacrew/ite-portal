@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, shareReplay, tap } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
+import { Observable } from 'rxjs';
 
 export interface ProviderProfile {
   _id: {
@@ -55,20 +55,11 @@ export interface Email {
   providedIn: 'root',
 })
 export class ProviderProfileService {
-  currentProvider = new BehaviorSubject<ProviderProfile | undefined>(undefined);
-  currentProvider$ = this.currentProvider.asObservable().pipe(shareReplay(1));
-
   constructor(private config: ConfigService, private http: HttpClient) {}
 
-  getProviderProfile(id: string): void {
-    this.http
-      .get<ProviderProfile[]>(
-        `${this.config.baseApiUrl}/api/v1/providers/${id}`
-      )
-      .pipe(
-        map((providers: ProviderProfile[]) => providers[0]),
-        tap((provider: ProviderProfile) => this.currentProvider.next(provider))
-      )
-      .subscribe();
+  getProviderProfile(id: string): Observable<ProviderProfile> {
+    return this.http.get<ProviderProfile>(
+      `${this.config.baseApiUrl}/api/v1/providers/${id}`
+    );
   }
 }

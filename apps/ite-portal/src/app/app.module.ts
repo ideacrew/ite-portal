@@ -34,6 +34,7 @@ import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
 import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
 import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
+import { ProviderProfileComponent } from './provider-profile/provider-profile.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
     ProviderGatewayComponent,
     ValidationBreakdownComponent,
     SubmissionStatusChartComponent,
+    ProviderProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +97,10 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
             path: 'provider-gateway/submit-extract',
             component: SubmitExtractComponent,
             canActivate: [ProviderGuard],
+          },
+          {
+            path: 'provider-gateway/provider-profile/:providerId',
+            component: ProviderProfileComponent,
           },
           {
             path: 'provider-profile',
