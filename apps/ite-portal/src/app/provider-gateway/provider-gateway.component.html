@@ -1,24 +1,29 @@
 <h1>Provider Gateway</h1>
 <h2>Reporting Period: {{ thisReportingPeriod }}</h2>
-<ng-container *ngIf="submissionStatus$ | async as submission">
+<ng-container *ngIf="submissionStatus$ | async as submissions">
   <!-- DBH User -->
+  <ng-container *ngIf="submissions.length > 1">
+    <dbh-submission-status-chart
+      [submissions]="submissions"
+    ></dbh-submission-status-chart>
+  </ng-container>
 
   <!-- Provider User -->
-  <ng-container *ngIf="submission.length === 1">
+  <ng-container *ngIf="submissions.length === 1">
     <div
       class="status-label"
       [ngClass]="{
-        warning: submission[0].status === 'Expecting Submission',
-        error: submission[0].status === 'Need Resubmission'
+        warning: submissions[0].status === 'Expecting Submission',
+        error: submissions[0].status === 'Need Resubmission'
       }"
     >
-      {{ submission[0].status }}
+      {{ submissions[0].status }}
     </div>
 
-    <ng-container *ngIf="submission[0].status !== 'Expecting Submission'">
+    <ng-container *ngIf="submissions[0].status !== 'Expecting Submission'">
       <!-- <dbh-file-information></dbh-file-information> -->
       <dbh-validation-breakdown
-        [submission]="submission[0]"
+        [submission]="submissions[0]"
       ></dbh-validation-breakdown>
     </ng-container>
   </ng-container>

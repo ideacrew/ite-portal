@@ -33,6 +33,7 @@ import { ProvidersSubmissionStatusComponent } from './providers-submission-statu
 import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
 import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
+import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ValidationBreakdownComponent } from './validation-breakdown/validation-
     ValidDataComponent,
     ProviderGatewayComponent,
     ValidationBreakdownComponent,
+    SubmissionStatusChartComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,30 @@
+<h3>Submissions from {{ countOfSubmissions }} Providers</h3>
+<div
+  class="chart"
+  [style.--needsResubmission]="needsResubmissionPercentage + '%'"
+  [style.--expectingSubmission]="expectingSubmissionPercentage + '%'"
+  [style.--pastDue]="pastDuePercentage + '%'"
+  [style.--current]="currentPercentage + '%'"
+></div>
+<div class="legend">
+  <div *ngIf="countOfNeedsResubmission > 0" class="needs-resubmission">
+    <span class="color-block"></span>
+    <span>Needs Resubmission {{ countOfNeedsResubmission }}</span>
+    <span>{{ needsResubmissionPercentage }}%</span>
+  </div>
+  <div *ngIf="countOfExpectingSubmission > 0" class="expecting-submission">
+    <span class="color-block"></span>
+    <span>Expecting Submission {{ countOfExpectingSubmission }}</span>
+    <span>{{ expectingSubmissionPercentage }}%</span>
+  </div>
+  <div *ngIf="countOfPastDue > 0" class="past-due">
+    <span class="color-block"></span>
+    <span>Past Due {{ countOfPastDue }}</span>
+    <span>{{ pastDuePercentage }}%</span>
+  </div>
+  <div class="current">
+    <span class="color-block"></span>
+    <span>Current {{ countOfCurrent }}</span>
+    <span>{{ currentPercentage }}%</span>
+  </div>
+</div>

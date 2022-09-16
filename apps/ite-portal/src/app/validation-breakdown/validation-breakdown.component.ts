@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ExistingSubmission } from '@dbh/provider-extract/data-access';
+import { SubmissionStatus } from '@dbh/provider-extract/data-access';
 
 @Component({
   selector: 'dbh-validation-breakdown',
@@ -7,18 +7,18 @@ import { ExistingSubmission } from '@dbh/provider-extract/data-access';
   styleUrls: ['./validation-breakdown.component.scss'],
 })
 export class ValidationBreakdownComponent {
-  @Input() submission!: ExistingSubmission;
+  @Input() submission!: SubmissionStatus;
 
   get totalRecords(): number {
-    return this.submission.totalRecords;
+    return this.submission.totalRecords ?? 0;
   }
 
   get pass(): number {
-    return this.submission.pass;
+    return this.submission.pass ?? 0;
   }
 
   get fail(): number {
-    return this.submission.fail;
+    return this.submission.fail ?? 0;
   }
 
   get passPercentage(): number {

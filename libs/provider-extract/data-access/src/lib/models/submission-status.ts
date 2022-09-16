@@ -13,24 +13,15 @@ export interface SubmissionSummary {
   extract_id: { $oid: string };
 }
 
-interface BaseSubmissionStatus {
+export interface SubmissionStatus {
   providerName: string;
   mh: boolean;
   sud: boolean;
+  status: 'Expecting Submission' | 'Need Resubmission' | 'Current' | 'Past Due';
+  submittedOn?: string; // iso 8601 date
+  fileName?: string;
+  totalRecords?: number;
+  pass?: number;
+  fail?: number;
+  extractId?: string;
 }
-
-export interface ExpectingSubmission extends BaseSubmissionStatus {
-  status: 'Expecting Submission';
-}
-
-export interface ExistingSubmission extends BaseSubmissionStatus {
-  status: 'Need Resubmission' | 'Current' | 'Past Due';
-  submittedOn: string; // iso 8601 date
-  fileName: string;
-  totalRecords: number;
-  pass: number;
-  fail: number;
-  extractId: string;
-}
-
-export type SubmissionStatus = ExpectingSubmission | ExistingSubmission;

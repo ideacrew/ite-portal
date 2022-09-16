@@ -1,9 +1,4 @@
-import {
-  ExistingSubmission,
-  ExpectingSubmission,
-  SubmissionStatus,
-  SubmissionSummary,
-} from '../models';
+import { SubmissionStatus, SubmissionSummary } from '../models';
 
 export const convertSummaryToStatus = (
   summary: SubmissionSummary
@@ -21,29 +16,18 @@ export const convertSummaryToStatus = (
     extract_id: extractId,
   } = summary;
 
-  if (status === 'Expecting Submission') {
-    const expectingSubmission: ExpectingSubmission = {
-      status,
-      providerName,
-      mh,
-      sud,
-    };
+  const submissionStatus: SubmissionStatus = {
+    status,
+    providerName,
+    mh,
+    sud,
+    fileName: fileName === 'N/A' ? undefined : fileName,
+    submittedOn: submittedOn === 'N/A' ? undefined : submittedOn,
+    totalRecords: totalRecords === 'N/A' ? undefined : Number(totalRecords),
+    pass: pass === 'N/A' ? undefined : Number(pass),
+    fail: fail === 'N/A' ? undefined : Number(fail),
+    extractId: extractId.$oid === 'N/A' ? undefined : extractId.$oid,
+  };
 
-    return expectingSubmission;
-  } else {
-    const existingSubmission: ExistingSubmission = {
-      status,
-      providerName,
-      mh,
-      sud,
-      submittedOn,
-      fileName,
-      totalRecords: Number(totalRecords),
-      pass: Number(pass),
-      fail: Number(fail),
-      extractId: extractId.$oid,
-    };
-
-    return existingSubmission;
-  }
+  return submissionStatus;
 };
