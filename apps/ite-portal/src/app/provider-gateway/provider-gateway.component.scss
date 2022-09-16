@@ -1,6 +1,7 @@
 :host {
   --warning-color: #e5a900;
   --error-color: #a21e1f;
+  --accepted-color: #027314;
   --font-color: #323130;
 }
 
@@ -19,4 +20,13 @@
 
 .warning {
   background-color: var(--warning-color);
+}
+
+.accepted {
+  background-color: var(--accepted-color);
+  color: #fff;
+}
+
+.action-links {
+  margin-top: 2rem;
 }

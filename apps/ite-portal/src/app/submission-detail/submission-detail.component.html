@@ -5,10 +5,15 @@
 </pre> -->
 
 <ng-container *ngIf="submission$ | async as submission">
-  <dbh-file-information [submission]="submission"></dbh-file-information>
+  <dbh-file-information
+    [providerName]="submission.provider_name"
+    [fileName]="submission.file_name"
+    reportingPeriod="August, 2022"
+    [submissionDate]="submission.created_at"
+  ></dbh-file-information>
 
   <div class="summary">
-    <h2>Validation Breakdown</h2>
+    <!-- <h2>Validation Breakdown</h2>
     <h3>Records Submitted: {{ submission.records.length }}</h3>
     <div
       class="chart"
@@ -30,7 +35,12 @@
         <span>Fail {{ submission.records | recordCount: 'Fail' }}</span>
         <span>{{ submission.records | recordCount: 'Fail':'relative' }}%</span>
       </div>
-    </div>
+    </div> -->
+    <dbh-validation-breakdown
+      [totalRecords]="submission.records.length"
+      [pass]="submission.records | recordCount: 'Pass'"
+      [fail]="submission.records | recordCount: 'Fail'"
+    ></dbh-validation-breakdown>
     <details class="definitions">
       <summary>Definitions</summary>
       <p>Pass: Records with (a) warning(s) only or no errors.</p>

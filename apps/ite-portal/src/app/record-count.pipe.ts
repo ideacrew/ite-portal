@@ -11,7 +11,7 @@ export class RecordCountPipe implements PipeTransform {
     records: ExtractRecordValidation[],
     typeToCount: 'Pass' | 'Fail',
     form: 'relative' | 'absolute' = 'absolute'
-  ): number | string {
+  ): number {
     const totalRecords = records.length;
     const recordCount = records.filter(
       (record) => record.status === typeToCount
