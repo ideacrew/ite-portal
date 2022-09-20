@@ -24,4 +24,22 @@ export class ProviderProfileComponent {
     private providerProfileService: ProviderProfileService,
     private route: ActivatedRoute
   ) {}
+
+  serviceType(profile: ProviderProfile): string {
+    const { mh, sud } = profile;
+
+    if (mh && sud) {
+      return 'MH & SUD';
+    }
+
+    if (mh && !sud) {
+      return 'MH';
+    }
+
+    if (!mh && sud) {
+      return 'SUD';
+    }
+
+    return '';
+  }
 }

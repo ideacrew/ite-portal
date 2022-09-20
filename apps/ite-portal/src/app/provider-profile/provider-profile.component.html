@@ -1,1 +1,25 @@
-<p>provider-profile works!</p>
+<h1>Provider Profile</h1>
+
+<ng-container *ngIf="profile$ | async as profile">
+  <h2>{{ profile.provider_name }} ({{ serviceType(profile) }})</h2>
+  <p><strong>NPI:</strong> {{ profile.npi }}</p>
+  <h3>Contact Info</h3>
+  <div *ngFor="let location of profile.office_locations">
+    <div>
+      <strong>Address Line 1:</strong> {{ location.address.address_line1 }}
+    </div>
+    <div *ngIf="location.address.address_line2">
+      <strong>Address Line 2:</strong> {{ location.address.address_line2 }}
+    </div>
+    <div>
+      <strong>City, State, Zip:</strong> {{ location.address.city }},
+      {{ location.address.state }} {{ location.address.zip }}
+    </div>
+    <div *ngFor="let phone of location.phones">
+      <strong>Phone:</strong> {{ phone.full_phone_number }}
+    </div>
+    <div *ngFor="let email of location.emails">
+      <strong>Email:</strong> {{ email.address }}
+    </div>
+  </div>
+</ng-container>
