@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SubmissionStatus } from '@dbh/provider-extract/data-access';
+import { SubmissionStatus } from '@dbh/bhsd/data-access';
 
 @Component({
   selector: 'dbh-submission-status-chart',

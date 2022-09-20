@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {
-  ExtractRecordField,
-  ValidationCategory,
-} from '@dbh/provider-extract/data-access';
+import { ExtractRecordField, ValidationCategory } from '@dbh/bhsd/data-access';
 
 export interface CategoryWithCount {
   category: ValidationCategory;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProviderExtractService } from '@dbh/provider-extract/data-access';
+import { BHSDService } from '@dbh/bhsd/data-access';
 
 @Component({
   templateUrl: './provider-gateway.component.html',
@@ -19,5 +19,5 @@ export class ProviderGatewayComponent {
     return `${lastMonthsName}, ${year}`;
   }
 
-  constructor(private providerService: ProviderExtractService) {}
+  constructor(private providerService: BHSDService) {}
 }

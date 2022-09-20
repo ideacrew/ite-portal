@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/provider-extract/data-access/src",
+  "sourceRoot": "libs/bhsd/data-access/src",
   "prefix": "dbh",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/provider-extract/data-access"],
+      "outputs": ["coverage/libs/bhsd/data-access"],
       "options": {
-        "jestConfig": "libs/provider-extract/data-access/jest.config.ts",
+        "jestConfig": "libs/bhsd/data-access/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,8 +15,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/provider-extract/data-access/**/*.ts",
-          "libs/provider-extract/data-access/**/*.html"
+          "libs/bhsd/data-access/**/*.ts",
+          "libs/bhsd/data-access/**/*.html"
         ]
       }
     }

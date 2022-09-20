@@ -3,10 +3,10 @@
   "version": 2,
   "projects": {
     "api-config": "libs/api-config",
+    "bhsd-data-access": "libs/bhsd/data-access",
+    "bhsd-util": "libs/bhsd/util",
     "ite-portal": "apps/ite-portal",
     "ite-portal-e2e": "apps/ite-portal-e2e",
-    "provider-extract-data-access": "libs/provider-extract/data-access",
-    "provider-extract-util": "libs/provider-extract/util",
     "provider-gateway": "apps/provider-gateway",
     "provider-gateway-e2e": "apps/provider-gateway-e2e"
   }

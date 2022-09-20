@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DataAccessModule } from '@dbh/provider-extract/data-access';
+import { DataAccessModule } from '@dbh/bhsd/data-access';
 
 import { AppComponent } from './app.component';
 import { SubmissionsListComponent } from './submissions-list/submissions-list.component';

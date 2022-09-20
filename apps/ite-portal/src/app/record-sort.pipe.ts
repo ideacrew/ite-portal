@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-nested-ternary */
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ExtractRecordValidationV2 } from '@dbh/provider-extract/data-access';
+import { ExtractRecordValidationV2 } from '@dbh/bhsd/data-access';
 
 @Pipe({
   name: 'recordSort',

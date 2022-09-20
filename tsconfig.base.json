@@ -16,10 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@dbh/api-config": ["libs/api-config/src/index.ts"],
-      "@dbh/provider-extract/data-access": [
-        "libs/provider-extract/data-access/src/index.ts"
-      ],
-      "@dbh/provider-extract/util": ["libs/provider-extract/util/src/index.ts"]
+      "@dbh/bhsd/data-access": ["libs/bhsd/data-access/src/index.ts"],
+      "@dbh/bhsd/util": ["libs/bhsd/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -17,8 +17,7 @@ import { BehaviorSubject, EMPTY, of, Subject } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { lastDayOfMonth } from 'date-fns';
 
-import { ProviderExtractService } from '@dbh/provider-extract/data-access';
-import { ExtractRecordData } from '@dbh/provider-extract/data-access';
+import { BHSDService, ExtractRecordData } from '@dbh/bhsd/data-access';
 
 import {
   dateNotInFuture,
@@ -71,7 +70,7 @@ export class SubmitExtractComponent {
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private providerExtractService: ProviderExtractService,
+    private bhsdService: BHSDService,
     private authService: AuthService
   ) {
     this.extractForm = this.fb.group(
@@ -112,7 +111,7 @@ export class SubmitExtractComponent {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
       this.result.next(null);
-      this.providerExtractService
+      this.bhsdService
         .sendData(this.extractForm.value)
         .pipe(
           catchError((error: unknown) => {

@@ -5,8 +5,8 @@ import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 import {
   convertExtractSubmissionToV2,
   ExtractSubmissionResponseV2,
-  ProviderExtractService,
-} from '@dbh/provider-extract/data-access';
+  BHSDService,
+} from '@dbh/bhsd/data-access';
 
 @Component({
   selector: 'dbh-submission-detail',
@@ -20,7 +20,7 @@ export class SubmissionDetailComponent {
     filter((parameters: ParamMap) => parameters.has('id')),
     map((parameters: ParamMap) => parameters.get('id')),
     switchMap((id: string | null) =>
-      this.providerExtractService.getExtractSubmission(id ?? 'fake-value')
+      this.BHSDService.getExtractSubmission(id ?? 'fake-value')
     ),
     shareReplay(1)
   );
@@ -32,6 +32,6 @@ export class SubmissionDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private providerExtractService: ProviderExtractService
+    private BHSDService: BHSDService
   ) {}
 }

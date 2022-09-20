@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import {
-  ExtractSubmission,
-  ProviderExtractService,
-} from '@dbh/provider-extract/data-access';
+import { ExtractSubmission, BHSDService } from '@dbh/bhsd/data-access';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -14,12 +11,12 @@ import { AuthService } from '../auth.service';
 })
 export class SubmissionsListComponent {
   submissions$: Observable<ExtractSubmission[]> =
-    this.providerExtractService.getSubmissions();
+    this.BHSDService.getSubmissions();
 
   isDBHUser = this.authService.isDBHUser;
 
   constructor(
-    private providerExtractService: ProviderExtractService,
+    private BHSDService: BHSDService,
     private authService: AuthService
   ) {}
 }

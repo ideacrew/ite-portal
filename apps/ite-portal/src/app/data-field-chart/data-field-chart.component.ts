@@ -4,7 +4,7 @@ import {
   ExtractRecordField,
   ExtractRecordValidationV2,
   ValidationV2,
-} from '@dbh/provider-extract/data-access';
+} from '@dbh/bhsd/data-access';
 
 @Component({
   selector: 'dbh-data-field-chart',

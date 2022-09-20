@@ -16,7 +16,7 @@ import { convertSummaryToStatus } from './util/convert-summary-to-status';
 @Injectable({
   providedIn: 'root',
 })
-export class ProviderExtractService {
+export class BHSDService {
   constructor(private config: ConfigService, private http: HttpClient) {}
 
   sendData(formValue: unknown): Observable<unknown> {

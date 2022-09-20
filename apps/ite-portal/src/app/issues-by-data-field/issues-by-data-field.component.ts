@@ -7,7 +7,7 @@ import {
   ExtractRecordValidationV2,
   ValidationCategory,
   ValidationV2,
-} from '@dbh/provider-extract/data-access';
+} from '@dbh/bhsd/data-access';
 import { CategoryWithCount } from '../data-field-error-row/data-field-error-row.component';
 
 @Component({

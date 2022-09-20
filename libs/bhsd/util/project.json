@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/provider-extract/util/src",
+  "sourceRoot": "libs/bhsd/util/src",
   "prefix": "dbh",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/provider-extract/util"],
+      "outputs": ["coverage/libs/bhsd/util"],
       "options": {
-        "jestConfig": "libs/provider-extract/util/jest.config.ts",
+        "jestConfig": "libs/bhsd/util/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,8 +15,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/provider-extract/util/**/*.ts",
-          "libs/provider-extract/util/**/*.html"
+          "libs/bhsd/util/**/*.ts",
+          "libs/bhsd/util/**/*.html"
         ]
       }
     }

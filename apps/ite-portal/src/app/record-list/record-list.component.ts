@@ -1,9 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import {
-  ExtractRecordValidationV2,
-  ValidationV2,
-} from '@dbh/provider-extract/data-access';
+import { ExtractRecordValidationV2, ValidationV2 } from '@dbh/bhsd/data-access';
 
 @Component({
   selector: 'dbh-record-list',

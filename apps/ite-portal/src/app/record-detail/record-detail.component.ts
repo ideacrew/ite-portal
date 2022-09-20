@@ -3,8 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import {
   ExtractRecordValidationV2,
   ExtractSubmissionResponseV2,
-  ProviderExtractService,
-} from '@dbh/provider-extract/data-access';
+  BHSDService,
+} from '@dbh/bhsd/data-access';
 import {
   combineLatest,
   filter,
@@ -29,7 +29,7 @@ export class RecordDetailComponent {
       filter((parameters: ParamMap) => parameters.has('id')),
       map((parameters: ParamMap) => parameters.get('id')),
       switchMap((id: string | null) =>
-        this.providerExtractService.getExtractSubmissionV2(id ?? 'fake-value')
+        this.BHSDService.getExtractSubmissionV2(id ?? 'fake-value')
       ),
       shareReplay(1)
     );
@@ -55,6 +55,6 @@ export class RecordDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private providerExtractService: ProviderExtractService
+    private BHSDService: BHSDService
   ) {}
 }

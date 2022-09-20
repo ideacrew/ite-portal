@@ -1,5 +1,5 @@
 export default {
-  displayName: 'provider-extract-data-access',
+  displayName: 'bhsd-util',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +8,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/provider-extract/data-access',
+  coverageDirectory: '../../../coverage/libs/bhsd/util',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

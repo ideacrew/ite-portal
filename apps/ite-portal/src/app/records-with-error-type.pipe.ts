@@ -4,7 +4,7 @@ import {
   ErrorType,
   ExtractRecordValidation,
   getExtractRecordsByErrorType,
-} from '@dbh/provider-extract/data-access';
+} from '@dbh/bhsd/data-access';
 
 @Pipe({
   name: 'recordsWithErrorType',
