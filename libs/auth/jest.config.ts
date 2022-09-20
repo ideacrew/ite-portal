@@ -1,6 +1,6 @@
 export default {
-  displayName: 'provider-gateway-shell',
-  preset: '../../../jest.preset.js',
+  displayName: 'auth',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +8,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/provider-gateway/shell',
+  coverageDirectory: '../../coverage/libs/auth',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

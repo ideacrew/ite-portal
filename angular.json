@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "api-config": "libs/api-config",
+    "auth": "libs/auth",
     "bhsd-data-access": "libs/bhsd/data-access",
     "bhsd-util": "libs/bhsd/util",
     "ite-portal": "apps/ite-portal",
