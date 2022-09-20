@@ -15,7 +15,15 @@
   </thead>
   <tbody>
     <tr *ngFor="let submission of submissions$ | async">
-      <td *ngIf="isDBHUser">{{ submission.provider_name }}</td>
+      <td *ngIf="isDBHUser">
+        <a
+          [routerLink]="[
+            '/provider-gateway/provider-profile',
+            submission.provider_id
+          ]"
+          >{{ submission.provider_name }}</a
+        >
+      </td>
       <td>
         <a [routerLink]="submission.id">{{ submission.id }}</a>
       </td>
