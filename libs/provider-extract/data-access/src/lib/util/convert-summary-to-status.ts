@@ -14,11 +14,13 @@ export const convertSummaryToStatus = (
     pass,
     fail,
     extract_id: extractId,
+    provider_id: providerId,
   } = summary;
 
   const submissionStatus: SubmissionStatus = {
     status,
     providerName,
+    providerId,
     mh,
     sud,
     fileName: fileName === 'N/A' ? undefined : fileName,

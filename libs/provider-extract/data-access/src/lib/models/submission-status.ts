@@ -1,5 +1,6 @@
 export interface SubmissionSummary {
   provider_name: string;
+  provider_id: string;
   mh: boolean;
   sud: boolean;
 
@@ -15,6 +16,7 @@ export interface SubmissionSummary {
 
 export interface SubmissionStatus {
   providerName: string;
+  providerId: string;
   mh: boolean;
   sud: boolean;
   status: 'Expecting Submission' | 'Need Resubmission' | 'Current' | 'Past Due';
