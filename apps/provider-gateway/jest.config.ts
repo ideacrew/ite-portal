@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'provider-gateway',
   preset: '../../jest.preset.js',
