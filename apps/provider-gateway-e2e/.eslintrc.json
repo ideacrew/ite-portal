@@ -5,6 +5,12 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["apps/provider-gateway-e2e/tsconfig.json"]
+      }
     }
   ]
 }
