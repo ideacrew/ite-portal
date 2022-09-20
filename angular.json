@@ -6,6 +6,8 @@
     "ite-portal": "apps/ite-portal",
     "ite-portal-e2e": "apps/ite-portal-e2e",
     "provider-extract-data-access": "libs/provider-extract/data-access",
-    "provider-extract-util": "libs/provider-extract/util"
+    "provider-extract-util": "libs/provider-extract/util",
+    "provider-gateway": "apps/provider-gateway",
+    "provider-gateway-e2e": "apps/provider-gateway-e2e"
   }
 }
