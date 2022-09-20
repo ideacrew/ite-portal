@@ -8,7 +8,23 @@ import { RouterModule } from '@angular/router';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(
+      [
+        {
+          path: 'provider-gateway-shell',
+          loadChildren: () =>
+            import('@dbh/provider-gateway/shell').then(
+              (m) => m.ProviderGatewayShellModule
+            ),
+        },
+        {
+          path: '',
+          redirectTo: 'provider-gateway-shell',
+          pathMatch: 'full',
+        },
+      ],
+      { initialNavigation: 'enabledBlocking' }
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent],

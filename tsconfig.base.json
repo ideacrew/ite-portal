@@ -17,7 +17,10 @@
     "paths": {
       "@dbh/api-config": ["libs/api-config/src/index.ts"],
       "@dbh/bhsd/data-access": ["libs/bhsd/data-access/src/index.ts"],
-      "@dbh/bhsd/util": ["libs/bhsd/util/src/index.ts"]
+      "@dbh/bhsd/util": ["libs/bhsd/util/src/index.ts"],
+      "@dbh/provider-gateway/shell": [
+        "libs/provider-gateway/shell/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

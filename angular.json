@@ -8,6 +8,7 @@
     "ite-portal": "apps/ite-portal",
     "ite-portal-e2e": "apps/ite-portal-e2e",
     "provider-gateway": "apps/provider-gateway",
-    "provider-gateway-e2e": "apps/provider-gateway-e2e"
+    "provider-gateway-e2e": "apps/provider-gateway-e2e",
+    "provider-gateway-shell": "libs/provider-gateway/shell"
   }
 }
