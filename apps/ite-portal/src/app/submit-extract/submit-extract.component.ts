@@ -18,6 +18,7 @@ import { catchError, shareReplay } from 'rxjs/operators';
 import { lastDayOfMonth } from 'date-fns';
 
 import { BHSDService, ExtractRecordData } from '@dbh/bhsd/data-access';
+import { AuthService } from '@dbh/auth';
 
 import {
   dateNotInFuture,
@@ -26,7 +27,6 @@ import {
   extractDateWithinCoveragePeriod,
 } from '../date-validator';
 import { convertCsvToJson } from '../convert-csv-to-json';
-import { AuthService } from '../auth.service';
 
 export interface ExtractTransmissionForm {
   provider_gateway_identifier: FormControl<string | null>;

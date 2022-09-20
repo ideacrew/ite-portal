@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService, TokenObject } from '../auth.service';
+
+import { AuthService, TokenObject } from '@dbh/auth';
 
 @Component({
   templateUrl: './portal.component.html',

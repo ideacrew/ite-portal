@@ -3,7 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { DataAccessModule } from '@dbh/bhsd/data-access';
+import {
+  AuthGuard,
+  AuthInterceptor,
+  AuthModule,
+  LogInComponent,
+} from '@dbh/auth';
 
 import { AppComponent } from './app.component';
 import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
@@ -24,10 +31,7 @@ import { RecordSortPipe } from './record-sort.pipe';
 import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-error-row.component';
 import { FileInformationComponent } from './file-information/file-information.component';
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
-import { LogInComponent } from './log-in/log-in.component';
-import { AuthInterceptor } from './auth-interceptor.service';
 import { PortalComponent } from './portal/portal.component';
-import { AuthGuard } from './auth.guard';
 import { ProviderGuard } from './provider.guard';
 import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
 import { ValidDataComponent } from './valid-data/valid-data.component';
@@ -57,7 +61,6 @@ import { ProviderProfileComponent } from './provider-profile/provider-profile.co
     DataFieldErrorRowComponent,
     FileInformationComponent,
     DataFieldChartComponent,
-    LogInComponent,
     PortalComponent,
     ProvidersSubmissionStatusComponent,
     ValidDataComponent,
@@ -71,6 +74,7 @@ import { ProviderProfileComponent } from './provider-profile/provider-profile.co
     HttpClientModule,
     ReactiveFormsModule,
     DataAccessModule,
+    AuthModule,
     RouterModule.forRoot([
       {
         path: 'login',
