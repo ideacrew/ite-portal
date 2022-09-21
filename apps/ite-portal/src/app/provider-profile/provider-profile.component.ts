@@ -5,7 +5,7 @@ import { Observable, filter, map, switchMap } from 'rxjs';
 import {
   ProviderProfile,
   ProviderProfileService,
-} from '../provider-profile.service';
+} from '@dbh/providers/data-access';
 
 @Component({
   templateUrl: './provider-profile.component.html',
