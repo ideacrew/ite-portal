@@ -9,13 +9,10 @@ export class ConfigService {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {
     const [urlEnvironment] = window.location.host.split('.');
-    if (
-      urlEnvironment.includes('portal-dev') &&
-      !urlEnvironment.includes('portal-uat')
-    ) {
+    if (urlEnvironment.includes('dev') && !urlEnvironment.includes('uat')) {
       this.baseApiUrl = `https://bff-dev.dbh-ite.com`;
       this.environment = 'dev';
-    } else if (urlEnvironment.includes('portal-uat')) {
+    } else if (urlEnvironment.includes('uat')) {
       this.baseApiUrl = `https://bff-uat.dbh-ite.com`;
       this.environment = 'uat';
     } else {
