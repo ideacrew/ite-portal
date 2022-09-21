@@ -13,13 +13,13 @@ export class ConfigService {
       urlEnvironment.includes('portal-dev') &&
       !urlEnvironment.includes('portal-uat')
     ) {
-      this.baseApiUrl = `https://bff-dev.dbh-ite.com/extracts`;
+      this.baseApiUrl = `https://bff-dev.dbh-ite.com`;
       this.environment = 'dev';
     } else if (urlEnvironment.includes('portal-uat')) {
-      this.baseApiUrl = `https://bff-uat.dbh-ite.com/extracts`;
+      this.baseApiUrl = `https://bff-uat.dbh-ite.com`;
       this.environment = 'uat';
     } else {
-      this.baseApiUrl = `https://bff-dev.dbh-ite.com/extracts`;
+      this.baseApiUrl = `https://bff-dev.dbh-ite.com`;
       this.environment = 'local';
     }
   }
