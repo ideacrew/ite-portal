@@ -98,7 +98,7 @@
     "deploy:dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "scripts/pg-deploy.sh"
+        "commands": ["chmod +x scripts/pg-dev.sh"]
       }
     }
   },
