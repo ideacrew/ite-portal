@@ -8,6 +8,8 @@ import { BHSDService } from '@dbh/bhsd/data-access';
 export class ProviderGatewayComponent {
   submissionStatus$ = this.bhsdService.getSubmissionStatus();
 
+  test = true;
+
   get thisReportingPeriod(): string {
     const today = new Date();
     const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
