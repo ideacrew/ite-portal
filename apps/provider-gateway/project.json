@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/provider-gateway",
         "index": "apps/provider-gateway/src/index.html",
@@ -89,7 +91,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/provider-gateway"],
+      "outputs": [
+        "coverage/apps/provider-gateway"
+      ],
       "options": {
         "jestConfig": "apps/provider-gateway/jest.config.ts",
         "passWithNoTests": true
@@ -98,10 +102,17 @@
     "deploy:dev": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["chmod +x scripts/pg-dev.sh"]
+        "commands": [
+          "chmod +x scripts/pg-dev.sh",
+          "scripts/pg-dev.sh"
+        ]
       }
     }
   },
-  "tags": ["scope:app"],
-  "implicitDependencies": ["theme"]
+  "tags": [
+    "scope:app"
+  ],
+  "implicitDependencies": [
+    "theme"
+  ]
 }
