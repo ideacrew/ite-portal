@@ -90,6 +90,18 @@
         "jestConfig": "apps/ite-portal/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy:dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "dist/apps/ite-portal",
+        "commands": [
+          "aws s3 sync . s3://portal-dev-dbh-ite-com/ --delete",
+          "invalidationId=`AWS_MAX_ATTEMPTS=999 aws cloudfront create-invalidation --distribution-id EVD9XJF7IQQ3F --output text --query 'Invalidation.Id' --paths '/*'`",
+          "aws cloudfront wait invalidation-completed --distribution-id EVD9XJF7IQQ3F --id ${invalidationId}"
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []

@@ -79,8 +79,8 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ite-portal
-          path: dist/apps/ite-portal
+          name: affected-apps
+          path: dist/apps
   deploy-aws:
     environment: aws-dev
     needs: [main, prep]
@@ -103,50 +103,16 @@ jobs:
         uses: actions/download-artifact@v3
         continue-on-error: true
         with:
-          name: ite-portal
-          path: dist/apps/ite-portal
+          name: affected-apps
+          path: dist/apps
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: Deploy Static Files to S3 (and backing up old site)
-        run: |
-          cd dist/apps/ite-portal
-          aws s3 sync s3://${{ env.S3_BUCKET }}/  s3://backups-dbh-ite-com/${{ env.REPO_NAME }}/${{ env.DBH_ENV }}/`date +%s`/
-          aws s3 sync --acl public-read . s3://${{ env.S3_BUCKET }}/ --delete
-      - name: Invalidate Current Files on CloudFront & Wait
-        run: |
-          invalidationId=`AWS_MAX_ATTEMPTS=999 aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_DIST_ID }} --output text --query 'Invalidation.Id' --paths '/*'`
-          ## disable waiting to save minutes
-          aws cloudfront wait invalidation-completed --distribution-id ${{ env.CLOUDFRONT_DIST_ID }} --id ${invalidationId}
-      - name: Load up CDN Cache
-        run: |
-          for i in {1..25}
-          do
-            curl "${{ env.BASE_URL }}"
-          done
-      - name: Post to a Slack channel
-        uses: slackapi/slack-github-action@v1.19.0
-        with:
-          payload: |
-            {
-              "text": "DEPLOYMENT COMPLETED: ${{ env.DBH_ENV }}: ${{ env.REPO_NAME }}: ${{ env.SHORT_SHA }}"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOYMENTS_WEBHOOK_URL }}
-  failed:
-    runs-on: ubuntu-latest
-    needs: [deploy-aws]
-    if: always() && needs.deploy-aws.result == 'failure'
-    steps:
-      - name: Post to a Slack channel
-        uses: slackapi/slack-github-action@v1.19.0
-        with:
-          payload: |
-            {
-              "text": "***** DEPLOYMENT FAILED: ${{ needs.generate-and-upload-static-files.outputs.DBH_ENV }}: ${{ needs.generate-and-upload-static-files.outputs.REPO_NAME }}: ${{ needs.generate-and-upload-static-files.outputs.SHORT_SHA }}"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOYMENTS_WEBHOOK_URL }}
+      - name: run many deployments
+        run: npx nx affected --target=deploy
+
+
+
