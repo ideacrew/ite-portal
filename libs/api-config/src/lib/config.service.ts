@@ -16,7 +16,7 @@ export class ConfigService {
       this.baseApiUrl = `https://bff-uat.dbh-ite.com`;
       this.environment = 'uat';
     } else {
-      this.baseApiUrl = `https://bff-dev.dbh-ite.com`;
+      this.baseApiUrl = `https://ite-api.herokuapp.com`;
       this.environment = 'local';
     }
   }

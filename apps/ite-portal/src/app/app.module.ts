@@ -38,7 +38,6 @@ import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
 import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
 import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
-import { ProviderProfileComponent } from './provider-profile/provider-profile.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +66,6 @@ import { ProviderProfileComponent } from './provider-profile/provider-profile.co
     ProviderGatewayComponent,
     ValidationBreakdownComponent,
     SubmissionStatusChartComponent,
-    ProviderProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,8 +101,11 @@ import { ProviderProfileComponent } from './provider-profile/provider-profile.co
             canActivate: [ProviderGuard],
           },
           {
-            path: 'provider-gateway/provider-profile/:providerId',
-            component: ProviderProfileComponent,
+            path: 'provider-gateway/provider-profile',
+            loadChildren: () =>
+              import('@dbh/providers/profile-feature').then(
+                (m) => m.ProvidersProfileModule
+              ),
           },
           {
             path: 'provider-profile',

@@ -22,7 +22,10 @@
       "@dbh/provider-gateway/shell": [
         "libs/provider-gateway/shell/src/index.ts"
       ],
-      "@dbh/providers/data-access": ["libs/providers/data-access/src/index.ts"]
+      "@dbh/providers/data-access": ["libs/providers/data-access/src/index.ts"],
+      "@dbh/providers/profile-feature": [
+        "libs/providers/profile-feature/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
