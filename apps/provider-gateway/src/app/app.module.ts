@@ -25,6 +25,7 @@ import { AppComponent } from './app.component';
           path: 'login',
           component: LogInComponent,
         },
+
         {
           path: 'provider-gateway',
           loadChildren: () =>
@@ -33,11 +34,11 @@ import { AppComponent } from './app.component';
             ),
           canLoad: [AuthGuard],
         },
-        {
-          path: '**',
-          redirectTo: 'provider-gateway',
-          pathMatch: 'full',
-        },
+        // {
+        //   path: '**',
+        //   redirectTo: 'provider-gateway',
+        //   pathMatch: 'full',
+        // },
       ],
       { initialNavigation: 'enabledBlocking' }
     ),

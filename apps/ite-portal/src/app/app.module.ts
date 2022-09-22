@@ -10,13 +10,13 @@ import {
   AuthInterceptor,
   AuthModule,
   LogInComponent,
+  UserProfileComponent,
 } from '@dbh/auth';
 
 import { AppComponent } from './app.component';
 import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
 import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
 import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RecordCountPipe } from './record-count.pipe';
 import { RecordCountComponent } from './record-count/record-count.component';
 import { ErrorCountPipe } from './error-count.pipe';
@@ -46,7 +46,6 @@ import { APP_TITLE } from '@dbh/theme';
     SubmissionsListComponent,
     SubmitExtractComponent,
     SubmissionDetailComponent,
-    UserProfileComponent,
     RecordCountPipe,
     ErrorCountPipe,
     RecordCountComponent,
@@ -109,7 +108,7 @@ import { APP_TITLE } from '@dbh/theme';
               ),
           },
           {
-            path: 'provider-profile',
+            path: 'user-profile',
             component: UserProfileComponent,
           },
           {
