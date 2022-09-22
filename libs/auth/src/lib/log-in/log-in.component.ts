@@ -58,8 +58,9 @@ export class LogInComponent {
   loginUser(): void {
     if (this.userForm.status === 'VALID') {
       const { email, password } = this.userForm.value;
-      if (email && password) {
-        this.authService.login({ email, password }).subscribe({
+      const formLocation = this.appTitle;
+      if (email && password && formLocation) {
+        this.authService.login({ email, password, formLocation }).subscribe({
           error: () => {
             this.result.next(
               'Invalid credentials, please contact your administrator if you need help.'

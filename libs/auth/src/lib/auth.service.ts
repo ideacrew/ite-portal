@@ -96,16 +96,18 @@ export class AuthService {
   login({
     email,
     password,
+    formLocation
   }: {
     email: string;
     password: string;
+    formLocation: string;
   }): Observable<unknown> {
     return this.http
       .post<TokenResponse>(
         // Url to post to
         `${this.config.baseApiUrl}/session`,
         // body of the payload, here sending the entire form value
-        { email, password }
+        { email, password, formLocation }
       )
       .pipe(
         tap((response: TokenResponse) => {
