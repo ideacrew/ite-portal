@@ -17,7 +17,10 @@
           "apps/ite-portal/src/favicon.ico",
           "apps/ite-portal/src/assets"
         ],
-        "styles": ["apps/ite-portal/src/styles.scss"],
+        "styles": [
+          "libs/theme/src/styles/global.scss",
+          "apps/ite-portal/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {

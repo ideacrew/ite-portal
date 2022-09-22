@@ -18,7 +18,10 @@
           "apps/provider-gateway/src/favicon.ico",
           "apps/provider-gateway/src/assets"
         ],
-        "styles": ["apps/provider-gateway/src/styles.scss"],
+        "styles": [
+          "libs/theme/src/styles/global.scss",
+          "apps/provider-gateway/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {

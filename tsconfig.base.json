@@ -25,7 +25,8 @@
       "@dbh/providers/data-access": ["libs/providers/data-access/src/index.ts"],
       "@dbh/providers/profile-feature": [
         "libs/providers/profile-feature/src/index.ts"
-      ]
+      ],
+      "@dbh/theme": ["libs/theme/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

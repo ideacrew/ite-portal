@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -39,6 +39,7 @@ import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.co
 import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
 import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
 
+const APP_TITLE = new InjectionToken<string>('myToken');
 @NgModule({
   declarations: [
     AppComponent,
@@ -130,6 +131,10 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: APP_TITLE,
+      useValue: 'ITE Portal',
+    },
   ],
   bootstrap: [AppComponent],
 })
