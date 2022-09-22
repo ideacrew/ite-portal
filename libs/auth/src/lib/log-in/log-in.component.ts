@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import {
   FormControl,
   FormBuilder,
@@ -10,6 +10,7 @@ import { shareReplay } from 'rxjs/operators';
 
 import { passwordDoesNotContainEmail } from '../password-validator';
 import { AuthService } from '../auth.service';
+import { APP_TITLE } from '@dbh/theme';
 
 export interface UserLoginForm {
   email: FormControl<string | null>;
@@ -30,7 +31,11 @@ export class LogInComponent {
   showPassword = false;
   userForm!: FormGroup<UserLoginForm>;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    @Inject(APP_TITLE) public appTitle: string
+  ) {
     this.userForm = this.fb.group(
       {
         // eslint-disable-next-line @typescript-eslint/unbound-method

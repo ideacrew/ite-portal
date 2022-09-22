@@ -1,4 +1,4 @@
-import { InjectionToken, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -9,10 +9,9 @@ import {
   AuthModule,
   LogInComponent,
 } from '@dbh/auth';
+import { APP_TITLE } from '@dbh/theme';
 
 import { AppComponent } from './app.component';
-
-const APP_TITLE = new InjectionToken<string>('myToken');
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,7 +46,7 @@ const APP_TITLE = new InjectionToken<string>('myToken');
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
       provide: APP_TITLE,
-      useValue: 'ITE Portal',
+      useValue: 'Provider Gateway',
     },
   ],
   bootstrap: [AppComponent],
