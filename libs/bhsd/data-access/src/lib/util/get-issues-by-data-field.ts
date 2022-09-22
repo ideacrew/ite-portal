@@ -90,12 +90,5 @@ export const getIssuesByDataField = (
     return issuesByDataField;
   });
 
-  console.log({ issuesByDataField });
-
   return issuesByDataField;
 };
-
-// export const getCategoryCount = (
-//   records: ExtractRecordField[],
-//   category: ValidationCategory
-// ): number => {};
