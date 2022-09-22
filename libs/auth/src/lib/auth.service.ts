@@ -96,7 +96,7 @@ export class AuthService {
   login({
     email,
     password,
-    formLocation
+    formLocation,
   }: {
     email: string;
     password: string;
