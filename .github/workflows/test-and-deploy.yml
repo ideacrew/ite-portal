@@ -89,15 +89,17 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Starting deployment notification
-        uses: slackapi/slack-github-action@v1.19.0
+      - uses: actions/checkout@v3
         with:
-          payload: |
-            {
-              "text": "DEPLOYMENT STARTED: ${{ env.DBH_ENV }}: ${{ env.REPO_NAME }}: ${{ needs.prep.outputs.shortSha }}"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOYMENTS_WEBHOOK_URL }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: trunk
       - name: Download artifact
         id: download-artifact
         uses: actions/download-artifact@v3
