@@ -5,9 +5,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/ite-portal",
         "index": "apps/ite-portal/src/index.html",
@@ -87,9 +85,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/ite-portal"
-      ],
+      "outputs": ["coverage/apps/ite-portal"],
       "options": {
         "jestConfig": "apps/ite-portal/jest.config.ts",
         "passWithNoTests": true
@@ -98,15 +94,10 @@
     "deploy:dev": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "chmod +x scripts/portal-dev.sh",
-          "scripts/portal-dev.sh"
-        ]
+        "commands": ["chmod +x scripts/portal-dev.sh", "scripts/portal-dev.sh"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": [
-    "theme"
-  ]
+  "implicitDependencies": ["theme"]
 }
