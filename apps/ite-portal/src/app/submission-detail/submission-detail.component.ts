@@ -20,7 +20,7 @@ export class SubmissionDetailComponent {
     filter((parameters: ParamMap) => parameters.has('id')),
     map((parameters: ParamMap) => parameters.get('id')),
     switchMap((id: string | null) =>
-      this.BHSDService.getExtractSubmission(id ?? 'fake-value')
+      this.bhsdService.getExtractSubmission(id ?? 'fake-value')
     ),
     shareReplay(1)
   );
@@ -32,6 +32,6 @@ export class SubmissionDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private BHSDService: BHSDService
+    private bhsdService: BHSDService
   ) {}
 }

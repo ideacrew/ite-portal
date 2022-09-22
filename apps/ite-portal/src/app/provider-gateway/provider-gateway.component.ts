@@ -6,7 +6,7 @@ import { BHSDService } from '@dbh/bhsd/data-access';
   styleUrls: ['./provider-gateway.component.scss'],
 })
 export class ProviderGatewayComponent {
-  submissionStatus$ = this.providerService.getSubmissionStatus();
+  submissionStatus$ = this.bhsdService.getSubmissionStatus();
 
   get thisReportingPeriod(): string {
     const today = new Date();
@@ -19,5 +19,5 @@ export class ProviderGatewayComponent {
     return `${lastMonthsName}, ${year}`;
   }
 
-  constructor(private providerService: BHSDService) {}
+  constructor(private bhsdService: BHSDService) {}
 }
