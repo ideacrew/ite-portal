@@ -32,7 +32,6 @@ import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-er
 import { FileInformationComponent } from './file-information/file-information.component';
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
 import { PortalComponent } from './portal/portal.component';
-import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
 import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
 import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
@@ -58,7 +57,6 @@ import { ProviderGuard } from '@dbh/providers/util';
     FileInformationComponent,
     DataFieldChartComponent,
     PortalComponent,
-    ProvidersSubmissionStatusComponent,
     ValidDataComponent,
     ProviderGatewayComponent,
     ValidationBreakdownComponent,
@@ -117,7 +115,10 @@ import { ProviderGuard } from '@dbh/providers/util';
           },
           {
             path: 'provider-gateway/submission-status',
-            component: ProvidersSubmissionStatusComponent,
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-status-feature').then(
+                (m) => m.BhsdSubmissionStatusFeatureModule
+              ),
           },
           {
             path: 'provider-gateway',
