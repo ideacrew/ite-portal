@@ -5,9 +5,8 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { BHSDSubmissionForm } from '@dbh/bhsd/ui';
 import { differenceInMonths } from 'date-fns';
-
-import { ExtractTransmissionForm } from './submit-extract/submit-extract.component';
 
 export const dateNotInFuture: ValidatorFn = (
   control: AbstractControl<string>
@@ -25,7 +24,7 @@ export const dateNotInFuture: ValidatorFn = (
 };
 
 export const startDateNotAfterEndDate: ValidatorFn = (
-  control: AbstractControl<FormGroup<ExtractTransmissionForm>>
+  control: AbstractControl<FormGroup<BHSDSubmissionForm>>
 ): ValidationErrors | null => {
   const coverageStart = control.get('coverage_start');
   const coverageEnd = control.get('coverage_end');
@@ -42,7 +41,7 @@ export const compareDates = (date1: Date, date2: Date): boolean => {
 };
 
 export const coveragePeriodNotTooLong: ValidatorFn = (
-  control: AbstractControl<FormGroup<ExtractTransmissionForm>>
+  control: AbstractControl<FormGroup<BHSDSubmissionForm>>
 ): ValidationErrors | null => {
   const coverageStart = control.get('coverage_start');
   const coverageEnd = control.get('coverage_end');
@@ -63,7 +62,7 @@ export const coveragePeriodNotTooLong: ValidatorFn = (
 };
 
 export const extractDateWithinCoveragePeriod: ValidatorFn = (
-  control: AbstractControl<FormGroup<ExtractTransmissionForm>>
+  control: AbstractControl<FormGroup<BHSDSubmissionForm>>
 ): ValidationErrors | null => {
   const extractedOn = control.get('extracted_on');
   const coverageEnd = control.get('coverage_end');

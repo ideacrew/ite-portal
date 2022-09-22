@@ -17,7 +17,6 @@ import { APP_TITLE } from '@dbh/theme';
 
 import { AppComponent } from './app.component';
 import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
-import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
 import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
 import { RecordCountPipe } from './record-count.pipe';
 import { RecordCountComponent } from './record-count/record-count.component';
@@ -34,18 +33,17 @@ import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-er
 import { FileInformationComponent } from './file-information/file-information.component';
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
 import { PortalComponent } from './portal/portal.component';
-import { ProviderGuard } from './provider.guard';
 import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
 import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
 import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
 import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
+import { ProviderGuard } from '@dbh/providers/util';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubmissionsListComponent,
-    SubmitExtractComponent,
     SubmissionDetailComponent,
     RecordCountPipe,
     ErrorCountPipe,
@@ -96,10 +94,14 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
             path: 'provider-gateway/submissions/:id',
             component: SubmissionDetailComponent,
           },
+
           {
-            path: 'provider-gateway/submit-extract',
-            component: SubmitExtractComponent,
-            canActivate: [ProviderGuard],
+            path: 'provider-gateway/submit-new-bhsd',
+            loadChildren: () =>
+              import('@dbh/bhsd/submit-new-file-feature').then(
+                (m) => m.BhsdSubmitNewFileFeatureModule
+              ),
+            canLoad: [ProviderGuard],
           },
           {
             path: 'provider-gateway/provider-profile',

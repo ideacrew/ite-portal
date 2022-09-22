@@ -7,6 +7,7 @@ import {
   ResetPasswordComponent,
   UserProfileComponent,
 } from '@dbh/auth';
+import { ProviderGuard } from '@dbh/providers/util';
 
 import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider-gateway-shell.component';
 
@@ -27,6 +28,14 @@ import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider
           {
             path: 'reset-password',
             component: ResetPasswordComponent,
+          },
+          {
+            path: 'submit-new-bhsd',
+            loadChildren: () =>
+              import('@dbh/bhsd/submit-new-file-feature').then(
+                (m) => m.BhsdSubmitNewFileFeatureModule
+              ),
+            canLoad: [ProviderGuard],
           },
         ],
       },

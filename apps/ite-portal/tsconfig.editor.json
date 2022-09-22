@@ -1,6 +1,10 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts"],
+  "include": [
+    "**/*.ts",
+    "../../libs/providers/util/src/lib/provider.guard.ts",
+    "../../libs/bhsd/util/src/lib/date-validator.ts"
+  ],
   "compilerOptions": {
     "types": ["jest", "node"]
   }
