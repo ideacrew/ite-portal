@@ -10,10 +10,12 @@ export class ConfigService {
   constructor() {
     const [urlEnvironment] = window.location.host.split('.');
     if (urlEnvironment.includes('dev') && !urlEnvironment.includes('uat')) {
-      this.baseApiUrl = `https://bff-dev.dbh-ite.com`;
+      // this.baseApiUrl = `https://bff-dev.dbh-ite.com`;
+      this.baseApiUrl = `https://ite-api.herokuapp.com`;
       this.environment = 'dev';
     } else if (urlEnvironment.includes('uat')) {
-      this.baseApiUrl = `https://bff-uat.dbh-ite.com`;
+      // this.baseApiUrl = `https://bff-uat.dbh-ite.com`;
+      this.baseApiUrl = `https://ite-api-staging.herokuapp.com`;
       this.environment = 'uat';
     } else {
       this.baseApiUrl = `https://ite-api.herokuapp.com`;
