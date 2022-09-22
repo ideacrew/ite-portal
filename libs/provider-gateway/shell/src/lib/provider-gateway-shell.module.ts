@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { AuthModule, UserProfileComponent } from '@dbh/auth';
+import {
+  AuthModule,
+  ResetPasswordComponent,
+  UserProfileComponent,
+} from '@dbh/auth';
 
 import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider-gateway-shell.component';
 
@@ -19,6 +23,10 @@ import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider
           {
             path: 'user-profile',
             component: UserProfileComponent,
+          },
+          {
+            path: 'reset-password',
+            component: ResetPasswordComponent,
           },
         ],
       },

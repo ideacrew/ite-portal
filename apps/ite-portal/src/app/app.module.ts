@@ -11,7 +11,9 @@ import {
   AuthModule,
   LogInComponent,
   UserProfileComponent,
+  ResetPasswordComponent,
 } from '@dbh/auth';
+import { APP_TITLE } from '@dbh/theme';
 
 import { AppComponent } from './app.component';
 import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
@@ -38,7 +40,6 @@ import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
 import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
 import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
-import { APP_TITLE } from '@dbh/theme';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,10 @@ import { APP_TITLE } from '@dbh/theme';
           {
             path: 'provider-gateway',
             component: ProviderGatewayComponent,
+          },
+          {
+            path: 'reset-password',
+            component: ResetPasswordComponent,
           },
           {
             path: '',

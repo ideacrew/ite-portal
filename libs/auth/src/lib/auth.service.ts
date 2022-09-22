@@ -133,4 +133,21 @@ export class AuthService {
     this.clearJwt();
     await this.router.navigate(['/login']);
   }
+
+  resetPassword({
+    current_password,
+    password,
+    password_confirmation,
+  }: {
+    current_password: string;
+    password: string;
+    password_confirmation: string;
+  }): Observable<unknown> {
+    return this.http.put(
+      // Url to post to
+      `${this.config.baseApiUrl}/user/password`,
+      // body of the payload, here sending the entire form value
+      { current_password, password, password_confirmation }
+    );
+  }
 }
