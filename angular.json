@@ -5,6 +5,11 @@
     "api-config": "libs/api-config",
     "auth": "libs/auth",
     "bhsd-data-access": "libs/bhsd/data-access",
+    "bhsd-submission-detail-feature": "libs/bhsd/submission-detail-feature",
+    "bhsd-submission-history-feature": "libs/bhsd/submission-history-feature",
+    "bhsd-submission-status-feature": "libs/bhsd/submission-status-feature",
+    "bhsd-submit-new-file-feature": "libs/bhsd/submit-new-file-feature",
+    "bhsd-ui": "libs/bhsd/ui",
     "bhsd-util": "libs/bhsd/util",
     "ite-portal": "apps/ite-portal",
     "ite-portal-e2e": "apps/ite-portal-e2e",
@@ -13,6 +18,7 @@
     "provider-gateway-shell": "libs/provider-gateway/shell",
     "providers-data-access": "libs/providers/data-access",
     "providers-profile-feature": "libs/providers/profile-feature",
+    "providers-util": "libs/providers/util",
     "theme": "libs/theme"
   }
 }

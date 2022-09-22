@@ -19,24 +19,14 @@ import { lastDayOfMonth } from 'date-fns';
 
 import { BHSDService, ExtractRecordData } from '@dbh/bhsd/data-access';
 import { AuthService } from '@dbh/auth';
-
+import { BHSDSubmissionForm } from '@dbh/bhsd/ui';
 import {
-  dateNotInFuture,
+  convertCsvToJson,
   coveragePeriodNotTooLong,
-  startDateNotAfterEndDate,
+  dateNotInFuture,
   extractDateWithinCoveragePeriod,
-} from '../date-validator';
-import { convertCsvToJson } from '../convert-csv-to-json';
-
-export interface ExtractTransmissionForm {
-  provider_gateway_identifier: FormControl<string | null>;
-  coverage_start: FormControl<string | null>;
-  coverage_end: FormControl<string | null>;
-  extracted_on: FormControl<string | null>;
-  records: FormControl<ExtractRecordData[] | null>;
-  file_type: FormControl<string | null>;
-  file_name: FormControl<string | null>;
-}
+  startDateNotAfterEndDate,
+} from '@dbh/bhsd/util';
 
 @Component({
   templateUrl: './submit-extract.component.html',
@@ -51,7 +41,7 @@ export class SubmitExtractComponent {
   result = new Subject<string | null>();
   result$ = this.result.asObservable();
 
-  extractForm!: FormGroup<ExtractTransmissionForm>;
+  extractForm!: FormGroup<BHSDSubmissionForm>;
 
   get lastMonthStart(): Date {
     const thisMonth = new Date().getMonth();

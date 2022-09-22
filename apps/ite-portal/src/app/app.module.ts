@@ -14,58 +14,35 @@ import {
   ResetPasswordComponent,
 } from '@dbh/auth';
 import { APP_TITLE } from '@dbh/theme';
+import { BhsdUiModule } from '@dbh/bhsd/ui';
+import { ProviderGuard } from '@dbh/providers/util';
 
 import { AppComponent } from './app.component';
-import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
-import { SubmitExtractComponent } from './submit-extract/submit-extract.component';
-import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
-import { RecordCountPipe } from './record-count.pipe';
 import { RecordCountComponent } from './record-count/record-count.component';
 import { ErrorCountPipe } from './error-count.pipe';
 import { ErrorsByCategoryComponent } from './errors-by-category/errors-by-category.component';
-import { IssuesByDataFieldComponent } from './issues-by-data-field/issues-by-data-field.component';
 import { RecordsWithErrorTypePipe } from './records-with-error-type.pipe';
 import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
-import { RecordListComponent } from './record-list/record-list.component';
 import { RecordDetailComponent } from './record-detail/record-detail.component';
-import { ErrorGroupComponent } from './error-group/error-group.component';
-import { RecordSortPipe } from './record-sort.pipe';
-import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-error-row.component';
-import { FileInformationComponent } from './file-information/file-information.component';
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
 import { PortalComponent } from './portal/portal.component';
-import { ProviderGuard } from './provider.guard';
-import { ProvidersSubmissionStatusComponent } from './providers-submission-status/providers-submission-status.component';
 import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
-import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
 import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SubmissionsListComponent,
-    SubmitExtractComponent,
-    SubmissionDetailComponent,
-    RecordCountPipe,
     ErrorCountPipe,
     RecordCountComponent,
     ErrorsByCategoryComponent,
-    IssuesByDataFieldComponent,
     RecordsWithErrorTypePipe,
     GroupByDataFieldPipe,
-    RecordListComponent,
     RecordDetailComponent,
-    ErrorGroupComponent,
-    RecordSortPipe,
-    DataFieldErrorRowComponent,
-    FileInformationComponent,
     DataFieldChartComponent,
     PortalComponent,
-    ProvidersSubmissionStatusComponent,
     ValidDataComponent,
     ProviderGatewayComponent,
-    ValidationBreakdownComponent,
     SubmissionStatusChartComponent,
   ],
   imports: [
@@ -74,6 +51,7 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
     ReactiveFormsModule,
     DataAccessModule,
     AuthModule,
+    BhsdUiModule,
     RouterModule.forRoot([
       {
         path: 'login',
@@ -86,7 +64,10 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
         children: [
           {
             path: 'provider-gateway/submissions',
-            component: SubmissionsListComponent,
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-history-feature').then(
+                (m) => m.BhsdSubmissionHistoryFeatureModule
+              ),
           },
           {
             path: 'provider-gateway/submissions/:id/records/:recordId',
@@ -94,12 +75,18 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
           },
           {
             path: 'provider-gateway/submissions/:id',
-            component: SubmissionDetailComponent,
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-detail-feature').then(
+                (m) => m.BhsdSubmissionDetailFeatureModule
+              ),
           },
           {
-            path: 'provider-gateway/submit-extract',
-            component: SubmitExtractComponent,
-            canActivate: [ProviderGuard],
+            path: 'provider-gateway/submit-new-bhsd',
+            loadChildren: () =>
+              import('@dbh/bhsd/submit-new-file-feature').then(
+                (m) => m.BhsdSubmitNewFileFeatureModule
+              ),
+            canLoad: [ProviderGuard],
           },
           {
             path: 'provider-gateway/provider-profile',
@@ -114,7 +101,10 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
           },
           {
             path: 'provider-gateway/submission-status',
-            component: ProvidersSubmissionStatusComponent,
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-status-feature').then(
+                (m) => m.BhsdSubmissionStatusFeatureModule
+              ),
           },
           {
             path: 'provider-gateway',

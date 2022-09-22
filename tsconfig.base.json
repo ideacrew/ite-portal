@@ -18,6 +18,19 @@
       "@dbh/api-config": ["libs/api-config/src/index.ts"],
       "@dbh/auth": ["libs/auth/src/index.ts"],
       "@dbh/bhsd/data-access": ["libs/bhsd/data-access/src/index.ts"],
+      "@dbh/bhsd/submission-detail-feature": [
+        "libs/bhsd/submission-detail-feature/src/index.ts"
+      ],
+      "@dbh/bhsd/submission-history-feature": [
+        "libs/bhsd/submission-history-feature/src/index.ts"
+      ],
+      "@dbh/bhsd/submission-status-feature": [
+        "libs/bhsd/submission-status-feature/src/index.ts"
+      ],
+      "@dbh/bhsd/submit-new-file-feature": [
+        "libs/bhsd/submit-new-file-feature/src/index.ts"
+      ],
+      "@dbh/bhsd/ui": ["libs/bhsd/ui/src/index.ts"],
       "@dbh/bhsd/util": ["libs/bhsd/util/src/index.ts"],
       "@dbh/provider-gateway/shell": [
         "libs/provider-gateway/shell/src/index.ts"
@@ -26,6 +39,7 @@
       "@dbh/providers/profile-feature": [
         "libs/providers/profile-feature/src/index.ts"
       ],
+      "@dbh/providers/util": ["libs/providers/util/src/index.ts"],
       "@dbh/theme": ["libs/theme/src/index.ts"]
     }
   },

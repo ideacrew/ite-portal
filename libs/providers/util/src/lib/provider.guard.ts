@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanLoad } from '@angular/router';
 
 import { AuthService } from '@dbh/auth';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProviderGuard implements CanActivate {
-  canActivate(): boolean {
+export class ProviderGuard implements CanLoad {
+  canLoad(): boolean {
     return this.auth.isProvider;
   }
 

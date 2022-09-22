@@ -45,7 +45,7 @@ describe('ite-portal', () => {
       '__jwt_authorization_current_token',
       cypressToken('provider')
     );
-    cy.visit('/provider-gateway/submit-extract');
+    cy.visit('/provider-gateway/submit-new-bhsd');
   });
 
   it('should fill out the entire form with valid data', () => {

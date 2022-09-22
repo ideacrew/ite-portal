@@ -1,10 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ExtractRecordField, ValidationCategory } from '@dbh/bhsd/data-access';
+import { ExtractRecordField } from '@dbh/bhsd/data-access';
 
-export interface CategoryWithCount {
-  category: ValidationCategory;
-  count: number;
-}
+import { CategoryWithCount } from '../interfaces';
 
 @Component({
   selector: 'dbh-data-field-error-row',
