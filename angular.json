@@ -5,6 +5,7 @@
     "api-config": "libs/api-config",
     "auth": "libs/auth",
     "bhsd-data-access": "libs/bhsd/data-access",
+    "bhsd-submission-history-feature": "libs/bhsd/submission-history-feature",
     "bhsd-submit-new-file-feature": "libs/bhsd/submit-new-file-feature",
     "bhsd-ui": "libs/bhsd/ui",
     "bhsd-util": "libs/bhsd/util",

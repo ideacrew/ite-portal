@@ -16,7 +16,6 @@ import {
 import { APP_TITLE } from '@dbh/theme';
 
 import { AppComponent } from './app.component';
-import { SubmissionsListComponent } from './submissions-list/submissions-list.component';
 import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
 import { RecordCountPipe } from './record-count.pipe';
 import { RecordCountComponent } from './record-count/record-count.component';
@@ -43,7 +42,6 @@ import { ProviderGuard } from '@dbh/providers/util';
 @NgModule({
   declarations: [
     AppComponent,
-    SubmissionsListComponent,
     SubmissionDetailComponent,
     RecordCountPipe,
     ErrorCountPipe,
@@ -84,7 +82,10 @@ import { ProviderGuard } from '@dbh/providers/util';
         children: [
           {
             path: 'provider-gateway/submissions',
-            component: SubmissionsListComponent,
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-history-feature').then(
+                (m) => m.BhsdSubmissionHistoryFeatureModule
+              ),
           },
           {
             path: 'provider-gateway/submissions/:id/records/:recordId',
