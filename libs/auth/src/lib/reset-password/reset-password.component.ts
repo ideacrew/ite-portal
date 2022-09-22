@@ -74,7 +74,7 @@ export class ResetPasswordComponent {
               this.result.next(String(message.error));
             },
             complete: () => {
-              void this.router.navigate(['/submissions']);
+              void this.router.navigate(['/provider-gateway']);
             },
           });
       }
