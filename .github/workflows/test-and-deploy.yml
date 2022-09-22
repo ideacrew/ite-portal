@@ -36,6 +36,23 @@ jobs:
         run: |
           SHORT_SHA=$(echo $GITHUB_SHA | head -c7)
           echo ::set-output name=short_sha::$SHORT_SHA
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: trunk
+      - run: npm ci
+      - run: npx nx workspace-lint
+      - run: npx nx format:check
+      - run: npx nx affected --target=lint --parallel=2
   main:
     runs-on: ubuntu-latest
     steps:
@@ -70,11 +87,8 @@ jobs:
           npx cypress version --component binary
           npx cypress version --component electron
           npx cypress version --component node
-      - run: npx nx workspace-lint
-      - run: npx nx format:check
-      - run: npx nx affected --target=lint --parallel=3
-      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
-      - run: npx nx affected --target=build --parallel=3
+      - run: npx nx affected --target=test --parallel=2 --ci --code-coverage
+      - run: npx nx affected --target=build --parallel=2
       - run: npx nx affected --target=e2e
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
@@ -114,4 +128,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: run many deployments
-        run: npx nx affected --target=deploy
+        run: npx nx affected --target=deploy:dev
