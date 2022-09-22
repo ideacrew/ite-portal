@@ -8,7 +8,7 @@ import {
   ValidationCategory,
   ValidationV2,
 } from '@dbh/bhsd/data-access';
-import { CategoryWithCount } from '../data-field-error-row/data-field-error-row.component';
+import { CategoryWithCount } from '../interfaces';
 
 @Component({
   selector: 'dbh-issues-by-data-field',

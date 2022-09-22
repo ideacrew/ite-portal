@@ -14,52 +14,35 @@ import {
   ResetPasswordComponent,
 } from '@dbh/auth';
 import { APP_TITLE } from '@dbh/theme';
+import { BhsdUiModule } from '@dbh/bhsd/ui';
+import { ProviderGuard } from '@dbh/providers/util';
 
 import { AppComponent } from './app.component';
-import { SubmissionDetailComponent } from './submission-detail/submission-detail.component';
-import { RecordCountPipe } from './record-count.pipe';
 import { RecordCountComponent } from './record-count/record-count.component';
 import { ErrorCountPipe } from './error-count.pipe';
 import { ErrorsByCategoryComponent } from './errors-by-category/errors-by-category.component';
-import { IssuesByDataFieldComponent } from './issues-by-data-field/issues-by-data-field.component';
 import { RecordsWithErrorTypePipe } from './records-with-error-type.pipe';
 import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
-import { RecordListComponent } from './record-list/record-list.component';
 import { RecordDetailComponent } from './record-detail/record-detail.component';
-import { ErrorGroupComponent } from './error-group/error-group.component';
-import { RecordSortPipe } from './record-sort.pipe';
-import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-error-row.component';
-import { FileInformationComponent } from './file-information/file-information.component';
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
 import { PortalComponent } from './portal/portal.component';
 import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
-import { ValidationBreakdownComponent } from './validation-breakdown/validation-breakdown.component';
 import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
-import { ProviderGuard } from '@dbh/providers/util';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SubmissionDetailComponent,
-    RecordCountPipe,
     ErrorCountPipe,
     RecordCountComponent,
     ErrorsByCategoryComponent,
-    IssuesByDataFieldComponent,
     RecordsWithErrorTypePipe,
     GroupByDataFieldPipe,
-    RecordListComponent,
     RecordDetailComponent,
-    ErrorGroupComponent,
-    RecordSortPipe,
-    DataFieldErrorRowComponent,
-    FileInformationComponent,
     DataFieldChartComponent,
     PortalComponent,
     ValidDataComponent,
     ProviderGatewayComponent,
-    ValidationBreakdownComponent,
     SubmissionStatusChartComponent,
   ],
   imports: [
@@ -68,6 +51,7 @@ import { ProviderGuard } from '@dbh/providers/util';
     ReactiveFormsModule,
     DataAccessModule,
     AuthModule,
+    BhsdUiModule,
     RouterModule.forRoot([
       {
         path: 'login',
@@ -91,9 +75,11 @@ import { ProviderGuard } from '@dbh/providers/util';
           },
           {
             path: 'provider-gateway/submissions/:id',
-            component: SubmissionDetailComponent,
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-detail-feature').then(
+                (m) => m.BhsdSubmissionDetailFeatureModule
+              ),
           },
-
           {
             path: 'provider-gateway/submit-new-bhsd',
             loadChildren: () =>
