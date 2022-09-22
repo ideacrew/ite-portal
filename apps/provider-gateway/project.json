@@ -108,5 +108,6 @@
       }
     }
   },
-  "tags": ["scope:app"]
+  "tags": ["scope:app"],
+  "implicitDependencies": ["theme"]
 }
