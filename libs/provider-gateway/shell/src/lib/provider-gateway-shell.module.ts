@@ -8,7 +8,6 @@ import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider
   declarations: [ProviderGatewayShellComponent],
   imports: [
     CommonModule,
-
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: ProviderGatewayShellComponent },
     ]),
