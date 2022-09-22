@@ -2,8 +2,15 @@
 <div
   class="chart"
   [style.--needsResubmission]="needsResubmissionPercentage + '%'"
-  [style.--expectingSubmission]="expectingSubmissionPercentage + needsResubmissionPercentage + '%'"
-  [style.--pastDue]="pastDuePercentage + expectingSubmissionPercentage + needsResubmissionPercentage + '%'"
+  [style.--expectingSubmission]="
+    expectingSubmissionPercentage + needsResubmissionPercentage + '%'
+  "
+  [style.--pastDue]="
+    pastDuePercentage +
+    expectingSubmissionPercentage +
+    needsResubmissionPercentage +
+    '%'
+  "
   [style.--current]="'100%'"
 ></div>
 <div class="legend">
