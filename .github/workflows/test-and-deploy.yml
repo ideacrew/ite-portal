@@ -68,7 +68,27 @@ jobs:
           main-branch-name: trunk
       - run: npm ci
       - run: npx nx affected --target=test --parallel=2 --ci --code-coverage
-  main:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: trunk
+      - run: npm ci
+      - run: npx nx affected --target=build --parallel=2
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: affected-apps
+          path: dist/apps
+  e2e:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -102,17 +122,10 @@ jobs:
           npx cypress version --component binary
           npx cypress version --component electron
           npx cypress version --component node
-
-      - run: npx nx affected --target=build --parallel=2
       - run: npx nx affected --target=e2e
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: affected-apps
-          path: dist/apps
   deploy-aws:
     environment: aws-dev
-    needs: [main, prep]
+    needs: [prep, lint, test, build, e2e]
     runs-on: ubuntu-latest
     permissions:
       id-token: write
