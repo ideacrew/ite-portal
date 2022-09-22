@@ -113,6 +113,3 @@ jobs:
           aws-region: us-east-1
       - name: run many deployments
         run: npx nx affected --target=deploy
-
-
-
