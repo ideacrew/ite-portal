@@ -12,8 +12,8 @@
   background-color: #455561;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: max-content 1fr max-content;
-  grid-template-areas: 'title' 'nav' 'user';
+  grid-template-rows: max-content 1fr max-content max-content;
+  grid-template-areas: 'title' 'nav' 'logo' 'user';
   gap: 1.5rem;
 
   .application-title {
