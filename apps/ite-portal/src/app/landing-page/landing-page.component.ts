@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { BHSDService } from '@dbh/bhsd/data-access';
 
 @Component({
-  templateUrl: './provider-gateway.component.html',
-  styleUrls: ['./provider-gateway.component.scss'],
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.scss'],
 })
-export class ProviderGatewayComponent {
+export class LandingPageComponent {
   submissionStatus$ = this.bhsdService.getSubmissionStatus();
 
   test = true;

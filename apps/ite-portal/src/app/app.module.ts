@@ -23,8 +23,7 @@ import { ErrorCountPipe } from './error-count.pipe';
 import { RecordsWithErrorTypePipe } from './records-with-error-type.pipe';
 import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
 import { PortalComponent } from './portal/portal.component';
-import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
-import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,7 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
     RecordsWithErrorTypePipe,
     GroupByDataFieldPipe,
     PortalComponent,
-    ProviderGatewayComponent,
-    SubmissionStatusChartComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,7 +101,7 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
           },
           {
             path: 'provider-gateway',
-            component: ProviderGatewayComponent,
+            component: LandingPageComponent,
           },
           {
             path: 'reset-password',

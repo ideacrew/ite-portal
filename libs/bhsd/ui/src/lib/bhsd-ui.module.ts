@@ -13,6 +13,7 @@ import { ErrorGroupComponent } from './error-group/error-group.component';
 import { ValidDataComponent } from './valid-data/valid-data.component';
 import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
 import { GetRecordIdentifierPipe } from './get-record-identifier.pipe';
+import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { GetRecordIdentifierPipe } from './get-record-identifier.pipe';
     ValidDataComponent,
     DataFieldChartComponent,
     GetRecordIdentifierPipe,
+    SubmissionStatusChartComponent,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -41,6 +43,7 @@ import { GetRecordIdentifierPipe } from './get-record-identifier.pipe';
     ValidDataComponent,
     DataFieldChartComponent,
     GetRecordIdentifierPipe,
+    SubmissionStatusChartComponent,
   ],
 })
 export class BhsdUiModule {}
