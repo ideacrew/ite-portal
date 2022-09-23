@@ -19,10 +19,9 @@ import { ProviderGuard } from '@dbh/providers/util';
 
 import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
-  declarations: [AppComponent, PortalComponent, LandingPageComponent],
+  declarations: [AppComponent, PortalComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -89,7 +88,10 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
           },
           {
             path: 'provider-gateway',
-            component: LandingPageComponent,
+            loadChildren: () =>
+              import('@dbh/bhsd/landing-page-feature').then(
+                (m) => m.BhsdLandingPageFeatureModule
+              ),
           },
           {
             path: 'reset-password',
