@@ -13,5 +13,5 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts", "../util/src/lib/get-record-identifier.ts"]
+  "include": ["**/*.ts"]
 }

@@ -1,4 +1,4 @@
-import { ExtractRecordData } from '../models';
+import { ExtractRecordData } from '@dbh/bhsd/data-access';
 
 export const getRecordIdentifier = (payload: ExtractRecordData): string => {
   const { client_id, admission_date, record_type, treatment_type } = payload;

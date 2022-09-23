@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ExtractRecordData } from './models';
-import { getRecordIdentifier } from './util';
+import { ExtractRecordData } from '@dbh/bhsd/data-access';
+import { getRecordIdentifier } from '@dbh/bhsd/util';
 
 @Pipe({
   name: 'getRecordIdentifier',

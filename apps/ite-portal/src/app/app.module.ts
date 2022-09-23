@@ -23,10 +23,7 @@ import { ErrorCountPipe } from './error-count.pipe';
 import { ErrorsByCategoryComponent } from './errors-by-category/errors-by-category.component';
 import { RecordsWithErrorTypePipe } from './records-with-error-type.pipe';
 import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
-import { RecordDetailComponent } from './record-detail/record-detail.component';
-import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
 import { PortalComponent } from './portal/portal.component';
-import { ValidDataComponent } from './valid-data/valid-data.component';
 import { ProviderGatewayComponent } from './provider-gateway/provider-gateway.component';
 import { SubmissionStatusChartComponent } from './submission-status-chart/submission-status-chart.component';
 
@@ -38,10 +35,7 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
     ErrorsByCategoryComponent,
     RecordsWithErrorTypePipe,
     GroupByDataFieldPipe,
-    RecordDetailComponent,
-    DataFieldChartComponent,
     PortalComponent,
-    ValidDataComponent,
     ProviderGatewayComponent,
     SubmissionStatusChartComponent,
   ],
@@ -71,7 +65,10 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
           },
           {
             path: 'provider-gateway/submissions/:id/records/:recordId',
-            component: RecordDetailComponent,
+            loadChildren: () =>
+              import('@dbh/bhsd/record-detail-feature').then(
+                (m) => m.BhsdRecordDetailFeatureModule
+              ),
           },
           {
             path: 'provider-gateway/submissions/:id',

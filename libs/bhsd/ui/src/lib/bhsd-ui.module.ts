@@ -10,6 +10,9 @@ import { RecordSortPipe } from './record-sort.pipe';
 import { IssuesByDataFieldComponent } from './issues-by-data-field/issues-by-data-field.component';
 import { DataFieldErrorRowComponent } from './data-field-error-row/data-field-error-row.component';
 import { ErrorGroupComponent } from './error-group/error-group.component';
+import { ValidDataComponent } from './valid-data/valid-data.component';
+import { DataFieldChartComponent } from './data-field-chart/data-field-chart.component';
+import { GetRecordIdentifierPipe } from './get-record-identifier.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import { ErrorGroupComponent } from './error-group/error-group.component';
     IssuesByDataFieldComponent,
     DataFieldErrorRowComponent,
     ErrorGroupComponent,
+    ValidDataComponent,
+    DataFieldChartComponent,
+    GetRecordIdentifierPipe,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -32,6 +38,9 @@ import { ErrorGroupComponent } from './error-group/error-group.component';
     IssuesByDataFieldComponent,
     DataFieldErrorRowComponent,
     ErrorGroupComponent,
+    ValidDataComponent,
+    DataFieldChartComponent,
+    GetRecordIdentifierPipe,
   ],
 })
 export class BhsdUiModule {}

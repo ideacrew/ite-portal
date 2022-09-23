@@ -5,8 +5,9 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import { BHSDSubmissionForm } from '@dbh/bhsd/ui';
 import { differenceInMonths } from 'date-fns';
+
+import { BHSDSubmissionForm } from './bhsd-submission-form';
 
 export const dateNotInFuture: ValidatorFn = (
   control: AbstractControl<string>
