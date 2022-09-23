@@ -188,4 +188,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: run many deployments
-        run: npx nx affected --target=deploy:dev --verbose
+        run: npx nx affected --target=deploy:dev
