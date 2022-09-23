@@ -94,7 +94,7 @@
     "deploy:dev": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["chmod +x scripts/portal-dev.sh", "scripts/portal-dev.sh"]
+        "commands": [".github/scripts/portal-dev.sh"]
       }
     }
   },

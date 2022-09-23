@@ -20,7 +20,6 @@ import { ProviderGuard } from '@dbh/providers/util';
 import { AppComponent } from './app.component';
 import { RecordCountComponent } from './record-count/record-count.component';
 import { ErrorCountPipe } from './error-count.pipe';
-import { ErrorsByCategoryComponent } from './errors-by-category/errors-by-category.component';
 import { RecordsWithErrorTypePipe } from './records-with-error-type.pipe';
 import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
 import { PortalComponent } from './portal/portal.component';
@@ -32,7 +31,6 @@ import { SubmissionStatusChartComponent } from './submission-status-chart/submis
     AppComponent,
     ErrorCountPipe,
     RecordCountComponent,
-    ErrorsByCategoryComponent,
     RecordsWithErrorTypePipe,
     GroupByDataFieldPipe,
     PortalComponent,
