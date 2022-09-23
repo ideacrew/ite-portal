@@ -22,6 +22,42 @@ import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider
         component: ProviderGatewayShellComponent,
         children: [
           {
+            path: '',
+            loadChildren: () =>
+              import('@dbh/bhsd/landing-page-feature').then(
+                (m) => m.BhsdLandingPageFeatureModule
+              ),
+          },
+          {
+            path: 'submission-history/:id/records/:recordId',
+            loadChildren: () =>
+              import('@dbh/bhsd/record-detail-feature').then(
+                (m) => m.BhsdRecordDetailFeatureModule
+              ),
+          },
+          {
+            path: 'submission-history/:id',
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-detail-feature').then(
+                (m) => m.BhsdSubmissionDetailFeatureModule
+              ),
+          },
+          {
+            path: 'submission-history',
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-history-feature').then(
+                (m) => m.BhsdSubmissionHistoryFeatureModule
+              ),
+          },
+          {
+            path: 'submit-new-bhsd',
+            loadChildren: () =>
+              import('@dbh/bhsd/submit-new-file-feature').then(
+                (m) => m.BhsdSubmitNewFileFeatureModule
+              ),
+            canLoad: [ProviderGuard],
+          },
+          {
             path: 'user-profile',
             component: UserProfileComponent,
           },

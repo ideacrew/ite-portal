@@ -10,7 +10,7 @@
   <span>File Name: </span>
   <a
     *ngIf="submissionId; else plainText"
-    [routerLink]="['/provider-gateway/submissions', submissionId]"
+    [routerLink]="['/provider-gateway/submission-history', submissionId]"
     >{{ fileName }}
   </a>
   <ng-template #plainText>
