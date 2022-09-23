@@ -18,23 +18,11 @@ import { BhsdUiModule } from '@dbh/bhsd/ui';
 import { ProviderGuard } from '@dbh/providers/util';
 
 import { AppComponent } from './app.component';
-import { RecordCountComponent } from './record-count/record-count.component';
-import { ErrorCountPipe } from './error-count.pipe';
-import { RecordsWithErrorTypePipe } from './records-with-error-type.pipe';
-import { GroupByDataFieldPipe } from './group-by-data-field.pipe';
 import { PortalComponent } from './portal/portal.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorCountPipe,
-    RecordCountComponent,
-    RecordsWithErrorTypePipe,
-    GroupByDataFieldPipe,
-    PortalComponent,
-    LandingPageComponent,
-  ],
+  declarations: [AppComponent, PortalComponent, LandingPageComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
