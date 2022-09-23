@@ -16,6 +16,7 @@ import {
 import { APP_TITLE } from '@dbh/theme';
 import { BhsdUiModule } from '@dbh/bhsd/ui';
 import { ProviderGuard } from '@dbh/providers/util';
+import { SharedUiModule } from '@dbh/shared/ui';
 
 import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
@@ -29,6 +30,7 @@ import { PortalComponent } from './portal/portal.component';
     DataAccessModule,
     AuthModule,
     BhsdUiModule,
+    SharedUiModule,
     RouterModule.forRoot([
       {
         path: 'login',

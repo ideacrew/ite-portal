@@ -46,6 +46,7 @@
         "libs/providers/profile-feature/src/index.ts"
       ],
       "@dbh/providers/util": ["libs/providers/util/src/index.ts"],
+      "@dbh/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@dbh/theme": ["libs/theme/src/index.ts"]
     }
   },

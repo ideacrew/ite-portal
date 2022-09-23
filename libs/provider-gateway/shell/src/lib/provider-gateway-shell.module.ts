@@ -8,6 +8,7 @@ import {
   UserProfileComponent,
 } from '@dbh/auth';
 import { ProviderGuard } from '@dbh/providers/util';
+import { SharedUiModule } from '@dbh/shared/ui';
 
 import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider-gateway-shell.component';
 
@@ -16,6 +17,7 @@ import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider
   imports: [
     CommonModule,
     AuthModule,
+    SharedUiModule,
     RouterModule.forChild([
       {
         path: '',
