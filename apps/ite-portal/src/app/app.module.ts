@@ -20,9 +20,10 @@ import { SharedUiModule } from '@dbh/shared/ui';
 
 import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
+import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, PortalComponent],
+  declarations: [AppComponent, PortalComponent, PortalDashboardComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -41,6 +42,10 @@ import { PortalComponent } from './portal/portal.component';
         component: PortalComponent,
         canActivate: [AuthGuard],
         children: [
+          {
+            path: 'home',
+            component: PortalDashboardComponent,
+          },
           {
             path: 'provider-gateway/submissions',
             loadChildren: () =>

@@ -33,6 +33,14 @@
   overflow: hidden;
 }
 
+.sub-menu {
+  display: none;
+}
+
+.menu-parent.active ~ .sub-menu {
+  display: block;
+}
+
 .icon {
   fill: transparent;
 }

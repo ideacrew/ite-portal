@@ -2,13 +2,18 @@
   <span class="application-title">{{ applicationName }}</span>
   <nav class="nav">
     <div class="menu-group">
+      <a class="menu-parent" routerLink="home" routerLinkActive="active"
+        >Home</a
+      >
+    </div>
+    <div class="menu-group">
       <a
         class="menu-parent"
         routerLink="provider-gateway"
         routerLinkActive="active"
         >Provider Gateway</a
       >
-      <ul>
+      <ul class="sub-menu">
         <li *ngIf="isProvider">
           <a
             routerLink="provider-gateway/submit-new-bhsd"
