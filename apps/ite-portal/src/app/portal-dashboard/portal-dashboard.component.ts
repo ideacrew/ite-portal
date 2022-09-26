@@ -10,7 +10,7 @@ export class PortalDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.http
-      .post('https://dbh3-tableau.openhbx.org/trusted?username=dbhViewer', {})
+      .post('https://tableau.dbh-ite.com/trusted?username=dbhViewer', {})
       .subscribe({ next: (response) => console.log('success', response) });
   }
 }

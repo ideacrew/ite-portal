@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // Get the auth token from the service.
     const authToken = this.auth.rawToken;
 
-    if (request.url.includes('https://dbh3-tableau.openhbx.org')) {
+    if (request.url.includes('https://tableau.dbh-ite.com')) {
       return next.handle(request);
     }
 
