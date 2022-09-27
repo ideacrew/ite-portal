@@ -34,6 +34,11 @@
     margin-top: 0;
     margin-bottom: 1rem;
   }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 .search-box {
@@ -61,6 +66,10 @@
   }
 }
 
+.negative-money {
+  color: #c15800;
+}
+
 .recent-searches {
   list-style: none;
   margin: 0;
@@ -68,5 +77,22 @@
 
   li + li {
     margin-top: 0.5rem;
+  }
+}
+
+.widget-table {
+  font-size: 0.75rem;
+  width: 100%;
+  border: 0;
+  text-align: left;
+
+  .numeric {
+    text-align: right;
+  }
+
+  th,
+  tr,
+  td {
+    border: 0;
   }
 }

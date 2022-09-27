@@ -27,7 +27,7 @@
       <td>
         <a [routerLink]="submission.id">{{ submission.id }}</a>
       </td>
-      <td>{{ submission.submission_date }}</td>
+      <td>{{ submission.submission_date | date: 'short' }}</td>
       <td>{{ submission.coverage_start }}</td>
       <td>{{ submission.coverage_end }}</td>
       <td>{{ submission.number_of_records ?? 'no value' }}</td>
