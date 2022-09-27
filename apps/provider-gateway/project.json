@@ -16,7 +16,12 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/provider-gateway/src/favicon.ico",
-          "apps/provider-gateway/src/assets"
+          "apps/provider-gateway/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/bhsd/companion-guide/src/lib/pdf",
+            "output": "/assets"
+          }
         ],
         "styles": [
           "libs/theme/src/styles/global.scss",

@@ -15,7 +15,12 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/ite-portal/src/favicon.ico",
-          "apps/ite-portal/src/assets"
+          "apps/ite-portal/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/bhsd/companion-guide/src/lib/pdf",
+            "output": "/assets"
+          }
         ],
         "styles": [
           "libs/theme/src/styles/global.scss",
