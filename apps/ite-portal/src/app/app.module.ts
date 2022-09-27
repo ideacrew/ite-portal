@@ -21,6 +21,7 @@ import { SharedUiModule } from '@dbh/shared/ui';
 import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
 import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.component';
+import { TableauModule } from 'ngx-tableau';
 
 @NgModule({
   declarations: [AppComponent, PortalComponent, PortalDashboardComponent],
@@ -32,6 +33,7 @@ import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.co
     AuthModule,
     BhsdUiModule,
     SharedUiModule,
+    TableauModule,
     RouterModule.forRoot([
       {
         path: 'login',
