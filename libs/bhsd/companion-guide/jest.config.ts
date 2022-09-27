@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'bhsd-companion-guide',
   preset: '../../../jest.preset.js',
