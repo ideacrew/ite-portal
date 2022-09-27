@@ -60,7 +60,7 @@ import { FakePageComponent } from './fake-page/fake-page.component';
             component: FakePageComponent,
           },
           {
-            path: 'search-and-query/client-consumer-search',
+            path: 'search-and-query/client-search',
             component: FakePageComponent,
           },
 
