@@ -22,9 +22,15 @@ import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
 import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.component';
 import { TableauModule } from 'ngx-tableau';
+import { FakePageComponent } from './fake-page/fake-page.component';
 
 @NgModule({
-  declarations: [AppComponent, PortalComponent, PortalDashboardComponent],
+  declarations: [
+    AppComponent,
+    PortalComponent,
+    PortalDashboardComponent,
+    FakePageComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -48,6 +54,34 @@ import { TableauModule } from 'ngx-tableau';
             path: 'home',
             component: PortalDashboardComponent,
           },
+
+          {
+            path: 'search-and-query',
+            component: FakePageComponent,
+          },
+          {
+            path: 'search-and-query/client-consumer-search',
+            component: FakePageComponent,
+          },
+
+          {
+            path: 'executive-dashboards',
+            component: FakePageComponent,
+          },
+          {
+            path: 'executive-dashboards/population-served',
+            component: FakePageComponent,
+          },
+
+          {
+            path: 'claims',
+            component: FakePageComponent,
+          },
+          {
+            path: 'claims/provider-claims',
+            component: FakePageComponent,
+          },
+
           {
             path: 'provider-gateway/submissions',
             loadChildren: () =>
