@@ -4,6 +4,8 @@
   --expecting-submission-color: #e0ab7f;
   --past-due-color: #c15800;
   --status-color: pink;
+  display: block;
+  width: 100%;
 }
 
 .summary-with-chart {
@@ -14,7 +16,6 @@
 
 .chart {
   height: 2rem;
-  width: 50ch;
   border-radius: 5px;
   background: linear-gradient(
     to right,
@@ -51,6 +52,7 @@
 .legend {
   margin-top: 1rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 
