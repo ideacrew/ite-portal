@@ -144,8 +144,12 @@ import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-cla
           },
           {
             path: '',
-            redirectTo: 'provider-gateway',
+            redirectTo: 'home',
             pathMatch: 'full',
+          },
+          {
+            path: '**',
+            redirectTo: 'home',
           },
         ],
       },
