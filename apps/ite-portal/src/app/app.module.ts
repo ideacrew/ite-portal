@@ -23,6 +23,7 @@ import { PortalComponent } from './portal/portal.component';
 import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.component';
 import { TableauModule } from 'ngx-tableau';
 import { FakePageComponent } from './fake-page/fake-page.component';
+import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-claims.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FakePageComponent } from './fake-page/fake-page.component';
     PortalComponent,
     PortalDashboardComponent,
     FakePageComponent,
+    AdjudicatedClaimsComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,8 +80,8 @@ import { FakePageComponent } from './fake-page/fake-page.component';
             component: FakePageComponent,
           },
           {
-            path: 'claims/provider-claims',
-            component: FakePageComponent,
+            path: 'claims/adjudicated-claims',
+            component: AdjudicatedClaimsComponent,
           },
 
           {
