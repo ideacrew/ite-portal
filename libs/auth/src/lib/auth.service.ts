@@ -113,7 +113,10 @@ export class AuthService {
         tap((response: TokenResponse) => {
           this.token = response.session.jwt;
           this.setJwt(response.session.jwt);
-          void this.router.navigate(['/provider-gateway']);
+
+          const navUrl =
+            this.isDBHUser && !this.isProvider ? '/home' : '/provider-gateway';
+          void this.router.navigate([navUrl]);
         })
       );
   }
