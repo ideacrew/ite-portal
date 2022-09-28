@@ -35,11 +35,16 @@
       </td>
       <td>{{ submission.status }}</td>
       <td>
-        {{
-          submission.submittedOn === undefined
-            ? 'N/A'
-            : (submission.submittedOn | date)
-        }}
+        <a
+          *ngIf="submission.extractId !== undefined"
+          [routerLink]="['/provider-gateway/submissions', submission.extractId]"
+          >{{
+            submission.submittedOn === undefined
+              ? 'N/A'
+              : (submission.submittedOn | date)
+          }}
+        </a>
+        <span *ngIf="submission.extractId === undefined">N/A</span>
       </td>
       <td>{{ submission.totalRecords ?? 'N/A' }}</td>
       <td>{{ submission.pass ?? 'N/A' }}</td>
