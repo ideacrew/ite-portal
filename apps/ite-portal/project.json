@@ -101,6 +101,18 @@
       "options": {
         "commands": [".github/scripts/portal-dev.sh"]
       }
+    },
+    "deploy:uat": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [".github/scripts/portal-uat.sh"]
+      }
+    },
+    "deploy:prod": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [".github/scripts/portal-prod.sh"]
+      }
     }
   },
   "tags": [],

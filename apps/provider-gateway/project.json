@@ -105,6 +105,18 @@
       "options": {
         "commands": [".github/scripts/pg-dev.sh"]
       }
+    },
+    "deploy:uat": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [".github/scripts/pg-uat.sh"]
+      }
+    },
+    "deploy:prod": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [".github/scripts/pg-prod.sh"]
+      }
     }
   },
   "tags": ["scope:app"],

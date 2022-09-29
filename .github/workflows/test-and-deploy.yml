@@ -3,39 +3,18 @@ name: Test and Deploy
 on:
   push:
     paths:
-      - 'firestore.rules'
       - 'apps/**'
       - 'libs/**'
       - 'package-lock.json'
       - 'package.json'
     branches:
-      - trunk
+      - [$default-branch]
 
 concurrency:
   group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  DBH_ENV: 'dev'
-  S3_BUCKET: 'portal-dev-dbh-ite-com'
-  CLOUDFRONT_DIST_ID: 'EVD9XJF7IQQ3F'
-  BASE_URL: 'https://portal-dev.dbh-ite.com'
-  REPO_NAME: 'ite-portal'
-
 jobs:
-  prep:
-    runs-on: ubuntu-latest
-    outputs:
-      shortSha: ${{ steps.prep.outputs.short_sha }}
-    steps:
-      - name: Git branch name
-        id: git-branch-name
-        uses: EthanSK/git-branch-name-action@v1
-      - name: Prepare info
-        id: prep
-        run: |
-          SHORT_SHA=$(echo $GITHUB_SHA | head -c7)
-          echo ::set-output name=short_sha::$SHORT_SHA
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +25,7 @@ jobs:
         with:
           node-version: 16
       - uses: actions/cache@v3
-        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        id: npm-cache
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -149,7 +128,7 @@ jobs:
       - run: npx nx affected --target=e2e
   deploy-aws:
     environment: aws-dev
-    needs: [prep, lint, test, build, e2e]
+    needs: [lint, test, build, e2e]
     runs-on: ubuntu-latest
     permissions:
       id-token: write
