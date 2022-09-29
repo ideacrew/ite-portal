@@ -23,7 +23,8 @@
         warning: submissions[0].status === 'Expecting Submission',
         error:
           submissions[0].status === 'Need Resubmission' ||
-          submissions[0].status === 'Past Due'
+          submissions[0].status === 'Past Due',
+        accepted: submissions[0].status === 'Current'
       }"
     >
       {{ submissions[0].status }}
