@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './dbh-logo.component.html',
   styleUrls: ['./dbh-logo.component.scss'],
 })
-export class DbhLogoComponent {}
+export class DbhLogoComponent {
+  logo = true;
+}
