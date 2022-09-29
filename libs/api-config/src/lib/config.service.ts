@@ -4,23 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ConfigService {
-  baseApiUrl!: string;
-  environment = 'local';
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // By default the baseApiUrl is set to the dev api url
+  baseApiUrl = 'https://bff-dev.dbh-ite.com';
+
   constructor() {
+    // Only if the url contains uat or only the application name should we override the api url
     const [urlEnvironment] = window.location.host.split('.');
-    if (urlEnvironment.includes('dev') && !urlEnvironment.includes('uat')) {
-      this.baseApiUrl = `https://bff-dev.dbh-ite.com`;
-      // this.baseApiUrl = `https://ite-api.herokuapp.com`;
-      this.environment = 'dev';
-    } else if (urlEnvironment.includes('uat')) {
+
+    if (urlEnvironment.includes('uat')) {
       this.baseApiUrl = `https://bff-uat.dbh-ite.com`;
-      // this.baseApiUrl = `https://ite-api-staging.herokuapp.com`;
-      this.environment = 'uat';
-    } else {
-      this.baseApiUrl = `https://bff-dev.dbh-ite.com`;
-      // this.baseApiUrl = `https://ite-api.herokuapp.com`;
-      this.environment = 'local';
+    }
+
+    if (urlEnvironment === 'portal' || urlEnvironment === 'provider-gateway') {
+      this.baseApiUrl = `https://bff.dbh-ite.com`;
     }
   }
 }
