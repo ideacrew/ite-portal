@@ -6,7 +6,7 @@ on:
       - trunk
 
 concurrency:
-  group: deploy-${{ github.ref }}
+  group: dev-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
