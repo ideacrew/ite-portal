@@ -2,13 +2,7 @@ name: Test and Deploy
 
 on:
   push:
-    paths:
-      - 'apps/**'
-      - 'libs/**'
-      - 'package-lock.json'
-      - 'package.json'
-    branches:
-      - [$default-branch]
+    branches: [$default-branch]
 
 concurrency:
   group: deploy-${{ github.ref }}
