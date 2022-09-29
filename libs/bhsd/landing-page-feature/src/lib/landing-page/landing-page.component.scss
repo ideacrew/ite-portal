@@ -35,16 +35,4 @@ dbh-submission-status-chart {
   margin-top: 2rem;
   display: flex;
   gap: 1rem;
-
-  .button {
-    background-color: #455561;
-    border-radius: 4px;
-    color: #fff;
-    padding: 0.5rem 0.75rem;
-    text-decoration: none;
-  }
-
-  .button:hover {
-    text-decoration: underline;
-  }
 }

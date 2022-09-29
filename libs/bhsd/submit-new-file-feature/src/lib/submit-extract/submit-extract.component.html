@@ -22,7 +22,7 @@
             Coverage start date is required.
           </p>
           <p *ngIf="coverage_start.errors['dateInFuture']">
-            Coverage start date cannot in the future.
+            Coverage start date cannot be in the future.
           </p>
           <p
             *ngIf="
@@ -108,8 +108,8 @@
       </p>
     </div>
   </ng-container>
-  <br />
   <button
+    class="button submit-button"
     [disabled]="extractForm.status === 'INVALID' || (sendingData$ | async)"
     type="button"
     (click)="sendData()"

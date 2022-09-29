@@ -2,3 +2,21 @@
 @import './partials/fonts';
 @import './partials/typography';
 @import './partials/table';
+
+.button {
+  background-color: hsl(206, 17%, 33%);
+  border-radius: 4px;
+  border: 0;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+}
+
+.button[disabled] {
+  background-color: hsl(210, 5%, 50%);
+}
+
+a.button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

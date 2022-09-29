@@ -65,13 +65,13 @@ export class IssuesByDataFieldComponent {
       };
     });
 
-    console.log({
-      affectedRecords,
-      allErrors,
-      categories,
-      uniqueCategories,
-      categoriesWithCount,
-    });
+    // console.log({
+    //   affectedRecords,
+    //   allErrors,
+    //   categories,
+    //   uniqueCategories,
+    //   categoriesWithCount,
+    // });
 
     return categoriesWithCount;
   }
