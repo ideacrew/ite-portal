@@ -29,7 +29,15 @@
   </thead>
   <tbody>
     <tr *ngFor="let submission of submissionStatus$ | async">
-      <td>{{ submission.providerName }}</td>
+      <td>
+        <a
+          [routerLink]="[
+            '/provider-gateway/provider-profile',
+            submission.providerId
+          ]"
+          >{{ submission.providerName }}</a
+        >
+      </td>
       <td class="service-type">
         {{ serviceType(submission) }}
       </td>
