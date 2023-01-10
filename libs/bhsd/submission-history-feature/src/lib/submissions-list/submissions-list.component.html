@@ -25,7 +25,9 @@
         >
       </td>
       <td>
-        <a [routerLink]="submission.id">{{ submission.file_name ?? 'no file name provided' }}</a>
+        <a [routerLink]="submission.id">{{
+          submission.file_name ?? 'no file name provided'
+        }}</a>
       </td>
       <td>{{ submission.submission_date | date: 'short' }}</td>
       <td>{{ submission.coverage_start }}</td>
