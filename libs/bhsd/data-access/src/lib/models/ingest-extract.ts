@@ -6,6 +6,7 @@ export interface ExtractSubmission {
   file_type: 'Initial' | null;
   number_of_records: number | null;
   fail_count: number | null;
+  file_name: string | null;
   pass_count: number | null;
   status: 'Valid' | 'Invalid';
   provider_name: string;
