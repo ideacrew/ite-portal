@@ -36,3 +36,21 @@ dbh-submission-status-chart {
   display: flex;
   gap: 1rem;
 }
+
+h3 {
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+table {
+  margin-bottom: 1rem;
+}
+
+table, td, th {
+  border: none;
+}
+
+table th {
+  text-align: left;
+  border-bottom: 1px solid grey
+}
