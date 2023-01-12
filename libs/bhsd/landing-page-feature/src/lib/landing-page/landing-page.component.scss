@@ -46,11 +46,13 @@ table {
   margin-bottom: 1rem;
 }
 
-table, td, th {
+table,
+td,
+th {
   border: none;
 }
 
 table th {
   text-align: left;
-  border-bottom: 1px solid grey
+  border-bottom: 1px solid grey;
 }
