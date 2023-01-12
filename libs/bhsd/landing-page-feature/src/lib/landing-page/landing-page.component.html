@@ -53,5 +53,34 @@
     <div class="action-links">
       <a class="button" routerLink="submit-new-bhsd">Submit New BHSD File</a>
     </div>
+    <ng-container *ngIf="pastSubmissionStatus$ | async as pastSubmissions">
+      <h3>Past Submissions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Reporting Period</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <a [routerLink]="submissions[0].extractId">{{
+                thisReportingPeriod
+              }}</a>
+            </td>
+            <td>{{ submissions[0].status }}</td>
+          </tr>
+          <tr>
+            <td>
+              <a [routerLink]="pastSubmissions[0].extractId">{{
+                lastReportingPeriod
+              }}</a>
+            </td>
+            <td>{{ pastSubmissions[0].status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
   </ng-container>
 </ng-container>

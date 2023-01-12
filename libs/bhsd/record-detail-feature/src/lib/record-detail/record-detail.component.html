@@ -4,7 +4,7 @@
   <dbh-file-information
     [providerName]="vm.submission.provider_name"
     [fileName]="vm.submission.file_name"
-    reportingPeriod="August, 2022"
+    [reportingPeriod]="thisReportingPeriod"
     [submissionDate]="vm.submission.created_at"
   ></dbh-file-information>
   <dbh-data-field-chart [record]="vm.record!"></dbh-data-field-chart>

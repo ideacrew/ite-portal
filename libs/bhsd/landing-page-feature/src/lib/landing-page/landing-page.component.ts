@@ -1,25 +1,28 @@
 import { Component } from '@angular/core';
 import { BHSDService } from '@dbh/bhsd/data-access';
+import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 
 @Component({
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent {
-  submissionStatus$ = this.bhsdService.getSubmissionStatus();
-
   test = true;
+  today = new Date();
+  lastMonth = getReportingPeriod(1);
+  prevSubmissionMonth = getReportingPeriod(2);
 
-  get thisReportingPeriod(): string {
-    const today = new Date();
-    const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-    const lastMonthsName = lastMonth.toLocaleString('en-US', {
-      month: 'long',
-    });
-    const year = today.getFullYear();
+  submissionStatus$ = this.bhsdService.getSubmissionStatus(
+    this.lastMonth.getMonth(),
+    this.lastMonth.getFullYear()
+  );
+  pastSubmissionStatus$ = this.bhsdService.getSubmissionStatus(
+    this.prevSubmissionMonth.getMonth(),
+    this.lastMonth.getFullYear()
+  );
 
-    return `${lastMonthsName}, ${year}`;
-  }
+  thisReportingPeriod = getReportingPeriodText(this.lastMonth);
+  lastReportingPeriod = getReportingPeriodText(this.prevSubmissionMonth);
 
   constructor(private bhsdService: BHSDService) {}
 }

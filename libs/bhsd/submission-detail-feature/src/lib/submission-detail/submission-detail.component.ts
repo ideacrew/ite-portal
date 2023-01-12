@@ -7,6 +7,7 @@ import {
   ExtractSubmissionResponseV2,
   BHSDService,
 } from '@dbh/bhsd/data-access';
+import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 
 @Component({
   selector: 'dbh-submission-detail',
@@ -15,6 +16,8 @@ import {
 })
 export class SubmissionDetailComponent {
   viewType: 'record' | 'dataField' = 'record';
+
+  thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
 
   submission$ = this.route.paramMap.pipe(
     filter((parameters: ParamMap) => parameters.has('id')),

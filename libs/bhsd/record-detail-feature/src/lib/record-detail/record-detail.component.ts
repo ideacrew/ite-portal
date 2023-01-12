@@ -5,6 +5,7 @@ import {
   ExtractSubmissionResponseV2,
   BHSDService,
 } from '@dbh/bhsd/data-access';
+import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 import {
   combineLatest,
   filter,
@@ -38,6 +39,8 @@ export class RecordDetailComponent {
     filter((parameters: ParamMap) => parameters.has('recordId')),
     map((parameters: ParamMap) => parameters.get('recordId'))
   );
+
+  thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
 
   vm$: Observable<VM> = combineLatest({
     recordId: this.recordId$,
