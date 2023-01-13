@@ -5,8 +5,8 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
-    "start:portal": "nx serve ite-portal --publicHost=${CODESPACE_NAME}-4200.githubpreview.dev:443",
-    "start:gateway": "nx serve provider-gateway --publicHost=${CODESPACE_NAME}-4201.githubpreview.dev:443",
+    "start:portal": "nx serve ite-portal --publicHost=${CODESPACE_NAME}-4200.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}:443",
+    "start:gateway": "nx serve provider-gateway --publicHost=${CODESPACE_NAME}-4201.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}:443",
     "build": "nx build",
     "test": "nx test"
   },
