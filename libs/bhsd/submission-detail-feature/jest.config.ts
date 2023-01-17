@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export default {
   displayName: 'bhsd-submission-detail-feature',
   preset: '../../../jest.preset.js',

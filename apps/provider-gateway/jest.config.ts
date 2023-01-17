@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export default {
   displayName: 'provider-gateway',
   preset: '../../jest.preset.js',

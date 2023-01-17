@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export default {
   displayName: 'providers-profile',
   preset: '../../../jest.preset.js',

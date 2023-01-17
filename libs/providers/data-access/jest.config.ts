@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export default {
   displayName: 'providers-data-access',
   preset: '../../../jest.preset.js',
