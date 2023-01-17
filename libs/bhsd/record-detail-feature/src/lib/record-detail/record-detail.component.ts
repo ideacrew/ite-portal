@@ -14,10 +14,10 @@ import {
   switchMap,
 } from 'rxjs';
 
-interface VM {
+type VM = {
   submission: ExtractSubmissionResponseV2;
   record: ExtractRecordValidationV2 | undefined;
-}
+};
 
 @Component({
   templateUrl: './record-detail.component.html',

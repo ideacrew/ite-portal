@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 const cypressToken = (userType: 'dbh' | 'provider' | 'both'): string => {
   const exp = Date.now() + 1000 * 60 * 60 * 24 * 7;
   const email = `${userType}_user@example.com`;

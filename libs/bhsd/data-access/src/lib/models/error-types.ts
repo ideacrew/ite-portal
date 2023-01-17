@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export const errorMapping: Record<ErrorType, ErrorKey> = {
   Fatal: 'fatal_errors',
   Critical: 'critical_errors',

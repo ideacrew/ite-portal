@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ExtractRecordData } from './extract-record-data';
 import { Validation, ValidationV2 } from './validation';
 import { ValidationStatus } from './validation-status';
 
-export interface ExtractRecordValidation {
+export type ExtractRecordValidation = {
   _id: {
     $oid: string;
   };
@@ -16,9 +17,9 @@ export interface ExtractRecordValidation {
   status: ValidationStatus;
   updated_at: string;
   warnings: Validation[];
-}
+};
 
-export interface ExtractRecordValidationV2 {
+export type ExtractRecordValidationV2 = {
   _id: {
     $oid: string;
   };
@@ -30,4 +31,4 @@ export interface ExtractRecordValidationV2 {
   payload: ExtractRecordData;
   status: ValidationStatus;
   updated_at: string;
-}
+};

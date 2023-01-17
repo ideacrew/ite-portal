@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableauModule } from 'ngx-tableau';
 
 import { DataAccessModule } from '@dbh/bhsd/data-access';
 import {
@@ -21,7 +22,6 @@ import { SharedUiModule } from '@dbh/shared/ui';
 import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
 import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.component';
-import { TableauModule } from 'ngx-tableau';
 import { FakePageComponent } from './fake-page/fake-page.component';
 import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-claims.component';
 

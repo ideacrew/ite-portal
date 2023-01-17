@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
+
 import { BhsdUiModule } from '@dbh/bhsd/ui';
+
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [LandingPageComponent],

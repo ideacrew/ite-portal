@@ -42,10 +42,10 @@ export class ValidDataComponent {
     );
   }
 
-  get validFieldsWithData(): {
+  get validFieldsWithData(): Array<{
     fieldName: ExtractRecordField;
     value: string;
-  }[] {
+  }> {
     const validFields = this.dataFieldsWithoutErrors.map((field) => ({
       fieldName: field,
       value: this.payload[field],

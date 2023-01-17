@@ -1,4 +1,5 @@
-export interface SubmissionSummary {
+/* eslint-disable @typescript-eslint/naming-convention */
+export type SubmissionSummary = {
   provider_name: string;
   provider_id: string;
   mh: boolean;
@@ -12,9 +13,9 @@ export interface SubmissionSummary {
   pass: string | 'N/A';
   fail: string | 'N/A';
   extract_id: { $oid: string };
-}
+};
 
-export interface SubmissionStatus {
+export type SubmissionStatus = {
   providerName: string;
   providerId: string;
   mh: boolean;
@@ -26,4 +27,4 @@ export interface SubmissionStatus {
   pass?: number;
   fail?: number;
   extractId?: string;
-}
+};

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ExtractRecordValidation } from '../models';
 import {
   getAffectedRecords,

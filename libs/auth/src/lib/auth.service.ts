@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
@@ -7,16 +8,16 @@ import { ConfigService } from '@dbh/api-config';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-interface TokenResponse {
+type TokenResponse = {
   session: SessionObject;
-}
+};
 
-interface SessionObject {
+type SessionObject = {
   jwt: string;
   email: string;
-}
+};
 
-export interface TokenObject {
+export type TokenObject = {
   exp: number;
   iss: string;
   auth_token: string;
@@ -26,7 +27,7 @@ export interface TokenObject {
   provider_id: string | null;
   email: string;
   provider_name: string | null;
-}
+};
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

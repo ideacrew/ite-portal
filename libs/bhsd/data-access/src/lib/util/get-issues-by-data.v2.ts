@@ -26,9 +26,7 @@ export const convertValidationToValidationV2 = (
 
 export const getFieldNameFromValidation = (
   validation: Validation
-): ExtractRecordField => {
-  return (Object.keys(validation) as ExtractRecordField[])[0];
-};
+): ExtractRecordField => (Object.keys(validation) as ExtractRecordField[])[0];
 
 export const getMessageFromValidation = (
   validation: Validation
@@ -42,6 +40,7 @@ export const getMessageFromValidation = (
 export const convertRecordValidationToV2 = (
   recordValidation: ExtractRecordValidation
 ): ExtractRecordValidationV2 => {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { critical_errors, fatal_errors, warnings, ...leftOver } =
     recordValidation;
 

@@ -8,14 +8,15 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
-import { passwordDoesNotContainEmail } from '../password-validator';
-import { AuthService } from '../auth.service';
 import { APP_TITLE } from '@dbh/theme';
 
-export interface UserLoginForm {
+import { passwordDoesNotContainEmail } from '../password-validator';
+import { AuthService } from '../auth.service';
+
+export type UserLoginForm = {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
-}
+};
 @Component({
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],

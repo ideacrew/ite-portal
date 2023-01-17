@@ -1,4 +1,5 @@
-export interface ProviderProfile {
+/* eslint-disable @typescript-eslint/naming-convention */
+export type ProviderProfile = {
   _id: {
     $oid: string;
   };
@@ -15,16 +16,16 @@ export interface ProviderProfile {
   updated_at: string; // Date string
   office_locations: OfficeLocation[];
   is_primary: boolean;
-}
+};
 
-export interface Phone {
+export type Phone = {
   area_code: string;
   extension: string;
   full_phone_number: string;
   number: string;
-}
+};
 
-export interface OfficeLocation {
+export type OfficeLocation = {
   address: {
     address_line1: string;
     address_line2: string;
@@ -37,10 +38,10 @@ export interface OfficeLocation {
   };
   phones: Phone[];
   emails: Email[];
-}
+};
 
-export interface Email {
+export type Email = {
   address: string;
   created_at: string | null;
   updated_at: string | null;
-}
+};

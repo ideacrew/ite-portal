@@ -5,9 +5,9 @@ import { ValidationMessage } from './validation-message';
 
 export type Validation = Partial<Record<ExtractRecordField, ValidationMessage>>;
 
-export interface ValidationV2 {
+export type ValidationV2 = {
   errorType: ErrorType;
   fieldName: ExtractRecordField;
   text: string;
   category: ValidationCategory | null;
-}
+};

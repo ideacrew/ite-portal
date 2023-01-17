@@ -1,6 +1,6 @@
 import { ValidationCategory } from '@dbh/bhsd/data-access';
 
-export interface CategoryWithCount {
+export type CategoryWithCount = {
   category: ValidationCategory;
   count: number;
-}
+};

@@ -37,9 +37,8 @@ export const startDateNotAfterEndDate: ValidatorFn = (
     : null;
 };
 
-export const compareDates = (date1: Date, date2: Date): boolean => {
-  return date1 > date2;
-};
+export const compareDates = (date1: Date, date2: Date): boolean =>
+  date1 > date2;
 
 export const coveragePeriodNotTooLong: ValidatorFn = (
   control: AbstractControl<FormGroup<BHSDSubmissionForm>>

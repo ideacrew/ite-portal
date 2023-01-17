@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {
   ExtractRecordValidation,
   ExtractRecordValidationV2,
 } from './extract-record-validation';
 
-export interface ExtractSubmissionResponse {
+export type ExtractSubmissionResponse = {
   _id: {
     $oid: string;
   };
@@ -20,9 +21,9 @@ export interface ExtractSubmissionResponse {
   status: string | null;
   updated_at: string;
   provider_name: string;
-}
+};
 
-export interface ExtractSubmissionResponseV2 {
+export type ExtractSubmissionResponseV2 = {
   _id: {
     $oid: string;
   };
@@ -39,4 +40,4 @@ export interface ExtractSubmissionResponseV2 {
   status: string | null;
   updated_at: string;
   provider_name: string;
-}
+};

@@ -1,4 +1,5 @@
-export interface ExtractSubmission {
+/* eslint-disable @typescript-eslint/naming-convention */
+export type ExtractSubmission = {
   id: string;
   coverage_end: string;
   coverage_start: string;
@@ -11,4 +12,4 @@ export interface ExtractSubmission {
   status: 'Valid' | 'Invalid';
   provider_name: string;
   provider_id: string;
-}
+};

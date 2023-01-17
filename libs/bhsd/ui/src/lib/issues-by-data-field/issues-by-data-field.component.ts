@@ -58,12 +58,10 @@ export class IssuesByDataFieldComponent {
 
     const uniqueCategories: ValidationCategory[] = [...new Set(categories)];
 
-    const categoriesWithCount = uniqueCategories.map((category) => {
-      return {
-        category,
-        count: this.getCountOfErrorsWithCategoryName(category, allErrors),
-      };
-    });
+    const categoriesWithCount = uniqueCategories.map((category) => ({
+      category,
+      count: this.getCountOfErrorsWithCategoryName(category, allErrors),
+    }));
 
     // console.log({
     //   affectedRecords,

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface ExtractRecordData {
   admission_date: string;
   arrests_past_30days: string;

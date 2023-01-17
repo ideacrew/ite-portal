@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FormControl,
@@ -11,11 +12,11 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 
-export interface PasswordResetForm {
+export type PasswordResetForm = {
   current_password: FormControl<string | null>;
   password: FormControl<string | null>;
   password_confirmation: FormControl<string | null>;
-}
+};
 @Component({
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],

@@ -1,6 +1,6 @@
 import { ValidationCategory } from './validation-category';
 
-export interface ValidationMessage {
+export type ValidationMessage = {
   text: string;
   category: ValidationCategory | null;
-}
+};

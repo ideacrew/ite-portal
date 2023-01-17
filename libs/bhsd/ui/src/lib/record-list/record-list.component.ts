@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, Input } from '@angular/core';
 
 import { ExtractRecordValidationV2, ValidationV2 } from '@dbh/bhsd/data-access';

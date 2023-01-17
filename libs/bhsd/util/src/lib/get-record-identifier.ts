@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ExtractRecordData } from '@dbh/bhsd/data-access';
 
 export const getRecordIdentifier = (payload: ExtractRecordData): string => {

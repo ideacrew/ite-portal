@@ -83,11 +83,11 @@ export const getIssuesByDataField = (
   const issuesByDataField = fieldNames.map((fieldName) => {
     const affectedRecords = getAffectedRecords(records, fieldName, errorType);
     // const uniqueCategories = getUniqueCategories(affectedRecords, category);
-    const issuesByDataField: IssuesByDataField = {
+    const issuesByField: IssuesByDataField = {
       fieldName,
       affectedRecords,
     };
-    return issuesByDataField;
+    return issuesByField;
   });
 
   return issuesByDataField;

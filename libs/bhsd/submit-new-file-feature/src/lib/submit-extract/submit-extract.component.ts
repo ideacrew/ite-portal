@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable unicorn/no-null */
 /* eslint-disable @typescript-eslint/unbound-method */
 import {
@@ -169,9 +170,9 @@ export class SubmitExtractComponent {
     return this.extractForm.get('extracted_on') as FormControl<string | null>;
   }
 
-  get records(): FormControl<Record<string, unknown>[] | null> {
-    return this.extractForm.get('records') as FormControl<
-      Record<string, unknown>[] | null
-    >;
+  get records(): FormControl<Array<Record<string, unknown>> | null> {
+    return this.extractForm.get('records') as FormControl<Array<
+      Record<string, unknown>
+    > | null>;
   }
 }

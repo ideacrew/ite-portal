@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { getExtractDate } from '../support/app.po';
 
 const cypressToken = (userType: 'dbh' | 'provider' | 'both'): string => {
