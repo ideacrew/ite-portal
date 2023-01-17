@@ -38,13 +38,13 @@ export class BHSDService {
     month: number | null,
     year: number | null
   ): Observable<SubmissionStatus[]> {
-    const update_month = month ? month + 1 : undefined;
+    const updateMonth = month ? month + 1 : undefined;
     return this.http
       .get<SubmissionSummary[]>(
         `${
           this.config.baseApiUrl
         }/api/v1/providers/submission_summary?month=${String(
-          update_month
+          updateMonth
         )}&year=${String(year)}`
       )
       .pipe(
