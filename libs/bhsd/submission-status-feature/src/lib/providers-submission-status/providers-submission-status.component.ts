@@ -7,11 +7,7 @@ import { BHSDService, SubmissionStatus } from '@dbh/bhsd/data-access';
   styleUrls: ['./providers-submission-status.component.scss'],
 })
 export class ProvidersSubmissionStatusComponent {
-  today = new Date();
-  submissionStatus$ = this.bhsdService.getSubmissionStatus(
-    this.today.getMonth(),
-    this.today.getFullYear()
-  );
+  submissionStatus$ = this.bhsdService.getSubmissionStatus();
   constructor(private bhsdService: BHSDService) {}
 
   get thisReportingPeriod(): string {
