@@ -64,24 +64,40 @@
         </thead>
         <tbody>
           <tr>
-            <td>
-              <a [routerLink]="submissions[0].extractId">{{
-                thisReportingPeriod
-              }}</a>
+            <td [ngSwitch]="!!submissions[0].extractId">
+              <span *ngSwitchCase="true">
+                <a
+                  [routerLink]="[
+                    '/provider-gateway/submission-history',
+                    submissions[0].extractId
+                  ]"
+                  >{{ thisReportingPeriod }}</a
+                >
+              </span>
+              <span *ngSwitchCase="false">{{ thisReportingPeriod }}</span>
             </td>
             <td>{{ submissions[0].status }}</td>
           </tr>
           <tr>
-            <td>
-              <a [routerLink]="pastSubmissions[0].extractId">{{
-                lastReportingPeriod
-              }}</a>
+            <td [ngSwitch]="!!pastSubmissions[0].extractId">
+              <span *ngSwitchCase="true">
+                <a
+                  [routerLink]="[
+                    '/provider-gateway/submission-history',
+                    pastSubmissions[0].extractId
+                  ]"
+                  >{{ lastReportingPeriod }}</a
+                >
+              </span>
+              <span *ngSwitchCase="false">{{ lastReportingPeriod }}</span>
             </td>
             <td>{{ pastSubmissions[0].status }}</td>
           </tr>
         </tbody>
       </table>
     </ng-container>
-    <a class="button" routerLink="submissions">View Submission History</a>
+    <a class="button" routerLink="/provider-gateway/submission-history"
+      >View Submission History</a
+    >
   </ng-container>
 </ng-container>
