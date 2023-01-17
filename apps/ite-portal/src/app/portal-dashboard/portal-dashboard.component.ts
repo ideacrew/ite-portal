@@ -8,11 +8,7 @@ import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
   styleUrls: ['./portal-dashboard.component.scss'],
 })
 export class PortalDashboardComponent {
-  today = new Date();
-  submissionStatus$ = this.bhsdService.getSubmissionStatus(
-    this.today.getMonth(),
-    this.today.getFullYear()
-  );
+  submissionStatus$ = this.bhsdService.getSubmissionStatus();
   constructor(private bhsdService: BHSDService, private router: Router) {}
 
   thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));

@@ -12,14 +12,15 @@ export class LandingPageComponent {
   lastMonth = getReportingPeriod(1);
   prevSubmissionMonth = getReportingPeriod(2);
 
-  submissionStatus$ = this.bhsdService.getSubmissionStatus(
-    this.lastMonth.getMonth(),
-    this.lastMonth.getFullYear()
-  );
-  pastSubmissionStatus$ = this.bhsdService.getSubmissionStatus(
-    this.prevSubmissionMonth.getMonth(),
-    this.lastMonth.getFullYear()
-  );
+  submissionStatus$ = this.bhsdService.getSubmissionStatusByDate({
+    month: this.lastMonth.getMonth(),
+    year: this.lastMonth.getFullYear(),
+  });
+
+  pastSubmissionStatus$ = this.bhsdService.getSubmissionStatusByDate({
+    month: this.prevSubmissionMonth.getMonth(),
+    year: this.lastMonth.getFullYear(),
+  });
 
   thisReportingPeriod = getReportingPeriodText(this.lastMonth);
   lastReportingPeriod = getReportingPeriodText(this.prevSubmissionMonth);
