@@ -34,6 +34,25 @@ export class BHSDService {
       .pipe(map((extracts) => extracts.slice(0, 10)));
   }
 
+  getSubmissionStatusByDate({
+    month,
+    year,
+  }: {
+    month: number;
+    year: number;
+  }): Observable<SubmissionStatus[]> {
+    const updateMonth = (month += 1);
+    return this.http
+      .get<SubmissionSummary[]>(
+        `${this.config.baseApiUrl}/api/v1/providers/submission_summary?month=${updateMonth}&year=${year}`
+      )
+      .pipe(
+        map((summary) =>
+          summary.map((status) => convertSummaryToStatus(status))
+        )
+      );
+  }
+
   getSubmissionStatus(): Observable<SubmissionStatus[]> {
     return this.http
       .get<SubmissionSummary[]>(
