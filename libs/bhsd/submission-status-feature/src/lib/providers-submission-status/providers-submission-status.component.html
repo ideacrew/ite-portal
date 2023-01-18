@@ -25,6 +25,7 @@
       <th>Total Records</th>
       <th>Pass</th>
       <th>Fail</th>
+      <th>Pass Rate</th>
     </tr>
   </thead>
   <tbody>
@@ -57,6 +58,7 @@
       <td>{{ submission.totalRecords ?? 'N/A' }}</td>
       <td>{{ submission.pass ?? 'N/A' }}</td>
       <td>{{ submission.fail ?? 'N/A' }}</td>
+      <td>{{ passRate(submission) }}</td>
     </tr>
   </tbody>
 </table>
