@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { BHSDService, SubmissionStatus } from '@dbh/bhsd/data-access';
 import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
-import { ValidationBreakdownComponent } from 'libs/bhsd/ui/src/lib/validation-breakdown/validation-breakdown.component';
 
 @Component({
   templateUrl: './providers-submission-status.component.html',
