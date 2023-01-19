@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { BHSDService, SubmissionStatus } from '@dbh/bhsd/data-access';
+import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 
 @Component({
   templateUrl: './providers-submission-status.component.html',
@@ -10,16 +11,7 @@ export class ProvidersSubmissionStatusComponent {
   submissionStatus$ = this.bhsdService.getSubmissionStatus();
   constructor(private bhsdService: BHSDService) {}
 
-  get thisReportingPeriod(): string {
-    const today = new Date();
-    const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-    const lastMonthsName = lastMonth.toLocaleString('en-US', {
-      month: 'long',
-    });
-    const year = today.getFullYear();
-
-    return `${lastMonthsName}, ${year}`;
-  }
+  thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
 
   serviceType(submission: SubmissionStatus): string {
     const { mh, sud } = submission;
