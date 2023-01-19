@@ -30,11 +30,4 @@ export class ProvidersSubmissionStatusComponent {
 
     return '';
   }
-
-  passRate(submission: SubmissionStatus): number | string {
-    const { pass, totalRecords } = submission;
-    return pass && totalRecords
-      ? Math.round((pass / totalRecords) * 100)
-      : 'N/A';
-  }
 }
