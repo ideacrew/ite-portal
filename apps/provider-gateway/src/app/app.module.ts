@@ -10,6 +10,7 @@ import {
   LogInComponent,
 } from '@dbh/auth';
 import { APP_TITLE } from '@dbh/theme';
+import { RootStoreModule } from '@dbh/shared/state/root-store';
 
 import { AppComponent } from './app.component';
 
@@ -42,6 +43,7 @@ import { AppComponent } from './app.component';
       ],
       { initialNavigation: 'enabledBlocking' }
     ),
+    RootStoreModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

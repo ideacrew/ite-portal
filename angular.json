@@ -22,6 +22,7 @@
     "providers-data-access": "libs/providers/data-access",
     "providers-profile-feature": "libs/providers/profile-feature",
     "providers-util": "libs/providers/util",
+    "shared-state-root-store": "libs/shared/state/root-store",
     "shared-ui": "libs/shared/ui",
     "theme": "libs/theme"
   }
