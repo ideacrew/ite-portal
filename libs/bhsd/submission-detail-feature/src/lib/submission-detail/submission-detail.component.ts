@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 
@@ -8,13 +8,18 @@ import {
   BHSDService,
 } from '@dbh/bhsd/data-access';
 import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
+import { BhsdFacade } from '@dbh/bhsd/store';
 
 @Component({
   selector: 'dbh-submission-detail',
   templateUrl: './submission-detail.component.html',
   styleUrls: ['./submission-detail.component.scss'],
 })
-export class SubmissionDetailComponent {
+export class SubmissionDetailComponent implements OnInit {
+  bhsdFacade = inject(BhsdFacade);
+
+  loaded$ = this.bhsdFacade.loaded$;
+
   viewType: 'record' | 'dataField' = 'record';
 
   thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
@@ -37,4 +42,8 @@ export class SubmissionDetailComponent {
     private route: ActivatedRoute,
     private bhsdService: BHSDService
   ) {}
+
+  ngOnInit(): void {
+    this.bhsdFacade.init();
+  }
 }

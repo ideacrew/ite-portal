@@ -25,6 +25,7 @@
       "@dbh/bhsd/record-detail-feature": [
         "libs/bhsd/record-detail-feature/src/index.ts"
       ],
+      "@dbh/bhsd/store": ["libs/bhsd/store/src/index.ts"],
       "@dbh/bhsd/submission-detail-feature": [
         "libs/bhsd/submission-detail-feature/src/index.ts"
       ],

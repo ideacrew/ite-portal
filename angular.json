@@ -8,6 +8,7 @@
     "bhsd-data-access": "libs/bhsd/data-access",
     "bhsd-landing-page-feature": "libs/bhsd/landing-page-feature",
     "bhsd-record-detail-feature": "libs/bhsd/record-detail-feature",
+    "bhsd-store": "libs/bhsd/store",
     "bhsd-submission-detail-feature": "libs/bhsd/submission-detail-feature",
     "bhsd-submission-history-feature": "libs/bhsd/submission-history-feature",
     "bhsd-submission-status-feature": "libs/bhsd/submission-status-feature",
