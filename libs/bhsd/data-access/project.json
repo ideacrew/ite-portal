@@ -1,11 +1,12 @@
 {
+  "name": "bhsd-data-access",
   "projectType": "library",
   "sourceRoot": "libs/bhsd/data-access/src",
   "prefix": "dbh",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/bhsd/data-access"],
+      "outputs": ["{workspaceRoot}/coverage/libs/bhsd/data-access"],
       "options": {
         "jestConfig": "libs/bhsd/data-access/jest.config.ts",
         "passWithNoTests": true

@@ -1,11 +1,12 @@
 {
+  "name": "bhsd-util",
   "projectType": "library",
   "sourceRoot": "libs/bhsd/util/src",
   "prefix": "dbh",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/bhsd/util"],
+      "outputs": ["{workspaceRoot}/coverage/libs/bhsd/util"],
       "options": {
         "jestConfig": "libs/bhsd/util/jest.config.ts",
         "passWithNoTests": true

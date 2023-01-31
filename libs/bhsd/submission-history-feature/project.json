@@ -1,4 +1,5 @@
 {
+  "name": "bhsd-submission-history-feature",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/bhsd/submission-history-feature/src",
@@ -6,7 +7,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/bhsd/submission-history-feature"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/bhsd/submission-history-feature"
+      ],
       "options": {
         "jestConfig": "libs/bhsd/submission-history-feature/jest.config.ts",
         "passWithNoTests": true

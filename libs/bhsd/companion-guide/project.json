@@ -1,4 +1,5 @@
 {
+  "name": "bhsd-companion-guide",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/bhsd/companion-guide/src",
@@ -6,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/bhsd/companion-guide"],
+      "outputs": ["{workspaceRoot}/coverage/libs/bhsd/companion-guide"],
       "options": {
         "jestConfig": "libs/bhsd/companion-guide/jest.config.ts",
         "passWithNoTests": true

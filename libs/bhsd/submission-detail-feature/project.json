@@ -1,4 +1,5 @@
 {
+  "name": "bhsd-submission-detail-feature",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/bhsd/submission-detail-feature/src",
@@ -6,7 +7,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/bhsd/submission-detail-feature"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/bhsd/submission-detail-feature"
+      ],
       "options": {
         "jestConfig": "libs/bhsd/submission-detail-feature/jest.config.ts",
         "passWithNoTests": true

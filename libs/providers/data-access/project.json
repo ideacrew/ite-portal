@@ -1,4 +1,5 @@
 {
+  "name": "providers-data-access",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/providers/data-access/src",
@@ -6,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/providers/data-access"],
+      "outputs": ["{workspaceRoot}/coverage/libs/providers/data-access"],
       "options": {
         "jestConfig": "libs/providers/data-access/jest.config.ts",
         "passWithNoTests": true

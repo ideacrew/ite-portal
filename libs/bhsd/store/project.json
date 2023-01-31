@@ -1,4 +1,5 @@
 {
+  "name": "bhsd-store",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/bhsd/store/src",
@@ -6,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/bhsd/store"],
+      "outputs": ["{workspaceRoot}/coverage/libs/bhsd/store"],
       "options": {
         "jestConfig": "libs/bhsd/store/jest.config.ts",
         "passWithNoTests": true

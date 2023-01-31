@@ -1,4 +1,5 @@
 {
+  "name": "bhsd-landing-page-feature",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/bhsd/landing-page-feature/src",
@@ -6,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/bhsd/landing-page-feature"],
+      "outputs": ["{workspaceRoot}/coverage/libs/bhsd/landing-page-feature"],
       "options": {
         "jestConfig": "libs/bhsd/landing-page-feature/jest.config.ts",
         "passWithNoTests": true
