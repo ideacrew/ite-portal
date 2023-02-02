@@ -37,9 +37,7 @@ export class SubmissionStore extends ComponentStore<SubmissionState> {
   }
 
   readonly submission$: Observable<ExtractSubmissionResponse> = this.select(
-    (state) => {
-      return state.submission !== undefined ? state.submission : undefined;
-    }
+    (state) => state.submission
   ).pipe(filter(Boolean));
 
   readonly setSubmission = this.updater(
