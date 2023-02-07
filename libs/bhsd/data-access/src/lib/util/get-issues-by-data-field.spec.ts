@@ -12,7 +12,6 @@ const mockRecords: ExtractRecordValidation[] = [
     extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
     payload: {
       record_type: 'A',
-      provider_id: '15',
       episode_id: '194062',
       num_of_prior_episodes: '1',
       admission_date: '07/31/2022',
@@ -53,7 +52,6 @@ const mockRecords: ExtractRecordValidation[] = [
     extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
     payload: {
       record_type: 'T',
-      provider_id: '15',
       episode_id: '194068',
       num_of_prior_episodes: '2',
       admission_date: '07/31/2022',
@@ -109,7 +107,6 @@ describe('Get issues by data field', () => {
         extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
         payload: {
           record_type: 'A',
-          provider_id: '15',
           episode_id: '194062',
           num_of_prior_episodes: '1',
           admission_date: '07/31/2022',
@@ -160,7 +157,6 @@ describe('Get issues by data field', () => {
             extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
             payload: {
               record_type: 'A',
-              provider_id: '15',
               episode_id: '194062',
               num_of_prior_episodes: '1',
               admission_date: '07/31/2022',
@@ -216,7 +212,6 @@ describe('Get issues by data field', () => {
             extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
             payload: {
               record_type: 'A',
-              provider_id: '15',
               episode_id: '194062',
               num_of_prior_episodes: '1',
               admission_date: '07/31/2022',
@@ -267,7 +262,6 @@ describe('Get issues by data field', () => {
             extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
             payload: {
               record_type: 'T',
-              provider_id: '15',
               episode_id: '194068',
               num_of_prior_episodes: '2',
               admission_date: '07/31/2022',
