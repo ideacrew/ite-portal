@@ -56,6 +56,25 @@
       <button (click)="viewType = 'dataField'" class="button" type="button">
         View Issues by Data Field
       </button>
+      <ng-container *ngIf="submissionIssuesByRecords$ | async as data">
+        <button
+          (click)="
+            downloadCsv(
+              data.records,
+              [
+                'record_id',
+                'status',
+                'fatal_error_count',
+                'critical_error_count',
+                'warning_count'
+              ],
+              'issues_by_record.csv'
+            )
+          "
+        >
+          Export Issues by Record
+        </button>
+      </ng-container>
     </div>
     <table>
       <thead>
@@ -82,9 +101,39 @@
       <button (click)="viewType = 'record'" class="button" type="button">
         View Issues by Record
       </button>
+      <ng-container *ngIf="failingDataFields$ | async as data">
+        <button
+          (click)="
+            downloadCsv(
+              data,
+              [
+                'field_name',
+                'field_type',
+                'error_type',
+                'record_id',
+                'error_message',
+                'input'
+              ],
+              'issues_by_data_field.csv'
+            )
+          "
+        >
+          Export Data Field Issues
+        </button>
+      </ng-container>
     </div>
     <dbh-issues-by-data-field
       [records]="submission.records"
     ></dbh-issues-by-data-field>
   </ng-template>
+  <ng-container *ngIf="submissionFailedRecords$ | async as data">
+    <button
+      style="margin-top: 1rem"
+      (click)="
+        downloadCsv(data.records, payloadFieldHeaders, 'failing_records.csv')
+      "
+    >
+      Download All Failing Records
+    </button>
+  </ng-container>
 </ng-container>
