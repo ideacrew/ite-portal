@@ -22,6 +22,7 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
               const cell =
                 cellData === null || cellData === undefined
                   ? ''
+                  // eslint-disable-next-line no-useless-escape
                   : `\"${cellData}\"`;
               return cell;
             })
