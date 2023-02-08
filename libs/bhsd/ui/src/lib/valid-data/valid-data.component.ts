@@ -44,7 +44,7 @@ export class ValidDataComponent {
 
   get validFieldsWithData(): Array<{
     fieldName: ExtractRecordField;
-    value: string;
+    value: string | null;
   }> {
     const validFields = this.dataFieldsWithoutErrors.map((field) => ({
       fieldName: field,
