@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, filter } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
 import {
@@ -9,6 +9,7 @@ import {
   ExtractSubmissionResponseV2,
   SubmissionStatus,
   SubmissionSummary,
+  FailingDataField,
 } from './models';
 import { convertExtractSubmissionToV2 } from './util';
 import { convertSummaryToStatus } from './util/convert-summary-to-status';
@@ -77,5 +78,13 @@ export class BHSDService {
         `${this.config.baseApiUrl}/api/v1/extracts/${id}`
       )
       .pipe(map((submission) => convertExtractSubmissionToV2(submission)));
+  }
+
+  getExtractFailingDataFields(id: string): Observable<FailingDataField[]> {
+    return this.http
+      .get<FailingDataField[]>(
+        `${this.config.baseApiUrl}/api/v1/extracts/failing_data_fields?id=${id}`
+      )
+      .pipe(filter((extract: FailingDataField[]) => Array.isArray(extract)));
   }
 }
