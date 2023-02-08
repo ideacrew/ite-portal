@@ -127,13 +127,15 @@
     ></dbh-issues-by-data-field>
   </ng-template>
   <ng-container *ngIf="submissionFailedRecords$ | async as data">
-    <button
-      style="margin-top: 1rem"
-      (click)="
-        downloadCsv(data.records, payloadFieldHeaders, 'failing_records.csv')
-      "
-    >
-      Export All Failing Records
-    </button>
+    <ng-container *ngIf="data.records.length > 0">
+      <button
+        style="margin-top: 1rem"
+        (click)="
+          downloadCsv(data.records, payloadFieldHeaders, 'failing_records.csv')
+        "
+      >
+        Export All Failing Records
+      </button>
+    </ng-container>
   </ng-container>
 </ng-container>
