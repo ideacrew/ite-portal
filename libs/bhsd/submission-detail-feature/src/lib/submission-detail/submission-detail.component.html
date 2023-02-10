@@ -8,134 +8,187 @@
     [submissionDate]="submission.created_at"
   ></dbh-file-information>
 
-  <div class="summary">
-    <dbh-validation-breakdown
-      [totalRecords]="submission.records.length"
-      [pass]="submission.records | recordCount: 'Pass'"
-      [fail]="submission.records | recordCount: 'Fail'"
-    ></dbh-validation-breakdown>
-    <details class="definitions">
-      <summary>Definitions</summary>
-      <p>Pass: Records with (a) warning(s) only or no errors.</p>
-      <p>Fail: Records with at least one fatal or critical error.</p>
-      <p>
-        Key field: A key field is a data field that contains information unique
-        to a record, separating that record from all other records within a
-        dataset or a database.
-      </p>
-      <p>
-        Required field: A required field is a field that is necessary for a
-        provider to submit a valid value.
-      </p>
-      <p>
-        Optional field: Providers are not required to report data for optional
-        fields but are strongly encouraged to collect or prepare to collect in
-        near future.
-      </p>
-      <p>
-        Fatal error: an error associated with a key field. A record with (a)
-        fatal error(s) fails to be processed as a valid record.
-      </p>
-      <p>
-        Critical error: An error associated with a required field. A record with
-        (a) critical error(s) fails to be processed as a valid record.
-      </p>
-      <p>
-        Warning: An error associated with an optional field. A record with (a)
-        warning(s) without any critical or fatal error will be processed as a
-        valid record.
-      </p>
-    </details>
-  </div>
-</ng-container>
-
-<ng-container *ngIf="submissionV2$ | async as submission">
-  <ng-container *ngIf="viewType === 'record'; else dataField">
-    <div class="group-header">
-      <h2>Issues by Record</h2>
-      <button (click)="viewType = 'dataField'" class="button" type="button">
-        View Issues by Data Field
-      </button>
-      <ng-container *ngIf="submissionIssuesByRecords$ | async as data">
-        <button
-          (click)="
-            downloadCsv(
-              data.records,
-              [
-                'record_id',
-                'status',
-                'fatal_error_count',
-                'critical_error_count',
-                'warning_count'
-              ],
-              'issues_by_record.csv'
-            )
-          "
-        >
-          Export Issues by Record
-        </button>
-      </ng-container>
+  <ng-container *ngIf="breakdownType === 'validation'">
+    <h2>Validation Breakdown</h2>
+    <button
+      (click)="breakdownType = 'demographic'"
+      class="button"
+      type="button"
+    >
+      Demographic Breakdown
+    </button>
+    <div class="summary">
+      <dbh-validation-breakdown
+        [totalRecords]="submission.records.length"
+        [pass]="submission.records | recordCount: 'Pass'"
+        [fail]="submission.records | recordCount: 'Fail'"
+      ></dbh-validation-breakdown>
+      <details class="definitions">
+        <summary>Definitions</summary>
+        <p>Pass: Records with (a) warning(s) only or no errors.</p>
+        <p>Fail: Records with at least one fatal or critical error.</p>
+        <p>
+          Key field: A key field is a data field that contains information
+          unique to a record, separating that record from all other records
+          within a dataset or a database.
+        </p>
+        <p>
+          Required field: A required field is a field that is necessary for a
+          provider to submit a valid value.
+        </p>
+        <p>
+          Optional field: Providers are not required to report data for optional
+          fields but are strongly encouraged to collect or prepare to collect in
+          near future.
+        </p>
+        <p>
+          Fatal error: an error associated with a key field. A record with (a)
+          fatal error(s) fails to be processed as a valid record.
+        </p>
+        <p>
+          Critical error: An error associated with a required field. A record
+          with (a) critical error(s) fails to be processed as a valid record.
+        </p>
+        <p>
+          Warning: An error associated with an optional field. A record with (a)
+          warning(s) without any critical or fatal error will be processed as a
+          valid record.
+        </p>
+      </details>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Record ID</th>
-          <th>Pass/Fail</th>
-          <th>Fatal Errors</th>
-          <th>Critical Errors</th>
-          <th>Warnings</th>
-        </tr>
-      </thead>
-      <tbody>
-        <dbh-record-list
-          *ngFor="let record of submission.records | recordSort"
-          [record]="record"
-        ></dbh-record-list>
-      </tbody>
-    </table>
+    <ng-container *ngIf="submissionV2$ | async as submission">
+      <ng-container *ngIf="viewType === 'record'; else dataField">
+        <div class="group-header">
+          <h2>Issues by Record</h2>
+          <button (click)="viewType = 'dataField'" class="button" type="button">
+            View Issues by Data Field
+          </button>
+          <ng-container *ngIf="submissionIssuesByRecords$ | async as data">
+            <button
+              (click)="
+                downloadCsv(
+                  data.records,
+                  [
+                    'record_id',
+                    'status',
+                    'fatal_error_count',
+                    'critical_error_count',
+                    'warning_count'
+                  ],
+                  'issues_by_record.csv'
+                )
+              "
+            >
+              Export Issues by Record
+            </button>
+          </ng-container>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Record ID</th>
+              <th>Pass/Fail</th>
+              <th>Fatal Errors</th>
+              <th>Critical Errors</th>
+              <th>Warnings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <dbh-record-list
+              *ngFor="let record of submission.records | recordSort"
+              [record]="record"
+            ></dbh-record-list>
+          </tbody>
+        </table>
+      </ng-container>
+
+      <ng-template #dataField>
+        <div class="group-header">
+          <h2>Issues by Data Field</h2>
+          <button (click)="viewType = 'record'" class="button" type="button">
+            View Issues by Record
+          </button>
+          <ng-container *ngIf="failingDataFields$ | async as data">
+            <button
+              (click)="
+                downloadCsv(
+                  data,
+                  [
+                    'field_name',
+                    'field_type',
+                    'error_type',
+                    'record_id',
+                    'error_message',
+                    'input'
+                  ],
+                  'issues_by_data_field.csv'
+                )
+              "
+            >
+              Export Data Field Issues
+            </button>
+          </ng-container>
+        </div>
+        <dbh-issues-by-data-field
+          [records]="submission.records"
+        ></dbh-issues-by-data-field>
+      </ng-template>
+      <ng-container *ngIf="submissionFailedRecords$ | async as data">
+        <ng-container *ngIf="data.records.length > 0">
+          <button
+            style="margin-top: 1rem"
+            (click)="
+              downloadCsv(
+                data.records,
+                payloadFieldHeaders,
+                'failing_records.csv'
+              )
+            "
+          >
+            Export All Failing Records
+          </button>
+        </ng-container>
+      </ng-container>
+    </ng-container>
   </ng-container>
+  <ng-container *ngIf="breakdownType === 'demographic'">
+    <h2>Demographic Breakdown</h2>
+    <button
+      (click)="breakdownType = 'validation'"
+      class="button"
+      type="button"
+    >
+      Validation Breakdown
+    </button>
+    <ng-container *ngIf="submissionDemographicBreakdown$ | async as demographics">
+      <h3>Gender</h3>
+      <ul class="hBarChart">
+        <li *ngFor="let gender of demographics.genders">
+          {{gender.label}} - {{gender.count}} ({{gender.percent}}%)
+        </li>
+      </ul>
 
-  <ng-template #dataField>
-    <div class="group-header">
-      <h2>Issues by Data Field</h2>
-      <button (click)="viewType = 'record'" class="button" type="button">
-        View Issues by Record
-      </button>
-      <ng-container *ngIf="failingDataFields$ | async as data">
-        <button
-          (click)="
-            downloadCsv(
-              data,
-              [
-                'field_name',
-                'field_type',
-                'error_type',
-                'record_id',
-                'error_message',
-                'input'
-              ],
-              'issues_by_data_field.csv'
-            )
-          "
-        >
-          Export Data Field Issues
-        </button>
-      </ng-container>
-    </div>
-    <dbh-issues-by-data-field
-      [records]="submission.records"
-    ></dbh-issues-by-data-field>
-  </ng-template>
-  <ng-container *ngIf="submissionFailedRecords$ | async as data">
-    <ng-container *ngIf="data.records.length > 0">
-      <button
-        style="margin-top: 1rem"
-        (click)="
-          downloadCsv(data.records, payloadFieldHeaders, 'failing_records.csv')
-        "
-      >
-        Export All Failing Records
-      </button>
+      <h3>Race</h3>
+      <ul class="hBarChart">
+        <li *ngFor="let race of demographics.races">
+          {{race.label}} - {{race.count}} ({{race.percent}}%)
+        </li>
+      </ul>
+
+      <h3>Ethnicity</h3>
+      <ul class="hBarChart">
+        <li *ngFor="let ethnicity of demographics.ethnicities">
+          {{ethnicity.label}} - {{ethnicity.count}} ({{ethnicity.percent}}%)
+        </li>
+      </ul>
+
+      <h3>Age</h3>
+      <ul class="vBarChart">
+        <li *ngFor="let ageRange of demographics.ages">
+          {{ageRange.label}} - {{ageRange.count}} ({{ageRange.percent}}%)
+        </li>
+      </ul>
+
     </ng-container>
   </ng-container>
 </ng-container>

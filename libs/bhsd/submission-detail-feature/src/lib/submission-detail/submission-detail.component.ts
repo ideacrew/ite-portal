@@ -3,9 +3,11 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 
 import {
+  convertExtractToDemographics,
   convertExtractSubmissionToV2,
   convertExtractSubmissionToFailedCsv,
   convertExtractSubmissionToIssuesByRecord,
+  ExtractSubmissionDemographics,
   ExtractSubmissionResponseV2,
   ExtractSubmissionResponseV3,
   BHSDService,
@@ -24,6 +26,8 @@ import { saveAs } from 'file-saver';
 })
 export class SubmissionDetailComponent {
   viewType: 'record' | 'dataField' = 'record';
+
+  breakdownType: 'demographic' | 'validation' = 'validation';
 
   payloadFieldHeaders = [
     'address_city',
@@ -78,7 +82,6 @@ export class SubmissionDetailComponent {
     'primary_su_age_at_first_use',
     'primary_su_frequency_admission',
     'primary_su_frequency_discharge',
-    'primary_su_frequncy_admission',
     'primary_su_route',
     'primary_substance',
     'race',
@@ -135,6 +138,11 @@ export class SubmissionDetailComponent {
       map((submission) => convertExtractSubmissionToIssuesByRecord(submission))
     );
 
+  submissionDemographicBreakdown$: Observable<ExtractSubmissionDemographics> =
+    this.submission$.pipe(
+      map((submission) => convertExtractToDemographics(submission))
+    );
+
   failingDataFields$ = this.route.paramMap.pipe(
     filter((parameters: ParamMap) => parameters.has('id')),
     map((parameters: ParamMap) => parameters.get('id')),
@@ -143,8 +151,6 @@ export class SubmissionDetailComponent {
     ),
     shareReplay(1)
   );
-
-  hasFailingDataFields = Array.isArray(this.failingDataFields$);
 
   constructor(
     private route: ActivatedRoute,
