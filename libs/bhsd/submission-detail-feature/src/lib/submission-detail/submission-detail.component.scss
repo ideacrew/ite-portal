@@ -82,3 +82,64 @@ td {
   display: flex;
   gap: 1rem;
 }
+
+.hBarChart {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 0.5em 0;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: 50ch;
+}
+
+.hBarChart li {
+  background: linear-gradient(
+    to right,
+    #cbd4da var(--percent),
+    #ffffff var(--percent)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  grid-column-start: 1;
+  grid-column: span 100;
+  font-weight: bold;
+}
+
+.hBarChart li span {
+  font-weight: normal;
+  width: 3rem;
+}
+
+.vBarChart {
+  display: flex;
+  height: 200px;
+  align-items: stretch;
+  list-style-type: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.vBarChart li {
+  flex: 1 1;
+  margin: 0 1px;
+  background: linear-gradient(
+    to top,
+    #cbd4da var(--percent),
+    #ffffff var(--percent)
+  );
+  position: relative;
+  padding-top: 2px;
+}
+
+.vBarChart li div {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

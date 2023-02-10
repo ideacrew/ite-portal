@@ -9,14 +9,17 @@
   ></dbh-file-information>
 
   <ng-container *ngIf="breakdownType === 'validation'">
-    <h2>Validation Breakdown</h2>
-    <button
-      (click)="breakdownType = 'demographic'"
-      class="button"
-      type="button"
-    >
-      Demographic Breakdown
-    </button>
+    <h2>
+      Validation Breakdown
+      <button
+        [style.display]="'inline-block'"
+        (click)="breakdownType = 'demographic'"
+        class="button"
+        type="button"
+      >
+        Demographic Breakdown
+      </button>
+    </h2>
     <div class="summary">
       <dbh-validation-breakdown
         [totalRecords]="submission.records.length"
@@ -152,43 +155,59 @@
     </ng-container>
   </ng-container>
   <ng-container *ngIf="breakdownType === 'demographic'">
-    <h2>Demographic Breakdown</h2>
-    <button
-      (click)="breakdownType = 'validation'"
-      class="button"
-      type="button"
+    <h2>
+      Demographic Breakdown
+      <button
+        [style.display]="'inline-block'"
+        (click)="breakdownType = 'validation'"
+        class="button"
+        type="button"
+      >
+        Validation Breakdown
+      </button>
+    </h2>
+    <ng-container
+      *ngIf="submissionDemographicBreakdown$ | async as demographics"
     >
-      Validation Breakdown
-    </button>
-    <ng-container *ngIf="submissionDemographicBreakdown$ | async as demographics">
       <h3>Gender</h3>
       <ul class="hBarChart">
-        <li *ngFor="let gender of demographics.genders">
-          {{gender.label}} - {{gender.count}} ({{gender.percent}}%)
-        </li>
-      </ul>
-
-      <h3>Race</h3>
-      <ul class="hBarChart">
-        <li *ngFor="let race of demographics.races">
-          {{race.label}} - {{race.count}} ({{race.percent}}%)
-        </li>
-      </ul>
-
-      <h3>Ethnicity</h3>
-      <ul class="hBarChart">
-        <li *ngFor="let ethnicity of demographics.ethnicities">
-          {{ethnicity.label}} - {{ethnicity.count}} ({{ethnicity.percent}}%)
-        </li>
+        <ng-container *ngFor="let gender of demographics.genders">
+          <li [style.--percent]="gender.percent + '%'">
+            {{ gender.label }}
+            <span>{{ gender.count }}<br />({{ gender.percent }}%)</span>
+          </li>
+        </ng-container>
       </ul>
 
       <h3>Age</h3>
       <ul class="vBarChart">
-        <li *ngFor="let ageRange of demographics.ages">
-          {{ageRange.label}} - {{ageRange.count}} ({{ageRange.percent}}%)
-        </li>
+        <ng-container *ngFor="let ageRange of demographics.ages">
+          <li [style.--percent]="ageRange.percent + '%'">
+            <b>{{ ageRange.label }}</b
+            ><br />{{ ageRange.count }} ({{ ageRange.percent }}%)
+          </li>
+        </ng-container>
       </ul>
 
+      <h3>Race</h3>
+      <ul class="hBarChart">
+        <ng-container *ngFor="let race of demographics.races">
+          <li [style.--percent]="race.percent + '%'">
+            {{ race.label }}
+            <span>{{ race.count }}<br />({{ race.percent }}%)</span>
+          </li>
+        </ng-container>
+      </ul>
+
+      <h3>Ethnicity</h3>
+      <ul class="hBarChart">
+        <ng-container *ngFor="let ethnicity of demographics.ethnicities">
+          <li [style.--percent]="ethnicity.percent + '%'">
+            {{ ethnicity.label }}
+            <span>{{ ethnicity.count }}<br />({{ ethnicity.percent }}%)</span>
+          </li>
+        </ng-container>
+      </ul>
     </ng-container>
   </ng-container>
 </ng-container>

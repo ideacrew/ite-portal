@@ -141,11 +141,11 @@ export type ExtractSubmissionDemographics = {
   genders: DemographicData[];
   races: DemographicData[];
   ethnicities: DemographicData[];
-  ages: DemographicData[]
+  ages: DemographicData[];
 };
 
 export type DemographicData = {
   label: string;
   count: number;
-  percent?: number;
+  percent: number;
 };
