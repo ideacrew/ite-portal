@@ -3,9 +3,11 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 
 import {
+  convertExtractToDemographics,
   convertExtractSubmissionToV2,
   convertExtractSubmissionToFailedCsv,
   convertExtractSubmissionToIssuesByRecord,
+  ExtractSubmissionDemographics,
   ExtractSubmissionResponseV2,
   ExtractSubmissionResponseV3,
   BHSDService,
@@ -24,6 +26,8 @@ import { saveAs } from 'file-saver';
 })
 export class SubmissionDetailComponent {
   viewType: 'record' | 'dataField' = 'record';
+
+  breakdownType: 'demographic' | 'validation' = 'validation';
 
   payloadFieldHeaders = [
     'address_city',
@@ -134,6 +138,11 @@ export class SubmissionDetailComponent {
       map((submission) => convertExtractSubmissionToIssuesByRecord(submission))
     );
 
+  submissionDemographicBreakdown$: Observable<ExtractSubmissionDemographics> =
+    this.submission$.pipe(
+      map((submission) => convertExtractToDemographics(submission))
+    );
+
   failingDataFields$ = this.route.paramMap.pipe(
     filter((parameters: ParamMap) => parameters.has('id')),
     map((parameters: ParamMap) => parameters.get('id')),
@@ -142,8 +151,6 @@ export class SubmissionDetailComponent {
     ),
     shareReplay(1)
   );
-
-  hasFailingDataFields = Array.isArray(this.failingDataFields$);
 
   constructor(
     private route: ActivatedRoute,

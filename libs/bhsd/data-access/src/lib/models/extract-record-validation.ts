@@ -135,3 +135,17 @@ export type ExtractRecordValidationFlatPayload = {
   treatment_type?: string | null;
   veteran_status?: string | null;
 };
+
+export type ExtractSubmissionDemographics = {
+  recordCount: number;
+  genders: DemographicData[];
+  races: DemographicData[];
+  ethnicities: DemographicData[];
+  ages: DemographicData[];
+};
+
+export type DemographicData = {
+  label: string;
+  count: number;
+  percent: number;
+};
