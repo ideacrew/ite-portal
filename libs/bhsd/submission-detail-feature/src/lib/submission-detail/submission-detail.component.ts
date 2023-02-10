@@ -78,7 +78,6 @@ export class SubmissionDetailComponent {
     'primary_su_age_at_first_use',
     'primary_su_frequency_admission',
     'primary_su_frequency_discharge',
-    'primary_su_frequncy_admission',
     'primary_su_route',
     'primary_substance',
     'race',
