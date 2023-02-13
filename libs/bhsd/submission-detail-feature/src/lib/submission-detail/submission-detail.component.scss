@@ -120,10 +120,11 @@ td {
   height: 200px;
   align-items: stretch;
   list-style-type: none;
-  width: 90%;
+  width: 102ch;
   margin: 0;
   padding: 0.5ch;
   background: white;
+  margin-left: 1ch;
 }
 
 .vBarChart li {
@@ -155,9 +156,8 @@ td {
 
 .half {
   display: inline-block;
-  width: 48%;
 }
 
 .half + .half {
-  margin-left: 2%;
+  margin-left: 2ch;
 }

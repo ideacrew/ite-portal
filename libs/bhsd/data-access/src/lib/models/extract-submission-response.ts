@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
   ExtractRecordValidation,
-  ExtractRecordValidationV2,
-  ExtractRecordValidationFlatPayload,
+  ExtractRecordValidationV2
 } from './extract-record-validation';
 
 export type ExtractSubmissionResponse = {
