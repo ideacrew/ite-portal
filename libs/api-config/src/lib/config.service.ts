@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
   // By default the baseApiUrl is set to the dev api url
-  baseApiUrl = 'http://localhost:4000';
+  baseApiUrl = 'https://bff-dev.dbh-ite.com';
 
   constructor() {
     // Only if the url contains uat or only the application name should we override the api url
