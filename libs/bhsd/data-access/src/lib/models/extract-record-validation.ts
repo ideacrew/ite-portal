@@ -105,7 +105,6 @@ export type ExtractRecordValidationFlatPayload = {
   primary_su_age_at_first_use?: string | null;
   primary_su_frequency_admission?: string | null;
   primary_su_frequency_discharge?: string | null;
-  primary_su_frequncy_admission?: string | null;
   primary_su_route?: string | null;
   primary_substance?: string | null;
   race?: string | null;

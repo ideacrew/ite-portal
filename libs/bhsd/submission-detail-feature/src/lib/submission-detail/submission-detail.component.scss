@@ -92,6 +92,7 @@ td {
   padding: 0;
   list-style-type: none;
   width: 50ch;
+  padding-left: 1ch;
 }
 
 .hBarChart li {
@@ -119,31 +120,44 @@ td {
   height: 200px;
   align-items: stretch;
   list-style-type: none;
-  width: 100%;
+  width: 90%;
   margin: 0;
-  padding: 0;
-  text-align: center;
+  padding: .5ch;
+  background: white;
 }
 
 .vBarChart li {
   flex: 1 1;
   margin: 0 1px;
-  background: linear-gradient(
-    to top,
-    #cbd4da var(--percent),
-    #ffffff var(--percent)
-  );
+  background: white;
   position: relative;
-  padding-top: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center
 }
 
-.vBarChart li div {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.vBarChart li .bar {
+  background: #455561;
+  width: 50%;
 }
 
-h2 button {
+.vBarChart li .label {
+  font-weight: bold;
+  margin-top: .5ch;
+}
+
+.breakdownButton {
+  display: inline-block;
   font-size: 0.75em;
+  margin-left: 1ch;
+}
+
+.half {
+  display: inline-block;
+  width: 48%;
+}
+
+.half + .half {
+  margin-left: 2%;
 }

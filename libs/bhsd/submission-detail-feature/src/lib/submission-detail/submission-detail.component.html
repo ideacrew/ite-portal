@@ -12,9 +12,8 @@
     <h2>
       Validation Breakdown
       <button
-        [style.display]="'inline-block'"
         (click)="breakdownType = 'demographic'"
-        class="button"
+        class="button breakdownButton"
         type="button"
       >
         View Demographic Breakdown
@@ -158,9 +157,8 @@
     <h2>
       Demographic Breakdown
       <button
-        [style.display]="'inline-block'"
         (click)="breakdownType = 'validation'"
-        class="button"
+        class="button breakdownButton"
         type="button"
       >
         View Validation Breakdown
@@ -182,32 +180,33 @@
       <h3>Age</h3>
       <ul class="vBarChart">
         <ng-container *ngFor="let ageRange of demographics.ages">
-          <li [style.--percent]="ageRange.percent + '%'">
-            <b>{{ ageRange.label }}</b
-            ><br />{{ ageRange.count }} ({{ ageRange.percent }}%)
+          <li>
+            {{ageRange.count}} ({{ageRange.percent}}%) <div class="bar" [style.height]="(ageRange.percent * 2) + 'px'"></div><div class="label">{{ageRange.label}}</div>
           </li>
         </ng-container>
       </ul>
-
-      <h3>Race</h3>
-      <ul class="hBarChart">
-        <ng-container *ngFor="let race of demographics.races">
-          <li [style.--percent]="race.percent + '%'">
-            {{ race.label }}
-            <span>{{ race.count }}<br />({{ race.percent }}%)</span>
-          </li>
-        </ng-container>
-      </ul>
-
-      <h3>Ethnicity</h3>
-      <ul class="hBarChart">
-        <ng-container *ngFor="let ethnicity of demographics.ethnicities">
-          <li [style.--percent]="ethnicity.percent + '%'">
-            {{ ethnicity.label }}
-            <span>{{ ethnicity.count }}<br />({{ ethnicity.percent }}%)</span>
-          </li>
-        </ng-container>
-      </ul>
+      <div class="half">
+        <h3>Race</h3>
+        <ul class="hBarChart">
+          <ng-container *ngFor="let race of demographics.races">
+            <li [style.--percent]="race.percent + '%'">
+              {{ race.label }}
+              <span>{{ race.count }}<br />({{ race.percent }}%)</span>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="half">
+        <h3>Ethnicity</h3>
+        <ul class="hBarChart">
+          <ng-container *ngFor="let ethnicity of demographics.ethnicities">
+            <li [style.--percent]="ethnicity.percent + '%'">
+              {{ ethnicity.label }}
+              <span>{{ ethnicity.count }}<br />({{ ethnicity.percent }}%)</span>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
     </ng-container>
   </ng-container>
 </ng-container>
