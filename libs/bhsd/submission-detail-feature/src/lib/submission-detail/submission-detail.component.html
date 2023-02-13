@@ -181,7 +181,9 @@
       <ul class="vBarChart">
         <ng-container *ngFor="let ageRange of demographics.ages">
           <li>
-            {{ageRange.count}} ({{ageRange.percent}}%) <div class="bar" [style.height]="(ageRange.percent * 2) + 'px'"></div><div class="label">{{ageRange.label}}</div>
+            {{ ageRange.count }} ({{ ageRange.percent }}%)
+            <div class="bar" [style.height]="ageRange.percent * 2 + 'px'"></div>
+            <div class="label">{{ ageRange.label }}</div>
           </li>
         </ng-container>
       </ul>
