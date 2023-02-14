@@ -4,12 +4,8 @@ import { Validation, ValidationV2 } from './validation';
 import { ValidationStatus } from './validation-status';
 
 export type ExtractRecordValidation = {
-  _id: {
-    $oid: string;
-  };
-  extract_id: {
-    $oid: string;
-  };
+  id: string;
+  extract_id: string;
   created_at: string;
   critical_errors: Validation[];
   fatal_errors: Validation[];
@@ -20,12 +16,8 @@ export type ExtractRecordValidation = {
 };
 
 export type ExtractRecordValidationV2 = {
-  _id: {
-    $oid: string;
-  };
-  extract_id: {
-    $oid: string;
-  };
+  id: string;
+  extract_id: string;
   created_at: string;
   errors: ValidationV2[];
   payload: ExtractRecordData;
