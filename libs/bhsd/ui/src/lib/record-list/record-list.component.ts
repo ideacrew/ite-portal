@@ -12,13 +12,13 @@ export class RecordListComponent {
   @Input() record!: ExtractRecordValidationV2;
 
   get identifier(): string {
-    const { client_id, admission_date, record_type, treatment_type } =
+    const { client_id, admission_date, record_type, treatment_setting } =
       this.record.payload;
 
     return `${client_id ?? 'no-client-id'}_${
       admission_date ?? 'no-admission-date'
     }_${record_type ?? 'no-record-type'}${
-      treatment_type ?? 'no-treatment-type'
+      treatment_setting ?? 'no-treatment-setting'
     }`;
   }
 

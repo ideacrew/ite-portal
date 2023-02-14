@@ -1,4 +1,4 @@
-record_type,provider_id,episode_id,num_of_prior_episodes,admission_date,last_contact_date,discharge_date,first_name,last_name,treatment_type,client_id,collateral,dob,gender,race,ethnicity,primary_language,num_of_prior_admissions,arrests_past_30days,education,employment
+record_type,provider_id,episode_id,num_of_prior_episodes,admission_date,last_contact_date,discharge_date,first_name,last_name,treatment_setting,client_id,collateral,dob,gender,race,ethnicity,primary_language,num_of_prior_admissions,arrests_past_30days,education,employment
 ,15,194062,1,07/31/2022,07/31/2022,07/31/2022,Test,One,9,AEWE31561025621,1,05/11/1992,2,1,5,1,96,0,12,4
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 M,15,194068,2,07/31/2022,07/31/2022,,Test,Two,71,AEWE31561025622,2,07/28/1992,1,2,6,2,0,0,10,3

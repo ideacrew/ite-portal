@@ -20,7 +20,7 @@ export interface ExtractRecordData {
   provider_id: string;
   race: string;
   record_type: string;
-  treatment_type: string;
+  treatment_setting: string;
 }
 
 export type ExtractRecordField = keyof ExtractRecordData;

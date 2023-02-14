@@ -52,8 +52,6 @@ export class SubmissionDetailComponent {
     'ethnicity',
     'first_name',
     'first_name_alt',
-    'gaf_score_admission',
-    'gaf_score_discharge',
     'gender',
     'health_insurance',
     'income_source',
@@ -108,7 +106,7 @@ export class SubmissionDetailComponent {
     'tertiary_su_frequency_discharge',
     'tertiary_su_route',
     'tertiary_substance',
-    'treatment_type',
+    'treatment_setting',
     'veteran_status',
   ];
 
@@ -162,7 +160,6 @@ export class SubmissionDetailComponent {
     headerRow: string[],
     filename: string
   ): void {
-    console.log(filename);
     const data = getCsvBlob(dataObject, headerRow);
     saveAs(data, filename);
   }

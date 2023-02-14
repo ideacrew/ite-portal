@@ -67,8 +67,6 @@ export type ExtractRecordValidationFlatPayload = {
   ethnicity?: string | null;
   first_name?: string | null;
   first_name_alt?: string | null;
-  gaf_score_admission?: string | null;
-  gaf_score_discharge?: string | null;
   gender?: string | null;
   health_insurance?: string | null;
   income_source?: string | null;
@@ -123,7 +121,7 @@ export type ExtractRecordValidationFlatPayload = {
   tertiary_su_frequency_discharge?: string | null;
   tertiary_su_route?: string | null;
   tertiary_substance?: string | null;
-  treatment_type?: string | null;
+  treatment_setting?: string | null;
   veteran_status?: string | null;
 };
 

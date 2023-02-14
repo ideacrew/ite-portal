@@ -99,13 +99,15 @@ export const convertExtractSubmissionToFailedCsv = (
 export const convertRecordValidationToV4 = (
   recordValidation: ExtractRecordValidationV2
 ): ExtractRecordValidationRecordCounts => {
-  const { client_id, admission_date, record_type, treatment_type } =
+  const { client_id, admission_date, record_type, treatment_setting } =
     recordValidation.payload;
   const { status } = recordValidation;
 
   const recordId = `${client_id ?? 'no-client-id'}_${
     admission_date ?? 'no-admission-date'
-  }_${record_type ?? 'no-record-type'}${treatment_type ?? 'no-treatment-type'}`;
+  }_${record_type ?? 'no-record-type'}${
+    treatment_setting ?? 'no-treatment-setting'
+  }`;
 
   const fatal_error_count = recordValidation.errors.filter(
     (error: ValidationV2) => error.errorType === 'Fatal'
