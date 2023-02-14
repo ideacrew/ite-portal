@@ -8,8 +8,8 @@ import {
 
 const mockRecords: ExtractRecordValidation[] = [
   {
-    _id: { $oid: '62fe6a3431ea6700058fe6b1' },
-    extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
+    id: '62fe6a3431ea6700058fe6b1',
+    extract_id: '62fe6a3431ea6700058fe6af',
     payload: {
       record_type: 'A',
       provider_id: '15',
@@ -49,8 +49,8 @@ const mockRecords: ExtractRecordValidation[] = [
     created_at: '2022-08-18T16:35:00.531Z',
   },
   {
-    _id: { $oid: '62fe6a3431ea6700058fe6b3' },
-    extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
+    id: '62fe6a3431ea6700058fe6b3',
+    extract_id: '62fe6a3431ea6700058fe6af',
     payload: {
       record_type: 'T',
       provider_id: '15',
@@ -105,8 +105,8 @@ describe('Get issues by data field', () => {
 
     expect(affectedRecords).toEqual([
       {
-        _id: { $oid: '62fe6a3431ea6700058fe6b1' },
-        extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
+        id: '62fe6a3431ea6700058fe6b1',
+        extract_id: '62fe6a3431ea6700058fe6af',
         payload: {
           record_type: 'A',
           provider_id: '15',
@@ -156,8 +156,8 @@ describe('Get issues by data field', () => {
         fieldName: 'client_id',
         affectedRecords: [
           {
-            _id: { $oid: '62fe6a3431ea6700058fe6b1' },
-            extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
+            id: '62fe6a3431ea6700058fe6b1',
+            extract_id: '62fe6a3431ea6700058fe6af',
             payload: {
               record_type: 'A',
               provider_id: '15',
@@ -212,8 +212,8 @@ describe('Get issues by data field', () => {
         fieldName: 'last_contact_date',
         affectedRecords: [
           {
-            _id: { $oid: '62fe6a3431ea6700058fe6b1' },
-            extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
+            id: '62fe6a3431ea6700058fe6b1',
+            extract_id: '62fe6a3431ea6700058fe6af',
             payload: {
               record_type: 'A',
               provider_id: '15',
@@ -263,8 +263,8 @@ describe('Get issues by data field', () => {
             created_at: '2022-08-18T16:35:00.531Z',
           },
           {
-            _id: { $oid: '62fe6a3431ea6700058fe6b3' },
-            extract_id: { $oid: '62fe6a3431ea6700058fe6af' },
+            id: '62fe6a3431ea6700058fe6b3',
+            extract_id: '62fe6a3431ea6700058fe6af',
             payload: {
               record_type: 'T',
               provider_id: '15',
