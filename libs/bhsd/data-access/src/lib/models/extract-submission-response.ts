@@ -2,7 +2,6 @@
 import {
   ExtractRecordValidation,
   ExtractRecordValidationV2,
-  ExtractRecordValidationFlatPayload,
 } from './extract-record-validation';
 
 export type ExtractSubmissionResponse = {

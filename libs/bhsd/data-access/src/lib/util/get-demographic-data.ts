@@ -122,7 +122,7 @@ export const getDemographics = (
 };
 
 const findValueCount = (
-  possibles: Array<string | Date | null | undefined>,
+  possibles: Array<string | number | null | undefined>,
   value: string | null | undefined
 ): number => possibles.filter((possible) => possible === value).length;
 const findNonValidCount = (
@@ -179,8 +179,7 @@ const findAgeCount = (
 };
 
 const getAges = (dateString: string): number | 'Invalid DoB' => {
-  const date_regex1 =
-    /^(0?[1-9]|1[0-2])\/(0?[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+  const date_regex1 = /^(0?[1-9]|1[0-2])\/(0?[1-9]|1\d|2\d|3[01])\/\d{4}$/;
   const date_regex2 = /^\d{4}-\d{2}-\d{2}$/;
 
   if (date_regex1.test(dateString) || date_regex2.test(dateString)) {
