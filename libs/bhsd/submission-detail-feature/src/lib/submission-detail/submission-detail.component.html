@@ -111,24 +111,26 @@
             View Issues by Record
           </button>
           <ng-container *ngIf="failingDataFields$ | async as data">
-            <button
-              (click)="
-                downloadCsv(
-                  data,
-                  [
-                    'field_name',
-                    'field_type',
-                    'error_type',
-                    'record_id',
-                    'error_message',
-                    'input'
-                  ],
-                  'issues_by_data_field.csv'
-                )
-              "
-            >
-              Export Data Field Issues
-            </button>
+            <ng-container *ngIf="data.length > 0">
+              <button
+                (click)="
+                  downloadCsv(
+                    data,
+                    [
+                      'field_name',
+                      'field_type',
+                      'error_type',
+                      'record_id',
+                      'error_message',
+                      'input'
+                    ],
+                    'issues_by_data_field.csv'
+                  )
+                "
+              >
+                Export Data Field Issues
+              </button>
+            </ng-container>
           </ng-container>
         </div>
         <dbh-issues-by-data-field
