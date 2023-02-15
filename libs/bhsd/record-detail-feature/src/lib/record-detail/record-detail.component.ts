@@ -48,8 +48,9 @@ export class RecordDetailComponent {
   }).pipe(
     map(({ recordId, submissionResponse }) => {
       const records = submissionResponse.records;
-      const matchingRecord = records.find((record) => record.id === recordId);
-
+      const matchingRecord = records.find(
+        (record) => String(record.id) === String(recordId)
+      );
       return { record: matchingRecord, submission: submissionResponse };
     })
   );
