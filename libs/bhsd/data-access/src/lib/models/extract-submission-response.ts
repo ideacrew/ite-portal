@@ -5,12 +5,8 @@ import {
 } from './extract-record-validation';
 
 export type ExtractSubmissionResponse = {
-  _id: {
-    $oid: string;
-  };
-  provider_id: {
-    $oid: string;
-  };
+  id: string;
+  provider_id: string;
   coverage_end: string; // e.g. "2022-02-01"
   coverage_start: string;
   created_at: string;
@@ -24,12 +20,8 @@ export type ExtractSubmissionResponse = {
 };
 
 export type ExtractSubmissionResponseV2 = {
-  _id: {
-    $oid: string;
-  };
-  provider_id: {
-    $oid: string;
-  };
+  id: string;
+  provider_id: string;
   coverage_end: string; // e.g. "2022-02-01"
   coverage_start: string;
   created_at: string;
@@ -43,12 +35,8 @@ export type ExtractSubmissionResponseV2 = {
 };
 
 export type ExtractSubmissionResponseV3 = {
-  _id: {
-    $oid: string;
-  };
-  provider_id: {
-    $oid: string;
-  };
+  id: string;
+  provider_id: string;
   coverage_end: string; // e.g. "2022-02-01"
   coverage_start: string;
   created_at: string;

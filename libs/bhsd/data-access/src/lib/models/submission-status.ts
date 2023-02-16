@@ -12,7 +12,7 @@ export type SubmissionSummary = {
   total_records: string | 'N/A';
   pass: string | 'N/A';
   fail: string | 'N/A';
-  extract_id: { $oid: string };
+  extract_id: string;
 };
 
 export type SubmissionStatus = {

@@ -18,7 +18,7 @@ export class RecordListComponent {
     return `${client_id ?? 'no-client-id'}_${
       admission_date ?? 'no-admission-date'
     }_${record_type ?? 'no-record-type'}${
-      treatment_setting ?? 'no-treatment-setting'
+      treatment_setting ?? '_no-treatment-setting'
     }`;
   }
 

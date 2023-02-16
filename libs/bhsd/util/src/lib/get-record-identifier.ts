@@ -9,6 +9,6 @@ export const getRecordIdentifier = (payload: ExtractRecordData): string => {
   return `${client_id ?? 'no-client-id'}_${
     formattedDate ?? 'no-admission-date'
   }_${record_type ?? 'no-record-type'}${
-    treatment_setting ?? 'no-treatment-setting'
+    treatment_setting ?? '_no-treatment-setting'
   }`;
 };

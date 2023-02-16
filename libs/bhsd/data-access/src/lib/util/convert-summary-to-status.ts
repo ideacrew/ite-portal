@@ -28,7 +28,7 @@ export const convertSummaryToStatus = (
     totalRecords: totalRecords === 'N/A' ? undefined : Number(totalRecords),
     pass: pass === 'N/A' ? undefined : Number(pass),
     fail: fail === 'N/A' ? undefined : Number(fail),
-    extractId: extractId.$oid === 'N/A' ? undefined : extractId.$oid,
+    extractId: extractId === 'N/A' ? undefined : extractId,
   };
 
   return submissionStatus;

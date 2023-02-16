@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export type ProviderProfile = {
-  _id: {
-    $oid: string;
-  };
+  id: string;
   is_active: boolean;
   adult_care: boolean;
   child_care: boolean;
