@@ -13,3 +13,8 @@ export type ExtractSubmission = {
   provider_name: string;
   provider_id: string;
 };
+
+export type Extracts = {
+  total_extract_count: number;
+  extract_list: ExtractSubmission[];
+};
