@@ -13,8 +13,8 @@ import {
 })
 export class ProviderProfileComponent {
   profile$: Observable<ProviderProfile> = this.route.paramMap.pipe(
-    filter((parameters: ParamMap) => parameters.has('providerId')),
-    map((parameters: ParamMap) => parameters.get('providerId')),
+    filter((parameters: ParamMap) => parameters.has('id')),
+    map((parameters: ParamMap) => parameters.get('id')),
     switchMap((id: string | null) =>
       this.providerProfileService.getProviderProfile(id ?? 'fake-value')
     )

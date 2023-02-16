@@ -114,7 +114,7 @@ import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-cla
             canLoad: [ProviderGuard],
           },
           {
-            path: 'provider-gateway/provider-profile',
+            path: 'provider-gateway/provider-profile/:id',
             loadChildren: () =>
               import('@dbh/providers/profile-feature').then(
                 (m) => m.ProvidersProfileModule

@@ -9,11 +9,7 @@ import { ProviderProfileComponent } from './provider-profile/provider-profile.co
     CommonModule,
 
     RouterModule.forChild([
-      {
-        path: ':providerId',
-        pathMatch: 'full',
-        component: ProviderProfileComponent,
-      },
+      { path: '', pathMatch: 'full', component: ProviderProfileComponent },
     ]),
   ],
 })

@@ -52,12 +52,25 @@ import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider
               ),
           },
           {
-            path: 'submit-new-bhsd',
+            path: 'submissions',
             loadChildren: () =>
-              import('@dbh/bhsd/submit-new-file-feature').then(
-                (m) => m.BhsdSubmitNewFileFeatureModule
+              import('@dbh/bhsd/submission-history-feature').then(
+                (m) => m.BhsdSubmissionHistoryFeatureModule
               ),
-            canLoad: [ProviderGuard],
+          },
+          {
+            path: 'submission-status',
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-status-feature').then(
+                (m) => m.BhsdSubmissionStatusFeatureModule
+              ),
+          },
+          {
+            path: 'provider-profile/:id',
+            loadChildren: () =>
+              import('@dbh/providers/profile-feature').then(
+                (m) => m.ProvidersProfileModule
+              ),
           },
           {
             path: 'user-profile',
