@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ExtractSubmission, BHSDService } from '@dbh/bhsd/data-access';
+import { Extracts, BHSDService } from '@dbh/bhsd/data-access';
 import { AuthService } from '@dbh/auth';
 
 @Component({
@@ -10,8 +10,7 @@ import { AuthService } from '@dbh/auth';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubmissionsListComponent {
-  submissions$: Observable<ExtractSubmission[]> =
-    this.bhsdService.getSubmissions();
+  responseDetails$: Observable<Extracts> = this.bhsdService.getSubmissions();
 
   isDBHUser = this.authService.isDBHUser;
 

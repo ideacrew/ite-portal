@@ -4,6 +4,7 @@ import { map, Observable, filter } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
 import {
+  Extracts,
   ExtractSubmission,
   ExtractSubmissionResponse,
   ExtractSubmissionResponseV2,
@@ -29,10 +30,10 @@ export class BHSDService {
     );
   }
 
-  getSubmissions(): Observable<ExtractSubmission[]> {
+  getSubmissions(): Observable<Extracts> {
     return this.http
-      .get<ExtractSubmission[]>(`${this.config.baseApiUrl}/api/v1/extracts`)
-      .pipe(map((extracts) => extracts.slice(0, 10)));
+      .get<Extracts>(`${this.config.baseApiUrl}/api/v1/extracts`)
+      .pipe(map((extract) => extract));
   }
 
   getSubmissionStatusByDate({

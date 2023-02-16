@@ -1,43 +1,44 @@
 <h1>BHSD File Submission History</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th *ngIf="isDBHUser">Provider Name</th>
-      <th>ID</th>
-      <th>Submission Date</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Total Records</th>
-      <th>Pass</th>
-      <th>Fail</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let submission of submissions$ | async">
-      <td *ngIf="isDBHUser">
-        <a
-          [routerLink]="[
-            '/provider-gateway/provider-profile',
-            submission.provider_id
-          ]"
-          >{{ submission.provider_name }}</a
-        >
-      </td>
-      <td>
-        <a [routerLink]="submission.id">{{
-          submission.file_name ?? 'no file name provided'
-        }}</a>
-      </td>
-      <td>{{ submission.submission_date | date: 'short' }}</td>
-      <td>{{ submission.coverage_start }}</td>
-      <td>{{ submission.coverage_end }}</td>
-      <td>{{ submission.number_of_records ?? 'no value' }}</td>
-      <td>{{ submission.pass_count ?? 'no value' }}</td>
-      <td>{{ submission.fail_count ?? 'no value' }}</td>
-    </tr>
-  </tbody>
-</table>
+<ng-container *ngIf="responseDetails$ | async as details">
+  <table>
+    <thead>
+      <tr>
+        <th *ngIf="isDBHUser">Provider Name</th>
+        <th>ID</th>
+        <th>Submission Date</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Total Records</th>
+        <th>Pass</th>
+        <th>Fail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let submission of details.extract_list">
+        <td *ngIf="isDBHUser">
+          <a
+            [routerLink]="[
+              '/provider-gateway/provider-profile',
+              submission.provider_id
+            ]"
+            >{{ submission.provider_name }}</a
+          >
+        </td>
+        <td>
+          <a [routerLink]="submission.id">{{
+            submission.file_name ?? 'no file name provided'
+          }}</a>
+        </td>
+        <td>{{ submission.submission_date | date: 'short' }}</td>
+        <td>{{ submission.coverage_start }}</td>
+        <td>{{ submission.coverage_end }}</td>
+        <td>{{ submission.number_of_records ?? 'no value' }}</td>
+        <td>{{ submission.pass_count ?? 'no value' }}</td>
+        <td>{{ submission.fail_count ?? 'no value' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
 
 <p>Total records = Pass + Fail</p>
 <p>
