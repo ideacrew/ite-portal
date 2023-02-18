@@ -1,43 +1,62 @@
 <h1>BHSD File Submission History</h1>
 <ng-container *ngIf="responseDetails$ | async as details">
-  <table>
-    <thead>
-      <tr>
-        <th *ngIf="isDBHUser">Provider Name</th>
-        <th>ID</th>
-        <th>Submission Date</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Total Records</th>
-        <th>Pass</th>
-        <th>Fail</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let submission of details.extract_list">
-        <td *ngIf="isDBHUser">
+  <div class="tableContainer">
+    <table>
+      <thead>
+        <tr>
+          <th *ngIf="isDBHUser">Provider Name</th>
+          <th>ID</th>
+          <th>Submission Date</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Total Records</th>
+          <th>Pass</th>
+          <th>Fail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let submission of details.extract_list">
+          <td *ngIf="isDBHUser">
+            <a
+              [routerLink]="[
+                '/provider-gateway/provider-profile',
+                submission.provider_id
+              ]"
+              >{{ submission.provider_name }}</a
+            >
+          </td>
+          <td>
+            <a [routerLink]="submission.id">{{
+              submission.file_name ?? 'no file name provided'
+            }}</a>
+          </td>
+          <td>{{ submission.submission_date | date: 'short' }}</td>
+          <td>{{ submission.coverage_start }}</td>
+          <td>{{ submission.coverage_end }}</td>
+          <td>{{ submission.number_of_records ?? 'no value' }}</td>
+          <td>{{ submission.pass_count ?? 'no value' }}</td>
+          <td>{{ submission.fail_count ?? 'no value' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="break"></div>
+    <ng-container *ngIf="page$ | async as pageNumber">
+      <div class="pagination">
+        Page
+        <ng-container *ngFor="let page of pageArray">
           <a
-            [routerLink]="[
-              '/provider-gateway/provider-profile',
-              submission.provider_id
-            ]"
-            >{{ submission.provider_name }}</a
-          >
-        </td>
-        <td>
-          <a [routerLink]="submission.id">{{
-            submission.file_name ?? 'no file name provided'
-          }}</a>
-        </td>
-        <td>{{ submission.submission_date | date: 'short' }}</td>
-        <td>{{ submission.coverage_start }}</td>
-        <td>{{ submission.coverage_end }}</td>
-        <td>{{ submission.number_of_records ?? 'no value' }}</td>
-        <td>{{ submission.pass_count ?? 'no value' }}</td>
-        <td>{{ submission.fail_count ?? 'no value' }}</td>
-      </tr>
-    </tbody>
-  </table>
+            [ngClass]="{ active: pageNumber === page.toString() }"
+            [routerLink]="[]"
+            queryParamsHandling="merge"
+            (click)="updatePage()"
+            [queryParams]="{ page: page }"
+            >{{ page }}
+          </a>
+          <div *ngIf="pageArray[page] > page + 1">...</div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
 </ng-container>
 
 <p>Total records = Pass + Fail</p>

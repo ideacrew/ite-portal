@@ -36,6 +36,18 @@ export class BHSDService {
       .pipe(map((extract) => extract));
   }
 
+  getSubmissionsWithParams({
+    offset,
+  }: {
+    offset: string;
+  }): Observable<Extracts> {
+    return this.http
+      .get<Extracts>(
+        `${this.config.baseApiUrl}/api/v1/extracts?offset=${offset}`
+      )
+      .pipe(map((extract) => extract));
+  }
+
   getSubmissionStatusByDate({
     month,
     year,
