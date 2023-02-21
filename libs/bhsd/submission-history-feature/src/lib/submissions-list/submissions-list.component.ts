@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { Extracts, BHSDService } from '@dbh/bhsd/data-access';
 import { AuthService } from '@dbh/auth';

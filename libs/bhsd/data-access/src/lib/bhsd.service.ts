@@ -92,7 +92,7 @@ export class BHSDService {
       .get<SubmissionSummary[]>(baseUrl)
       .pipe(
         map((summary) =>
-          summary.map((status) => convertSummaryToStatus(status))
+          summary.map((statusSummary) => convertSummaryToStatus(statusSummary))
         )
       );
   }
