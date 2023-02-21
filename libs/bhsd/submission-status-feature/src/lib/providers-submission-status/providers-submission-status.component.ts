@@ -1,6 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { Component } from '@angular/core';
 import { BHSDService, SubmissionStatus } from '@dbh/bhsd/data-access';
 import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 
@@ -13,34 +11,11 @@ export class ProvidersSubmissionStatusComponent {
   submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
     status: this.statusFilter,
   });
-  constructor(
-    private bhsdService: BHSDService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private bhsdService: BHSDService) {}
 
   thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
 
   reportingPeriod = getReportingPeriod(1);
-
-  // filters$: Observable<ParamMap> = this.route.queryParamMap.pipe(
-  //   map((parameters: ParamMap) => parameters));
-
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
-  // ngOnInit() {
-  //   this.updateFilters();
-  // }
-
-  // updateFilters(key?: string, value?: string) {
-  //   this.filters$ = this.route.queryParamMap.pipe(
-  //     map((parameters: ParamMap) => parameters));
-  //   this.filters$.subscribe((parameters) => {
-  //     this.statusFilter = parameters.get('status') ?? '';
-  //     console.log(this.statusFilter);
-  //     this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
-  //       status: this.statusFilter
-  //     });
-  //   })
-  // }
 
   updateFilters(key: string, value?: any) {
     if (key === 'status') {
