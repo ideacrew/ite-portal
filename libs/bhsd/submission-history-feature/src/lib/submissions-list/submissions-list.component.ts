@@ -35,8 +35,8 @@ export class SubmissionsListComponent {
       return pageArray;
     } else if (activePage < 5) {
       return [...pageArray.slice(0, 5), lastItem];
-    } else if (activePage > pageArray.length - 6) {
-      return [firstItem, ...pageArray.slice(-5)];
+    } else if (activePage > pageArray.length - 5) {
+      return [firstItem, ...pageArray.slice(-6)];
     } else {
       return [
         firstItem,
