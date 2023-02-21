@@ -79,6 +79,24 @@ export class BHSDService {
       );
   }
 
+  getFilteredSubmissionStatus({
+    status,
+  }: {
+    status: string;
+  }): Observable<SubmissionStatus[]> {
+    let baseUrl = `${this.config.baseApiUrl}/api/v1/providers/submission_summary?`;
+    if (status && status !== '') {
+      baseUrl += `status=${status}`;
+    }
+    return this.http
+      .get<SubmissionSummary[]>(baseUrl)
+      .pipe(
+        map((summary) =>
+          summary.map((statusSummary) => convertSummaryToStatus(statusSummary))
+        )
+      );
+  }
+
   getExtractSubmission(id: string): Observable<ExtractSubmissionResponse> {
     return this.http.get<ExtractSubmissionResponse>(
       `${this.config.baseApiUrl}/api/v1/extracts/${id}`

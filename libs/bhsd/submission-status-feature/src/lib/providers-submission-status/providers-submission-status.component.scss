@@ -1,0 +1,25 @@
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5ch;
+}
+
+select {
+  color: #a39f9b;
+}
+option:disabled {
+  color: #a39f9b;
+}
+option:not(:disabled-of-type) {
+  color: black;
+}
+
+.filters {
+  display: flex;
+  gap: 1ch;
+}
+
+.filter + .filter {
+  padding-left: 1ch;
+  border-left: 1px solid gray;
+}

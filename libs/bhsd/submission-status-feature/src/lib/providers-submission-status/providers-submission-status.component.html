@@ -1,5 +1,4 @@
 <h1>Provider Submission Overview</h1>
-<h2>Reporting Period: {{ thisReportingPeriod }}</h2>
 
 <!-- <div class="input-group">
   <label for="month">Month</label>
@@ -13,8 +12,47 @@
     <option value="2022">2022</option>
   </select>
 </div> -->
+<div class="filters">
+  <div class="filter">
+    <label for="reportingPeriod">Reporting Period</label>
+    <input
+      id="reportingPeriod"
+      name="reportingPeriod"
+      [value]="thisReportingPeriod"
+    />
+  </div>
+  <div class="filter">
+    <label for="statusFilter">Submission Status</label>
+    <select
+      name="statusFilter"
+      id="statusFilter"
+      (change)="updateFilters('status', $event)"
+    >
+      <option value="" disabled hidden selected>Select Status</option>
+      <option value="">See All</option>
+      <option value="Current" [selected]="statusFilter === 'Current'">
+        Current
+      </option>
+      <option
+        value="Expecting Submission"
+        [selected]="statusFilter === 'Expecting Submission'"
+      >
+        Expecting Submission
+      </option>
+      <option
+        value="Need Resubmission"
+        [selected]="statusFilter === 'Need Resubmission'"
+      >
+        Need Resubmission
+      </option>
+      <option value="Past Due" [selected]="statusFilter === 'Past Due'">
+        Past Due
+      </option>
+    </select>
+  </div>
+</div>
 
-<h2>Provider Submission Summary</h2>
+<h2>Submission Summary</h2>
 <table>
   <thead>
     <tr>

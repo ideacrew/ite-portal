@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { BHSDService, SubmissionStatus } from '@dbh/bhsd/data-access';
 import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 
@@ -8,10 +7,25 @@ import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
   styleUrls: ['./providers-submission-status.component.scss'],
 })
 export class ProvidersSubmissionStatusComponent {
-  submissionStatus$ = this.bhsdService.getSubmissionStatus();
+  statusFilter = '';
+  submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
+    status: this.statusFilter,
+  });
   constructor(private bhsdService: BHSDService) {}
 
   thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
+
+  reportingPeriod = getReportingPeriod(1);
+
+  updateFilters(key: string, value?: any) {
+    if (key === 'status') {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      this.statusFilter = value.target.value ?? '';
+    }
+    this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
+      status: this.statusFilter,
+    });
+  }
 
   serviceType(submission: SubmissionStatus): string {
     const { mh, sud } = submission;
