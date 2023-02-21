@@ -29,6 +29,7 @@
       (change)="updateFilters('status', $event)"
     >
       <option value="" disabled hidden selected>Select Status</option>
+      <option value="">See All</option>
       <option value="Current" [selected]="statusFilter === 'Current'">
         Current
       </option>
@@ -47,7 +48,6 @@
       <option value="Past Due" [selected]="statusFilter === 'Past Due'">
         Past Due
       </option>
-      <option value="">See All</option>
     </select>
   </div>
 </div>
