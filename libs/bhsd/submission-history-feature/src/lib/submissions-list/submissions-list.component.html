@@ -43,7 +43,7 @@
     <ng-container *ngIf="page$ | async as pageNumber">
       <div class="pagination">
         Page
-        <ng-container *ngFor="let page of pageArray">
+        <ng-container *ngFor="let page of pageArray; let i = index">
           <a
             [ngClass]="{ active: pageNumber === page.toString() }"
             [routerLink]="[]"
@@ -52,7 +52,7 @@
             [queryParams]="{ page: page }"
             >{{ page }}
           </a>
-          <div *ngIf="pageArray[page] > page + 1">...</div>
+          <div *ngIf="pageArray[i + 1] > pageArray[i] + 1">...</div>
         </ng-container>
       </div>
     </ng-container>
