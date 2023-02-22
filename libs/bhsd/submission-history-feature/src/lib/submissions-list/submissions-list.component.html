@@ -25,6 +25,18 @@
           />
         </div>
       </div>
+      <p
+        *ngIf="coverageStartFilter !== '' && coverageEndFilter === ''"
+        class="break"
+      >
+        Select End Date to narrow results
+      </p>
+      <p
+        *ngIf="coverageStartFilter === '' && coverageEndFilter !== ''"
+        class="break"
+      >
+        Select Start Date to narrow results
+      </p>
     </div>
     <div class="filter">
       <h2>Submission Range</h2>
@@ -50,6 +62,18 @@
           />
         </div>
       </div>
+      <p
+        *ngIf="submissionStartFilter !== '' && submissionEndFilter === ''"
+        class="break"
+      >
+        Select End Date to narrow results
+      </p>
+      <p
+        *ngIf="submissionStartFilter === '' && submissionEndFilter !== ''"
+        class="break"
+      >
+        Select Start Date to narrow results
+      </p>
     </div>
     <div class="filter" *ngIf="isDBHUser">
       <h2>Provider</h2>
