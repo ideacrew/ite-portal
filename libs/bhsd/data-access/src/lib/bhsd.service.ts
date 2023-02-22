@@ -43,12 +43,14 @@ export class BHSDService {
     coverageEnd,
     submissionStart,
     submissionEnd,
+    provider,
   }: {
     offset?: string;
     coverageStart?: string;
     coverageEnd?: string;
     submissionStart?: string;
     submissionEnd?: string;
+    provider?: string;
   }): Observable<Extracts> {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/extracts?`;
     const urlParameters = [];
@@ -63,6 +65,9 @@ export class BHSDService {
     }
     if (submissionEnd && submissionEnd !== '') {
       urlParameters.push(`submission_end=${submissionEnd}`);
+    }
+    if (provider && provider !== '') {
+      urlParameters.push(`provider=${provider}`);
     }
     if (offset && offset !== '') {
       urlParameters.push(`offset=${offset}`);

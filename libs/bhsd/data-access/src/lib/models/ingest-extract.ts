@@ -14,7 +14,13 @@ export type ExtractSubmission = {
   provider_id: string;
 };
 
+export type ProviderListItem = {
+  id: string;
+  name: string;
+};
+
 export type Extracts = {
   total_extract_count: number;
   extract_list: ExtractSubmission[];
+  providers: ProviderListItem[];
 };

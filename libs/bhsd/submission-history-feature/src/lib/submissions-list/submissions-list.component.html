@@ -51,6 +51,25 @@
         </div>
       </div>
     </div>
+    <div class="filter" *ngIf="isDBHUser">
+      <h2>Provider</h2>
+      <label for="providerFilter">Select Provider</label>
+      <select
+        name="providerFilter"
+        id="providerFilter"
+        (change)="updateFilters('provider', $event)"
+      >
+        <option value="" disabled hidden selected>Provider</option>
+        <option value="">See All</option>
+        <option
+          *ngFor="let provider of details.providers"
+          [value]="provider.id"
+          [selected]="providerFilter.toString() === provider.id.toString()"
+        >
+          {{ provider.name }}
+        </option>
+      </select>
+    </div>
   </div>
   <div class="tableContainer">
     <table>
