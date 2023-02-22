@@ -1,5 +1,57 @@
 <h1>BHSD File Submission History</h1>
 <ng-container *ngIf="responseDetails$ | async as details">
+  <div class="filters">
+    <div class="filter">
+      <h2>Reporting Period</h2>
+      <div class="filters">
+        <div>
+          <label for="coverage-start">Start Date</label>
+          <input
+            type="date"
+            name="coverage-start"
+            id="coverage-start"
+            [value]="coverageStartFilter"
+            (change)="updateFilters('coverage_start', $event)"
+          />
+        </div>
+        <div>
+          <label for="coverage-end">End Date</label>
+          <input
+            type="date"
+            name="coverage-end"
+            id="coverage-end"
+            [value]="coverageEndFilter"
+            (change)="updateFilters('coverage_end', $event)"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="filter">
+      <h2>Submission Range</h2>
+      <div class="filters">
+        <div>
+          <label for="submission-start">Start Date</label>
+          <input
+            type="date"
+            name="submission-start"
+            id="submission-start"
+            [value]="submissionStartFilter"
+            (change)="updateFilters('submission_start', $event)"
+          />
+        </div>
+        <div>
+          <label for="submission-end">End Date</label>
+          <input
+            type="date"
+            name="submission-end"
+            id="submission-end"
+            [value]="submissionEndFilter"
+            (change)="updateFilters('submission_end', $event)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="tableContainer">
     <table>
       <thead>
@@ -40,22 +92,22 @@
       </tbody>
     </table>
     <div class="break"></div>
-    <ng-container *ngIf="page$ | async as pageNumber">
-      <div class="pagination">
-        Page
-        <ng-container *ngFor="let page of pageArray; let i = index">
-          <a
-            [ngClass]="{ active: pageNumber === page.toString() }"
-            [routerLink]="[]"
-            queryParamsHandling="merge"
-            (click)="updatePage()"
-            [queryParams]="{ page: page }"
-            >{{ page }}
-          </a>
-          <div *ngIf="pageArray[i + 1] > pageArray[i] + 1">...</div>
-        </ng-container>
-      </div>
-    </ng-container>
+
+    <div class="pagination">
+      Page
+      <ng-container
+        *ngFor="let pageNum of getPages(details.total_extract_count, page)"
+      >
+        <a
+          *ngIf="pageNum !== '...'"
+          [ngClass]="{ active: page === pageNum.toString() }"
+          [routerLink]=""
+          (click)="updatePage(pageNum.toString())"
+          >{{ pageNum }}
+        </a>
+        <div *ngIf="pageNum === '...'">...</div>
+      </ng-container>
+    </div>
   </div>
 </ng-container>
 

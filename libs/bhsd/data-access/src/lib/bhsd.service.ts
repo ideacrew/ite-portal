@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, filter } from 'rxjs';
@@ -38,14 +39,36 @@ export class BHSDService {
 
   getSubmissionsWithParams({
     offset,
+    coverage_start,
+    coverage_end,
+    submission_start,
+    submission_end,
   }: {
-    offset: string;
+    offset?: string;
+    coverage_start?: string;
+    coverage_end?: string;
+    submission_start?: string;
+    submission_end?: string;
   }): Observable<Extracts> {
-    return this.http
-      .get<Extracts>(
-        `${this.config.baseApiUrl}/api/v1/extracts?offset=${offset}`
-      )
-      .pipe(map((extract) => extract));
+    let baseUrl = `${this.config.baseApiUrl}/api/v1/extracts?`;
+    const urlParams = [];
+    if (coverage_start && coverage_start !== '') {
+      urlParams.push(`coverage_start=${coverage_start}`);
+    }
+    if (coverage_end && coverage_end !== '') {
+      urlParams.push(`coverage_end=${coverage_end}`);
+    }
+    if (submission_start && submission_start !== '') {
+      urlParams.push(`submission_start=${submission_start}`);
+    }
+    if (submission_end && submission_end !== '') {
+      urlParams.push(`submission_end=${submission_end}`);
+    }
+    if (offset && offset !== '') {
+      urlParams.push(`offset=${offset}`);
+    }
+    baseUrl += urlParams.join('&');
+    return this.http.get<Extracts>(baseUrl).pipe(map((extract) => extract));
   }
 
   getSubmissionStatusByDate({

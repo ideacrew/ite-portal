@@ -15,17 +15,17 @@ export class SubmissionsListComponent {
   page = '1';
   offset = '';
   perPage = 20;
+  coverageStartFilter = '';
+  coverageEndFilter = '';
+  submissionStartFilter = '';
+  submissionEndFilter = '';
   responseDetails$: Observable<Extracts> =
     this.bhsdService.getSubmissionsWithParams({ offset: this.offset });
-  page$: Observable<string> = this.route.queryParamMap.pipe(
-    map((parameters: ParamMap) => parameters.get('page') ?? '1')
-  );
-  pageArray: number[] = [1];
 
-  getPages(count: number, active: string): number[] {
+  getPages(count: number, active: string): Array<number | '...'> {
     const pages = Math.ceil(count / this.perPage);
     // eslint-disable-next-line unicorn/new-for-builtins
-    const pageArray: number[] = Array(pages)
+    const pageArray: Array<number | '...'> = Array(pages)
       .fill(0)
       .map((x, index) => index + 1);
     const lastItem = pageArray[pageArray.length - 1];
@@ -34,38 +34,56 @@ export class SubmissionsListComponent {
     if (pageArray.length <= 5) {
       return pageArray;
     } else if (activePage < 5) {
-      return [...pageArray.slice(0, 5), lastItem];
+      return [...pageArray.slice(0, 5), '...', lastItem];
     } else if (activePage > pageArray.length - 4) {
-      return [firstItem, ...pageArray.slice(-5)];
+      return [firstItem, '...', ...pageArray.slice(-5)];
     } else {
       return [
         firstItem,
+        '...',
         pageArray[activePage - 2],
         pageArray[activePage - 1],
         pageArray[activePage],
+        '...',
         lastItem,
       ];
     }
     return pageArray;
   }
 
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
-  ngOnInit() {
-    this.updatePage();
+  updatePage(pageNumber: string) {
+    this.page = pageNumber;
+    this.offset = String((Number(pageNumber) - 1) * this.perPage);
+    this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
+      offset: this.offset,
+    });
   }
 
-  updatePage() {
-    this.page$ = this.route.queryParamMap.pipe(
-      map((parameters: ParamMap) => parameters.get('page') ?? '1')
-    );
-    this.page$.subscribe((page) => {
-      this.offset = String((Number(page) - 1) * this.perPage);
-      this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
-        offset: this.offset,
-      });
-      this.responseDetails$.subscribe((extract) => {
-        this.pageArray = this.getPages(extract.total_extract_count, page);
-      });
+  updateFilters(key: string, event: Event) {
+    this.page = '1';
+    this.offset = '';
+    if (key === 'coverage_start') {
+      const target = event.target as HTMLInputElement;
+      this.coverageStartFilter = target.value ?? '';
+    }
+    if (key === 'coverage_end') {
+      const target = event.target as HTMLInputElement;
+      this.coverageEndFilter = target.value ?? '';
+    }
+    if (key === 'submission_start') {
+      const target = event.target as HTMLInputElement;
+      this.submissionStartFilter = target.value ?? '';
+    }
+    if (key === 'submission_end') {
+      const target = event.target as HTMLInputElement;
+      this.submissionEndFilter = target.value ?? '';
+    }
+    this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
+      coverage_start: this.coverageStartFilter,
+      coverage_end: this.coverageEndFilter,
+      submission_start: this.submissionStartFilter,
+      submission_end: this.submissionEndFilter,
+      offset: this.offset,
     });
   }
 
