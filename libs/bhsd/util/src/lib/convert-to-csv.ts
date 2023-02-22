@@ -7,7 +7,6 @@ export const getCsvBlob = (rows: object[], columns: string[]): Blob => {
 };
 
 const convertToCsv = (rows: object[], columns: string[]): string => {
-  console.log(Array.isArray(rows));
   if (!rows || rows.length === 0) {
     return '';
   }
@@ -16,9 +15,7 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
       typeof row == 'object'
         ? columns
             .map((key) => {
-              console.log(key);
               const cellData = row[key as keyof typeof row] as string;
-              console.log(cellData);
               const cell =
                 cellData === null || cellData === undefined
                   ? ''

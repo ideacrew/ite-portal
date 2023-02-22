@@ -2,7 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, map } from 'rxjs';
 
-import { Extracts, BHSDService } from '@dbh/bhsd/data-access';
+import {
+  Extracts,
+  BHSDService,
+  ExtractSubmission,
+} from '@dbh/bhsd/data-access';
 import { AuthService } from '@dbh/auth';
 
 @Component({
@@ -19,8 +23,13 @@ export class SubmissionsListComponent {
   coverageEndFilter = '';
   submissionStartFilter = '';
   submissionEndFilter = '';
+  providerFilter = '';
   responseDetails$: Observable<Extracts> =
     this.bhsdService.getSubmissionsWithParams({ offset: this.offset });
+
+  // getProviders(extracts: ExtractSubmission[]): object[] {
+  //   return extracts.map((extract) => ({id: extract.provider_id, name: extract.provider_name}));
+  // }
 
   getPages(count: number, active: string): Array<number | '...'> {
     const pages = Math.ceil(count / this.perPage);
@@ -78,12 +87,17 @@ export class SubmissionsListComponent {
       const target = event.target as HTMLInputElement;
       this.submissionEndFilter = target.value ?? '';
     }
+    if (key === 'provider') {
+      const target = event.target as HTMLInputElement;
+      this.providerFilter = target.value ?? '';
+    }
     this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
       coverageStart: this.coverageStartFilter,
       coverageEnd: this.coverageEndFilter,
       submissionStart: this.submissionStartFilter,
       submissionEnd: this.submissionEndFilter,
       offset: this.offset,
+      provider: this.providerFilter,
     });
   }
 
