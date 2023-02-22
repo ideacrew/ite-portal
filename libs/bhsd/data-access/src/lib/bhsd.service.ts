@@ -39,35 +39,35 @@ export class BHSDService {
 
   getSubmissionsWithParams({
     offset,
-    coverage_start,
-    coverage_end,
-    submission_start,
-    submission_end,
+    coverageStart,
+    coverageEnd,
+    submissionStart,
+    submissionEnd,
   }: {
     offset?: string;
-    coverage_start?: string;
-    coverage_end?: string;
-    submission_start?: string;
-    submission_end?: string;
+    coverageStart?: string;
+    coverageEnd?: string;
+    submissionStart?: string;
+    submissionEnd?: string;
   }): Observable<Extracts> {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/extracts?`;
-    const urlParams = [];
-    if (coverage_start && coverage_start !== '') {
-      urlParams.push(`coverage_start=${coverage_start}`);
+    const urlParameters = [];
+    if (coverageStart && coverageStart !== '') {
+      urlParameters.push(`coverage_start=${coverageStart}`);
     }
-    if (coverage_end && coverage_end !== '') {
-      urlParams.push(`coverage_end=${coverage_end}`);
+    if (coverageEnd && coverageEnd !== '') {
+      urlParameters.push(`coverage_end=${coverageEnd}`);
     }
-    if (submission_start && submission_start !== '') {
-      urlParams.push(`submission_start=${submission_start}`);
+    if (submissionStart && submissionStart !== '') {
+      urlParameters.push(`submission_start=${submissionStart}`);
     }
-    if (submission_end && submission_end !== '') {
-      urlParams.push(`submission_end=${submission_end}`);
+    if (submissionEnd && submissionEnd !== '') {
+      urlParameters.push(`submission_end=${submissionEnd}`);
     }
     if (offset && offset !== '') {
-      urlParams.push(`offset=${offset}`);
+      urlParameters.push(`offset=${offset}`);
     }
-    baseUrl += urlParams.join('&');
+    baseUrl += urlParameters.join('&');
     return this.http.get<Extracts>(baseUrl).pipe(map((extract) => extract));
   }
 

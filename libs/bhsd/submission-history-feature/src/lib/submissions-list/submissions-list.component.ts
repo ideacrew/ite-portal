@@ -79,10 +79,10 @@ export class SubmissionsListComponent {
       this.submissionEndFilter = target.value ?? '';
     }
     this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
-      coverage_start: this.coverageStartFilter,
-      coverage_end: this.coverageEndFilter,
-      submission_start: this.submissionStartFilter,
-      submission_end: this.submissionEndFilter,
+      coverageStart: this.coverageStartFilter,
+      coverageEnd: this.coverageEndFilter,
+      submissionStart: this.submissionStartFilter,
+      submissionEnd: this.submissionEndFilter,
       offset: this.offset,
     });
   }
