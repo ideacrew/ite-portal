@@ -63,34 +63,35 @@ export class SubmissionsListComponent {
   updatePage(pageNumber: string) {
     this.page = pageNumber;
     this.offset = String((Number(pageNumber) - 1) * this.perPage);
-    this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
-      offset: this.offset,
-    });
+    this.updateFilters('page');
   }
 
-  updateFilters(key: string, event: Event) {
-    this.page = '1';
-    this.offset = '';
-    if (key === 'coverage_start') {
-      const target = event.target as HTMLInputElement;
-      this.coverageStartFilter = target.value ?? '';
+  updateFilters(key: string, event?: Event) {
+    if (event) {
+      this.page = '1';
+      this.offset = '';
+      if (key === 'coverage_start') {
+        const target = event.target as HTMLInputElement;
+        this.coverageStartFilter = target.value ?? '';
+      }
+      if (key === 'coverage_end') {
+        const target = event.target as HTMLInputElement;
+        this.coverageEndFilter = target.value ?? '';
+      }
+      if (key === 'submission_start') {
+        const target = event.target as HTMLInputElement;
+        this.submissionStartFilter = target.value ?? '';
+      }
+      if (key === 'submission_end') {
+        const target = event.target as HTMLInputElement;
+        this.submissionEndFilter = target.value ?? '';
+      }
+      if (key === 'provider') {
+        const target = event.target as HTMLInputElement;
+        this.providerFilter = target.value ?? '';
+      }
     }
-    if (key === 'coverage_end') {
-      const target = event.target as HTMLInputElement;
-      this.coverageEndFilter = target.value ?? '';
-    }
-    if (key === 'submission_start') {
-      const target = event.target as HTMLInputElement;
-      this.submissionStartFilter = target.value ?? '';
-    }
-    if (key === 'submission_end') {
-      const target = event.target as HTMLInputElement;
-      this.submissionEndFilter = target.value ?? '';
-    }
-    if (key === 'provider') {
-      const target = event.target as HTMLInputElement;
-      this.providerFilter = target.value ?? '';
-    }
+
     this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
       coverageStart: this.coverageStartFilter,
       coverageEnd: this.coverageEndFilter,
