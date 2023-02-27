@@ -6,7 +6,6 @@ import { map, Observable, filter } from 'rxjs';
 import { ConfigService } from '@dbh/api-config';
 import {
   Extracts,
-  ExtractSubmission,
   ExtractSubmissionResponse,
   ExtractSubmissionResponseV2,
   SubmissionStatus,

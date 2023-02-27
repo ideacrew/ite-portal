@@ -55,12 +55,17 @@ export type ExtractRecordValidationFlatPayload = {
   admission_id?: string | null;
   arrests_past_30days_admission?: string | null;
   arrests_past_30days_discharge?: string | null;
+  assessment_type?: string | null;
+  cafas_or_pecfas_total_score?: string | null;
+  cafas_or_pecfas_assessment_date?: string | null;
   client_id?: string | null;
   co_occurring_sud_mh?: string | null;
   collateral?: string | null;
   criminal_justice_referral?: string | null;
   discharge_date?: string | null;
   discharge_reason?: string | null;
+  dla_average_score?: string | null;
+  dla_assessment_date?: string | null;
   dob?: string | null;
   education?: string | null;
   employment?: string | null;
