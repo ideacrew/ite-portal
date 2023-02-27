@@ -88,14 +88,36 @@ export const getSettingBreakdown = (
 ): DemographicData[] => {
   const settings = records.map((record) => record.payload.treatment_setting);
   const settingOptions: humanMap[] = [
-    { dataValue: '1', text: 'Puerto Rican' },
-    { dataValue: '2', text: 'Mexican' },
-    { dataValue: '3', text: 'Cuban' },
-    { dataValue: '4', text: 'Other specific Hispanic or Latino' },
-    { dataValue: '5', text: 'Not of Hispanic or Latino origin' },
-    { dataValue: '6', text: 'Hispanic or Latino, Not Specified' },
-    { dataValue: '97', text: 'Unknown' },
-    { dataValue: '98', text: 'Not Collected' },
+    {
+      dataValue: '1',
+      text: 'Detoxification, 24-hour service, hospital inpatient',
+    },
+    {
+      dataValue: '2',
+      text: 'Detoxification, 24-hour service, free-standing residential',
+    },
+    {
+      dataValue: '3',
+      text: 'Rehabilitation/residential - hospital (other than detoxification)',
+    },
+    {
+      dataValue: '4',
+      text: 'Rehabilitation/residential - short term (30 days or fewer)',
+    },
+    {
+      dataValue: '5',
+      text: 'Rehabilitation/residential - long term (more than 30 days)',
+    },
+    { dataValue: '6', text: 'Ambulatory - intensive outpatient' },
+    { dataValue: '7', text: 'Ambulatory - non-intensive outpatient' },
+    { dataValue: '8', text: 'Ambulatory - detoxification' },
+    { dataValue: '72', text: 'State psychiatric hospital' },
+    { dataValue: '73', text: 'SMHA funded/operated community-based program' },
+    { dataValue: '74', text: 'Residential treatment center' },
+    { dataValue: '75', text: 'Other psychiatric inpatient' },
+    { dataValue: '76', text: 'Institutions under the justice system' },
+    { dataValue: '77', text: 'MH Assessment/Screening' },
+    { dataValue: '96', text: 'Not applicable' },
   ];
   return getDemographics(settings, settingOptions);
 };
