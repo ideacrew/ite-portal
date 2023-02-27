@@ -211,6 +211,15 @@
           </ng-container>
         </ul>
       </div>
+      <h3>Treatment Setting</h3>
+      <ul class="hBarChart">
+        <ng-container *ngFor="let setting of demographics.settings">
+          <li [style.--percent]="setting.percent + '%'">
+            {{ setting.label }}
+            <span>{{ setting.count }}<br />({{ setting.percent }}%)</span>
+          </li>
+        </ng-container>
+      </ul>
     </ng-container>
   </ng-container>
 </ng-container>

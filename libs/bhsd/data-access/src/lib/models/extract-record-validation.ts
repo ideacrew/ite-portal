@@ -136,6 +136,7 @@ export type ExtractSubmissionDemographics = {
   races: DemographicData[];
   ethnicities: DemographicData[];
   ages: DemographicData[];
+  settings: DemographicData[];
 };
 
 export type DemographicData = {

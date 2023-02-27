@@ -23,8 +23,9 @@ export const convertExtractToDemographics = (
   const genders = getGenderBreakdown(records);
   const races = getRaceBreakdown(records);
   const ethnicities = getEthnicityBreakdown(records);
+  const settings = getSettingBreakdown(records);
   const ages = getAgeBreakdown(records);
-  return { recordCount, genders, races, ethnicities, ages };
+  return { recordCount, genders, races, ethnicities, ages, settings };
 };
 
 export const getGenderBreakdown = (
@@ -80,6 +81,23 @@ export const getEthnicityBreakdown = (
     { dataValue: '98', text: 'Not Collected' },
   ];
   return getDemographics(ethnicities, ethnicityOptions);
+};
+
+export const getSettingBreakdown = (
+  records: ExtractRecordValidation[]
+): DemographicData[] => {
+  const settings = records.map((record) => record.payload.treatment_setting);
+  const settingOptions: humanMap[] = [
+    { dataValue: '1', text: 'Puerto Rican' },
+    { dataValue: '2', text: 'Mexican' },
+    { dataValue: '3', text: 'Cuban' },
+    { dataValue: '4', text: 'Other specific Hispanic or Latino' },
+    { dataValue: '5', text: 'Not of Hispanic or Latino origin' },
+    { dataValue: '6', text: 'Hispanic or Latino, Not Specified' },
+    { dataValue: '97', text: 'Unknown' },
+    { dataValue: '98', text: 'Not Collected' },
+  ];
+  return getDemographics(settings, settingOptions);
 };
 
 export const getDemographics = (
