@@ -1,25 +1,39 @@
 <h1>Provider Submission Overview</h1>
-
-<!-- <div class="input-group">
-  <label for="month">Month</label>
-  <select name="month" id="month">
-    <option value="8">August</option>
-  </select>
-</div>
-<div class="input-group">
-  <label for="year">Year</label>
-  <select name="year" id="year">
-    <option value="2022">2022</option>
-  </select>
-</div> -->
 <div class="filters">
   <div class="filter">
     <label for="reportingPeriod">Reporting Period</label>
-    <input
-      id="reportingPeriod"
-      name="reportingPeriod"
-      [value]="thisReportingPeriod"
-    />
+    <div class="filters">
+      <select
+        name="rpMonthFilter"
+        id="rpMonthFilter"
+        (change)="updateFilters('month', $event)"
+      >
+        <option value="">Select Month</option>
+        <option
+          *ngFor="let month of monthList"
+          [value]="month.getMonth()"
+          [selected]="rpMonthFilter - 1 === month.getMonth()"
+          (change)="updateFilters('month', $event)"
+        >
+          {{ month | date: 'MMMM' }}
+        </option>
+      </select>
+      <select
+        name="rpYearFilter"
+        id="rpYearFilter"
+        (change)="updateFilters('year', $event)"
+      >
+        <option value="">Select Year</option>
+        <option
+          *ngFor="let year of yearList"
+          [value]="year"
+          [selected]="year.toString() === rpYearFilter.toString()"
+          (change)="updateFilters('year', $event)"
+        >
+          {{ year }}
+        </option>
+      </select>
+    </div>
   </div>
   <div class="filter">
     <label for="statusFilter">Submission Status</label>
@@ -49,6 +63,37 @@
         Past Due
       </option>
     </select>
+  </div>
+</div>
+<div class="filters">
+  <div class="filter">
+    <h2>Total Records</h2>
+    <div class="filters">
+      <div>
+        <label for="trMinFilter">Selector</label>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          id="trMinFilter"
+          name="trMinFilter"
+          [value]="trMinFilter"
+          (change)="updateFilters('trMin', $event)"
+        />
+      </div>
+      <div>
+        <label for="trMaxFilter">Total Records</label>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          id="trMaxFilter"
+          name="trMaxFilter"
+          [value]="trMaxFilter"
+          (change)="updateFilters('trMax', $event)"
+        />
+      </div>
+    </div>
   </div>
 </div>
 

@@ -24,6 +24,10 @@ export class SubmissionsListComponent {
   submissionStartFilter = '';
   submissionEndFilter = '';
   providerFilter = '';
+  trSelectorFilter = '';
+  trValueFilter: number | string = '';
+  prSelectorFilter = '';
+  prValueFilter: number | string = '';
   responseDetails$: Observable<Extracts> =
     this.bhsdService.getSubmissionsWithParams({ offset: this.offset });
 
@@ -90,6 +94,22 @@ export class SubmissionsListComponent {
         const target = event.target as HTMLInputElement;
         this.providerFilter = target.value ?? '';
       }
+      if (key === 'trSelector') {
+        const target = event.target as HTMLInputElement;
+        this.trSelectorFilter = target.value ?? '';
+      }
+      if (key === 'trValue') {
+        const target = event.target as HTMLInputElement;
+        this.trValueFilter = target.value ?? '';
+      }
+      if (key === 'prSelector') {
+        const target = event.target as HTMLInputElement;
+        this.prSelectorFilter = target.value ?? '';
+      }
+      if (key === 'prValue') {
+        const target = event.target as HTMLInputElement;
+        this.prValueFilter = target.value ?? '';
+      }
     }
 
     this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
@@ -99,6 +119,10 @@ export class SubmissionsListComponent {
       submissionEnd: this.submissionEndFilter,
       offset: this.offset,
       provider: this.providerFilter,
+      trSelector: this.trSelectorFilter,
+      trValue: this.trValueFilter.toString(),
+      prSelector: this.prSelectorFilter,
+      prValue: this.prValueFilter.toString(),
     });
   }
 
