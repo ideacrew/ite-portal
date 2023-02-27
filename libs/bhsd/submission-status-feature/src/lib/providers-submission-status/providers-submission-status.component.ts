@@ -9,40 +9,54 @@ import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 })
 export class ProvidersSubmissionStatusComponent {
   statusFilter = '';
+  trMinFilter: number | string = '';
+  trMaxFilter: number | string = '';
   reportingPeriod = getReportingPeriod(1);
   thisReportingPeriod = getReportingPeriodText(this.reportingPeriod);
   rpMonthFilter: number = this.reportingPeriod.getMonth() + 1;
   monthList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
     (x) => new Date(2000, x, 2)
   );
-  rpYearFilter = this.reportingPeriod.getFullYear();
+  rpYearFilter: number | string = this.reportingPeriod.getFullYear();
   // 2022 is the first time we started adding data to the system
   yearList: number[] = [
-    ...Array.from({ length: this.rpYearFilter - 2022 + 1 }).keys(),
+    ...Array.from({ length: Number(this.rpYearFilter) - 2022 + 1 }).keys(),
   ].map((x) => x + 2022);
   submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
   constructor(private bhsdService: BHSDService) {}
 
-  updateFilters(key: string, value?: any) {
-    if (key === 'status') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      this.statusFilter = value.target.value ?? '';
-    }
-    if (key === 'year') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      this.rpYearFilter = value.target.value ?? '';
-    }
-    if (key === 'month') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      this.rpMonthFilter = value.target.value
-        ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          Number(value.target.value) + 1
-        : 0;
+  updateFilters(key: string, value?: Event) {
+    if (value) {
+      if (key === 'status') {
+        const target = value.target as HTMLInputElement;
+        this.statusFilter = target.value ?? '';
+      }
+      if (key === 'year') {
+        const target = value.target as HTMLInputElement;
+        this.rpYearFilter = target.value ?? '';
+      }
+      if (key === 'month') {
+        const target = value.target as HTMLInputElement;
+        this.rpMonthFilter = target.value
+          ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            Number(target.value) + 1
+          : 0;
+      }
+      if (key === 'trMin') {
+        const target = value.target as HTMLInputElement;
+        this.trMinFilter = target.value ?? '';
+      }
+      if (key === 'trMax') {
+        const target = value.target as HTMLInputElement;
+        this.trMaxFilter = target.value ?? '';
+      }
     }
     this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
       status: this.statusFilter,
       year: this.rpYearFilter.toString(),
       month: this.rpMonthFilter.toString(),
+      trMax: this.trMaxFilter.toString(),
+      trMin: this.trMinFilter.toString(),
     });
   }
 
