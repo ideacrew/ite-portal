@@ -95,6 +95,104 @@
       </select>
     </div>
   </div>
+  <div class="filters">
+    <div class="filter">
+      <h2>Total Records</h2>
+      <div class="filters">
+        <div>
+          <label for="trSelectorFilter">Selector</label>
+          <select
+            name="trSelectorFilter"
+            id="trSelectorFilter"
+            (change)="updateFilters('trSelector', $event)"
+          >
+            <option value="" disabled hidden selected>
+              &#8804; or &#8805;
+            </option>
+            <option value="">See All</option>
+            <option value="less" [selected]="trSelectorFilter === 'less'">
+              &#8804;
+            </option>
+            <option value="greater" [selected]="trSelectorFilter === 'greater'">
+              &#8805;
+            </option>
+          </select>
+        </div>
+        <div>
+          <label for="trValueFilter">Total Records</label>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            id="trValueFilter"
+            name="trValueFilter"
+            [value]="trValueFilter"
+            (change)="updateFilters('trValue', $event)"
+          />
+        </div>
+      </div>
+      <p
+        *ngIf="coverageStartFilter !== '' && coverageEndFilter === ''"
+        class="break"
+      >
+        Select End Date to narrow results
+      </p>
+      <p
+        *ngIf="coverageStartFilter === '' && coverageEndFilter !== ''"
+        class="break"
+      >
+        Select Start Date to narrow results
+      </p>
+    </div>
+    <div class="filter">
+      <h2>Pass Rate</h2>
+      <div class="filters">
+        <div>
+          <label for="prSelectorFilter">Selector</label>
+          <select
+            name="prSelectorFilter"
+            id="prSelectorFilter"
+            (change)="updateFilters('prSelector', $event)"
+          >
+            <option value="" disabled hidden selected>
+              &#8804; or &#8805;
+            </option>
+            <option value="">See All</option>
+            <option value="less" [selected]="prSelectorFilter === 'less'">
+              &#8804;
+            </option>
+            <option value="greater" [selected]="prSelectorFilter === 'greater'">
+              &#8805;
+            </option>
+          </select>
+        </div>
+        <div>
+          <label for="prValueFilter">Percentage of Records</label>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            id="prValueFilter"
+            name="prValueFilter"
+            [value]="prValueFilter"
+            (change)="updateFilters('prValue', $event)"
+          />
+        </div>
+      </div>
+      <p
+        *ngIf="coverageStartFilter !== '' && coverageEndFilter === ''"
+        class="break"
+      >
+        Select End Date to narrow results
+      </p>
+      <p
+        *ngIf="coverageStartFilter === '' && coverageEndFilter !== ''"
+        class="break"
+      >
+        Select Start Date to narrow results
+      </p>
+    </div>
+  </div>
   <div class="tableContainer">
     <table>
       <thead>

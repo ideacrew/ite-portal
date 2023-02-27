@@ -44,6 +44,10 @@ export class BHSDService {
     submissionStart,
     submissionEnd,
     provider,
+    trSelector,
+    trValue,
+    prSelector,
+    prValue,
   }: {
     offset?: string;
     coverageStart?: string;
@@ -51,6 +55,10 @@ export class BHSDService {
     submissionStart?: string;
     submissionEnd?: string;
     provider?: string;
+    trSelector?: string;
+    trValue?: string;
+    prSelector?: string;
+    prValue?: string;
   }): Observable<Extracts> {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/extracts?`;
     const urlParameters = [];
@@ -71,6 +79,18 @@ export class BHSDService {
     }
     if (offset && offset !== '') {
       urlParameters.push(`offset=${offset}`);
+    }
+    if (trSelector && trSelector !== '') {
+      urlParameters.push(`tr_selector=${trSelector}`);
+    }
+    if (trValue && trValue !== '') {
+      urlParameters.push(`tr_value=${trValue}`);
+    }
+    if (prSelector && prSelector !== '') {
+      urlParameters.push(`pr_selector=${prSelector}`);
+    }
+    if (prValue && prValue !== '') {
+      urlParameters.push(`pr_value=${prValue}`);
     }
     baseUrl += urlParameters.join('&');
     return this.http.get<Extracts>(baseUrl).pipe(map((extract) => extract));
@@ -109,13 +129,25 @@ export class BHSDService {
 
   getFilteredSubmissionStatus({
     status,
+    month,
+    year,
   }: {
-    status: string;
+    status?: string;
+    month?: string;
+    year?: string;
   }): Observable<SubmissionStatus[]> {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/providers/submission_summary?`;
+    const urlParameters = [];
     if (status && status !== '') {
-      baseUrl += `status=${status}`;
+      urlParameters.push(`status=${status}`);
     }
+    if (month && month !== '') {
+      urlParameters.push(`month=${month}`);
+    }
+    if (year && year !== '') {
+      urlParameters.push(`year=${year}`);
+    }
+    baseUrl += urlParameters.join('&');
     return this.http
       .get<SubmissionSummary[]>(baseUrl)
       .pipe(

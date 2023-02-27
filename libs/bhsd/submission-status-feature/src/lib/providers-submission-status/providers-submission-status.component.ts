@@ -8,22 +8,39 @@ import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 })
 export class ProvidersSubmissionStatusComponent {
   statusFilter = '';
-  submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
-    status: this.statusFilter,
-  });
-  constructor(private bhsdService: BHSDService) {}
-
-  thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
-
   reportingPeriod = getReportingPeriod(1);
+  thisReportingPeriod = getReportingPeriodText(this.reportingPeriod);
+  rpMonthFilter: number = this.reportingPeriod.getMonth() + 1;
+  monthList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
+    (x) => new Date(2000, x, 2)
+  );
+  rpYearFilter = this.reportingPeriod.getFullYear();
+  // 2022 is the first time we started adding data to the system
+  yearList: number[] = [...Array(this.rpYearFilter - 2022 + 1).keys()].map(
+    (x) => x + 2022
+  );
+  submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
+  constructor(private bhsdService: BHSDService) {}
 
   updateFilters(key: string, value?: any) {
     if (key === 'status') {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       this.statusFilter = value.target.value ?? '';
     }
+    if (key === 'year') {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      this.rpYearFilter = value.target.value ?? '';
+    }
+    if (key === 'month') {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      this.rpMonthFilter = value.target.value
+        ? Number(value.target.value) + 1
+        : 0;
+    }
     this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
       status: this.statusFilter,
+      year: this.rpYearFilter.toString(),
+      month: this.rpMonthFilter.toString(),
     });
   }
 
