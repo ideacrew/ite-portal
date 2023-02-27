@@ -132,12 +132,16 @@ export class BHSDService {
     year,
     trMax,
     trMin,
+    serviceType,
+    provider,
   }: {
     status?: string;
     month?: string;
     year?: string;
     trMin?: string;
     trMax?: string;
+    serviceType?: string;
+    provider?: string;
   }): Observable<SubmissionStatus[]> {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/providers/submission_summary?`;
     const urlParameters = [];
@@ -155,6 +159,12 @@ export class BHSDService {
     }
     if (trMax && trMax !== '') {
       urlParameters.push(`tr_max=${trMax}`);
+    }
+    if (serviceType && serviceType !== '') {
+      urlParameters.push(`service_type=${serviceType}`);
+    }
+    if (provider && provider !== '') {
+      urlParameters.push(`provider=${provider}`);
     }
     baseUrl += urlParameters.join('&');
     return this.http
