@@ -23,6 +23,7 @@ import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
 import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.component';
 import { FakePageComponent } from './fake-page/fake-page.component';
+import { ExternalResourcesComponent } from './external-resources/external-resources.component';
 import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-claims.component';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-cla
     PortalComponent,
     PortalDashboardComponent,
     FakePageComponent,
+    ExternalResourcesComponent,
     AdjudicatedClaimsComponent,
   ],
   imports: [
@@ -82,6 +84,10 @@ import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-cla
           {
             path: 'claims/adjudicated-claims',
             component: AdjudicatedClaimsComponent,
+          },
+          {
+            path: 'external-resources',
+            component: ExternalResourcesComponent,
           },
 
           {
