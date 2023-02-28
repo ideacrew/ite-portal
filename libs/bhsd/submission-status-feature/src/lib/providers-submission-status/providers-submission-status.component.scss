@@ -4,16 +4,6 @@ label {
   margin-bottom: 0.5ch;
 }
 
-#statusFilter {
-  color: #a39f9b;
-}
-option:disabled {
-  color: #a39f9b;
-}
-option:not(:disabled-of-type) {
-  color: black;
-}
-
 .filters {
   display: flex;
   gap: 1ch;

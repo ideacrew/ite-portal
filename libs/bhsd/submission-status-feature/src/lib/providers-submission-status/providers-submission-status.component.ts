@@ -11,6 +11,8 @@ export class ProvidersSubmissionStatusComponent {
   statusFilter = '';
   trMinFilter: number | string = '';
   trMaxFilter: number | string = '';
+  serviceTypeFilter = '';
+  providerFilter = '';
   reportingPeriod = getReportingPeriod(1);
   thisReportingPeriod = getReportingPeriodText(this.reportingPeriod);
   rpMonthFilter: number = this.reportingPeriod.getMonth() + 1;
@@ -50,6 +52,14 @@ export class ProvidersSubmissionStatusComponent {
         const target = value.target as HTMLInputElement;
         this.trMaxFilter = target.value ?? '';
       }
+      if (key === 'serviceType') {
+        const target = value.target as HTMLInputElement;
+        this.serviceTypeFilter = target.value ?? '';
+      }
+      if (key === 'provider') {
+        const target = value.target as HTMLInputElement;
+        this.providerFilter = target.value ?? '';
+      }
     }
     this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
       status: this.statusFilter,
@@ -57,6 +67,8 @@ export class ProvidersSubmissionStatusComponent {
       month: this.rpMonthFilter.toString(),
       trMax: this.trMaxFilter.toString(),
       trMin: this.trMinFilter.toString(),
+      serviceType: this.serviceTypeFilter,
+      provider: this.providerFilter,
     });
   }
 

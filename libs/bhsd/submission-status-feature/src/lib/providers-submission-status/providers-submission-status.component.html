@@ -36,11 +36,29 @@
     </div>
   </div>
   <div class="filter">
+    <label for="serviceTypeFilter">Service Type</label>
+    <select
+      name="serviceTypeFilter"
+      id="serviceTypeFilter"
+      (change)="updateFilters('serviceType', $event)"
+      class="hasPlaceholder"
+    >
+      <option value="" disabled hidden selected>Select Service Type</option>
+      <option value="">See All</option>
+      <option value="MH" [selected]="serviceTypeFilter === 'MH'">MH</option>
+      <option value="SUD" [selected]="serviceTypeFilter === 'SUD'">SUD</option>
+      <option value="MH & SUD" [selected]="serviceTypeFilter === 'MH & SUD'">
+        MH & SUD
+      </option>
+    </select>
+  </div>
+  <div class="filter">
     <label for="statusFilter">Submission Status</label>
     <select
       name="statusFilter"
       id="statusFilter"
       (change)="updateFilters('status', $event)"
+      class="hasPlaceholder"
     >
       <option value="" disabled hidden selected>Select Status</option>
       <option value="">See All</option>
