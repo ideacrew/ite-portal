@@ -133,6 +133,35 @@
       </div>
     </div>
   </div>
+  <div class="filter">
+    <h2>Pass Rate</h2>
+    <div class="filters">
+      <div>
+        <label for="prMinFilter">Minimum %</label>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          id="prMinFilter"
+          name="prMinFilter"
+          [value]="prMinFilter"
+          (change)="updateFilters('prMin', $event)"
+        />
+      </div>
+      <div>
+        <label for="prMaxFilter">Maximum %</label>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          id="prMaxFilter"
+          name="prMaxFilter"
+          [value]="prMaxFilter"
+          (change)="updateFilters('prMax', $event)"
+        />
+      </div>
+    </div>
+  </div>
 </div>
 
 <h2>Submission Summary</h2>

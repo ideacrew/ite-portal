@@ -132,6 +132,8 @@ export class BHSDService {
     year,
     trMax,
     trMin,
+    prMax,
+    prMin,
     serviceType,
     provider,
   }: {
@@ -140,6 +142,8 @@ export class BHSDService {
     year?: string;
     trMin?: string;
     trMax?: string;
+    prMin?: string;
+    prMax?: string;
     serviceType?: string;
     provider?: string;
   }): Observable<SubmissionStatus[]> {
@@ -159,6 +163,12 @@ export class BHSDService {
     }
     if (trMax && trMax !== '') {
       urlParameters.push(`tr_max=${trMax}`);
+    }
+    if (prMin && prMin !== '') {
+      urlParameters.push(`pr_min=${prMin}`);
+    }
+    if (prMax && prMax !== '') {
+      urlParameters.push(`pr_max=${prMax}`);
     }
     if (serviceType && serviceType !== '') {
       urlParameters.push(`service_type=${serviceType}`);
