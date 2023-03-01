@@ -11,6 +11,8 @@ export class ProvidersSubmissionStatusComponent {
   statusFilter = '';
   trMinFilter: number | string = '';
   trMaxFilter: number | string = '';
+  prMinFilter: number | string = '';
+  prMaxFilter: number | string = '';
   serviceTypeFilter = '';
   providerFilter = '';
   reportingPeriod = getReportingPeriod(1);
@@ -53,6 +55,14 @@ export class ProvidersSubmissionStatusComponent {
         const target = value.target as HTMLInputElement;
         this.trMaxFilter = target.value ?? '';
       }
+      if (key === 'prMin') {
+        const target = value.target as HTMLInputElement;
+        this.prMinFilter = target.value ?? '';
+      }
+      if (key === 'prMax') {
+        const target = value.target as HTMLInputElement;
+        this.prMaxFilter = target.value ?? '';
+      }
       if (key === 'serviceType') {
         const target = value.target as HTMLInputElement;
         this.serviceTypeFilter = target.value ?? '';
@@ -68,6 +78,8 @@ export class ProvidersSubmissionStatusComponent {
       month: this.rpMonthFilter.toString(),
       trMax: this.trMaxFilter.toString(),
       trMin: this.trMinFilter.toString(),
+      prMax: this.prMaxFilter.toString(),
+      prMin: this.prMinFilter.toString(),
       serviceType: this.serviceTypeFilter,
       provider: this.providerFilter,
     });
