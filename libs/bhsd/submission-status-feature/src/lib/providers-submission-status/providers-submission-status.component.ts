@@ -25,6 +25,7 @@ export class ProvidersSubmissionStatusComponent {
     ...Array.from({ length: Number(this.rpYearFilter) - 2022 + 1 }).keys(),
   ].map((x) => x + 2022);
   submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
+  allProviders$ = this.bhsdService.getSubmissionStatus();
   constructor(private bhsdService: BHSDService) {}
 
   updateFilters(key: string, value?: Event) {

@@ -35,6 +35,26 @@
       </select>
     </div>
   </div>
+  <div class="filter" *ngIf="allProviders$ | async as providers">
+    <label for="providerFilter">Provider</label>
+    <select
+      name="providerFilter"
+      id="providerFilter"
+      (change)="updateFilters('provider', $event)"
+    >
+      <option value="" disabled hidden selected>Select Provider</option>
+      <option value="">See All</option>
+      <option
+        *ngFor="let provider of providers"
+        [value]="provider.providerId"
+        [selected]="
+          providerFilter.toString() === provider.providerId.toString()
+        "
+      >
+        {{ provider.providerName }}
+      </option>
+    </select>
+  </div>
   <div class="filter">
     <label for="serviceTypeFilter">Service Type</label>
     <select
