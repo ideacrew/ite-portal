@@ -199,14 +199,34 @@
     <table>
       <thead>
         <tr>
-          <th *ngIf="isDBHUser">Provider Name</th>
-          <th>ID</th>
-          <th>Submission Date</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Total Records</th>
-          <th>Pass</th>
-          <th>Fail</th>
+          <th *ngIf="isDBHUser" (click)="updateSort('provider_name')">
+            Provider Name
+            <span
+              [innerHTML]="
+                sort !== 'provider_name'
+                  ? '&#8597;'
+                  : sortDirection === 'asc'
+                  ? '&#8593;'
+                  : '&#8595;'
+              "
+            ></span>
+          </th>
+          <th
+            *ngFor="let header of headerList"
+            (click)="header.sortable && updateSort(header.value)"
+          >
+            {{ header.label }}
+            <span
+              *ngIf="header.sortable"
+              [innerHTML]="
+                sort !== header.value
+                  ? '&#8597;'
+                  : sortDirection === 'asc'
+                  ? '&#8593;'
+                  : '&#8595;'
+              "
+            ></span>
+          </th>
         </tr>
       </thead>
       <tbody>
