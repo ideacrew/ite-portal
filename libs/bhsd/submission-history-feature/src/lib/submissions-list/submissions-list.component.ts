@@ -5,6 +5,12 @@ import { Observable } from 'rxjs';
 import { Extracts, BHSDService } from '@dbh/bhsd/data-access';
 import { AuthService } from '@dbh/auth';
 
+export type Header = {
+  label: string;
+  value: string;
+  sortable: boolean;
+};
+
 @Component({
   templateUrl: './submissions-list.component.html',
   styleUrls: ['./submissions-list.component.scss'],
@@ -24,6 +30,17 @@ export class SubmissionsListComponent {
   trValueFilter: number | string = '';
   prSelectorFilter = '';
   prValueFilter: number | string = '';
+  sort = 'submission_date';
+  sortDirection: 'asc' | 'desc' = 'desc';
+  headerList: Header[] = [
+    { label: 'File Name', value: 'file_name', sortable: true },
+    { label: 'Submission Date', value: 'created_on', sortable: true },
+    { label: 'Start Date', value: 'coverage_start', sortable: true },
+    { label: 'End Date', value: 'coverage_end', sortable: true },
+    { label: 'Total Records', value: 'number_of_records', sortable: true },
+    { label: 'Pass', value: 'pass', sortable: false },
+    { label: 'Fail', value: 'fail', sortable: false },
+  ];
   responseDetails$: Observable<Extracts> =
     this.bhsdService.getSubmissionsWithParams({ offset: this.offset });
 
@@ -64,6 +81,12 @@ export class SubmissionsListComponent {
     this.page = pageNumber;
     this.offset = String((Number(pageNumber) - 1) * this.perPage);
     this.updateFilters('page');
+  }
+
+  updateSort(criteria: string) {
+    this.sort = criteria;
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.updateFilters('sort');
   }
 
   updateFilters(key: string, event?: Event) {
@@ -119,6 +142,8 @@ export class SubmissionsListComponent {
       trValue: this.trValueFilter.toString(),
       prSelector: this.prSelectorFilter,
       prValue: this.prValueFilter.toString(),
+      sort: this.sort,
+      sortDirection: this.sortDirection,
     });
   }
 

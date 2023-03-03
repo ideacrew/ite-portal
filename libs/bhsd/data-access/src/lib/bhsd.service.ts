@@ -47,6 +47,8 @@ export class BHSDService {
     trValue,
     prSelector,
     prValue,
+    sort,
+    sortDirection,
   }: {
     offset?: string;
     coverageStart?: string;
@@ -58,6 +60,8 @@ export class BHSDService {
     trValue?: string;
     prSelector?: string;
     prValue?: string;
+    sort?: string;
+    sortDirection?: 'asc' | 'desc';
   }): Observable<Extracts> {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/extracts?`;
     const urlParameters = [];
@@ -90,6 +94,12 @@ export class BHSDService {
     }
     if (prValue && prValue !== '') {
       urlParameters.push(`pr_value=${prValue}`);
+    }
+    if (sort && sort !== '') {
+      urlParameters.push(`sort=${sort}`);
+    }
+    if (sortDirection) {
+      urlParameters.push(`sort_direction=${sortDirection}`);
     }
     baseUrl += urlParameters.join('&');
     return this.http.get<Extracts>(baseUrl).pipe(map((extract) => extract));
