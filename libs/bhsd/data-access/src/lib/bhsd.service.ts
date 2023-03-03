@@ -138,6 +138,8 @@ export class BHSDService {
     provider,
     submissionStart,
     submissionEnd,
+    sort,
+    sortDirection,
   }: {
     status?: string;
     month?: string;
@@ -150,6 +152,8 @@ export class BHSDService {
     provider?: string;
     submissionStart?: string;
     submissionEnd?: string;
+    sortDirection?: 'asc' | 'desc';
+    sort?: string;
   }): Observable<SubmissionStatus[]> {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/providers/submission_summary?`;
     const urlParameters = [];
@@ -185,6 +189,12 @@ export class BHSDService {
     }
     if (submissionEnd && submissionEnd !== '') {
       urlParameters.push(`filter_submission_end=${submissionEnd}`);
+    }
+    if (sort && sort !== '') {
+      urlParameters.push(`sort=${sort}`);
+    }
+    if (sortDirection) {
+      urlParameters.push(`sort_direction=${sortDirection}`);
     }
     baseUrl += urlParameters.join('&');
     return this.http
