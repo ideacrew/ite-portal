@@ -116,6 +116,7 @@
           id="trMinFilter"
           name="trMinFilter"
           [value]="trMinFilter"
+          oninput="validity.valid||(value='');"
           (change)="updateFilters('trMin', $event)"
         />
       </div>
@@ -128,6 +129,7 @@
           id="trMaxFilter"
           name="trMaxFilter"
           [value]="trMaxFilter"
+          oninput="validity.valid||(value='');"
           (change)="updateFilters('trMax', $event)"
         />
       </div>
@@ -182,6 +184,7 @@
           id="prMinFilter"
           name="prMinFilter"
           [value]="prMinFilter"
+          oninput="validity.valid||(value='');"
           (change)="updateFilters('prMin', $event)"
         />
       </div>
@@ -194,6 +197,7 @@
           id="prMaxFilter"
           name="prMaxFilter"
           [value]="prMaxFilter"
+          oninput="validity.valid||(value='');"
           (change)="updateFilters('prMax', $event)"
         />
       </div>

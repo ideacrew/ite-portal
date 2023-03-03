@@ -127,6 +127,7 @@
             id="trValueFilter"
             name="trValueFilter"
             [value]="trValueFilter"
+            oninput="validity.valid||(value='');"
             (change)="updateFilters('trValue', $event)"
           />
         </div>
@@ -175,6 +176,7 @@
             id="prValueFilter"
             name="prValueFilter"
             [value]="prValueFilter"
+            oninput="validity.valid||(value='');"
             (change)="updateFilters('prValue', $event)"
           />
         </div>
