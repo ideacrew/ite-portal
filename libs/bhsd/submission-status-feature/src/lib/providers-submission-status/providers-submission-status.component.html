@@ -209,14 +209,22 @@
 <table>
   <thead>
     <tr>
-      <th>Provider Name</th>
-      <th>Service Type</th>
-      <th>Submission Status</th>
-      <th>Submitted On</th>
-      <th>Total Records</th>
-      <th>Pass</th>
-      <th>Fail</th>
-      <th>Pass Rate</th>
+      <th
+        *ngFor="let header of headerList"
+        (click)="header.sortable && updateSort(header.value)"
+      >
+        {{ header.label }}
+        <span
+          *ngIf="header.sortable"
+          [innerHTML]="
+            sort !== header.value
+              ? '&#8597;'
+              : sortDirection === 'asc'
+              ? '&#8593;'
+              : '&#8595;'
+          "
+        ></span>
+      </th>
     </tr>
   </thead>
   <tbody>

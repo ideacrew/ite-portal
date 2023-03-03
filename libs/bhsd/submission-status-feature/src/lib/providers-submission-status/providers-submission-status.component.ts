@@ -3,6 +3,12 @@ import { Component } from '@angular/core';
 import { BHSDService, SubmissionStatus } from '@dbh/bhsd/data-access';
 import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 
+export type Header = {
+  label: string;
+  value: string;
+  sortable: boolean;
+};
+
 @Component({
   templateUrl: './providers-submission-status.component.html',
   styleUrls: ['./providers-submission-status.component.scss'],
@@ -17,6 +23,8 @@ export class ProvidersSubmissionStatusComponent {
   providerFilter = '';
   submissionStartFilter = '';
   submissionEndFilter = '';
+  sort = 'provider_name';
+  sortDirection: 'asc' | 'desc' = 'desc';
   reportingPeriod = getReportingPeriod(1);
   thisReportingPeriod = getReportingPeriodText(this.reportingPeriod);
   rpMonthFilter: number = this.reportingPeriod.getMonth() + 1;
@@ -28,9 +36,25 @@ export class ProvidersSubmissionStatusComponent {
   yearList: number[] = [
     ...Array.from({ length: Number(this.rpYearFilter) - 2022 + 1 }).keys(),
   ].map((x) => x + 2022);
+  headerList: Header[] = [
+    { label: 'Provider Name', value: 'provider_name', sortable: true },
+    { label: 'Service Type', value: 'service_type', sortable: true },
+    { label: 'Submission Status', value: 'submission_status', sortable: true },
+    { label: 'Submitted On', value: 'submitted_on', sortable: true },
+    { label: 'Total Records', value: 'total_records', sortable: true },
+    { label: 'Pass', value: 'pass', sortable: false },
+    { label: 'Fail', value: 'fail', sortable: false },
+    { label: 'Pass Rate', value: 'pass_rate', sortable: true },
+  ];
   submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
   allProviders$ = this.bhsdService.getSubmissionStatus();
   constructor(private bhsdService: BHSDService) {}
+
+  updateSort(criteria: string) {
+    this.sort = criteria;
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.updateFilters('sort');
+  }
 
   updateFilters(key: string, value?: Event) {
     if (value) {
@@ -94,6 +118,8 @@ export class ProvidersSubmissionStatusComponent {
       provider: this.providerFilter,
       submissionStart: this.submissionStartFilter,
       submissionEnd: this.submissionEndFilter,
+      sort: this.sort,
+      sortDirection: this.sortDirection,
     });
   }
 
