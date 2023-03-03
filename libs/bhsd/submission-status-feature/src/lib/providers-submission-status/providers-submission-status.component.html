@@ -134,6 +134,43 @@
     </div>
   </div>
   <div class="filter">
+    <h2>Submission Range</h2>
+    <div class="filters">
+      <div>
+        <label for="submission-start">Start Date</label>
+        <input
+          type="date"
+          name="submission-start"
+          id="submission-start"
+          [value]="submissionStartFilter"
+          (change)="updateFilters('submission_start', $event)"
+        />
+      </div>
+      <div>
+        <label for="submission-end">End Date</label>
+        <input
+          type="date"
+          name="submission-end"
+          id="submission-end"
+          [value]="submissionEndFilter"
+          (change)="updateFilters('submission_end', $event)"
+        />
+      </div>
+    </div>
+    <p
+      *ngIf="submissionStartFilter !== '' && submissionEndFilter === ''"
+      class="break"
+    >
+      Select End Date to narrow results
+    </p>
+    <p
+      *ngIf="submissionStartFilter === '' && submissionEndFilter !== ''"
+      class="break"
+    >
+      Select Start Date to narrow results
+    </p>
+  </div>
+  <div class="filter">
     <h2>Pass Rate</h2>
     <div class="filters">
       <div>
