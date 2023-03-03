@@ -136,6 +136,8 @@ export class BHSDService {
     prMin,
     serviceType,
     provider,
+    submissionStart,
+    submissionEnd,
   }: {
     status?: string;
     month?: string;
@@ -146,6 +148,8 @@ export class BHSDService {
     prMax?: string;
     serviceType?: string;
     provider?: string;
+    submissionStart?: string;
+    submissionEnd?: string;
   }): Observable<SubmissionStatus[]> {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/providers/submission_summary?`;
     const urlParameters = [];
@@ -175,6 +179,12 @@ export class BHSDService {
     }
     if (provider && provider !== '') {
       urlParameters.push(`provider=${provider}`);
+    }
+    if (submissionStart && submissionStart !== '') {
+      urlParameters.push(`submission_start=${submissionStart}`);
+    }
+    if (submissionEnd && submissionEnd !== '') {
+      urlParameters.push(`submission_end=${submissionEnd}`);
     }
     baseUrl += urlParameters.join('&');
     return this.http
