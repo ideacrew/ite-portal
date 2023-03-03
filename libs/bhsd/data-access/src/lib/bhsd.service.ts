@@ -154,7 +154,7 @@ export class BHSDService {
     let baseUrl = `${this.config.baseApiUrl}/api/v1/providers/submission_summary?`;
     const urlParameters = [];
     if (status && status !== '') {
-      urlParameters.push(`status=${status}`);
+      urlParameters.push(`filter_status=${status}`);
     }
     if (month && month !== '') {
       urlParameters.push(`month=${month}`);
@@ -163,28 +163,28 @@ export class BHSDService {
       urlParameters.push(`year=${year}`);
     }
     if (trMin && trMin !== '') {
-      urlParameters.push(`tr_min=${trMin}`);
+      urlParameters.push(`filter_tr_min=${trMin}`);
     }
     if (trMax && trMax !== '') {
-      urlParameters.push(`tr_max=${trMax}`);
+      urlParameters.push(`filter_tr_max=${trMax}`);
     }
     if (prMin && prMin !== '') {
-      urlParameters.push(`pr_min=${prMin}`);
+      urlParameters.push(`filter_pr_min=${prMin}`);
     }
     if (prMax && prMax !== '') {
-      urlParameters.push(`pr_max=${prMax}`);
+      urlParameters.push(`filter_pr_max=${prMax}`);
     }
     if (serviceType && serviceType !== '') {
-      urlParameters.push(`service_type=${serviceType}`);
+      urlParameters.push(`filter_service_type=${serviceType}`);
     }
     if (provider && provider !== '') {
-      urlParameters.push(`provider=${provider}`);
+      urlParameters.push(`filter_provider=${provider}`);
     }
     if (submissionStart && submissionStart !== '') {
-      urlParameters.push(`submission_start=${submissionStart}`);
+      urlParameters.push(`filter_submission_start=${submissionStart}`);
     }
     if (submissionEnd && submissionEnd !== '') {
-      urlParameters.push(`submission_end=${submissionEnd}`);
+      urlParameters.push(`filter_submission_end=${submissionEnd}`);
     }
     baseUrl += urlParameters.join('&');
     return this.http
