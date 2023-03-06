@@ -144,3 +144,21 @@ export type DemographicData = {
   count: number;
   percent: number;
 };
+
+export type ExtractSubmissionCensusBreakdown = {
+  totalEpisodes: Metric;
+  censusAtStartOfReportingPeriod: Metric;
+  admissionsTransfersDuringReportingPeriod: Metric;
+  dischargesDuringReportingPeriod: Metric;
+  censusAtEndOfReportingPeriod: Metric;
+  countOfUniqueClientsServedDuringReportingPeriod: Metric;
+};
+
+export type Metric = {
+  total: number;
+  mhInitialAdmissions: number;
+  mhTransfers: number;
+  sudInitialAdmissions: number;
+  sudTransfers: number;
+  coOccurringRecords: number;
+};

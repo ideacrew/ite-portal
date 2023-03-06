@@ -3,10 +3,12 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 
 import {
+  convertExtractToCensus,
   convertExtractToDemographics,
   convertExtractSubmissionToV2,
   convertExtractSubmissionToFailedCsv,
   convertExtractSubmissionToIssuesByRecord,
+  ExtractSubmissionCensusBreakdown,
   ExtractSubmissionDemographics,
   ExtractSubmissionResponseV2,
   ExtractSubmissionResponseV3,
@@ -27,7 +29,7 @@ import { saveAs } from 'file-saver';
 export class SubmissionDetailComponent {
   viewType: 'record' | 'dataField' = 'record';
 
-  breakdownType: 'demographic' | 'validation' = 'validation';
+  breakdownType: 'demographic' | 'validation' | 'census' = 'validation';
 
   payloadFieldHeaders = [
     'address_city',
@@ -144,6 +146,13 @@ export class SubmissionDetailComponent {
   submissionDemographicBreakdown$: Observable<ExtractSubmissionDemographics> =
     this.submission$.pipe(
       map((submission) => convertExtractToDemographics(submission))
+    );
+
+  submissionCensusBreakdown$: Observable<ExtractSubmissionCensusBreakdown> =
+    this.submission$.pipe(
+      map((submission) =>
+        convertExtractToCensus(submission, getReportingPeriod(1))
+      )
     );
 
   failingDataFields$ = this.route.paramMap.pipe(
