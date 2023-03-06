@@ -172,6 +172,13 @@
       >
         View Validation Breakdown
       </button>
+      <button
+        (click)="breakdownType = 'census'"
+        class="button breakdownButton"
+        type="button"
+      >
+        View Census Breakdown
+      </button>
     </h2>
     <ng-container
       *ngIf="submissionDemographicBreakdown$ | async as demographics"
