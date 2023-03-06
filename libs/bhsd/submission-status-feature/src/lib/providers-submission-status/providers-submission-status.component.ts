@@ -39,12 +39,12 @@ export class ProvidersSubmissionStatusComponent {
   headerList: Header[] = [
     { label: 'Provider Name', value: 'provider_name', sortable: true },
     { label: 'Service Type', value: 'service_type', sortable: true },
-    { label: 'Submission Status', value: 'submission_status', sortable: true },
+    { label: 'Submission Status', value: 'status', sortable: true },
     { label: 'Submitted On', value: 'submitted_on', sortable: true },
     { label: 'Total Records', value: 'total_records', sortable: true },
     { label: 'Pass', value: 'pass', sortable: false },
     { label: 'Fail', value: 'fail', sortable: false },
-    { label: 'Pass Rate', value: 'pass_rate', sortable: true },
+    { label: 'Pass Rate', value: 'pass_percentage', sortable: true },
   ];
   submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
   allProviders$ = this.bhsdService.getSubmissionStatus();

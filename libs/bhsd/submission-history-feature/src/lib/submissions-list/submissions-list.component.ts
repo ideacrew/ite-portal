@@ -34,10 +34,10 @@ export class SubmissionsListComponent {
   sortDirection: 'asc' | 'desc' = 'desc';
   headerList: Header[] = [
     { label: 'File Name', value: 'file_name', sortable: true },
-    { label: 'Submission Date', value: 'created_on', sortable: true },
+    { label: 'Submission Date', value: 'created_at', sortable: true },
     { label: 'Start Date', value: 'coverage_start', sortable: true },
     { label: 'End Date', value: 'coverage_end', sortable: true },
-    { label: 'Total Records', value: 'number_of_records', sortable: true },
+    { label: 'Total Records', value: 'record_count', sortable: true },
     { label: 'Pass', value: 'pass', sortable: false },
     { label: 'Fail', value: 'fail', sortable: false },
   ];
