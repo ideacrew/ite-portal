@@ -39,6 +39,7 @@ export const convertExtractToCensus = (
   const dischargesDuringReportingPeriod = getMetrics(
     records.filter(
       (record) =>
+        record.payload.discharge_date &&
         getDate(record.payload.discharge_date) !== 'Invalid' &&
         new Date(record.payload.discharge_date).getTime() >=
           reportingPeriod.getTime() &&
@@ -49,8 +50,8 @@ export const convertExtractToCensus = (
   const censusAtEndOfReportingPeriod = getMetrics(
     records.filter(
       (record) =>
-        record.payload.discharge_date === null ||
         record.payload.discharge_date === undefined ||
+        record.payload.discharge_date === null ||
         record.payload.discharge_date === ''
     )
   );

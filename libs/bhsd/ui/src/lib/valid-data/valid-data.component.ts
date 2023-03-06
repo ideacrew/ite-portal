@@ -44,13 +44,12 @@ export class ValidDataComponent {
 
   get validFieldsWithData(): Array<{
     fieldName: ExtractRecordField;
-    value: string;
+    value: string | undefined;
   }> {
     const validFields = this.dataFieldsWithoutErrors.map((field) => ({
       fieldName: field,
       value: this.payload[field],
     }));
-
     return validFields.sort((a, b) => a.fieldName.localeCompare(b.fieldName));
   }
 }
