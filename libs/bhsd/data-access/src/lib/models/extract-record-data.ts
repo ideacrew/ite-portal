@@ -21,6 +21,8 @@ export interface ExtractRecordData {
   race: string;
   record_type: string;
   treatment_setting: string;
+  co_occurring_sud_mh?: string | undefined;
+  discharge_date?: string | undefined;
 }
 
 export type ExtractRecordField = keyof ExtractRecordData;
