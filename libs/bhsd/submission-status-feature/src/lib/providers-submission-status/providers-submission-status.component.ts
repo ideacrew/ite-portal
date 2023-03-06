@@ -99,7 +99,7 @@ export class ProvidersSubmissionStatusComponent {
       }
       if (key === 'submission_start') {
         const target = value.target as HTMLInputElement;
-        this.serviceTypeFilter = target.value ?? '';
+        this.submissionStartFilter = target.value ?? '';
       }
       if (key === 'submission_end') {
         const target = value.target as HTMLInputElement;
