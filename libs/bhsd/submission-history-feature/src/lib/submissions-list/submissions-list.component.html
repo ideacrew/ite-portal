@@ -1,7 +1,7 @@
 <h1>BHSD File Submission History</h1>
 <ng-container *ngIf="responseDetails$ | async as details">
   <div class="filters">
-    <div class="filter">
+    <div class="filter wide">
       <h2>Reporting Period</h2>
       <div class="filters">
         <div>
@@ -38,7 +38,7 @@
         Select Start Date to narrow results
       </p>
     </div>
-    <div class="filter">
+    <div class="filter wide">
       <h2>Submission Range</h2>
       <div class="filters">
         <div>
@@ -96,7 +96,7 @@
     </div>
   </div>
   <div class="filters">
-    <div class="filter">
+    <div class="filter wide">
       <h2>Total Records</h2>
       <div class="filters">
         <div>
@@ -132,20 +132,8 @@
           />
         </div>
       </div>
-      <p
-        *ngIf="coverageStartFilter !== '' && coverageEndFilter === ''"
-        class="break"
-      >
-        Select End Date to narrow results
-      </p>
-      <p
-        *ngIf="coverageStartFilter === '' && coverageEndFilter !== ''"
-        class="break"
-      >
-        Select Start Date to narrow results
-      </p>
     </div>
-    <div class="filter">
+    <div class="filter wide">
       <h2>Pass Rate</h2>
       <div class="filters">
         <div>
@@ -168,7 +156,7 @@
           </select>
         </div>
         <div>
-          <label for="prValueFilter">Percentage of Records</label>
+          <label for="prValueFilter">% of Records</label>
           <input
             type="number"
             min="0"
@@ -181,18 +169,6 @@
           />
         </div>
       </div>
-      <p
-        *ngIf="coverageStartFilter !== '' && coverageEndFilter === ''"
-        class="break"
-      >
-        Select End Date to narrow results
-      </p>
-      <p
-        *ngIf="coverageStartFilter === '' && coverageEndFilter !== ''"
-        class="break"
-      >
-        Select Start Date to narrow results
-      </p>
     </div>
   </div>
   <div class="tableContainer">

@@ -93,40 +93,33 @@ export class SubmissionsListComponent {
     if (event) {
       this.page = '1';
       this.offset = '';
+      const target = event.target as HTMLInputElement;
+      target.classList.add('selected');
       if (key === 'coverage_start') {
-        const target = event.target as HTMLInputElement;
         this.coverageStartFilter = target.value ?? '';
       }
       if (key === 'coverage_end') {
-        const target = event.target as HTMLInputElement;
         this.coverageEndFilter = target.value ?? '';
       }
       if (key === 'submission_start') {
-        const target = event.target as HTMLInputElement;
         this.submissionStartFilter = target.value ?? '';
       }
       if (key === 'submission_end') {
-        const target = event.target as HTMLInputElement;
         this.submissionEndFilter = target.value ?? '';
       }
       if (key === 'provider') {
-        const target = event.target as HTMLInputElement;
         this.providerFilter = target.value ?? '';
       }
       if (key === 'trSelector') {
-        const target = event.target as HTMLInputElement;
         this.trSelectorFilter = target.value ?? '';
       }
       if (key === 'trValue') {
-        const target = event.target as HTMLInputElement;
         this.trValueFilter = target.value ?? '';
       }
       if (key === 'prSelector') {
-        const target = event.target as HTMLInputElement;
         this.prSelectorFilter = target.value ?? '';
       }
       if (key === 'prValue') {
-        const target = event.target as HTMLInputElement;
         this.prValueFilter = target.value ?? '';
       }
     }

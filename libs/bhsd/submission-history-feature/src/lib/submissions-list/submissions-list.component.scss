@@ -54,13 +54,13 @@ label {
   margin-bottom: 0.5ch;
 }
 
-select {
-  color: #a39f9b;
+select,
+input {
+  color: #605e5c;
 }
-option:disabled {
-  color: #a39f9b;
-}
-option:not(:disabled-of-type) {
+
+select.selected,
+input.selected {
   color: black;
 }
 
@@ -68,13 +68,29 @@ option:not(:disabled-of-type) {
   display: flex;
   gap: 1ch;
   margin-bottom: 1ch;
+  h2 {
+    font-size: 18px;
+    margin: 0.5ch 0;
+  }
 }
 
-.filters h2 {
-  margin-top: 0;
+.filter {
+  width: 164px;
+}
+
+.filter input,
+.filter select {
+  width: 164px;
+  padding: 1px 2px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.filter.wide {
+  width: 348px;
 }
 
 .filter + .filter {
-  padding-left: 1ch;
-  border-left: 1px solid gray;
+  padding-left: 10px;
+  border-left: 1px solid #605e5c;
 }

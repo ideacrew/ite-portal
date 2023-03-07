@@ -1,12 +1,13 @@
 <h1>Provider Submission Overview</h1>
 <div class="filters">
-  <div class="filter">
+  <div class="filter wide">
     <label for="reportingPeriod">Reporting Period</label>
     <div class="filters">
       <select
         name="rpMonthFilter"
         id="rpMonthFilter"
         (change)="updateFilters('month', $event)"
+        class="selected"
       >
         <option value="">Select Month</option>
         <option
@@ -22,6 +23,7 @@
         name="rpYearFilter"
         id="rpYearFilter"
         (change)="updateFilters('year', $event)"
+        class="selected"
       >
         <option value="">Select Year</option>
         <option
@@ -104,7 +106,7 @@
   </div>
 </div>
 <div class="filters">
-  <div class="filter">
+  <div class="filter wide">
     <h2>Total Records</h2>
     <div class="filters">
       <div>
@@ -135,7 +137,7 @@
       </div>
     </div>
   </div>
-  <div class="filter">
+  <div class="filter wide">
     <h2>Submission Range</h2>
     <div class="filters">
       <div>
@@ -172,7 +174,7 @@
       Select Start Date to narrow results
     </p>
   </div>
-  <div class="filter">
+  <div class="filter wide">
     <h2>Pass Rate</h2>
     <div class="filters">
       <div>

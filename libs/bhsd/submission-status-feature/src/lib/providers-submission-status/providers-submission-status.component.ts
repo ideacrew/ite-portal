@@ -38,7 +38,7 @@ export class ProvidersSubmissionStatusComponent {
   ].map((x) => x + 2022);
   headerList: Header[] = [
     { label: 'Provider Name', value: 'provider_name', sortable: true },
-    { label: 'Service Type', value: 'service_type', sortable: true },
+    { label: 'Service Type', value: 'service_type', sortable: false },
     { label: 'Submission Status', value: 'status', sortable: true },
     { label: 'Submitted On', value: 'submitted_on', sortable: true },
     { label: 'Total Records', value: 'total_records', sortable: true },
@@ -58,51 +58,42 @@ export class ProvidersSubmissionStatusComponent {
 
   updateFilters(key: string, value?: Event) {
     if (value) {
+      const target = value.target as HTMLInputElement;
+      target.classList.add('selected');
       if (key === 'status') {
-        const target = value.target as HTMLInputElement;
         this.statusFilter = target.value ?? '';
       }
       if (key === 'year') {
-        const target = value.target as HTMLInputElement;
         this.rpYearFilter = target.value ?? '';
       }
       if (key === 'month') {
-        const target = value.target as HTMLInputElement;
         this.rpMonthFilter = target.value
           ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             Number(target.value) + 1
           : 0;
       }
       if (key === 'trMin') {
-        const target = value.target as HTMLInputElement;
         this.trMinFilter = target.value ?? '';
       }
       if (key === 'trMax') {
-        const target = value.target as HTMLInputElement;
         this.trMaxFilter = target.value ?? '';
       }
       if (key === 'prMin') {
-        const target = value.target as HTMLInputElement;
         this.prMinFilter = target.value ?? '';
       }
       if (key === 'prMax') {
-        const target = value.target as HTMLInputElement;
         this.prMaxFilter = target.value ?? '';
       }
       if (key === 'serviceType') {
-        const target = value.target as HTMLInputElement;
         this.serviceTypeFilter = target.value ?? '';
       }
       if (key === 'provider') {
-        const target = value.target as HTMLInputElement;
         this.providerFilter = target.value ?? '';
       }
       if (key === 'submission_start') {
-        const target = value.target as HTMLInputElement;
         this.submissionStartFilter = target.value ?? '';
       }
       if (key === 'submission_end') {
-        const target = value.target as HTMLInputElement;
         this.submissionEndFilter = target.value ?? '';
       }
     }

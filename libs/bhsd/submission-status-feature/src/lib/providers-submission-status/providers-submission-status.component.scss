@@ -8,9 +8,39 @@ label {
   display: flex;
   gap: 1ch;
   margin-bottom: 1ch;
+  h2 {
+    font-size: 18px;
+    margin: 0.5ch 0;
+  }
+}
+
+.filter {
+  width: 150px;
+}
+
+select,
+input {
+  color: #605e5c;
+}
+
+select.selected,
+input.selected {
+  color: black;
+}
+
+.filter input,
+.filter select {
+  width: 150px;
+  padding: 1px 2px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.filter.wide {
+  width: 320px;
 }
 
 .filter + .filter {
-  padding-left: 1ch;
+  padding-left: 10px;
   border-left: 1px solid gray;
 }
