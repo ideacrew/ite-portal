@@ -103,7 +103,7 @@ export class ProvidersSubmissionStatusComponent {
       }
       if (key === 'submission_end') {
         const target = value.target as HTMLInputElement;
-        this.providerFilter = target.value ?? '';
+        this.submissionEndFilter = target.value ?? '';
       }
     }
     this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
