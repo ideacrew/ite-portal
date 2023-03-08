@@ -1,13 +1,14 @@
 <h1>Provider Submission Overview</h1>
 <div class="filters">
   <div class="filter wide">
-    <label for="reportingPeriod">Reporting Period</label>
+    <label for="rpMonthFilter">Reporting Period</label>
     <div class="filters">
       <select
         name="rpMonthFilter"
         id="rpMonthFilter"
         (change)="updateFilters('month', $event)"
         class="selected"
+        aria-label="Select Reporting Period Month"
       >
         <option value="">Select Month</option>
         <option
@@ -24,6 +25,7 @@
         id="rpYearFilter"
         (change)="updateFilters('year', $event)"
         class="selected"
+        aria-label="Select Reporting Period Year"
       >
         <option value="">Select Year</option>
         <option

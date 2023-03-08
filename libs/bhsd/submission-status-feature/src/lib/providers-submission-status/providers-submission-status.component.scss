@@ -7,11 +7,14 @@ label {
 .filters {
   display: flex;
   gap: 1ch;
-  margin-bottom: 1ch;
   h2 {
     font-size: 18px;
     margin: 0.5ch 0;
   }
+}
+
+.filters + .filters {
+  margin-top: 20px;
 }
 
 .filter {
