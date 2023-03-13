@@ -30,7 +30,7 @@ export class SubmissionsListComponent {
   trValueFilter: number | string = '';
   prSelectorFilter = '';
   prValueFilter: number | string = '';
-  sort = 'submission_date';
+  sort = 'created_at';
   sortDirection: 'asc' | 'desc' = 'desc';
   headerList: Header[] = [
     { label: 'File Name', value: 'file_name', sortable: true },
