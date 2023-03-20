@@ -80,7 +80,7 @@ export const getMetrics = (records: ExtractRecordValidation[]): Metric => {
     (record) => record.payload.record_type === 'T'
   ).length;
   const coOccurringRecords = records.filter(
-    (record) => record.payload.co_occurring_sud_mh
+    (record) => record.payload.co_occurring_sud_mh === '1'
   ).length;
   return {
     total,

@@ -14,7 +14,7 @@ export class ProviderProfileService {
 
   getProviderProfile(id: string): Observable<ProviderProfile> {
     return this.http.get<ProviderProfile>(
-      `${this.config.baseApiUrl}/api/v1/providers/${id}`
+      `${this.config.gatewayApiUrl}/api/v1/providers/${id}`
     );
   }
 }

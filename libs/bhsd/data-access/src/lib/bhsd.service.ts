@@ -24,7 +24,7 @@ export class BHSDService {
   sendData(formValue: unknown): Observable<unknown> {
     return this.http.post(
       // Url to post to
-      `${this.config.baseApiUrl}/api/v1/extracts/ingest`,
+      `${this.config.gatewayApiUrl}/api/v1/extracts/ingest`,
       // body of the payload, here sending the entire form value
       formValue
     );
@@ -32,7 +32,7 @@ export class BHSDService {
 
   getSubmissions(): Observable<Extracts> {
     return this.http
-      .get<Extracts>(`${this.config.baseApiUrl}/api/v1/extracts`)
+      .get<Extracts>(`${this.config.gatewayApiUrl}/api/v1/extracts`)
       .pipe(map((extract) => extract));
   }
 
@@ -63,7 +63,7 @@ export class BHSDService {
     sort?: string;
     sortDirection?: 'asc' | 'desc';
   }): Observable<Extracts> {
-    let baseUrl = `${this.config.baseApiUrl}/api/v1/extracts?`;
+    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/extracts?`;
     const urlParameters = [];
     if (coverageStart && coverageStart !== '') {
       urlParameters.push(`coverage_start=${coverageStart}`);
@@ -115,7 +115,7 @@ export class BHSDService {
     const updateMonth = (month += 1);
     return this.http
       .get<SubmissionSummary[]>(
-        `${this.config.baseApiUrl}/api/v1/providers/submission_summary?month=${updateMonth}&year=${year}`
+        `${this.config.gatewayApiUrl}/api/v1/providers/submission_summary?month=${updateMonth}&year=${year}`
       )
       .pipe(
         map((summary) =>
@@ -127,7 +127,7 @@ export class BHSDService {
   getSubmissionStatus(): Observable<SubmissionStatus[]> {
     return this.http
       .get<SubmissionSummary[]>(
-        `${this.config.baseApiUrl}/api/v1/providers/submission_summary`
+        `${this.config.gatewayApiUrl}/api/v1/providers/submission_summary`
       )
       .pipe(
         map((summary) =>
@@ -165,7 +165,7 @@ export class BHSDService {
     sortDirection?: 'asc' | 'desc';
     sort?: string;
   }): Observable<SubmissionStatus[]> {
-    let baseUrl = `${this.config.baseApiUrl}/api/v1/providers/submission_summary?`;
+    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/providers/submission_summary?`;
     const urlParameters = [];
     if (status && status !== '') {
       urlParameters.push(`filter_status=${status}`);
@@ -218,14 +218,14 @@ export class BHSDService {
 
   getExtractSubmission(id: string): Observable<ExtractSubmissionResponse> {
     return this.http.get<ExtractSubmissionResponse>(
-      `${this.config.baseApiUrl}/api/v1/extracts/${id}`
+      `${this.config.gatewayApiUrl}/api/v1/extracts/${id}`
     );
   }
 
   getExtractSubmissionV2(id: string): Observable<ExtractSubmissionResponseV2> {
     return this.http
       .get<ExtractSubmissionResponse>(
-        `${this.config.baseApiUrl}/api/v1/extracts/${id}`
+        `${this.config.gatewayApiUrl}/api/v1/extracts/${id}`
       )
       .pipe(map((submission) => convertExtractSubmissionToV2(submission)));
   }
@@ -233,7 +233,7 @@ export class BHSDService {
   getExtractFailingDataFields(id: string): Observable<FailingDataField[]> {
     return this.http
       .get<FailingDataField[]>(
-        `${this.config.baseApiUrl}/api/v1/extracts/failing_data_fields?id=${id}`
+        `${this.config.gatewayApiUrl}/api/v1/extracts/failing_data_fields?id=${id}`
       )
       .pipe(filter((extract: FailingDataField[]) => Array.isArray(extract)));
   }

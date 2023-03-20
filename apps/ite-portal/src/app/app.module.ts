@@ -25,6 +25,8 @@ import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.co
 import { FakePageComponent } from './fake-page/fake-page.component';
 import { ExternalResourcesComponent } from './external-resources/external-resources.component';
 import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-claims.component';
+import { SearchAndQueryComponent } from './search-and-query/search-and-query.component';
+import { ClientSearchComponent } from './client-search/client-search.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-cla
     FakePageComponent,
     ExternalResourcesComponent,
     AdjudicatedClaimsComponent,
+    SearchAndQueryComponent,
+    ClientSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,11 +65,11 @@ import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-cla
 
           {
             path: 'search-and-query',
-            component: FakePageComponent,
+            component: SearchAndQueryComponent,
           },
           {
             path: 'search-and-query/client-search',
-            component: FakePageComponent,
+            component: ClientSearchComponent,
           },
 
           {

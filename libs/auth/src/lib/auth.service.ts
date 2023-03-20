@@ -106,7 +106,7 @@ export class AuthService {
     return this.http
       .post<TokenResponse>(
         // Url to post to
-        `${this.config.baseApiUrl}/session`,
+        `${this.config.gatewayApiUrl}/session`,
         // body of the payload, here sending the entire form value
         { email, password, formLocation }
       )
@@ -123,7 +123,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.delete(`${this.config.baseApiUrl}/session`).subscribe({
+    this.http.delete(`${this.config.gatewayApiUrl}/session`).subscribe({
       complete: () => {
         this.clearJwt();
         void this.router.navigate(['/login']);
@@ -132,7 +132,7 @@ export class AuthService {
   }
 
   async clearCredentialsAndGoToLogin(): Promise<void> {
-    // const deleteCall$ = this.http.delete(`${this.config.baseApiUrl}/session`);
+    // const deleteCall$ = this.http.delete(`${this.config.gatewayApiUrl}/session`);
     // await lastValueFrom(deleteCall$);
     this.clearJwt();
     await this.router.navigate(['/login']);
@@ -149,7 +149,7 @@ export class AuthService {
   }): Observable<unknown> {
     return this.http.put(
       // Url to post to
-      `${this.config.baseApiUrl}/user/password`,
+      `${this.config.gatewayApiUrl}/user/password`,
       // body of the payload, here sending the entire form value
       { current_password, password, password_confirmation }
     );

@@ -4,19 +4,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ConfigService {
-  // By default the baseApiUrl is set to the dev api url
-  baseApiUrl = 'https://bff-dev.dbh-ite.com';
+  // By default the gatewayApiUrl is set to the dev api url
+  //gatewayApiUrl = 'http://localhost:4001';
+  gatewayApiUrl = 'https://bff-dev.dbh-ite.com';
+  portalApiUrl = 'http://localhost:4000';
+  //portalApiUrl = ''
 
   constructor() {
     // Only if the url contains uat or only the application name should we override the api url
     const [urlEnvironment] = window.location.host.split('.');
 
     if (urlEnvironment.includes('uat')) {
-      this.baseApiUrl = `https://bff-uat.dbh-ite.com`;
+      this.gatewayApiUrl = `https://bff-uat.dbh-ite.com`;
     }
 
     if (urlEnvironment === 'portal' || urlEnvironment === 'provider-gateway') {
-      this.baseApiUrl = `https://bff.dbh-ite.com`;
+      this.gatewayApiUrl = `https://bff.dbh-ite.com`;
     }
   }
 }

@@ -1,0 +1,26 @@
+<ul class="breadcrumbs">
+  <li>
+    <a routerLink="/search-and-query" routerLinkActive="active">Search</a>
+  </li>
+  <li>Client Search</li>
+</ul>
+<h1>Client Search</h1>
+<p>Use the Search to look up client record information.</p>
+<p>Search by full name, first name or last name.</p>
+
+<form action="search" id="search-form">
+  <label for="client-search">Client Search</label>
+  <input
+    type="search"
+    name="client-search"
+    id="client-search"
+    placeholder="Search"
+  />
+  <button type="submit" class="button">Search</button>
+</form>
+
+<hr />
+
+<!-- if no results!! -->
+<h2>Search Results</h2>
+<p>Your search returned 0 results, please try a new name.</p>
