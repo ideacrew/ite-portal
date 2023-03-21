@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
   // By default the gatewayApiUrl is set to the dev api url
   //gatewayApiUrl = 'http://localhost:4001';
-  gatewayApiUrl = 'https://bff-dev.dbh-ite.com'
+  gatewayApiUrl = 'https://bff-dev.dbh-ite.com';
   portalApiUrl = 'http://localhost:4000';
   //portalApiUrl = ''
 
