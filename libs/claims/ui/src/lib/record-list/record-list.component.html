@@ -1,0 +1,9 @@
+<td>
+  <a [routerLink]="['records', record.id]">
+    {{ identifier }}
+  </a>
+</td>
+<td>{{ record.status }}</td>
+<td>{{ fatalErrorCount }}</td>
+<td>{{ criticalErrorCount }}</td>
+<td>{{ warningCount }}</td>

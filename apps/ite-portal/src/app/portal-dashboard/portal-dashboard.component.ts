@@ -9,9 +9,21 @@ import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 })
 export class PortalDashboardComponent {
   submissionStatus$ = this.bhsdService.getSubmissionStatus();
+  searchTerm = '';
   constructor(private bhsdService: BHSDService, private router: Router) {}
 
   thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
+
+  setSearchTerm(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchTerm = target.value;
+  }
+
+  submitSearch() {
+    void this.router.navigate(['/search-and-query/client-search'], {
+      queryParams: { search: this.searchTerm },
+    });
+  }
 
   navigateTo(path: string): void {
     void this.router.navigate([path]);

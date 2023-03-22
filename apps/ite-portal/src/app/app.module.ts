@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TableauModule } from 'ngx-tableau';
 
 import { DataAccessModule } from '@dbh/bhsd/data-access';
+import { ClaimsDataAccessModule } from '@dbh/claims/data-access';
 import {
   AuthGuard,
   AuthInterceptor,
@@ -44,6 +45,7 @@ import { ClientSearchComponent } from './client-search/client-search.component';
     HttpClientModule,
     ReactiveFormsModule,
     DataAccessModule,
+    ClaimsDataAccessModule,
     AuthModule,
     BhsdUiModule,
     SharedUiModule,

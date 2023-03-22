@@ -2,41 +2,21 @@
   <div class="widget-header">
     <h2><label for="client-search">Client Search</label></h2>
   </div>
-  <div class="widget-content">
-    <div class="search-box">
-      <input
-        type="text"
-        name="client-search"
-        id="client-search"
-        placeholder="Search (Name, Client ID, SSN)"
-      />
-      <button type="button" aria-label="search">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M12.5 12.5L17 17M14 8.5C14 11.5376 11.5376 14 8.5 14C5.46243 14 3 11.5376 3 8.5C3 5.46243 5.46243 3 8.5 3C11.5376 3 14 5.46243 14 8.5Z"
-            stroke="#455561"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-        </svg>
-      </button>
-    </div>
-    <h3>Recent Searches</h3>
-    <ul class="recent-searches">
-      <li><a routerLink="/search-and-query/client-search">James Brown</a></li>
-      <li>
-        <a routerLink="/search-and-query/client-search">Robert Griffith</a>
-      </li>
-      <li><a routerLink="/search-and-query/client-search">Zach Ertz</a></li>
-      <li><a routerLink="/search-and-query/client-search">Jason Allen</a></li>
-      <li><a routerLink="/search-and-query/client-search">Kurt Werner</a></li>
-    </ul>
+  <div class="widget-content search">
+    <p>Use the search to look up client record information.</p>
+    <p>Search by full name, first name or last name.</p>
+    <label for="search">Client Search</label>
+    <input
+      type="search"
+      name="client-search"
+      id="client-search"
+      placeholder="Search"
+      (change)="setSearchTerm($event)"
+      (keyup.enter)="submitSearch()"
+    />
+    <button type="submit" class="button" (click)="submitSearch()">
+      Search
+    </button>
   </div>
 </div>
 
