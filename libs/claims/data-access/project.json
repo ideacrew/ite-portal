@@ -1,0 +1,26 @@
+{
+  "name": "claims-data-access",
+  "projectType": "library",
+  "sourceRoot": "libs/claims/data-access/src",
+  "prefix": "dbh",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/claims/data-access"],
+      "options": {
+        "jestConfig": "libs/claims/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/claims/data-access/**/*.ts",
+          "libs/claims/data-access/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["type:data-access"]
+}

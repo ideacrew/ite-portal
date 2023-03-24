@@ -40,6 +40,7 @@
       ],
       "@dbh/bhsd/ui": ["libs/bhsd/ui/src/index.ts"],
       "@dbh/bhsd/util": ["libs/bhsd/util/src/index.ts"],
+      "@dbh/claims/data-access": ["libs/claims/data-access/src/index.ts"],
       "@dbh/provider-gateway/shell": [
         "libs/provider-gateway/shell/src/index.ts"
       ],

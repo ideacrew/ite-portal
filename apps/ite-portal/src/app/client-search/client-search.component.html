@@ -8,19 +8,47 @@
 <p>Use the Search to look up client record information.</p>
 <p>Search by full name, first name or last name.</p>
 
-<form action="search" id="search-form">
-  <label for="client-search">Client Search</label>
-  <input
-    type="search"
-    name="client-search"
-    id="client-search"
-    placeholder="Search"
-  />
-  <button type="submit" class="button">Search</button>
-</form>
+<label for="client-search">Client Search</label>
+<input
+  type="search"
+  name="client-search"
+  id="client-search"
+  placeholder="Search"
+  [value]="searchTerm"
+  (change)="setSearchTerm($event)"
+  (keyup.enter)="submitSearch()"
+/>
+<button type="submit" class="button" (click)="submitSearch()">Search</button>
 
-<hr />
+<ng-container *ngIf="searchResults$ | async as results">
+  <hr />
+  <h2>Search Results</h2>
+  <ng-container *ngIf="results.client_count === 0; else hasResults">
+    <p>Your search returned 0 results, please try a new name.</p>
+  </ng-container>
 
-<!-- if no results!! -->
-<h2>Search Results</h2>
-<p>Your search returned 0 results, please try a new name.</p>
+  <ng-template #hasResults>
+    <table>
+      <thead>
+        <tr>
+          <th>Master-Client ID</th>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>DOB</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of results.clients">
+          <td>{{ client.master_client_id }}</td>
+          <td>{{ client.first_name }}</td>
+          <td>{{ client.middle_name }}</td>
+          <td>{{ client.last_name }}</td>
+          <td>{{ client.date_of_birth }}</td>
+          <td>{{ client.gender }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+</ng-container>
