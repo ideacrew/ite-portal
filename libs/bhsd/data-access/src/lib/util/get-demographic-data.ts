@@ -19,7 +19,6 @@ export const convertExtractToDemographics = (
 ): ExtractSubmissionDemographics => {
   const { records } = submission;
   const recordCount = records.length;
-
   const genders = getGenderBreakdown(records);
   const races = getRaceBreakdown(records);
   const ethnicities = getEthnicityBreakdown(records);
