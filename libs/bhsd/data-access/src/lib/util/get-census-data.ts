@@ -109,7 +109,7 @@ export const getUniqueClientMetrics = (
     records.filter((record) => record.payload.record_type === 'T')
   ).size;
   const coOccurringRecords = getGroup(
-    records.filter((record) => record.payload.co_occurring_sud_mh)
+    records.filter((record) => record.payload.co_occurring_sud_mh === '1')
   ).size;
   return {
     total,
