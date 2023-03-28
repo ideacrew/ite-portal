@@ -14,14 +14,12 @@ export class ClaimSearchComponent {
   // eslint-disable-next-line unicorn/consistent-function-scoping
   parameters$ = this.route.queryParamMap.subscribe((parameters) => {
     this.searchTerm = parameters.get('search') || '';
-    if (this.searchTerm !== '') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      this.searchResults$ =
-        this.searchTerm === ''
-          ? undefined
-          : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-            this.claimsService.claimSearch(this.searchTerm);
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    this.searchResults$ =
+      this.searchTerm === ''
+        ? undefined
+        : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          this.claimsService.claimSearch(this.searchTerm);
   });
 
   setSearchTerm(event: Event) {
