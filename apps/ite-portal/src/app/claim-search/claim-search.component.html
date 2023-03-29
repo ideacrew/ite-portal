@@ -1,0 +1,68 @@
+<ul class="breadcrumbs">
+  <li>
+    <a routerLink="/search-and-query" routerLinkActive="active">Search</a>
+  </li>
+  <li>Claim Search</li>
+</ul>
+<h1>Claim Search</h1>
+<p>
+  Use the Search to look up the master claim record table and view claim detail.
+</p>
+<p>Search by Claim ID (TCN) or Medicaid ID.</p>
+
+<label for="claim-search">Claim Search</label>
+<input
+  type="search"
+  name="claim-search"
+  id="claim-search"
+  placeholder="Search"
+  [value]="searchTerm"
+  (change)="setSearchTerm($event)"
+  (keyup.enter)="submitSearch()"
+/>
+<button type="submit" class="button" (click)="submitSearch()">Search</button>
+
+<ng-container *ngIf="searchResults$ | async as results">
+  <hr />
+  <h2>Search Results</h2>
+  <ng-container *ngIf="results.claim_count === 0; else hasResults">
+    <p>Your search returned 0 results, please try a new search.</p>
+  </ng-container>
+
+  <ng-template #hasResults>
+    <table>
+      <thead>
+        <tr>
+          <th>Claim ID<br />(TCN - Line No.)</th>
+          <th>Adjudication<br />Date</th>
+          <th>Medicaid ID</th>
+          <th>Service Period</th>
+          <th>Procedure<br />Code</th>
+          <th>Provider</th>
+          <th>Provider<br />Type</th>
+          <th>Status</th>
+          <th>$ Billed</th>
+          <th>$ Payed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let claim of results.claims">
+          <td>{{ claim.claim_record_id }}</td>
+          <td>{{ claim.adjudication_date | date: 'MM/dd/yyyy' }}</td>
+          <td>{{ claim.billing_medicaid_id ?? '' }}</td>
+          <td>
+            {{ claim.first_date_of_service | date: 'MM/dd/yyyy' }}&ndash;{{
+              claim.last_date_of_service | date: 'MM/dd/yyyy'
+            }}
+          </td>
+          <td>{{ claim.procedure_code }}</td>
+          <td class="wide">{{ claim.billing_provider ?? '' }}</td>
+          <td>{{ claim.billing_provider_type_code }}</td>
+          <td>{{ claim.adjudication_status }}</td>
+          <td>{{ claim.billed_amount | currency }}</td>
+          <td>{{ claim.paid_amount | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+</ng-container>

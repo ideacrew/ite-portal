@@ -28,6 +28,7 @@ import { ExternalResourcesComponent } from './external-resources/external-resour
 import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-claims.component';
 import { SearchAndQueryComponent } from './search-and-query/search-and-query.component';
 import { ClientSearchComponent } from './client-search/client-search.component';
+import { ClaimSearchComponent } from './claim-search/claim-search.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ClientSearchComponent } from './client-search/client-search.component';
     AdjudicatedClaimsComponent,
     SearchAndQueryComponent,
     ClientSearchComponent,
+    ClaimSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +74,10 @@ import { ClientSearchComponent } from './client-search/client-search.component';
           {
             path: 'search-and-query/client-search',
             component: ClientSearchComponent,
+          },
+          {
+            path: 'search-and-query/claim-search',
+            component: ClaimSearchComponent,
           },
 
           {
