@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-export type ClaimSearchResult = {
+export type Claim = {
   master_claim_id: string;
   claim_record_id: string;
   adjudication_date: Date;
@@ -62,4 +62,7 @@ export type ClaimSearchResult = {
   submitted_units?: number;
   tcn_line_item_number?: number;
   ward_code?: number;
+  id: string;
+  client_id?: string;
+  master_client_id?: string;
 };

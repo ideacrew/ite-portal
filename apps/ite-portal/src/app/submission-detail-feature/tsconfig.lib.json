@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../dist/out-tsc",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": []
+  },
+  "exclude": [
+    "../claim-detail-feature/src/test-setup.ts",
+    "../claim-detail-feature/**/*.spec.ts",
+    "../claim-detail-feature/jest.config.ts",
+    "../claim-detail-feature/**/*.test.ts"
+  ],
+  "include": ["../claim-detail-feature/**/*.ts"]
+}

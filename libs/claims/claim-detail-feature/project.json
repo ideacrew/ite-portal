@@ -1,0 +1,27 @@
+{
+  "name": "claims-claim-detail-feature",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/claims/claim-detail-feature/src",
+  "prefix": "dbh",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/claims/claim-detail-feature"],
+      "options": {
+        "jestConfig": "libs/claims/claim-detail-feature/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/claims/claim-detail-feature/**/*.ts",
+          "libs/claims/claim-detail-feature/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

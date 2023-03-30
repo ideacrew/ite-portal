@@ -15,6 +15,7 @@
     "bhsd-submit-new-file-feature": "libs/bhsd/submit-new-file-feature",
     "bhsd-ui": "libs/bhsd/ui",
     "bhsd-util": "libs/bhsd/util",
+    "claim-detail-feature": "libs/claims/claim-detail-feature",
     "ite-portal": "apps/ite-portal",
     "ite-portal-e2e": "apps/ite-portal-e2e",
     "provider-gateway": "apps/provider-gateway",

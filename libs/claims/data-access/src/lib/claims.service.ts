@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
-import { ClientSearch, ClaimSearch } from './models';
+import { ClientSearch, ClaimSearch, Claim } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,12 @@ export class ClaimsService {
   claimSearch(search: string): Observable<ClaimSearch> {
     return this.http.get<ClaimSearch>(
       `${this.config.portalApiUrl}/claims/master_claims?search=${search}`
+    );
+  }
+
+  getClaim(id: string): Observable<Claim> {
+    return this.http.get<Claim>(
+      `${this.config.portalApiUrl}/claims/master_claims/${id}`
     );
   }
 }

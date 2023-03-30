@@ -94,6 +94,13 @@ import { ClaimSearchComponent } from './claim-search/claim-search.component';
             component: FakePageComponent,
           },
           {
+            path: 'claims/:id',
+            loadChildren: () =>
+              import('@dbh/claims/claim-detail-feature').then(
+                (m) => m.ClaimsClaimDetailFeatureModule
+              ),
+          },
+          {
             path: 'claims/adjudicated-claims',
             component: AdjudicatedClaimsComponent,
           },
