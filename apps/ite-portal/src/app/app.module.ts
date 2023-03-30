@@ -105,6 +105,13 @@ import { ClaimSearchComponent } from './claim-search/claim-search.component';
             component: AdjudicatedClaimsComponent,
           },
           {
+            path: 'clients/:id',
+            loadChildren: () =>
+              import('@dbh/clients/client-feature').then(
+                (m) => m.ClientsClientComponentFeatureModule
+              ),
+          },
+          {
             path: 'external-resources',
             component: ExternalResourcesComponent,
           },

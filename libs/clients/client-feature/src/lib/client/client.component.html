@@ -1,0 +1,15 @@
+<ul class="breadcrumbs">
+  <li>
+    <a routerLink="/search-and-query/client-search" routerLinkActive="active"
+      >Client Search</a
+    >
+  </li>
+  <li>Client Detail</li>
+</ul>
+<ng-container *ngIf="client$ | async as client">
+  <h1>{{ client.full_name }}</h1>
+  <dl class="parent">
+    <dt>Master Client ID:</dt>
+    <dd>{{ client.master_client_id }}</dd>
+  </dl>
+</ng-container>

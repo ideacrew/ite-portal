@@ -41,7 +41,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let client of results.clients">
-          <td>{{ client.master_client_id }}</td>
+          <td>
+            <a [routerLink]="['/clients', client.id]">{{
+              client.master_client_id
+            }}</a>
+          </td>
           <td>{{ client.first_name }}</td>
           <td>{{ client.middle_name }}</td>
           <td>{{ client.last_name }}</td>

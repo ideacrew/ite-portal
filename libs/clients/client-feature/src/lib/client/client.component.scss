@@ -1,0 +1,37 @@
+ul.breadcrumbs {
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  margin-bottom: 3ch;
+}
+
+ul.breadcrumbs li {
+  display: inline;
+}
+
+ul.breadcrumbs li + li:before {
+  padding: 1ch;
+  content: '/';
+}
+
+dl.parent {
+  display: grid;
+  grid-template-columns: repeat(2, fit-content(300px));
+  grid-column-gap: 1ch;
+  grid-row-gap: 1ch;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 3ch;
+}
+
+dd,
+dt {
+  margin: 0;
+  padding: 0;
+}
+
+dt {
+  font-weight: 600;
+  color: #605e5c;
+}

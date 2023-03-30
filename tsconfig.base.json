@@ -44,6 +44,9 @@
         "libs/claims/claim-detail-feature/src/index.ts"
       ],
       "@dbh/claims/data-access": ["libs/claims/data-access/src/index.ts"],
+      "@dbh/clients/client-feature": [
+        "libs/clients/client-feature/src/index.ts"
+      ],
       "@dbh/provider-gateway/shell": [
         "libs/provider-gateway/shell/src/index.ts"
       ],
