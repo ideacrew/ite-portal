@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router, UrlTree } from '@angular/router';
-import { filter, map, shareReplay, switchMap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClaimsService } from '@dbh/claims/data-access';
 
 @Component({

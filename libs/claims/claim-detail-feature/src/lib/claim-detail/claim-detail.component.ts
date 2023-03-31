@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, shareReplay, switchMap } from 'rxjs';
-import { ClaimsService, Claim } from '@dbh/claims/data-access';
+import { ClaimsService } from '@dbh/claims/data-access';
 
 @Component({
   selector: 'claims-claim-detail',
