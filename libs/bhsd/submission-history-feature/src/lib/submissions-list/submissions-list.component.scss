@@ -12,7 +12,26 @@
 }
 
 table {
+  border: none;
+  font-size: 1em;
   width: 100%;
+}
+
+td {
+  border: none;
+  border-bottom: 0.5px solid #605e5c;
+}
+
+td.wide {
+  word-wrap: break-word;
+  max-width: 250px;
+}
+
+th {
+  border: none;
+  border-bottom: 1px solid gray;
+  text-align: left;
+  vertical-align: top;
 }
 
 .pagination {
