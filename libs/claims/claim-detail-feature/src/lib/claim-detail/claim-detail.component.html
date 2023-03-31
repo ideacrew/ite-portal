@@ -13,6 +13,35 @@
     <dd>{{ claim.claim_record_id }}</dd>
   </dl>
   <section>
+    <h2>Claim Process Summary</h2>
+    <dl class="parent">
+      <dt>Data Source:</dt>
+      <dd>{{ claim.claim_information_source }}</dd>
+      <dt>Coverage Type (FFS or MCO):</dt>
+      <dd>{{ claim.claim_coverage_type }}</dd>
+      <dt>TCN:</dt>
+      <dd>{{ claim.claim_tcn }}</dd>
+      <dt>Line Item Number:</dt>
+      <dd>{{ claim.tcn_line_item_number }}</dd>
+      <dt>Claim Process Level:</dt>
+      <dd>{{ claim.claim_process_level }}</dd>
+      <dt>Claim Type:</dt>
+      <dd>{{ claim.claim_type }}</dd>
+      <dt>Adjudication Date:</dt>
+      <dd>{{ claim.adjudication_date }}</dd>
+      <dt>Adjudication Status:</dt>
+      <dd>{{ claim.adjudication_status }}</dd>
+      <dt>Processing Status:</dt>
+      <dd>{{ claim.claim_processing_status }}</dd>
+      <dt>Original TCN (for Adjustment):</dt>
+      <dd>{{ claim.original_tcn_of_adjusted_claim }}</dd>
+      <dt>Pre-authorization Number:</dt>
+      <dd>{{ claim.pre_authorization_number }}</dd>
+      <dt>Remittance Number:</dt>
+      <dd>{{ claim.remittance_number }}</dd>
+    </dl>
+  </section>
+  <section>
     <h2>Billing Provider</h2>
     <dl class="parent">
       <dt>Provider Type:</dt>
