@@ -16,13 +16,16 @@ ul.breadcrumbs li + li:before {
 
 dl.parent {
   display: grid;
-  grid-template-columns: repeat(2, fit-content(300px));
-  grid-column-gap: 1ch;
-  grid-row-gap: 1ch;
+  grid-template-columns: auto 1fr;
+  grid-row-gap: 1.25ch;
   list-style: none;
   padding: 0;
   margin: 0;
   margin-bottom: 3ch;
+  // dd,
+  // dt {
+  //   border-bottom: 1px solid #e4e1de;
+  // }
 }
 
 dd,
@@ -34,4 +37,5 @@ dt {
 dt {
   font-weight: 600;
   color: #605e5c;
+  padding-right: 1ch;
 }

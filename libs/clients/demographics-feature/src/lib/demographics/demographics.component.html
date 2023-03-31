@@ -1,0 +1,46 @@
+<ul class="breadcrumbs">
+  <li>
+    <a routerLink="/search-and-query/client-search" routerLinkActive="active"
+      >Client Search</a
+    >
+  </li>
+  <li><a [routerLink]="['/clients/', clientId]">Client</a></li>
+  <li>Demographics</li>
+</ul>
+
+<ng-container *ngIf="client$ | async as client">
+  <h1>{{ client.full_name }}</h1>
+  <dl class="parent">
+    <dt>Master Client ID:</dt>
+    <dd>{{ client.master_client_id }}</dd>
+  </dl>
+  <h2>Demographic Information</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Data Field</th>
+        <th>MMIS</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>First Name</td>
+      <td>{{ client.first_name }}</td>
+    </tr>
+    <tr>
+      <td>Middle Name</td>
+      <td>{{ client.middle_name }}</td>
+    </tr>
+    <tr>
+      <td>Last Name</td>
+      <td>{{ client.last_name }}</td>
+    </tr>
+    <tr>
+      <td>DOB</td>
+      <td>{{ client.date_of_birth }}</td>
+    </tr>
+    <tr>
+      <td>Gender</td>
+      <td>{{ client.gender }}</td>
+    </tr>
+  </table>
+</ng-container>

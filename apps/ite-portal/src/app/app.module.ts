@@ -94,6 +94,10 @@ import { ClaimSearchComponent } from './claim-search/claim-search.component';
             component: FakePageComponent,
           },
           {
+            path: 'claims/adjudicated-claims',
+            component: AdjudicatedClaimsComponent,
+          },
+          {
             path: 'claims/:id',
             loadChildren: () =>
               import('@dbh/claims/claim-detail-feature').then(
@@ -101,14 +105,24 @@ import { ClaimSearchComponent } from './claim-search/claim-search.component';
               ),
           },
           {
-            path: 'claims/adjudicated-claims',
-            component: AdjudicatedClaimsComponent,
-          },
-          {
             path: 'clients/:id',
             loadChildren: () =>
               import('@dbh/clients/client-feature').then(
                 (m) => m.ClientsClientComponentFeatureModule
+              ),
+          },
+          {
+            path: 'clients/:id/demographics',
+            loadChildren: () =>
+              import('@dbh/clients/demographics-feature').then(
+                (m) => m.ClientsDemographicsComponentFeatureModule
+              ),
+          },
+          {
+            path: 'clients/:id/claim-history',
+            loadChildren: () =>
+              import('@dbh/clients/claim-history-feature').then(
+                (m) => m.ClientsClaimHistoryComponentFeatureModule
               ),
           },
           {

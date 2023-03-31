@@ -27,7 +27,7 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./submission-detail.component.scss'],
 })
 export class SubmissionDetailComponent {
-  viewType: 'record' | 'dataField' = 'record';
+  viewType: 'record' | 'dataField' = 'dataField';
 
   breakdownType: 'demographic' | 'validation' | 'census' = 'validation';
 
@@ -51,8 +51,8 @@ export class SubmissionDetailComponent {
     'criminal_justice_referral',
     'discharge_date',
     'discharge_reason',
-    'dla_average_score?',
-    'dla_assessment_date?',
+    'dla_average_score',
+    'dla_assessment_date',
     'dob',
     'education',
     'employment',

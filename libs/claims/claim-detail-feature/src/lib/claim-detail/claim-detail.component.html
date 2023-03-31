@@ -73,7 +73,11 @@
     <h2>Beneficiary</h2>
     <dl class="parent">
       <dt>Master Client ID:</dt>
-      <dd>{{ claim.master_client_id }}</dd>
+      <dd>
+        <a [routerLink]="['/clients', claim.client_id]">{{
+          claim.master_client_id
+        }}</a>
+      </dd>
       <dt>Medicaid ID:</dt>
       <dd>{{ claim.billing_medicaid_id }}</dd>
       <dt>Eligibility Program:</dt>

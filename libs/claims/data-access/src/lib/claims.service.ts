@@ -35,4 +35,10 @@ export class ClaimsService {
       `${this.config.portalApiUrl}/claims/master_clients/${id}`
     );
   }
+
+  getClientClaims(id: string): Observable<Claim[]> {
+    return this.http.get<Claim[]>(
+      `${this.config.portalApiUrl}/claims/master_clients/claim_history?id=${id}`
+    );
+  }
 }

@@ -39,3 +39,24 @@ dt {
   color: #605e5c;
   padding-right: 1ch;
 }
+
+table {
+  border: none;
+}
+
+th {
+  border: none;
+  border-bottom: 1px solid gray;
+  text-align: left;
+}
+
+td {
+  border: none;
+  border-bottom: 1px solid #e4e1de;
+  font-size: 1rem;
+}
+
+tr td:first-of-type,
+tr th:first-of-type {
+  font-size: 1.1rem;
+}

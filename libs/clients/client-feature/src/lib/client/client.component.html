@@ -12,4 +12,20 @@
     <dt>Master Client ID:</dt>
     <dd>{{ client.master_client_id }}</dd>
   </dl>
+  <p>Access Helpline</p>
+  <p>
+    <a [routerLink]="['/clients/', client.id, 'claim-history']"
+      >Claim History</a
+    >
+  </p>
+  <p>Clinical Information</p>
+  <p>
+    <a [routerLink]="['/clients/', client.id, 'demographics']"
+      >Demographic Information</a
+    >
+  </p>
+  <p>Education</p>
+  <p>Employment</p>
+  <p>Housing</p>
+  <p>Service Providers</p>
 </ng-container>
