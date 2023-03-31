@@ -12,4 +12,5 @@ export type ClientSearchResult = {
   record_source_id: string;
   created_at: Date;
   updated_at: Date;
+  id: string;
 };

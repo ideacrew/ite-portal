@@ -7,15 +7,26 @@
 }
 
 table {
-  width: max-content;
-  border-collapse: collapse;
-  border: 3px solid black;
+  border: none;
+  font-size: 1em;
+  width: 100%;
 }
 
-th,
 td {
-  padding: 0.75rem;
-  border: 1px solid grey;
+  border: none;
+  border-bottom: 0.5px solid #605e5c;
+}
+
+td.wide {
+  word-wrap: break-word;
+  max-width: 250px;
+}
+
+th {
+  border: none;
+  border-bottom: 1px solid gray;
+  text-align: left;
+  vertical-align: top;
 }
 
 .definitions {
@@ -165,4 +176,42 @@ td {
 
 .half + .half {
   margin-left: 2ch;
+}
+
+.tabs {
+  margin-top: 3ch;
+}
+
+.tab {
+  border: none;
+  margin-right: 0.25ch;
+  padding: 1.25ch 1ch 1ch;
+  font-size: 1rem;
+  font-weight: 600;
+  color: gray;
+  background: lightgray;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab.active {
+  background: #455561;
+  color: white;
+}
+
+.download-button {
+  border: 2px solid #455561;
+  color: #455561;
+  background: none;
+  border-radius: 5px;
+  padding: 0.75ch;
+  margin: 0;
+  float: right;
+  font-weight: bold;
+  margin-left: 0.5ch;
+}
+
+.tab-content {
+  background: white;
+  padding: 0.5ch;
+  border-top: 2px solid #455561;
 }

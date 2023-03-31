@@ -65,102 +65,114 @@
         </p>
       </details>
     </div>
-    <ng-container *ngIf="submissionV2$ | async as submission">
-      <ng-container *ngIf="viewType === 'record'; else dataField">
-        <div class="group-header">
-          <h2>Issues by Record</h2>
-          <button (click)="viewType = 'dataField'" class="button" type="button">
-            View Issues by Data Field
-          </button>
-          <ng-container *ngIf="submissionIssuesByRecords$ | async as data">
+    <ng-container *ngIf="submissionFailedRecords$ | async as data"
+      ><ng-container *ngIf="data.records.length > 0">
+        <ng-container *ngIf="submissionV2$ | async as submission">
+          <div class="tabs">
+            <h2>Issue Details</h2>
             <button
+              (click)="viewType = 'dataField'"
+              class="tab"
+              [ngClass]="{ active: viewType === 'dataField' }"
+            >
+              Data Field
+            </button>
+            <button
+              (click)="viewType = 'record'"
+              class="tab"
+              [ngClass]="{ active: viewType === 'record' }"
+            >
+              Record
+            </button>
+
+            <button
+              class="download-button"
               (click)="
                 downloadCsv(
                   data.records,
-                  [
-                    'record_id',
-                    'status',
-                    'fatal_error_count',
-                    'critical_error_count',
-                    'warning_count'
-                  ],
-                  'issues_by_record.csv'
+                  payloadFieldHeaders,
+                  'failing_records.csv'
                 )
               "
             >
-              Export Issues by Record
+              &#8613; Export Only Failed Issues
             </button>
-          </ng-container>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Record ID</th>
-              <th>Pass/Fail</th>
-              <th>Fatal Errors</th>
-              <th>Critical Errors</th>
-              <th>Warnings</th>
-            </tr>
-          </thead>
-          <tbody>
-            <dbh-record-list
-              *ngFor="let record of submission.records | recordSort"
-              [record]="record"
-            ></dbh-record-list>
-          </tbody>
-        </table>
-      </ng-container>
-
-      <ng-template #dataField>
-        <div class="group-header">
-          <h2>Issues by Data Field</h2>
-          <button (click)="viewType = 'record'" class="button" type="button">
-            View Issues by Record
-          </button>
-          <ng-container *ngIf="failingDataFields$ | async as data">
-            <ng-container *ngIf="data.length > 0">
-              <button
-                (click)="
-                  downloadCsv(
-                    data,
-                    [
-                      'field_name',
-                      'field_type',
-                      'error_type',
-                      'record_id',
-                      'error_message',
-                      'input'
-                    ],
-                    'issues_by_data_field.csv'
-                  )
-                "
-              >
-                Export Data Field Issues
-              </button>
+            <ng-container *ngIf="viewType === 'dataField'">
+              <ng-container *ngIf="failingDataFields$ | async as data">
+                <ng-container *ngIf="data.length > 0">
+                  <button
+                    class="download-button"
+                    (click)="
+                      downloadCsv(
+                        data,
+                        [
+                          'field_name',
+                          'field_type',
+                          'error_type',
+                          'record_id',
+                          'error_message',
+                          'input'
+                        ],
+                        'issues_by_data_field.csv'
+                      )
+                    "
+                  >
+                    &#8613; Export All Issues by Data Field
+                  </button>
+                </ng-container>
+              </ng-container>
             </ng-container>
-          </ng-container>
-        </div>
-        <dbh-issues-by-data-field
-          [records]="submission.records"
-        ></dbh-issues-by-data-field>
-      </ng-template>
-      <ng-container *ngIf="submissionFailedRecords$ | async as data">
-        <ng-container *ngIf="data.records.length > 0">
-          <button
-            style="margin-top: 1rem"
-            (click)="
-              downloadCsv(
-                data.records,
-                payloadFieldHeaders,
-                'failing_records.csv'
-              )
-            "
-          >
-            Export All Failing Records
-          </button>
-        </ng-container>
-      </ng-container>
-    </ng-container>
+            <ng-container *ngIf="viewType === 'record'">
+              <ng-container *ngIf="submissionIssuesByRecords$ | async as data">
+                <button
+                  class="download-button"
+                  (click)="
+                    downloadCsv(
+                      data.records,
+                      [
+                        'record_id',
+                        'status',
+                        'fatal_error_count',
+                        'critical_error_count',
+                        'warning_count'
+                      ],
+                      'issues_by_record.csv'
+                    )
+                  "
+                >
+                  &#8613; Export All Issues by Record
+                </button>
+              </ng-container>
+            </ng-container>
+            <div class="tab-content">
+              <ng-container *ngIf="viewType === 'record'; else dataField">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Record ID</th>
+                      <th>Pass/Fail</th>
+                      <th>Fatal Errors</th>
+                      <th>Critical Errors</th>
+                      <th>Warnings</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <dbh-record-list
+                      *ngFor="let record of submission.records | recordSort"
+                      [record]="record"
+                    ></dbh-record-list>
+                  </tbody>
+                </table>
+              </ng-container>
+              <ng-template #dataField>
+                <dbh-issues-by-data-field
+                  [records]="submission.records"
+                ></dbh-issues-by-data-field>
+              </ng-template>
+            </div>
+          </div>
+        </ng-container> </ng-container
+    ></ng-container>
   </ng-container>
   <ng-container *ngIf="breakdownType === 'demographic'">
     <h2>

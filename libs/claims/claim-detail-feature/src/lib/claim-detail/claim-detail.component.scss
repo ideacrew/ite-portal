@@ -1,0 +1,41 @@
+ul.breadcrumbs {
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  margin-bottom: 3ch;
+}
+
+ul.breadcrumbs li {
+  display: inline;
+}
+
+ul.breadcrumbs li + li:before {
+  padding: 1ch;
+  content: '/';
+}
+
+dl.parent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-row-gap: 1.25ch;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 3ch;
+  // dd,
+  // dt {
+  //   border-bottom: 1px solid #e4e1de;
+  // }
+}
+
+dd,
+dt {
+  margin: 0;
+  padding: 0;
+}
+
+dt {
+  font-weight: 600;
+  color: #605e5c;
+  padding-right: 1ch;
+}

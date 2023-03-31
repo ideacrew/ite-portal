@@ -47,7 +47,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let claim of results.claims">
-          <td>{{ claim.claim_record_id }}</td>
+          <td>
+            <a [routerLink]="['/claims', claim.id]">{{
+              claim.claim_record_id
+            }}</a>
+          </td>
           <td>{{ claim.adjudication_date | date: 'MM/dd/yyyy' }}</td>
           <td>{{ claim.billing_medicaid_id ?? '' }}</td>
           <td>

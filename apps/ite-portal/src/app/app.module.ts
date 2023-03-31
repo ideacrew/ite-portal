@@ -98,6 +98,34 @@ import { ClaimSearchComponent } from './claim-search/claim-search.component';
             component: AdjudicatedClaimsComponent,
           },
           {
+            path: 'claims/:id',
+            loadChildren: () =>
+              import('@dbh/claims/claim-detail-feature').then(
+                (m) => m.ClaimsClaimDetailFeatureModule
+              ),
+          },
+          {
+            path: 'clients/:id',
+            loadChildren: () =>
+              import('@dbh/clients/client-feature').then(
+                (m) => m.ClientsClientComponentFeatureModule
+              ),
+          },
+          {
+            path: 'clients/:id/demographics',
+            loadChildren: () =>
+              import('@dbh/clients/demographics-feature').then(
+                (m) => m.ClientsDemographicsComponentFeatureModule
+              ),
+          },
+          {
+            path: 'clients/:id/claim-history',
+            loadChildren: () =>
+              import('@dbh/clients/claim-history-feature').then(
+                (m) => m.ClientsClaimHistoryComponentFeatureModule
+              ),
+          },
+          {
             path: 'external-resources',
             component: ExternalResourcesComponent,
           },
