@@ -31,7 +31,7 @@ import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider
               ),
           },
           {
-            path: 'submission-history/:id/records/:recordId',
+            path: 'submissions/:id/records/:recordId',
             loadChildren: () =>
               import('@dbh/bhsd/record-detail-feature').then(
                 (m) => m.BhsdRecordDetailFeatureModule
@@ -56,6 +56,27 @@ import { ProviderGatewayShellComponent } from './provider-gateway-shell/provider
             loadChildren: () =>
               import('@dbh/bhsd/submission-history-feature').then(
                 (m) => m.BhsdSubmissionHistoryFeatureModule
+              ),
+          },
+          {
+            path: 'submissions/:id',
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-detail-feature').then(
+                (m) => m.BhsdSubmissionDetailFeatureModule
+              ),
+          },
+          {
+            path: 'submissions/:id/demographics',
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-demographics-feature').then(
+                (m) => m.BhsdSubmissionDemographicsFeatureModule
+              ),
+          },
+          {
+            path: 'submissions/:id/census',
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-census-feature').then(
+                (m) => m.BhsdSubmissionCensusFeatureModule
               ),
           },
           {

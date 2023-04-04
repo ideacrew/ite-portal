@@ -68,7 +68,7 @@
               <span *ngSwitchCase="true">
                 <a
                   [routerLink]="[
-                    '/provider-gateway/submission-history',
+                    '/provider-gateway/submissions',
                     submissions[0].extractId
                   ]"
                   >{{ thisReportingPeriod }}</a
@@ -83,7 +83,7 @@
               <span *ngSwitchCase="true">
                 <a
                   [routerLink]="[
-                    '/provider-gateway/submission-history',
+                    '/provider-gateway/submissions',
                     pastSubmissions[0].extractId
                   ]"
                   >{{ lastReportingPeriod }}</a
@@ -96,8 +96,6 @@
         </tbody>
       </table>
     </ng-container>
-    <a class="button" routerLink="/provider-gateway/submission-history"
-      >View Submission History</a
-    >
+    <a class="button" routerLink="submissions">View Submission History</a>
   </ng-container>
 </ng-container>
