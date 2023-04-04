@@ -208,7 +208,8 @@
     </div>
   </div>
 </div>
-
+<ng-container *ngIf="submissionStatus$ | async as submissions">
+<ng-container *ngIf="submissions.length > 0; else noSubmissions">
 <h2>Submission Summary</h2>
 <table>
   <thead>
@@ -265,3 +266,9 @@
     </tr>
   </tbody>
 </table>
+</ng-container>
+</ng-container>
+<ng-template #noSubmissions>
+  There are no BHSD submissions matching your current criteria. Please adjust
+  your filtering criteria or clear all filters and try again.
+</ng-template>

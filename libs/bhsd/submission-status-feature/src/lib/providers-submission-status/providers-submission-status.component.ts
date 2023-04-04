@@ -32,6 +32,7 @@ export class ProvidersSubmissionStatusComponent {
     (x) => new Date(2000, x, 2)
   );
   rpYearFilter: number | string = this.reportingPeriod.getFullYear();
+  allFilters = '';
   // 2022 is the first time we started adding data to the system
   yearList: number[] = [
     ...Array.from({ length: Number(this.rpYearFilter) - 2022 + 1 }).keys(),
@@ -53,7 +54,7 @@ export class ProvidersSubmissionStatusComponent {
   updateSort(criteria: string) {
     this.sort = criteria;
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    this.updateFilters('sort');
+    this.submitFilters();
   }
 
   updateFilters(key: string, value?: Event) {
@@ -97,21 +98,52 @@ export class ProvidersSubmissionStatusComponent {
         this.submissionEndFilter = target.value ?? '';
       }
     }
-    this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
-      status: this.statusFilter,
-      year: this.rpYearFilter.toString(),
-      month: this.rpMonthFilter.toString(),
-      trMax: this.trMaxFilter.toString(),
-      trMin: this.trMinFilter.toString(),
-      prMax: this.prMaxFilter.toString(),
-      prMin: this.prMinFilter.toString(),
-      serviceType: this.serviceTypeFilter,
-      provider: this.providerFilter,
-      submissionStart: this.submissionStartFilter,
-      submissionEnd: this.submissionEndFilter,
-      sort: this.sort,
-      sortDirection: this.sortDirection,
-    });
+    this.submitFilters();
+  }
+
+  submitFilters() {
+    this.allFilters =
+      this.statusFilter +
+      this.rpYearFilter.toString() +
+      this.rpMonthFilter.toString() +
+      this.trMaxFilter.toString() +
+      this.trMinFilter.toString() +
+      this.prMaxFilter.toString() +
+      this.prMinFilter.toString() +
+      this.serviceTypeFilter +
+      this.providerFilter +
+      this.submissionStartFilter +
+      this.submissionEndFilter;
+      this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
+        status: this.statusFilter,
+        year: this.rpYearFilter.toString(),
+        month: this.rpMonthFilter.toString(),
+        trMax: this.trMaxFilter.toString(),
+        trMin: this.trMinFilter.toString(),
+        prMax: this.prMaxFilter.toString(),
+        prMin: this.prMinFilter.toString(),
+        serviceType: this.serviceTypeFilter,
+        provider: this.providerFilter,
+        submissionStart: this.submissionStartFilter,
+        submissionEnd: this.submissionEndFilter,
+        sort: this.sort,
+        sortDirection: this.sortDirection,
+      });
+  }
+
+  clearFilters() {
+    this.statusFilter = '';
+    this.trMinFilter = '';
+    this.trMaxFilter = '';
+    this.prMinFilter = '';
+    this.prMaxFilter = '';
+    this.serviceTypeFilter = '';
+    this.providerFilter = '';
+    this.submissionStartFilter = '';
+    this.submissionEndFilter = '';
+    this.rpMonthFilter = this.reportingPeriod.getMonth() + 1;
+    this.rpYearFilter = this.reportingPeriod.getFullYear();
+    this.submitFilters();
   }
 
   serviceType(submission: SubmissionStatus): string {

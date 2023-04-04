@@ -21,7 +21,6 @@ export class SubmissionsListComponent {
   page = '1';
   offset = '';
   perPage = 20;
-  displayFilters = false;
   coverageStartFilter = '';
   coverageEndFilter = '';
   submissionStartFilter = '';
