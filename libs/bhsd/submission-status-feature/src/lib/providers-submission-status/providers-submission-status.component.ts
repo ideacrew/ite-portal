@@ -114,21 +114,21 @@ export class ProvidersSubmissionStatusComponent {
       this.providerFilter +
       this.submissionStartFilter +
       this.submissionEndFilter;
-      this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
-        status: this.statusFilter,
-        year: this.rpYearFilter.toString(),
-        month: this.rpMonthFilter.toString(),
-        trMax: this.trMaxFilter.toString(),
-        trMin: this.trMinFilter.toString(),
-        prMax: this.prMaxFilter.toString(),
-        prMin: this.prMinFilter.toString(),
-        serviceType: this.serviceTypeFilter,
-        provider: this.providerFilter,
-        submissionStart: this.submissionStartFilter,
-        submissionEnd: this.submissionEndFilter,
-        sort: this.sort,
-        sortDirection: this.sortDirection,
-      });
+    this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
+      status: this.statusFilter,
+      year: this.rpYearFilter.toString(),
+      month: this.rpMonthFilter.toString(),
+      trMax: this.trMaxFilter.toString(),
+      trMin: this.trMinFilter.toString(),
+      prMax: this.prMaxFilter.toString(),
+      prMin: this.prMinFilter.toString(),
+      serviceType: this.serviceTypeFilter,
+      provider: this.providerFilter,
+      submissionStart: this.submissionStartFilter,
+      submissionEnd: this.submissionEndFilter,
+      sort: this.sort,
+      sortDirection: this.sortDirection,
+    });
   }
 
   clearFilters() {
