@@ -70,3 +70,10 @@ th {
   text-align: left;
   vertical-align: top;
 }
+
+details {
+  margin-bottom: 2ch;
+  summary {
+    font-weight: bold;
+  }
+}
