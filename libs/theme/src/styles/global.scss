@@ -12,6 +12,16 @@
   text-decoration: none;
 }
 
+.button-secondary {
+  border: 2px solid #455561;
+  color: #455561;
+  background: none;
+  border-radius: 5px;
+  padding: 0.75ch;
+  margin: 0;
+  font-weight: bold;
+}
+
 .button[disabled] {
   background-color: hsl(210, 5%, 50%);
 }

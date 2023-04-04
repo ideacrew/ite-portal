@@ -21,6 +21,7 @@ export class SubmissionsListComponent {
   page = '1';
   offset = '';
   perPage = 20;
+  displayFilters = false;
   coverageStartFilter = '';
   coverageEndFilter = '';
   submissionStartFilter = '';
@@ -30,6 +31,7 @@ export class SubmissionsListComponent {
   trValueFilter: number | string = '';
   prSelectorFilter = '';
   prValueFilter: number | string = '';
+  allFilters = '';
   sort = 'created_at';
   sortDirection: 'asc' | 'desc' = 'desc';
   headerList: Header[] = [
@@ -43,10 +45,6 @@ export class SubmissionsListComponent {
   ];
   responseDetails$: Observable<Extracts> =
     this.bhsdService.getSubmissionsWithParams({ offset: this.offset });
-
-  // getProviders(extracts: ExtractSubmission[]): object[] {
-  //   return extracts.map((extract) => ({id: extract.provider_id, name: extract.provider_name}));
-  // }
 
   getPages(count: number, active: string): Array<number | '...'> {
     const pages = Math.ceil(count / this.perPage);
@@ -80,13 +78,13 @@ export class SubmissionsListComponent {
   updatePage(pageNumber: string) {
     this.page = pageNumber;
     this.offset = String((Number(pageNumber) - 1) * this.perPage);
-    this.updateFilters('page');
+    this.submitFilters();
   }
 
   updateSort(criteria: string) {
     this.sort = criteria;
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    this.updateFilters('sort');
+    this.submitFilters();
   }
 
   updateFilters(key: string, event?: Event) {
@@ -123,7 +121,20 @@ export class SubmissionsListComponent {
         this.prValueFilter = target.value ?? '';
       }
     }
+    this.submitFilters();
+  }
 
+  submitFilters() {
+    this.allFilters =
+      this.coverageStartFilter +
+      this.coverageEndFilter +
+      this.trSelectorFilter +
+      this.submissionStartFilter +
+      this.submissionEndFilter +
+      this.providerFilter +
+      this.trValueFilter.toString() +
+      this.prSelectorFilter +
+      this.prValueFilter.toString();
     this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
       coverageStart: this.coverageStartFilter,
       coverageEnd: this.coverageEndFilter,
@@ -138,6 +149,19 @@ export class SubmissionsListComponent {
       sort: this.sort,
       sortDirection: this.sortDirection,
     });
+  }
+
+  clearFilters() {
+    this.coverageStartFilter = '';
+    this.coverageEndFilter = '';
+    this.submissionStartFilter = '';
+    this.submissionEndFilter = '';
+    this.providerFilter = '';
+    this.trSelectorFilter = '';
+    this.trValueFilter = '';
+    this.prSelectorFilter = '';
+    this.prValueFilter = '';
+    this.submitFilters();
   }
 
   constructor(

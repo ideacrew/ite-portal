@@ -113,3 +113,10 @@ input.selected {
   padding-left: 10px;
   border-left: 1px solid #605e5c;
 }
+
+details {
+  margin-bottom: 2ch;
+  summary {
+    font-weight: bold;
+  }
+}

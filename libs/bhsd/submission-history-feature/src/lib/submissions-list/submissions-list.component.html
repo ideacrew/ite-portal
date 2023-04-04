@@ -1,263 +1,284 @@
 <h1>BHSD File Submission History</h1>
 <ng-container *ngIf="responseDetails$ | async as details">
-  <div class="filters">
-    <div class="filter wide">
-      <h2>Reporting Period</h2>
-      <div class="filters">
-        <div>
-          <label for="coverage-start">Start Date</label>
-          <input
-            type="date"
-            name="coverage-start"
-            id="coverage-start"
-            [value]="coverageStartFilter"
-            (change)="updateFilters('coverage_start', $event)"
-          />
+  <details [open]="allFilters.length > 0">
+    <summary class="filter-label">Filter</summary>
+    <div class="filters">
+      <div class="filter wide">
+        <h2>Reporting Period</h2>
+        <div class="filters">
+          <div>
+            <label for="coverage-start">Start Date</label>
+            <input
+              type="date"
+              name="coverage-start"
+              id="coverage-start"
+              [value]="coverageStartFilter"
+              (change)="updateFilters('coverage_start', $event)"
+            />
+          </div>
+          <div>
+            <label for="coverage-end">End Date</label>
+            <input
+              type="date"
+              name="coverage-end"
+              id="coverage-end"
+              [value]="coverageEndFilter"
+              (change)="updateFilters('coverage_end', $event)"
+            />
+          </div>
         </div>
-        <div>
-          <label for="coverage-end">End Date</label>
-          <input
-            type="date"
-            name="coverage-end"
-            id="coverage-end"
-            [value]="coverageEndFilter"
-            (change)="updateFilters('coverage_end', $event)"
-          />
-        </div>
-      </div>
-      <p
-        *ngIf="coverageStartFilter !== '' && coverageEndFilter === ''"
-        class="break"
-      >
-        Select End Date to narrow results
-      </p>
-      <p
-        *ngIf="coverageStartFilter === '' && coverageEndFilter !== ''"
-        class="break"
-      >
-        Select Start Date to narrow results
-      </p>
-    </div>
-    <div class="filter wide">
-      <h2>Submission Range</h2>
-      <div class="filters">
-        <div>
-          <label for="submission-start">Start Date</label>
-          <input
-            type="date"
-            name="submission-start"
-            id="submission-start"
-            [value]="submissionStartFilter"
-            (change)="updateFilters('submission_start', $event)"
-          />
-        </div>
-        <div>
-          <label for="submission-end">End Date</label>
-          <input
-            type="date"
-            name="submission-end"
-            id="submission-end"
-            [value]="submissionEndFilter"
-            (change)="updateFilters('submission_end', $event)"
-          />
-        </div>
-      </div>
-      <p
-        *ngIf="submissionStartFilter !== '' && submissionEndFilter === ''"
-        class="break"
-      >
-        Select End Date to narrow results
-      </p>
-      <p
-        *ngIf="submissionStartFilter === '' && submissionEndFilter !== ''"
-        class="break"
-      >
-        Select Start Date to narrow results
-      </p>
-    </div>
-    <div class="filter" *ngIf="isDBHUser">
-      <h2>Provider</h2>
-      <label for="providerFilter">Select Provider</label>
-      <select
-        name="providerFilter"
-        id="providerFilter"
-        (change)="updateFilters('provider', $event)"
-      >
-        <option value="" disabled hidden selected>Provider</option>
-        <option value="">See All</option>
-        <option
-          *ngFor="let provider of details.providers"
-          [value]="provider.id"
-          [selected]="providerFilter.toString() === provider.id.toString()"
+        <p
+          *ngIf="coverageStartFilter !== '' && coverageEndFilter === ''"
+          class="break"
         >
-          {{ provider.name }}
-        </option>
-      </select>
-    </div>
-  </div>
-  <div class="filters">
-    <div class="filter wide">
-      <h2>Total Records</h2>
-      <div class="filters">
-        <div>
-          <label for="trSelectorFilter">Selector</label>
-          <select
-            name="trSelectorFilter"
-            id="trSelectorFilter"
-            (change)="updateFilters('trSelector', $event)"
+          Select End Date to narrow results
+        </p>
+        <p
+          *ngIf="coverageStartFilter === '' && coverageEndFilter !== ''"
+          class="break"
+        >
+          Select Start Date to narrow results
+        </p>
+      </div>
+      <div class="filter wide">
+        <h2>Submission Range</h2>
+        <div class="filters">
+          <div>
+            <label for="submission-start">Start Date</label>
+            <input
+              type="date"
+              name="submission-start"
+              id="submission-start"
+              [value]="submissionStartFilter"
+              (change)="updateFilters('submission_start', $event)"
+            />
+          </div>
+          <div>
+            <label for="submission-end">End Date</label>
+            <input
+              type="date"
+              name="submission-end"
+              id="submission-end"
+              [value]="submissionEndFilter"
+              (change)="updateFilters('submission_end', $event)"
+            />
+          </div>
+        </div>
+        <p
+          *ngIf="submissionStartFilter !== '' && submissionEndFilter === ''"
+          class="break"
+        >
+          Select End Date to narrow results
+        </p>
+        <p
+          *ngIf="submissionStartFilter === '' && submissionEndFilter !== ''"
+          class="break"
+        >
+          Select Start Date to narrow results
+        </p>
+      </div>
+      <div class="filter" *ngIf="isDBHUser">
+        <h2>Provider</h2>
+        <label for="providerFilter">Select Provider</label>
+        <select
+          name="providerFilter"
+          id="providerFilter"
+          (change)="updateFilters('provider', $event)"
+        >
+          <option value="" disabled hidden selected>Provider</option>
+          <option value="">See All</option>
+          <option
+            *ngFor="let provider of details.providers"
+            [value]="provider.id"
+            [selected]="providerFilter.toString() === provider.id.toString()"
           >
-            <option value="" disabled hidden selected>
-              &#8804; or &#8805;
-            </option>
-            <option value="">See All</option>
-            <option value="less" [selected]="trSelectorFilter === 'less'">
-              &#8804;
-            </option>
-            <option value="greater" [selected]="trSelectorFilter === 'greater'">
-              &#8805;
-            </option>
-          </select>
-        </div>
-        <div>
-          <label for="trValueFilter">Total Records</label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            id="trValueFilter"
-            name="trValueFilter"
-            [value]="trValueFilter"
-            oninput="validity.valid||(value='');"
-            (change)="updateFilters('trValue', $event)"
-          />
-        </div>
+            {{ provider.name }}
+          </option>
+        </select>
       </div>
     </div>
-    <div class="filter wide">
-      <h2>Pass Rate</h2>
-      <div class="filters">
-        <div>
-          <label for="prSelectorFilter">Selector</label>
-          <select
-            name="prSelectorFilter"
-            id="prSelectorFilter"
-            (change)="updateFilters('prSelector', $event)"
-          >
-            <option value="" disabled hidden selected>
-              &#8804; or &#8805;
-            </option>
-            <option value="">See All</option>
-            <option value="less" [selected]="prSelectorFilter === 'less'">
-              &#8804;
-            </option>
-            <option value="greater" [selected]="prSelectorFilter === 'greater'">
-              &#8805;
-            </option>
-          </select>
-        </div>
-        <div>
-          <label for="prValueFilter">% of Records</label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            id="prValueFilter"
-            name="prValueFilter"
-            [value]="prValueFilter"
-            oninput="validity.valid||(value='');"
-            (change)="updateFilters('prValue', $event)"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="tableContainer">
-    <table>
-      <thead>
-        <tr>
-          <th *ngIf="isDBHUser" (click)="updateSort('provider_name')">
-            Provider Name
-            <span
-              [innerHTML]="
-                sort !== 'provider_name'
-                  ? '&#8597;'
-                  : sortDirection === 'desc'
-                  ? '&#8593;'
-                  : '&#8595;'
-              "
-            ></span>
-          </th>
-          <th
-            *ngFor="let header of headerList"
-            (click)="header.sortable && updateSort(header.value)"
-          >
-            {{ header.label }}
-            <span
-              *ngIf="header.sortable"
-              [innerHTML]="
-                sort !== header.value
-                  ? '&#8597;'
-                  : sortDirection === 'desc'
-                  ? '&#8593;'
-                  : '&#8595;'
-              "
-            ></span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let submission of details.extract_list">
-          <td *ngIf="isDBHUser">
-            <a
-              [routerLink]="[
-                '/provider-gateway/provider-profile',
-                submission.provider_id
-              ]"
-              >{{ submission.provider_name }}</a
+    <div class="filters">
+      <div class="filter wide">
+        <h2>Total Records</h2>
+        <div class="filters">
+          <div>
+            <label for="trSelectorFilter">Selector</label>
+            <select
+              name="trSelectorFilter"
+              id="trSelectorFilter"
+              (change)="updateFilters('trSelector', $event)"
             >
-          </td>
-          <td>
-            <a [routerLink]="submission.id">{{
-              submission.file_name ?? 'no file name provided'
-            }}</a>
-          </td>
-          <td>{{ submission.submission_date | date: 'short' }}</td>
-          <td>{{ submission.coverage_start }}</td>
-          <td>{{ submission.coverage_end }}</td>
-          <td>{{ submission.number_of_records ?? 'no value' }}</td>
-          <td>{{ submission.pass_count ?? 'no value' }}</td>
-          <td>{{ submission.fail_count ?? 'no value' }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="break"></div>
-
-    <div class="pagination">
-      Page
-      <ng-container
-        *ngFor="let pageNum of getPages(details.total_extract_count, page)"
-      >
-        <a
-          *ngIf="pageNum !== '...'"
-          [ngClass]="{ active: page === pageNum.toString() }"
-          [routerLink]=""
-          (click)="updatePage(pageNum.toString())"
-          >{{ pageNum }}
-        </a>
-        <div *ngIf="pageNum === '...'">...</div>
-      </ng-container>
+              <option value="" disabled hidden selected>
+                &#8804; or &#8805;
+              </option>
+              <option value="">See All</option>
+              <option value="less" [selected]="trSelectorFilter === 'less'">
+                &#8804;
+              </option>
+              <option
+                value="greater"
+                [selected]="trSelectorFilter === 'greater'"
+              >
+                &#8805;
+              </option>
+            </select>
+          </div>
+          <div>
+            <label for="trValueFilter">Total Records</label>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              id="trValueFilter"
+              name="trValueFilter"
+              [value]="trValueFilter"
+              oninput="validity.valid||(value='');"
+              (change)="updateFilters('trValue', $event)"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="filter wide">
+        <h2>Pass Rate</h2>
+        <div class="filters">
+          <div>
+            <label for="prSelectorFilter">Selector</label>
+            <select
+              name="prSelectorFilter"
+              id="prSelectorFilter"
+              (change)="updateFilters('prSelector', $event)"
+            >
+              <option value="" disabled hidden selected>
+                &#8804; or &#8805;
+              </option>
+              <option value="">See All</option>
+              <option value="less" [selected]="prSelectorFilter === 'less'">
+                &#8804;
+              </option>
+              <option
+                value="greater"
+                [selected]="prSelectorFilter === 'greater'"
+              >
+                &#8805;
+              </option>
+            </select>
+          </div>
+          <div>
+            <label for="prValueFilter">% of Records</label>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              id="prValueFilter"
+              name="prValueFilter"
+              [value]="prValueFilter"
+              oninput="validity.valid||(value='');"
+              (change)="updateFilters('prValue', $event)"
+            />
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+    <button
+      class="button-secondary"
+      *ngIf="allFilters.length > 0"
+      (click)="clearFilters()"
+    >
+      Clear All Filters
+    </button>
+  </details>
+  <ng-container *ngIf="details.extract_list.length > 0; else noSubmissions">
+    <div class="tableContainer">
+      <table>
+        <thead>
+          <tr>
+            <th *ngIf="isDBHUser" (click)="updateSort('provider_name')">
+              Provider Name
+              <span
+                [innerHTML]="
+                  sort !== 'provider_name'
+                    ? '&#8597;'
+                    : sortDirection === 'desc'
+                    ? '&#8593;'
+                    : '&#8595;'
+                "
+              ></span>
+            </th>
+            <th
+              *ngFor="let header of headerList"
+              (click)="header.sortable && updateSort(header.value)"
+            >
+              {{ header.label }}
+              <span
+                *ngIf="header.sortable"
+                [innerHTML]="
+                  sort !== header.value
+                    ? '&#8597;'
+                    : sortDirection === 'desc'
+                    ? '&#8593;'
+                    : '&#8595;'
+                "
+              ></span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let submission of details.extract_list">
+            <td *ngIf="isDBHUser">
+              <a
+                [routerLink]="[
+                  '/provider-gateway/provider-profile',
+                  submission.provider_id
+                ]"
+                >{{ submission.provider_name }}</a
+              >
+            </td>
+            <td>
+              <a [routerLink]="submission.id">{{
+                submission.file_name ?? 'no file name provided'
+              }}</a>
+            </td>
+            <td>{{ submission.submission_date | date: 'short' }}</td>
+            <td>{{ submission.coverage_start }}</td>
+            <td>{{ submission.coverage_end }}</td>
+            <td>{{ submission.number_of_records ?? 'no value' }}</td>
+            <td>{{ submission.pass_count ?? 'no value' }}</td>
+            <td>{{ submission.fail_count ?? 'no value' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="break"></div>
+
+      <div class="pagination">
+        Page
+        <ng-container
+          *ngFor="let pageNum of getPages(details.total_extract_count, page)"
+        >
+          <a
+            *ngIf="pageNum !== '...'"
+            [ngClass]="{ active: page === pageNum.toString() }"
+            [routerLink]=""
+            (click)="updatePage(pageNum.toString())"
+            >{{ pageNum }}
+          </a>
+          <div *ngIf="pageNum === '...'">...</div>
+        </ng-container>
+      </div>
+    </div>
+    <p>Total records = Pass + Fail</p>
+    <p>
+      <b>Pass</b>: A record with no fatal/critical errors in any key fields or
+      required fields.
+    </p>
+
+    <p>
+      <b>Fail</b>: A record with (a) fatal/critical error(s) in at least one key
+      field or required field. All the fatal/critical errors must be corrected
+      in the EHR for resubmission.
+    </p>
+  </ng-container>
+  <ng-template #noSubmissions>
+    There are no BHSD submissions matching your current criteria. Please adjust
+    your filtering criteria or clear all filters and try again.
+  </ng-template>
 </ng-container>
-
-<p>Total records = Pass + Fail</p>
-<p>
-  <b>Pass</b>: A record with no fatal/critical errors in any key fields or
-  required fields.
-</p>
-
-<p>
-  <b>Fail</b>: A record with (a) fatal/critical error(s) in at least one key
-  field or required field. All the fatal/critical errors must be corrected in
-  the EHR for resubmission.
-</p>
