@@ -26,6 +26,12 @@
         "libs/bhsd/record-detail-feature/src/index.ts"
       ],
       "@dbh/bhsd/store": ["libs/bhsd/store/src/index.ts"],
+      "@dbh/bhsd/submission-census-feature": [
+        "libs/bhsd/submission-census-feature/src/index.ts"
+      ],
+      "@dbh/bhsd/submission-demographics-feature": [
+        "libs/bhsd/submission-demographics-feature/src/index.ts"
+      ],
       "@dbh/bhsd/submission-detail-feature": [
         "libs/bhsd/submission-detail-feature/src/index.ts"
       ],

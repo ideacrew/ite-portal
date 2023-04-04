@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {
   Metric,
   ExtractRecordValidation,
@@ -6,10 +7,10 @@ import {
 } from '../models';
 
 export const convertExtractToCensus = (
-  submission: ExtractSubmissionResponse,
-  reportingPeriod: Date
+  submission: ExtractSubmissionResponse
 ): ExtractSubmissionCensusBreakdown => {
-  const { records } = submission;
+  const { records, coverage_start } = submission;
+  const reportingPeriod = new Date(coverage_start);
   const lastDayOfMonth = new Date(
     reportingPeriod.getFullYear(),
     reportingPeriod.getMonth() + 1,

@@ -1,0 +1,27 @@
+.file-info {
+  span:first-child {
+    font-weight: bold;
+    display: inline-block;
+    width: 13rem;
+  }
+}
+
+table {
+  margin-top: 2ch;
+}
+
+ul.breadcrumbs {
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  margin-bottom: 3ch;
+}
+
+ul.breadcrumbs li {
+  display: inline;
+}
+
+ul.breadcrumbs li + li:before {
+  padding: 1ch;
+  content: '/';
+}

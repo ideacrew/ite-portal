@@ -1,0 +1,150 @@
+<ng-container *ngIf="submission$ | async as submission">
+  <ul class="breadcrumbs">
+    <li>
+      <a [routerLink]="['/provider-gateway/submissions/', submission.id]"
+        >Submission Summary</a
+      >
+    </li>
+    <li>Census</li>
+  </ul>
+  <h1>Census Breakdown</h1>
+  <dbh-file-information
+    [providerName]="submission.provider_name"
+    [fileName]="submission.file_name"
+    [reportingPeriod]="submission.coverage_start | date: 'MMMM, yyyy'"
+    [submissionDate]="submission.created_at"
+  ></dbh-file-information>
+  <ng-container *ngIf="submissionCensusBreakdown$ | async as census">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Total</th>
+          <th>MH Initial<br />Admissions</th>
+          <th>MH Transfers</th>
+          <th>SUD Initial<br />Admissions</th>
+          <th>SUD Transfers</th>
+          <th>Co-Occurring Records</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Total Episodes</td>
+          <td>{{ census.totalEpisodes.total }}</td>
+          <td>{{ census.totalEpisodes.mhInitialAdmissions }}</td>
+          <td>{{ census.totalEpisodes.mhTransfers }}</td>
+          <td>{{ census.totalEpisodes.sudInitialAdmissions }}</td>
+          <td>{{ census.totalEpisodes.sudTransfers }}</td>
+          <td>{{ census.totalEpisodes.coOccurringRecords }}</td>
+        </tr>
+        <tr>
+          <td>Census At Start Of Reporting Period</td>
+          <td>{{ census.censusAtStartOfReportingPeriod.total }}</td>
+          <td>
+            {{ census.censusAtStartOfReportingPeriod.mhInitialAdmissions }}
+          </td>
+          <td>{{ census.censusAtStartOfReportingPeriod.mhTransfers }}</td>
+          <td>
+            {{ census.censusAtStartOfReportingPeriod.sudInitialAdmissions }}
+          </td>
+          <td>{{ census.censusAtStartOfReportingPeriod.sudTransfers }}</td>
+          <td>
+            {{ census.censusAtStartOfReportingPeriod.coOccurringRecords }}
+          </td>
+        </tr>
+        <tr>
+          <td>Admissions/Transfers During Reporting Period</td>
+          <td>{{ census.admissionsTransfersDuringReportingPeriod.total }}</td>
+          <td>
+            {{
+              census.admissionsTransfersDuringReportingPeriod
+                .mhInitialAdmissions
+            }}
+          </td>
+          <td>
+            {{ census.admissionsTransfersDuringReportingPeriod.mhTransfers }}
+          </td>
+          <td>
+            {{
+              census.admissionsTransfersDuringReportingPeriod
+                .sudInitialAdmissions
+            }}
+          </td>
+          <td>
+            {{ census.admissionsTransfersDuringReportingPeriod.sudTransfers }}
+          </td>
+          <td>
+            {{
+              census.admissionsTransfersDuringReportingPeriod.coOccurringRecords
+            }}
+          </td>
+        </tr>
+        <tr>
+          <td>Discharges During Reporting Period</td>
+          <td>{{ census.dischargesDuringReportingPeriod.total }}</td>
+          <td>
+            {{ census.dischargesDuringReportingPeriod.mhInitialAdmissions }}
+          </td>
+          <td>{{ census.dischargesDuringReportingPeriod.mhTransfers }}</td>
+          <td>
+            {{ census.dischargesDuringReportingPeriod.sudInitialAdmissions }}
+          </td>
+          <td>{{ census.dischargesDuringReportingPeriod.sudTransfers }}</td>
+          <td>
+            {{ census.dischargesDuringReportingPeriod.coOccurringRecords }}
+          </td>
+        </tr>
+        <tr>
+          <td>Census At End Of Reporting Period</td>
+          <td>{{ census.censusAtEndOfReportingPeriod.total }}</td>
+          <td>
+            {{ census.censusAtEndOfReportingPeriod.mhInitialAdmissions }}
+          </td>
+          <td>{{ census.censusAtEndOfReportingPeriod.mhTransfers }}</td>
+          <td>
+            {{ census.censusAtEndOfReportingPeriod.sudInitialAdmissions }}
+          </td>
+          <td>{{ census.censusAtEndOfReportingPeriod.sudTransfers }}</td>
+          <td>
+            {{ census.censusAtEndOfReportingPeriod.coOccurringRecords }}
+          </td>
+        </tr>
+        <tr>
+          <td>Count of Unique Clients Served during Reporting Period</td>
+          <td>
+            {{ census.countOfUniqueClientsServedDuringReportingPeriod.total }}
+          </td>
+          <td>
+            {{
+              census.countOfUniqueClientsServedDuringReportingPeriod
+                .mhInitialAdmissions
+            }}
+          </td>
+          <td>
+            {{
+              census.countOfUniqueClientsServedDuringReportingPeriod.mhTransfers
+            }}
+          </td>
+          <td>
+            {{
+              census.countOfUniqueClientsServedDuringReportingPeriod
+                .sudInitialAdmissions
+            }}
+          </td>
+          <td>
+            {{
+              census.countOfUniqueClientsServedDuringReportingPeriod
+                .sudTransfers
+            }}
+          </td>
+          <td>
+            {{
+              census.countOfUniqueClientsServedDuringReportingPeriod
+                .coOccurringRecords
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</ng-container>

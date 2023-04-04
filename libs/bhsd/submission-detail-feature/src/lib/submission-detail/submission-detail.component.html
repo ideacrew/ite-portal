@@ -1,405 +1,194 @@
 <h1>Submission Summary</h1>
 
 <ng-container *ngIf="submission$ | async as submission">
+  <div
+    class="status-label"
+    [ngClass]="{
+      error: submission.status === 'Invalid',
+      accepted: submission.status === 'Valid'
+    }"
+  >
+    {{ submission.status === 'Valid' ? 'Passed' : 'Failed' }}
+  </div>
   <dbh-file-information
     [providerName]="submission.provider_name"
     [fileName]="submission.file_name"
-    [reportingPeriod]="thisReportingPeriod"
+    [reportingPeriod]="submission.coverage_start | date: 'MMMM, yyyy'"
     [submissionDate]="submission.created_at"
   ></dbh-file-information>
-
-  <ng-container *ngIf="breakdownType === 'validation'">
-    <h2>
-      Validation Breakdown
-      <button
-        (click)="breakdownType = 'demographic'"
-        class="button breakdownButton"
-        type="button"
-      >
-        View Demographic Breakdown
-      </button>
-      <button
-        (click)="breakdownType = 'census'"
-        class="button breakdownButton"
-        type="button"
-      >
-        View Census Breakdown
-      </button>
-    </h2>
-    <div class="summary">
-      <dbh-validation-breakdown
-        [totalRecords]="submission.records.length"
-        [pass]="submission.records | recordCount: 'Pass'"
-        [fail]="submission.records | recordCount: 'Fail'"
-      ></dbh-validation-breakdown>
-      <details class="definitions">
-        <summary>Definitions</summary>
-        <p>Pass: Records with (a) warning(s) only or no errors.</p>
-        <p>Fail: Records with at least one fatal or critical error.</p>
-        <p>
-          Key field: A key field is a data field that contains information
-          unique to a record, separating that record from all other records
-          within a dataset or a database.
-        </p>
-        <p>
-          Required field: A required field is a field that is necessary for a
-          provider to submit a valid value.
-        </p>
-        <p>
-          Optional field: Providers are not required to report data for optional
-          fields but are strongly encouraged to collect or prepare to collect in
-          near future.
-        </p>
-        <p>
-          Fatal error: an error associated with a key field. A record with (a)
-          fatal error(s) fails to be processed as a valid record.
-        </p>
-        <p>
-          Critical error: An error associated with a required field. A record
-          with (a) critical error(s) fails to be processed as a valid record.
-        </p>
-        <p>
-          Warning: An error associated with an optional field. A record with (a)
-          warning(s) without any critical or fatal error will be processed as a
-          valid record.
-        </p>
-      </details>
-    </div>
-    <ng-container *ngIf="submissionFailedRecords$ | async as data"
-      ><ng-container *ngIf="data.records.length > 0">
-        <ng-container *ngIf="submissionV2$ | async as submission">
-          <div class="tabs">
-            <h2>Issue Details</h2>
-            <button
-              (click)="viewType = 'dataField'"
-              class="tab"
-              [ngClass]="{ active: viewType === 'dataField' }"
-            >
-              Data Field
-            </button>
-            <button
-              (click)="viewType = 'record'"
-              class="tab"
-              [ngClass]="{ active: viewType === 'record' }"
-            >
-              Record
-            </button>
-
+  <div class="links">
+    <a
+      [routerLink]="['/provider-gateway/submissions/', submission.id, 'census']"
+      class="button"
+      >See Census Breakdown</a
+    >
+    <a
+      [routerLink]="[
+        '/provider-gateway/submissions/',
+        submission.id,
+        'demographics'
+      ]"
+      class="button"
+      >See Demographic Breakdown</a
+    >
+  </div>
+  <h2>Validation Breakdown</h2>
+  <div class="summary">
+    <dbh-validation-breakdown
+      [totalRecords]="submission.records.length"
+      [pass]="submission.records | recordCount: 'Pass'"
+      [fail]="submission.records | recordCount: 'Fail'"
+    ></dbh-validation-breakdown>
+    <details class="definitions">
+      <summary>Definitions</summary>
+      <p>Pass: Records with (a) warning(s) only or no errors.</p>
+      <p>Fail: Records with at least one fatal or critical error.</p>
+      <p>
+        Key field: A key field is a data field that contains information unique
+        to a record, separating that record from all other records within a
+        dataset or a database.
+      </p>
+      <p>
+        Required field: A required field is a field that is necessary for a
+        provider to submit a valid value.
+      </p>
+      <p>
+        Optional field: Providers are not required to report data for optional
+        fields but are strongly encouraged to collect or prepare to collect in
+        near future.
+      </p>
+      <p>
+        Fatal error: an error associated with a key field. A record with (a)
+        fatal error(s) fails to be processed as a valid record.
+      </p>
+      <p>
+        Critical error: An error associated with a required field. A record with
+        (a) critical error(s) fails to be processed as a valid record.
+      </p>
+      <p>
+        Warning: An error associated with an optional field. A record with (a)
+        warning(s) without any critical or fatal error will be processed as a
+        valid record.
+      </p>
+    </details>
+  </div>
+  <ng-container *ngIf="submissionFailedRecords$ | async as data">
+    <ng-container *ngIf="submissionV2$ | async as submission">
+      <div class="tabs">
+        <h2>Issue Details</h2>
+        <ng-container *ngIf="data.records.length > 0">
+          <button
+            (click)="viewType = 'dataField'"
+            class="tab"
+            [ngClass]="{ active: viewType === 'dataField' }"
+          >
+            Data Field
+          </button></ng-container
+        >
+        <button
+          (click)="viewType = 'record'"
+          class="tab"
+          [ngClass]="{
+            active: viewType === 'record' || !(data.records.length > 0)
+          }"
+        >
+          Record
+        </button>
+        <ng-container *ngIf="data.records.length > 0">
+          <button
+            class="download-button"
+            (click)="
+              downloadCsv(
+                data.records,
+                payloadFieldHeaders,
+                'failing_records.csv'
+              )
+            "
+          >
+            &#8613; Export Failed Record Details
+          </button></ng-container
+        >
+        <ng-container *ngIf="viewType === 'dataField'">
+          <ng-container *ngIf="failingDataFields$ | async as data">
+            <ng-container *ngIf="data.length > 0">
+              <button
+                class="download-button"
+                (click)="
+                  downloadCsv(
+                    data,
+                    [
+                      'field_name',
+                      'field_type',
+                      'error_type',
+                      'record_id',
+                      'error_message',
+                      'input'
+                    ],
+                    'issues_by_data_field.csv'
+                  )
+                "
+              >
+                &#8613; Export All Issues by Data Field
+              </button>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="viewType === 'record'">
+          <ng-container *ngIf="submissionIssuesByRecords$ | async as data">
             <button
               class="download-button"
               (click)="
                 downloadCsv(
                   data.records,
-                  payloadFieldHeaders,
-                  'failing_records.csv'
+                  [
+                    'record_id',
+                    'status',
+                    'fatal_error_count',
+                    'critical_error_count',
+                    'warning_count'
+                  ],
+                  'issues_by_record.csv'
                 )
               "
             >
-              &#8613; Export Only Failed Issues
+              &#8613; Export All Issues by Record
             </button>
-            <ng-container *ngIf="viewType === 'dataField'">
-              <ng-container *ngIf="failingDataFields$ | async as data">
-                <ng-container *ngIf="data.length > 0">
-                  <button
-                    class="download-button"
-                    (click)="
-                      downloadCsv(
-                        data,
-                        [
-                          'field_name',
-                          'field_type',
-                          'error_type',
-                          'record_id',
-                          'error_message',
-                          'input'
-                        ],
-                        'issues_by_data_field.csv'
-                      )
-                    "
-                  >
-                    &#8613; Export All Issues by Data Field
-                  </button>
-                </ng-container>
-              </ng-container>
-            </ng-container>
-            <ng-container *ngIf="viewType === 'record'">
-              <ng-container *ngIf="submissionIssuesByRecords$ | async as data">
-                <button
-                  class="download-button"
-                  (click)="
-                    downloadCsv(
-                      data.records,
-                      [
-                        'record_id',
-                        'status',
-                        'fatal_error_count',
-                        'critical_error_count',
-                        'warning_count'
-                      ],
-                      'issues_by_record.csv'
-                    )
-                  "
-                >
-                  &#8613; Export All Issues by Record
-                </button>
-              </ng-container>
-            </ng-container>
-            <div class="tab-content">
-              <ng-container *ngIf="viewType === 'record'; else dataField">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Record ID</th>
-                      <th>Pass/Fail</th>
-                      <th>Fatal Errors</th>
-                      <th>Critical Errors</th>
-                      <th>Warnings</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <dbh-record-list
-                      *ngFor="let record of submission.records | recordSort"
-                      [record]="record"
-                    ></dbh-record-list>
-                  </tbody>
-                </table>
-              </ng-container>
-              <ng-template #dataField>
-                <dbh-issues-by-data-field
-                  [records]="submission.records"
-                ></dbh-issues-by-data-field>
-              </ng-template>
-            </div>
-          </div>
-        </ng-container> </ng-container
-    ></ng-container>
-  </ng-container>
-  <ng-container *ngIf="breakdownType === 'demographic'">
-    <h2>
-      Demographic Breakdown
-      <button
-        (click)="breakdownType = 'validation'"
-        class="button breakdownButton"
-        type="button"
-      >
-        View Validation Breakdown
-      </button>
-      <button
-        (click)="breakdownType = 'census'"
-        class="button breakdownButton"
-        type="button"
-      >
-        View Census Breakdown
-      </button>
-    </h2>
-    <ng-container
-      *ngIf="submissionDemographicBreakdown$ | async as demographics"
-    >
-      <h3>Gender</h3>
-      <ul class="hBarChart">
-        <ng-container *ngFor="let gender of demographics.genders">
-          <li [style.--percent]="gender.percent + '%'">
-            {{ gender.label }}
-            <span>{{ gender.count }}<br />({{ gender.percent }}%)</span>
-          </li>
-        </ng-container>
-      </ul>
-
-      <h3>Age</h3>
-      <ul class="vBarChart">
-        <ng-container *ngFor="let ageRange of demographics.ages">
-          <li>
-            {{ ageRange.count }} ({{ ageRange.percent }}%)
-            <div class="bar" [style.height]="ageRange.percent * 2 + 'px'"></div>
-            <div class="label">{{ ageRange.label }}</div>
-          </li>
-        </ng-container>
-      </ul>
-      <div class="half">
-        <h3>Race</h3>
-        <ul class="hBarChart">
-          <ng-container *ngFor="let race of demographics.races">
-            <li [style.--percent]="race.percent + '%'">
-              {{ race.label }}
-              <span>{{ race.count }}<br />({{ race.percent }}%)</span>
-            </li>
           </ng-container>
-        </ul>
-      </div>
-      <div class="half">
-        <h3>Ethnicity</h3>
-        <ul class="hBarChart">
-          <ng-container *ngFor="let ethnicity of demographics.ethnicities">
-            <li [style.--percent]="ethnicity.percent + '%'">
-              {{ ethnicity.label }}
-              <span>{{ ethnicity.count }}<br />({{ ethnicity.percent }}%)</span>
-            </li>
-          </ng-container>
-        </ul>
-      </div>
-      <h3>Treatment Setting</h3>
-      <ul class="hBarChart wide">
-        <ng-container *ngFor="let setting of demographics.settings">
-          <li [style.--percent]="setting.percent + '%'">
-            {{ setting.label }}
-            <span>{{ setting.count }}<br />({{ setting.percent }}%)</span>
-          </li>
         </ng-container>
-      </ul>
-    </ng-container>
-  </ng-container>
-  <ng-container *ngIf="breakdownType === 'census'">
-    <h2>
-      Census Breakdown
-      <button
-        (click)="breakdownType = 'validation'"
-        class="button breakdownButton"
-        type="button"
-      >
-        View Validation Breakdown
-      </button>
-      <button
-        (click)="breakdownType = 'demographic'"
-        class="button breakdownButton"
-        type="button"
-      >
-        View Demographic Breakdown
-      </button>
-    </h2>
-    <ng-container *ngIf="submissionCensusBreakdown$ | async as census">
-      <table>
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th>Total</th>
-            <th>MH Initial<br />Admissions</th>
-            <th>MH Transfers</th>
-            <th>SUD Initial<br />Admissions</th>
-            <th>SUD Transfers</th>
-            <th>Co-Occurring Records</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Total Episodes</td>
-            <td>{{ census.totalEpisodes.total }}</td>
-            <td>{{ census.totalEpisodes.mhInitialAdmissions }}</td>
-            <td>{{ census.totalEpisodes.mhTransfers }}</td>
-            <td>{{ census.totalEpisodes.sudInitialAdmissions }}</td>
-            <td>{{ census.totalEpisodes.sudTransfers }}</td>
-            <td>{{ census.totalEpisodes.coOccurringRecords }}</td>
-          </tr>
-          <tr>
-            <td>Census At Start Of Reporting Period</td>
-            <td>{{ census.censusAtStartOfReportingPeriod.total }}</td>
-            <td>
-              {{ census.censusAtStartOfReportingPeriod.mhInitialAdmissions }}
-            </td>
-            <td>{{ census.censusAtStartOfReportingPeriod.mhTransfers }}</td>
-            <td>
-              {{ census.censusAtStartOfReportingPeriod.sudInitialAdmissions }}
-            </td>
-            <td>{{ census.censusAtStartOfReportingPeriod.sudTransfers }}</td>
-            <td>
-              {{ census.censusAtStartOfReportingPeriod.coOccurringRecords }}
-            </td>
-          </tr>
-          <tr>
-            <td>Admissions/Transfers During Reporting Period</td>
-            <td>{{ census.admissionsTransfersDuringReportingPeriod.total }}</td>
-            <td>
-              {{
-                census.admissionsTransfersDuringReportingPeriod
-                  .mhInitialAdmissions
-              }}
-            </td>
-            <td>
-              {{ census.admissionsTransfersDuringReportingPeriod.mhTransfers }}
-            </td>
-            <td>
-              {{
-                census.admissionsTransfersDuringReportingPeriod
-                  .sudInitialAdmissions
-              }}
-            </td>
-            <td>
-              {{ census.admissionsTransfersDuringReportingPeriod.sudTransfers }}
-            </td>
-            <td>
-              {{
-                census.admissionsTransfersDuringReportingPeriod
-                  .coOccurringRecords
-              }}
-            </td>
-          </tr>
-          <tr>
-            <td>Discharges During Reporting Period</td>
-            <td>{{ census.dischargesDuringReportingPeriod.total }}</td>
-            <td>
-              {{ census.dischargesDuringReportingPeriod.mhInitialAdmissions }}
-            </td>
-            <td>{{ census.dischargesDuringReportingPeriod.mhTransfers }}</td>
-            <td>
-              {{ census.dischargesDuringReportingPeriod.sudInitialAdmissions }}
-            </td>
-            <td>{{ census.dischargesDuringReportingPeriod.sudTransfers }}</td>
-            <td>
-              {{ census.dischargesDuringReportingPeriod.coOccurringRecords }}
-            </td>
-          </tr>
-          <tr>
-            <td>Census At End Of Reporting Period</td>
-            <td>{{ census.censusAtEndOfReportingPeriod.total }}</td>
-            <td>
-              {{ census.censusAtEndOfReportingPeriod.mhInitialAdmissions }}
-            </td>
-            <td>{{ census.censusAtEndOfReportingPeriod.mhTransfers }}</td>
-            <td>
-              {{ census.censusAtEndOfReportingPeriod.sudInitialAdmissions }}
-            </td>
-            <td>{{ census.censusAtEndOfReportingPeriod.sudTransfers }}</td>
-            <td>
-              {{ census.censusAtEndOfReportingPeriod.coOccurringRecords }}
-            </td>
-          </tr>
-          <tr>
-            <td>Count of Unique Clients Served during Reporting Period</td>
-            <td>
-              {{ census.countOfUniqueClientsServedDuringReportingPeriod.total }}
-            </td>
-            <td>
-              {{
-                census.countOfUniqueClientsServedDuringReportingPeriod
-                  .mhInitialAdmissions
-              }}
-            </td>
-            <td>
-              {{
-                census.countOfUniqueClientsServedDuringReportingPeriod
-                  .mhTransfers
-              }}
-            </td>
-            <td>
-              {{
-                census.countOfUniqueClientsServedDuringReportingPeriod
-                  .sudInitialAdmissions
-              }}
-            </td>
-            <td>
-              {{
-                census.countOfUniqueClientsServedDuringReportingPeriod
-                  .sudTransfers
-              }}
-            </td>
-            <td>
-              {{
-                census.countOfUniqueClientsServedDuringReportingPeriod
-                  .coOccurringRecords
-              }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="tab-content">
+          <ng-container
+            *ngIf="
+              viewType === 'record' || !(data.records.length > 0);
+              else dataField
+            "
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th>Record ID</th>
+                  <th>Pass/Fail</th>
+                  <th>Fatal Errors</th>
+                  <th>Critical Errors</th>
+                  <th>Warnings</th>
+                </tr>
+              </thead>
+              <tbody>
+                <dbh-record-list
+                  *ngFor="let record of submission.records | recordSort"
+                  [record]="record"
+                ></dbh-record-list>
+              </tbody>
+            </table>
+          </ng-container>
+          <ng-template #dataField>
+            <ng-container *ngIf="data.records.length > 0">
+              <dbh-issues-by-data-field
+                [records]="submission.records"
+              ></dbh-issues-by-data-field>
+            </ng-container>
+          </ng-template>
+        </div>
+      </div>
     </ng-container>
   </ng-container>
 </ng-container>

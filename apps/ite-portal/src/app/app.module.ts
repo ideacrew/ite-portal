@@ -138,6 +138,20 @@ import { ClaimSearchComponent } from './claim-search/claim-search.component';
               ),
           },
           {
+            path: 'provider-gateway/submissions/:id/demographics',
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-demographics-feature').then(
+                (m) => m.BhsdSubmissionDemographicsFeatureModule
+              ),
+          },
+          {
+            path: 'provider-gateway/submissions/:id/census',
+            loadChildren: () =>
+              import('@dbh/bhsd/submission-census-feature').then(
+                (m) => m.BhsdSubmissionCensusFeatureModule
+              ),
+          },
+          {
             path: 'provider-gateway/submissions/:id/records/:recordId',
             loadChildren: () =>
               import('@dbh/bhsd/record-detail-feature').then(

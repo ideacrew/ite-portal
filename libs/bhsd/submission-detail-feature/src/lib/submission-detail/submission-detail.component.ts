@@ -3,22 +3,14 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 
 import {
-  convertExtractToCensus,
-  convertExtractToDemographics,
   convertExtractSubmissionToV2,
   convertExtractSubmissionToFailedCsv,
   convertExtractSubmissionToIssuesByRecord,
-  ExtractSubmissionCensusBreakdown,
-  ExtractSubmissionDemographics,
   ExtractSubmissionResponseV2,
   ExtractSubmissionResponseV3,
   BHSDService,
 } from '@dbh/bhsd/data-access';
-import {
-  getReportingPeriod,
-  getReportingPeriodText,
-  getCsvBlob,
-} from '@dbh/bhsd/util';
+import { getCsvBlob } from '@dbh/bhsd/util';
 import { saveAs } from 'file-saver';
 
 @Component({
@@ -28,8 +20,6 @@ import { saveAs } from 'file-saver';
 })
 export class SubmissionDetailComponent {
   viewType: 'record' | 'dataField' = 'dataField';
-
-  breakdownType: 'demographic' | 'validation' | 'census' = 'validation';
 
   payloadFieldHeaders = [
     'address_city',
@@ -117,8 +107,6 @@ export class SubmissionDetailComponent {
     'veteran_status',
   ];
 
-  thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
-
   submission$ = this.route.paramMap.pipe(
     filter((parameters: ParamMap) => parameters.has('id')),
     map((parameters: ParamMap) => parameters.get('id')),
@@ -141,18 +129,6 @@ export class SubmissionDetailComponent {
   submissionIssuesByRecords$: Observable<ExtractSubmissionResponseV3> =
     this.submissionV2$.pipe(
       map((submission) => convertExtractSubmissionToIssuesByRecord(submission))
-    );
-
-  submissionDemographicBreakdown$: Observable<ExtractSubmissionDemographics> =
-    this.submission$.pipe(
-      map((submission) => convertExtractToDemographics(submission))
-    );
-
-  submissionCensusBreakdown$: Observable<ExtractSubmissionCensusBreakdown> =
-    this.submission$.pipe(
-      map((submission) =>
-        convertExtractToCensus(submission, getReportingPeriod(1))
-      )
     );
 
   failingDataFields$ = this.route.paramMap.pipe(

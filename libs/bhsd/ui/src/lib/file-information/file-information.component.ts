@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class FileInformationComponent {
   @Input() providerName!: string;
   @Input() fileName!: string | null;
-  @Input() reportingPeriod!: string;
+  @Input() reportingPeriod!: string | null;
   @Input() submissionDate!: string;
   @Input() submissionId: string | undefined;
 }
