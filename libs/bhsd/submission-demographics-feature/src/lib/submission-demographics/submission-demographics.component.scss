@@ -1,0 +1,107 @@
+.file-info {
+  span:first-child {
+    font-weight: bold;
+    display: inline-block;
+    width: 13rem;
+  }
+}
+
+.hBarChart {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 0.5em 0;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: 50ch;
+  padding-left: 1ch;
+}
+
+.hBarChart.wide {
+  width: 100ch;
+}
+
+.hBarChart li {
+  background: linear-gradient(
+    to right,
+    #cbd4da var(--percent),
+    #ffffff var(--percent)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  grid-column-start: 1;
+  grid-column: span 100;
+  font-weight: bold;
+}
+
+.hBarChart li span {
+  font-weight: normal;
+  width: 3rem;
+}
+
+.vBarChart {
+  display: flex;
+  height: 242px;
+  align-items: stretch;
+  list-style-type: none;
+  width: 102ch;
+  margin: 0;
+  padding: 0.5ch;
+  background: white;
+  margin-left: 1ch;
+}
+
+.vBarChart li {
+  flex: 1 1;
+  margin: 0 1px;
+  background: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.vBarChart li .bar {
+  background: #455561;
+  width: 50%;
+  margin-top: 0.5ch;
+}
+
+.vBarChart li .label {
+  font-weight: bold;
+  margin-top: 0.5ch;
+}
+
+.breakdownButton {
+  display: inline-block;
+  font-size: 0.75em;
+  margin-left: 1ch;
+}
+
+.half {
+  display: inline-block;
+}
+
+.half + .half {
+  margin-left: 2ch;
+}
+
+ul.breadcrumbs {
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  margin-bottom: 3ch;
+}
+
+ul.breadcrumbs li {
+  display: inline;
+}
+
+ul.breadcrumbs li + li:before {
+  padding: 1ch;
+  content: '/';
+}

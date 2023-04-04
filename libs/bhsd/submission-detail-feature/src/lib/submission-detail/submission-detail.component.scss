@@ -1,3 +1,36 @@
+:host {
+  --warning-color: #e5a900;
+  --error-color: #a21e1f;
+  --accepted-color: #027314;
+  --font-color: #323130;
+}
+
+dbh-submission-status-chart {
+  max-width: 70ch;
+}
+
+.status-label {
+  border-radius: 1.5rem;
+  padding: 0.25rem 1rem;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.error {
+  background-color: var(--error-color);
+  color: #fff;
+}
+
+.warning {
+  background-color: var(--warning-color);
+}
+
+.accepted {
+  background-color: var(--accepted-color);
+  color: #fff;
+}
+
 .file-info {
   span:first-child {
     font-weight: bold;
@@ -214,4 +247,11 @@ th {
   background: white;
   padding: 0.5ch;
   border-top: 2px solid #455561;
+}
+
+.links {
+  margin: 2ch 0 4ch 0;
+  .button {
+    margin-right: 2ch;
+  }
 }

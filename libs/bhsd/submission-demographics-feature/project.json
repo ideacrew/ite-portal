@@ -1,0 +1,29 @@
+{
+  "name": "bhsd-submission-demographics-feature",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/bhsd/submission-demographics-feature/src",
+  "prefix": "dbh",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/bhsd/submission-demographics-feature"
+      ],
+      "options": {
+        "jestConfig": "libs/bhsd/submission-demographics-feature/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/bhsd/submission-demographics-feature/**/*.ts",
+          "libs/bhsd/submission-demographics-feature/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
