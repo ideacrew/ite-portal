@@ -4,8 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
-import { ClientSearch, ClaimSearch, Claim, ClientSearchResult } from './models';
-
+import {
+  ClientSearch,
+  ClaimSearch,
+  Claim,
+  ClientSearchResult,
+  Criterion,
+} from './models';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,6 +27,20 @@ export class ClaimsService {
     return this.http.get<ClaimSearch>(
       `${this.config.portalApiUrl}/claims/master_claims?search=${search}`
     );
+  }
+
+  advancedClaimSearch(
+    criteria: Criterion[],
+    offset: number
+  ): Observable<ClaimSearch> {
+    let baseUrl = `${this.config.portalApiUrl}/claims/master_claims/advanced_search?offset=${offset}&`;
+    for (const [index, criterion] of criteria.entries()) {
+      baseUrl += `criteria_selector[${index}]=${criterion.selector ?? ''}&`;
+      baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
+      baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
+      baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
+    }
+    return this.http.get<ClaimSearch>(baseUrl);
   }
 
   getClaim(id: string): Observable<Claim> {

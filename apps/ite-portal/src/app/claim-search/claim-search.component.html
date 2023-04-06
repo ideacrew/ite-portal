@@ -22,6 +22,141 @@
 />
 <button type="submit" class="button" (click)="submitSearch()">Search</button>
 
+<details [open]="criteria.length > 0">
+  <summary class="filter-label">Advanced Search</summary>
+  <p>
+    Show results matching the following criteria. Note, these are AND
+    criteria... need better wording.
+  </p>
+  <div *ngFor="let criterion of criteria; let index = index">
+    <div class="criterion">
+      <div>
+        <label for="identifier">Identifier</label>
+        <select
+          name="identifier"
+          [attr.data-id]="index"
+          [value]="criterion.selector ?? ''"
+          (change)="selectorSet($event)"
+        >
+          <option value="">Selector</option>
+          <option data-valueType="date" value="adjudication_date">
+            Adjudication Date
+          </option>
+          <option
+            data-valueType="date_range"
+            value="first_date_of_service|last_date_of_service"
+          >
+            Service Period
+          </option>
+          <option data-valueType="text" value="billing_medicaid_id">
+            Medicaid ID
+          </option>
+          <option data-valueType="select" value="adjudication_status">
+            Status
+          </option>
+          <option data-valueType="select" value="procedure_code">
+            Procedure
+          </option>
+          <option data-valueType="select" value="billing_provider_type_code">
+            Provider Type
+          </option>
+          <option data-valueType="text" value="billing_provider">
+            Provider Name
+          </option>
+        </select>
+      </div>
+      <div>
+        <label for="relative">Relative</label>
+        <select
+          name="relative"
+          id="relative"
+          [attr.data-id]="index"
+          [disabled]="!criterion.valueType"
+          (change)="relativeSet($event)"
+          [value]="criterion.relative ?? ''"
+        >
+          <option value="">Selector</option>
+          <ng-container
+            *ngIf="
+              criterion.valueType === 'date' ||
+                criterion.valueType === 'date_range';
+              else textSelect
+            "
+          >
+            <option value="<">Is Before</option>
+            <option value=">">Is After</option>
+            <option value="><" *ngIf="criterion.valueType === 'date_range'">
+              Contains
+            </option>
+          </ng-container>
+          <ng-template #textSelect>
+            <option value="=">Is</option>
+            <option value="!=" *ngIf="criterion.valueType === 'select'">
+              Is Not
+            </option>
+            <option value="LIKE" *ngIf="criterion.valueType === 'text'">
+              Contains
+            </option>
+            <option value="NOT LIKE" *ngIf="criterion.valueType === 'text'">
+              Does Not Contain
+            </option>
+          </ng-template>
+        </select>
+      </div>
+      <div>
+        <label for="value">Relative</label>
+        <ng-container *ngIf="criterion.valueType === 'select'; else nonSelect">
+          <select
+            name="value"
+            id="value"
+            [attr.data-id]="index"
+            [disabled]="!criterion.relative"
+            (change)="valueSet($event)"
+            [value]="criterion.value ?? ''"
+          >
+            <option value="">Select Value</option>
+            <ng-container *ngFor="let option of criterion.options">
+              <option [value]="option.value">{{ option.display }}</option>
+            </ng-container>
+          </select>
+        </ng-container>
+        <ng-template #nonSelect>
+          <input
+            [type]="
+              criterion.valueType === 'date' ||
+              criterion.valueType === 'date_range'
+                ? 'date'
+                : 'text'
+            "
+            [attr.data-id]="index"
+            [disabled]="!criterion.relative"
+            id="value"
+            name="value"
+            [value]="criterion.value ?? ''"
+            (change)="valueSet($event)"
+          />
+        </ng-template>
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="button-secondary"
+          (click)="removeCondition(index)"
+        >
+          Remove Condition
+        </button>
+      </div>
+    </div>
+  </div>
+  <br />
+  <button type="submit" class="button-secondary" (click)="addCondition()">
+    Add Condition
+  </button>
+  <button type="submit" class="button" (click)="submitAdvancedSearch()">
+    Advanced Search
+  </button>
+</details>
+
 <ng-container *ngIf="searchResults$ | async as results">
   <hr />
   <h2>Search Results</h2>
@@ -68,5 +203,18 @@
         </tr>
       </tbody>
     </table>
+    <div class="pagination">
+      Page
+      <ng-container *ngFor="let pageNum of getPages(results.claim_count, page)">
+        <a
+          *ngIf="pageNum !== '...'"
+          [ngClass]="{ active: page === pageNum.toString() }"
+          [routerLink]=""
+          (click)="updatePage(pageNum.toString())"
+          >{{ pageNum }}
+        </a>
+        <div *ngIf="pageNum === '...'">...</div>
+      </ng-container>
+    </div>
   </ng-template>
 </ng-container>

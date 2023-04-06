@@ -50,6 +50,9 @@
         "libs/claims/claim-detail-feature/src/index.ts"
       ],
       "@dbh/claims/data-access": ["libs/claims/data-access/src/index.ts"],
+      "@dbh/claims/data-access/models": [
+        "libs/claims/data-access/src/lib/models/index.ts"
+      ],
       "@dbh/clients/claim-history-feature": [
         "libs/clients/claim-history-feature/src/index.ts"
       ],
