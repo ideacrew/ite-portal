@@ -10,6 +10,7 @@ import {
   Claim,
   ClientSearchResult,
   Criterion,
+  ValueOption,
 } from './models';
 @Injectable({
   providedIn: 'root',
@@ -23,9 +24,9 @@ export class ClaimsService {
     );
   }
 
-  claimSearch(search: string): Observable<ClaimSearch> {
+  claimSearch(search: string, offset: number): Observable<ClaimSearch> {
     return this.http.get<ClaimSearch>(
-      `${this.config.portalApiUrl}/claims/master_claims?search=${search}`
+      `${this.config.portalApiUrl}/claims/master_claims?search=${search}&offset=${offset}`
     );
   }
 
@@ -39,8 +40,21 @@ export class ClaimsService {
       baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
       baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
       baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
+      console.log(baseUrl);
     }
     return this.http.get<ClaimSearch>(baseUrl);
+  }
+
+  getProviderTypes(): Observable<ValueOption[]> {
+    return this.http.get<ValueOption[]>(
+      `${this.config.portalApiUrl}/claims/master_claims/provider_types`
+    );
+  }
+
+  getProcedureCodes(): Observable<ValueOption[]> {
+    return this.http.get<ValueOption[]>(
+      `${this.config.portalApiUrl}/claims/master_claims/procedure_codes`
+    );
   }
 
   getClaim(id: string): Observable<Claim> {

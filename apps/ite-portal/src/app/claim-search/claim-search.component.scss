@@ -47,9 +47,16 @@ details {
 .criterion {
   display: flex;
   gap: 1ch;
-  margin-bottom: 1ch;
-  div {
-    margin-bottom: 2ch;
+  margin: 1ch 0;
+  > div {
+    margin: 1ch 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  button {
+    color: #a21e1f;
+    border-color: #a21e1f;
   }
 }
 

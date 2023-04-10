@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ClaimSearch, ClaimsService } from '@dbh/claims/data-access';
 import { Criterion } from '@dbh/claims/data-access/models';
+
 @Component({
   templateUrl: './claim-search.component.html',
   styleUrls: ['./claim-search.component.scss'],
@@ -23,8 +24,10 @@ export class ClaimSearchComponent {
       this.searchTerm === ''
         ? undefined
         : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          this.claimsService.claimSearch(this.searchTerm);
+          this.claimsService.claimSearch(this.searchTerm, this.offset);
   });
+  procedureCodes$ = this.claimsService.getProcedureCodes();
+  providerTypes$ = this.claimsService.getProviderTypes();
 
   setSearchTerm(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -77,11 +80,26 @@ export class ClaimSearchComponent {
       const criterion = this.criteria[Number(index)];
       if (criterion) {
         criterion.relative = value;
-        if (criterion.selector === 'adjudication_status') {
-          criterion.options = [
-            { value: 'paid', display: 'Paid' },
-            { value: 'denied', display: 'Denied' },
-          ];
+        switch (criterion.selector) {
+          case 'adjudication_status': {
+            criterion.options = [
+              { value: 'paid', display: 'Paid' },
+              { value: 'denied', display: 'Denied' },
+            ];
+
+            break;
+          }
+          case 'billing_provider_type_code': {
+            criterion.asyncOptions = this.providerTypes$;
+
+            break;
+          }
+          case 'procedure_code': {
+            criterion.asyncOptions = this.procedureCodes$;
+
+            break;
+          }
+          // No default
         }
       }
     }
