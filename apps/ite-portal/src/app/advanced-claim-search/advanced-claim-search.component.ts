@@ -46,6 +46,8 @@ export class AdvancedClaimSearchComponent {
         criterion.selector = value;
         criterion.value = undefined;
         criterion.relative = undefined;
+        criterion.options = undefined;
+        criterion.asyncOptions = undefined;
       }
     }
   }
