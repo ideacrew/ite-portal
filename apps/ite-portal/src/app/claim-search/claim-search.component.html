@@ -21,7 +21,13 @@
   (keyup.enter)="submitSearch()"
 />
 <button type="submit" class="button" (click)="submitSearch()">Search</button>
-
+<p>
+  <a
+    routerLink="/search-and-query/claim-search/advanced-search"
+    routerLinkActive="active"
+    >Advanced Search</a
+  >
+</p>
 <ng-container *ngIf="searchResults$ | async as results">
   <hr />
   <h2>Search Results</h2>
@@ -68,5 +74,18 @@
         </tr>
       </tbody>
     </table>
+    <div class="pagination">
+      Page
+      <ng-container *ngFor="let pageNum of getPages(results.claim_count, page)">
+        <a
+          *ngIf="pageNum !== '...'"
+          [ngClass]="{ active: page === pageNum.toString() }"
+          [routerLink]=""
+          (click)="updatePage(pageNum.toString())"
+          >{{ pageNum }}
+        </a>
+        <div *ngIf="pageNum === '...'">...</div>
+      </ng-container>
+    </div>
   </ng-template>
 </ng-container>

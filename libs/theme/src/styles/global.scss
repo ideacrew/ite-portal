@@ -30,3 +30,23 @@ a.button:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
+ul.breadcrumbs {
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  margin-bottom: 3ch;
+}
+
+ul.breadcrumbs li {
+  display: inline;
+}
+
+ul.breadcrumbs li:last-of-type {
+  font-weight: bold;
+}
+
+ul.breadcrumbs li + li:before {
+  padding: 1ch;
+  content: '/';
+}

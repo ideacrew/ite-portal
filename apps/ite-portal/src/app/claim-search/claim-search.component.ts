@@ -11,6 +11,9 @@ import { ClaimSearch, ClaimsService } from '@dbh/claims/data-access';
 export class ClaimSearchComponent {
   searchTerm = '';
   searchResults$: Observable<ClaimSearch> | undefined = undefined;
+  page = '1';
+  offset = 0;
+  perPage = 20;
   // eslint-disable-next-line unicorn/consistent-function-scoping
   parameters$ = this.route.queryParamMap.subscribe((parameters) => {
     this.searchTerm = parameters.get('search') || '';
@@ -19,7 +22,7 @@ export class ClaimSearchComponent {
       this.searchTerm === ''
         ? undefined
         : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          this.claimsService.claimSearch(this.searchTerm);
+          this.claimsService.claimSearch(this.searchTerm, this.offset);
   });
 
   setSearchTerm(event: Event) {
@@ -32,6 +35,41 @@ export class ClaimSearchComponent {
       relativeTo: this.route,
       queryParams: { search: this.searchTerm },
     });
+  }
+
+  getPages(count: number, active: string): Array<number | '...'> {
+    const pages = Math.ceil(count / this.perPage);
+    // eslint-disable-next-line unicorn/new-for-builtins
+    const pageArray: Array<number | '...'> = Array(pages)
+      .fill(0)
+      .map((x, index) => index + 1);
+    const lastItem = pageArray[pageArray.length - 1];
+    const firstItem = pageArray[0];
+    const activePage = Number(active);
+    if (pageArray.length <= 5) {
+      return pageArray;
+    } else if (activePage < 5) {
+      return [...pageArray.slice(0, 5), '...', lastItem];
+    } else if (activePage > pageArray.length - 4) {
+      return [firstItem, '...', ...pageArray.slice(-5)];
+    } else {
+      return [
+        firstItem,
+        '...',
+        pageArray[activePage - 2],
+        pageArray[activePage - 1],
+        pageArray[activePage],
+        '...',
+        lastItem,
+      ];
+    }
+    return pageArray;
+  }
+
+  updatePage(pageNumber: string) {
+    this.page = pageNumber;
+    this.offset = (Number(pageNumber) - 1) * this.perPage;
+    this.submitSearch();
   }
 
   constructor(
