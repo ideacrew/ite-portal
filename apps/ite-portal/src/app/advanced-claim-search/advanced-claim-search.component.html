@@ -151,7 +151,7 @@
   type="submit"
   class="button search-button"
   (click)="submitAdvancedSearch()"
-  *ngIf="criteria.length > 0"
+  [disabled]="!(validCriteria.length > 0) || validCriteria !== criteria"
 >
   Search
 </button>

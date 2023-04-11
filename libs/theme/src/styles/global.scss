@@ -22,8 +22,9 @@
   font-weight: bold;
 }
 
-.button[disabled] {
-  background-color: hsl(210, 5%, 50%);
+button[disabled] {
+  background: #e1dfdd;
+  color: #858585;
 }
 
 a.button:hover {

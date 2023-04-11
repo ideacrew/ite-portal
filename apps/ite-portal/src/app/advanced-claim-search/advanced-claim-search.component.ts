@@ -12,6 +12,14 @@ import { Criterion } from '@dbh/claims/data-access/models';
 export class AdvancedClaimSearchComponent {
   searchResults$: Observable<ClaimSearch> | undefined = undefined;
   criteria: Criterion[] = [{}];
+  validCriteria: Criterion[] = this.criteria.filter(
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    (criterion) =>
+      criterion.selector &&
+      criterion.valueType &&
+      criterion.relative &&
+      criterion.value
+  );
   page = '1';
   offset = 0;
   perPage = 20;
@@ -21,7 +29,7 @@ export class AdvancedClaimSearchComponent {
 
   submitAdvancedSearch() {
     this.searchResults$ = this.claimsService.advancedClaimSearch(
-      this.criteria,
+      this.validCriteria,
       this.offset
     );
   }
