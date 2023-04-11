@@ -135,6 +135,7 @@ export class SubmitExtractComponent {
       this.records.setValue(null);
       const file: File | null = files.item(0);
       if (file) {
+        this.extractForm.controls['file_type'].setValue(file.type);
         const reader = new FileReader();
         const fileName = file.name;
         reader.readAsText(file);
