@@ -20,6 +20,7 @@ export class AdvancedClaimSearchComponent {
       criterion.relative &&
       criterion.value
   );
+  searchEnabled = false;
   page = '1';
   offset = 0;
   perPage = 20;
@@ -29,7 +30,14 @@ export class AdvancedClaimSearchComponent {
 
   submitAdvancedSearch() {
     this.searchResults$ = this.claimsService.advancedClaimSearch(
-      this.validCriteria,
+      this.criteria.filter(
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        (criterion) =>
+          criterion.selector &&
+          criterion.valueType &&
+          criterion.relative &&
+          criterion.value
+      ),
       this.offset
     );
   }
@@ -101,7 +109,20 @@ export class AdvancedClaimSearchComponent {
       const criterion = this.criteria[Number(index)];
       if (criterion) {
         criterion.value = value;
-        console.log(criterion);
+        this.validCriteria = this.criteria.filter(
+          // eslint-disable-next-line unicorn/consistent-function-scoping
+          (condition) =>
+            condition.selector &&
+            condition.valueType &&
+            condition.relative &&
+            condition.value
+        );
+        if (
+          this.validCriteria.length > 0 &&
+          this.validCriteria === this.criteria
+        ) {
+          this.searchEnabled = true;
+        }
       }
     }
   }
