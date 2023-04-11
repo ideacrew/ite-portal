@@ -20,7 +20,7 @@ export class AdvancedClaimSearchComponent {
       criterion.relative &&
       criterion.value
   );
-  searchEnabled = false;
+  searchDisabled = true;
   page = '1';
   offset = 0;
   perPage = 20;
@@ -29,25 +29,21 @@ export class AdvancedClaimSearchComponent {
   providerTypes$ = this.claimsService.getProviderTypes();
 
   submitAdvancedSearch() {
+    this.checkValid();
     this.searchResults$ = this.claimsService.advancedClaimSearch(
-      this.criteria.filter(
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        (criterion) =>
-          criterion.selector &&
-          criterion.valueType &&
-          criterion.relative &&
-          criterion.value
-      ),
+      this.validCriteria,
       this.offset
     );
   }
 
   removeCondition(index: number) {
     this.criteria.splice(index, 1);
+    this.checkValid();
   }
 
   addCondition() {
     this.criteria.push({});
+    this.checkValid();
   }
 
   selectorSet(event: Event) {
@@ -65,6 +61,7 @@ export class AdvancedClaimSearchComponent {
         criterion.options = undefined;
         criterion.asyncOptions = undefined;
       }
+      this.checkValid();
     }
   }
 
@@ -97,6 +94,7 @@ export class AdvancedClaimSearchComponent {
           }
           // No default
         }
+        this.checkValid();
       }
     }
   }
@@ -109,22 +107,25 @@ export class AdvancedClaimSearchComponent {
       const criterion = this.criteria[Number(index)];
       if (criterion) {
         criterion.value = value;
-        this.validCriteria = this.criteria.filter(
-          // eslint-disable-next-line unicorn/consistent-function-scoping
-          (condition) =>
-            condition.selector &&
-            condition.valueType &&
-            condition.relative &&
-            condition.value
-        );
-        if (
-          this.validCriteria.length > 0 &&
-          this.validCriteria === this.criteria
-        ) {
-          this.searchEnabled = true;
-        }
+        this.checkValid();
       }
     }
+  }
+
+  checkValid() {
+    this.validCriteria = this.criteria.filter(
+      // eslint-disable-next-line unicorn/consistent-function-scoping
+      (condition) =>
+        condition.selector &&
+        condition.valueType &&
+        condition.relative &&
+        condition.value
+    );
+    this.searchDisabled =
+      this.validCriteria.length > 0 &&
+      this.validCriteria.length === this.criteria.length
+        ? false
+        : true;
   }
 
   getPages(count: number, active: string): Array<number | '...'> {
