@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ClaimSearch, ClaimsService } from '@dbh/claims/data-access';
-import { Criterion } from '@dbh/claims/data-access/models';
 
 @Component({
   templateUrl: './claim-search.component.html',
@@ -12,7 +11,6 @@ import { Criterion } from '@dbh/claims/data-access/models';
 export class ClaimSearchComponent {
   searchTerm = '';
   searchResults$: Observable<ClaimSearch> | undefined = undefined;
-  criteria: Criterion[] = [];
   page = '1';
   offset = 0;
   perPage = 20;
@@ -26,8 +24,6 @@ export class ClaimSearchComponent {
         : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
           this.claimsService.claimSearch(this.searchTerm, this.offset);
   });
-  procedureCodes$ = this.claimsService.getProcedureCodes();
-  providerTypes$ = this.claimsService.getProviderTypes();
 
   setSearchTerm(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -39,83 +35,6 @@ export class ClaimSearchComponent {
       relativeTo: this.route,
       queryParams: { search: this.searchTerm },
     });
-  }
-
-  submitAdvancedSearch() {
-    this.searchResults$ = this.claimsService.advancedClaimSearch(
-      this.criteria,
-      this.offset
-    );
-  }
-
-  removeCondition(index: number) {
-    this.criteria.splice(index, 1);
-  }
-
-  addCondition() {
-    this.criteria.push({});
-  }
-
-  selectorSet(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const value = target.value ?? '';
-    const valueType = target.selectedOptions[0].dataset['valuetype'] ?? '';
-    const index = target.dataset['id'];
-    if (index) {
-      const criterion = this.criteria[Number(index)];
-      if (criterion) {
-        criterion.valueType = valueType;
-        criterion.selector = value;
-        criterion.value = undefined;
-        criterion.relative = undefined;
-      }
-    }
-  }
-
-  relativeSet(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const value = target.value ?? '';
-    const index = target.dataset['id'];
-    if (index) {
-      const criterion = this.criteria[Number(index)];
-      if (criterion) {
-        criterion.relative = value;
-        switch (criterion.selector) {
-          case 'adjudication_status': {
-            criterion.options = [
-              { value: 'paid', display: 'Paid' },
-              { value: 'denied', display: 'Denied' },
-            ];
-
-            break;
-          }
-          case 'billing_provider_type_code': {
-            criterion.asyncOptions = this.providerTypes$;
-
-            break;
-          }
-          case 'procedure_code': {
-            criterion.asyncOptions = this.procedureCodes$;
-
-            break;
-          }
-          // No default
-        }
-      }
-    }
-  }
-
-  valueSet(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const value = target.value ?? '';
-    const index = target.dataset['id'];
-    if (index) {
-      const criterion = this.criteria[Number(index)];
-      if (criterion) {
-        criterion.value = value;
-        console.log(criterion);
-      }
-    }
   }
 
   getPages(count: number, active: string): Array<number | '...'> {
@@ -150,11 +69,7 @@ export class ClaimSearchComponent {
   updatePage(pageNumber: string) {
     this.page = pageNumber;
     this.offset = (Number(pageNumber) - 1) * this.perPage;
-    if (this.criteria.length > 0) {
-      this.submitAdvancedSearch();
-    } else if (this.searchTerm.length > 0) {
-      this.submitSearch();
-    }
+    this.submitSearch();
   }
 
   constructor(

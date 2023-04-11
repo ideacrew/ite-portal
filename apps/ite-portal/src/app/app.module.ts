@@ -29,6 +29,7 @@ import { AdjudicatedClaimsComponent } from './adjudicated-claims/adjudicated-cla
 import { SearchAndQueryComponent } from './search-and-query/search-and-query.component';
 import { ClientSearchComponent } from './client-search/client-search.component';
 import { ClaimSearchComponent } from './claim-search/claim-search.component';
+import { AdvancedClaimSearchComponent } from './advanced-claim-search/advanced-claim-search.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ClaimSearchComponent } from './claim-search/claim-search.component';
     SearchAndQueryComponent,
     ClientSearchComponent,
     ClaimSearchComponent,
+    AdvancedClaimSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,10 @@ import { ClaimSearchComponent } from './claim-search/claim-search.component';
             path: 'search-and-query/claim-search',
             component: ClaimSearchComponent,
           },
-
+          {
+            path: 'search-and-query/claim-search/advanced-search',
+            component: AdvancedClaimSearchComponent,
+          },
           {
             path: 'executive-dashboards',
             component: FakePageComponent,
