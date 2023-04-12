@@ -2,14 +2,103 @@
 @import './partials/fonts';
 @import './partials/typography';
 @import './partials/table';
+@import './partials/inputs';
 
-.button {
-  background-color: hsl(206, 17%, 33%);
+// colors. to access in a file use as such: var(--primary)
+:root {
+  // primary
+  --primary: #183684;
+  --primary-050: #8b9ac1;
+  --primary-060: #7486b5;
+  --primary-070: #5d72a9;
+  --primary-080: #465e9d;
+  --primary-090: #2f4a90;
+  --primary-110: #163177;
+  --primary-120: #132b6a;
+  --primary-130: #11265d;
+  --primary-140: #0e204f;
+  --primary-150: #0c1b42;
+  // secondary
+  --secondary: #007ac8;
+  --secondary-050: #7fbce3;
+  --secondary-060: #66afde;
+  --secondary-070: #4ca2d8;
+  --secondary-080: #3395d3;
+  --secondary-090: #1987cd;
+  --secondary-110: #006eb4;
+  --secondary-120: #0062a0;
+  --secondary-130: #00568c;
+  --secondary-140: #004978;
+  --secondary-150: #003d64;
+  // tertiary
+  --tertiary: #96976f;
+  --tertiary-050: #cacbb7;
+  --tertiary-060: #c0c1a9;
+  --tertiary-070: #b5b69a;
+  --tertiary-080: #abac8c;
+  --tertiary-090: #a0a17d;
+  --tertiary-110: #878864;
+  --tertiary-120: #787959;
+  --tertiary-130: #696a4e;
+  --tertiary-140: #5a5b43;
+  --tertiary-150: #4b4c38;
+  //greys REDO!!!
+  --white: #96976f;
+  --grey-010: #e0e0e0;
+  --grey-020: #c1c1c1;
+  --grey-030: #a1a1a1;
+  --grey-040: #818181;
+  --grey-050: #626262;
+  --grey-060: #b5b5b5;
+  --grey-070: #2e2e2e;
+  --grey-080: #292929;
+  --grey-090: #222222;
+  --grey-100: #797979;
+  --grey-110: ##6d6d6d;
+  --grey-120: #cacbb7;
+  --grey-130: #cacbb7;
+  --grey-140: #cacbb7;
+  --grey-150: #cacbb7;
+  --grey-160: #cacbb7;
+  --grey-170: #cacbb7;
+  --grey-180: #cacbb7;
+  --grey-190: #cacbb7;
+}
+
+.button,
+button {
+  background-color: var(--primary);
   border-radius: 4px;
   border: 0;
   color: #fff;
   padding: 0.5rem 0.75rem;
   text-decoration: none;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.button:hover,
+button:hover {
+  background-color: var(--primary-120);
+}
+
+.button:active,
+button:active {
+  background-color: var(--primary-140);
+}
+
+.button:focus,
+button:focus {
+  background-color: var(--primary-120);
+  outline: 4px solid var(--grey-190);
+}
+
+button[disabled],
+.button-disabled,
+.button[disabled] {
+  background: #e1dfdd;
+  color: #858585;
 }
 
 .button-secondary {
@@ -19,12 +108,6 @@
   border-radius: 5px;
   padding: 0.75ch;
   margin: 0;
-  font-weight: bold;
-}
-
-button[disabled] {
-  background: #e1dfdd;
-  color: #858585;
 }
 
 a.button:hover {

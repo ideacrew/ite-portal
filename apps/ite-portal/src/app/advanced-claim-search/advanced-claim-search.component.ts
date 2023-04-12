@@ -34,6 +34,8 @@ export class AdvancedClaimSearchComponent {
       this.validCriteria,
       this.offset
     );
+    this.page = '1';
+    this.offset = 20;
   }
 
   removeCondition(index: number) {

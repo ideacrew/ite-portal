@@ -14,6 +14,9 @@ table {
 td {
   border: none;
   border-bottom: 0.5px solid #605e5c;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
 }
 
 td.wide {
@@ -21,9 +24,19 @@ td.wide {
   max-width: 250px;
 }
 
-th {
+thead th {
   border: none;
   border-bottom: 1px solid gray;
   text-align: left;
   vertical-align: top;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+tbody th,
+td:first-of-type {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
 }
