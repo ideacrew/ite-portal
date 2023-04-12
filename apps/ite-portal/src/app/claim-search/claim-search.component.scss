@@ -33,8 +33,8 @@ details {
     align-items: flex-end;
   }
   button {
-    color: #a21e1f;
-    border-color: #a21e1f;
+    color: var(--error);
+    border-color: var(--error);
   }
 }
 
@@ -60,13 +60,13 @@ details {
   width: 32px;
   height: 32px;
 
-  background: #e1dfdd;
+  background: var(--grey-020);
   border-radius: 5px;
   text-decoration: none;
-  color: #323130;
+  color: var(--grey-140);
 }
 
 .pagination .active {
-  background: #605e5c;
-  color: white;
+  background: var(--grey-140);
+  color: var(--white);
 }

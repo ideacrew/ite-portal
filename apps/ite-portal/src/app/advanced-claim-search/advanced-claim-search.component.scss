@@ -12,15 +12,22 @@ hr {
     no-repeat center right;
 }
 
+input,
+select,
+option {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 180px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+  padding: 8px;
+}
+
 .criterion {
   display: flex;
-  gap: 1ch;
-  margin: 1ch 0;
-  input,
-  select {
-    width: 20ch;
-    padding: 0.75ch;
-  }
+  gap: 10px;
+  margin: 10px 0;
   > div {
     margin: 1ch 0;
     display: flex;
@@ -28,34 +35,28 @@ hr {
     align-items: flex-end;
   }
   button {
-    color: #a21e1f;
-    border-color: #a21e1f;
-    padding: 0.75ch;
+    color: var(--error);
+    border-color: var(--error);
+    padding: 8px;
   }
 }
 .add-button {
-  border: 1px dashed #605e5c;
+  border: 1px dashed var(--grey-140);
   border-radius: 6px;
   font-weight: 600;
-  width: 60ch;
-  padding: 0.75ch;
-  color: #323130;
+  width: 580px;
+  padding: 8px;
+  color: var(--grey-140);
   margin-bottom: 3ch;
   background: none;
   span {
     display: inline-block;
     width: 20px;
     height: 20px;
-    // padding: 0.5ch;
-    color: white;
-    background: #323130;
+    color: var(--white);
+    background: var(--grey-140);
     border-radius: 50%;
   }
-}
-
-.search-button {
-  padding: 1.5ch 3ch;
-  font-weight: bold;
 }
 
 .pagination {
@@ -80,13 +81,13 @@ hr {
   width: 32px;
   height: 32px;
 
-  background: #e1dfdd;
+  background: var(--grey-020);
   border-radius: 5px;
   text-decoration: none;
-  color: #323130;
+  color: var(--grey-140);
 }
 
 .pagination .active {
-  background: #605e5c;
-  color: white;
+  background: var(--grey-140);
+  color: var(--white);
 }

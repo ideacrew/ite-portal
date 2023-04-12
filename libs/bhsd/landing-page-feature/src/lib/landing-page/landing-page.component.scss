@@ -1,8 +1,8 @@
 :host {
-  --warning-color: #e5a900;
-  --error-color: #a21e1f;
-  --accepted-color: #027314;
-  --font-color: #323130;
+  --warning-color: var(--warning);
+  --error-color: var(--error);
+  --accepted-color: var(--success);
+  --font-color: var(--text-primary);
 }
 
 dbh-submission-status-chart {
@@ -19,7 +19,7 @@ dbh-submission-status-chart {
 
 .error {
   background-color: var(--error-color);
-  color: #fff;
+  color: var(--white);
 }
 
 .warning {
@@ -28,7 +28,7 @@ dbh-submission-status-chart {
 
 .accepted {
   background-color: var(--accepted-color);
-  color: #fff;
+  color: var(--white);
 }
 
 .action-links {

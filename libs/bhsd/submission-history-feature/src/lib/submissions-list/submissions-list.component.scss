@@ -33,25 +33,25 @@
   width: 32px;
   height: 32px;
 
-  background: #e1dfdd;
+  background: var(--grey-020);
   border-radius: 5px;
   text-decoration: none;
-  color: #323130;
+  color: var(--grey-140);
 }
 
 .pagination .active {
-  background: #605e5c;
-  color: white;
+  background: var(--grey-140);
+  color: var(--white);
 }
 
 select,
 input {
-  color: #605e5c;
+  color: var(--grey-110);
 }
 
 select.selected,
 input.selected {
-  color: black;
+  color: var(--text-primary);
 }
 
 .filters {
@@ -82,7 +82,7 @@ input.selected {
 
 .filter + .filter {
   padding-left: 10px;
-  border-left: 1px solid #605e5c;
+  border-left: 1px solid var(--header-divider);
 }
 
 details {

@@ -1,8 +1,8 @@
 :host {
-  --warning-color: #e5a900;
-  --error-color: #a21e1f;
-  --accepted-color: #027314;
-  --font-color: #323130;
+  --warning-color: var(--warning);
+  --error-color: var(--error);
+  --accepted-color: var(--success);
+  --font-color: var(--text-primary);
 }
 
 dbh-submission-status-chart {
@@ -19,7 +19,7 @@ dbh-submission-status-chart {
 
 .error {
   background-color: var(--error-color);
-  color: #fff;
+  color: var(--white);
 }
 
 .warning {
@@ -28,7 +28,7 @@ dbh-submission-status-chart {
 
 .accepted {
   background-color: var(--accepted-color);
-  color: #fff;
+  color: var(--white);
 }
 
 .file-info {
@@ -57,8 +57,8 @@ dbh-submission-status-chart {
 }
 
 :host {
-  --fail-color: #612c00;
-  --pass-color: #e1dfdd;
+  --fail-color: var(--warning-120);
+  --pass-color: var(--gray-020);
 }
 
 .summary-with-chart {
@@ -104,88 +104,10 @@ dbh-submission-status-chart {
   gap: 1rem;
 }
 
-.hBarChart {
-  display: grid;
-  grid-template-columns: auto;
-  gap: 0.5em 0;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  width: 50ch;
-  padding-left: 1ch;
-}
-
-.hBarChart.wide {
-  width: 100ch;
-}
-
-.hBarChart li {
-  background: linear-gradient(
-    to right,
-    #cbd4da var(--percent),
-    #ffffff var(--percent)
-  );
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.25rem 0.5rem;
-  grid-column-start: 1;
-  grid-column: span 100;
-  font-weight: bold;
-}
-
-.hBarChart li span {
-  font-weight: normal;
-  width: 3rem;
-}
-
-.vBarChart {
-  display: flex;
-  height: 242px;
-  align-items: stretch;
-  list-style-type: none;
-  width: 102ch;
-  margin: 0;
-  padding: 0.5ch;
-  background: white;
-  margin-left: 1ch;
-}
-
-.vBarChart li {
-  flex: 1 1;
-  margin: 0 1px;
-  background: white;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.vBarChart li .bar {
-  background: #455561;
-  width: 50%;
-  margin-top: 0.5ch;
-}
-
-.vBarChart li .label {
-  font-weight: bold;
-  margin-top: 0.5ch;
-}
-
 .breakdownButton {
   display: inline-block;
   font-size: 0.75em;
   margin-left: 1ch;
-}
-
-.half {
-  display: inline-block;
-}
-
-.half + .half {
-  margin-left: 2ch;
 }
 
 .tabs {
@@ -198,32 +120,27 @@ dbh-submission-status-chart {
   padding: 1.25ch 1ch 1ch;
   font-size: 1rem;
   font-weight: 600;
-  color: gray;
-  background: lightgray;
+  color: var(--grey-140);
+  background: var(--grey-020);
   border-radius: 5px 5px 0 0;
 }
 
 .tab.active {
-  background: #455561;
-  color: white;
+  background: var(--primary);
+  color: var(--white);
 }
 
 .download-button {
-  border: 2px solid #455561;
-  color: #455561;
-  background: none;
-  border-radius: 5px;
-  padding: 0.75ch;
   margin: 0;
   float: right;
-  font-weight: bold;
+  font-weight: 600;
   margin-left: 0.5ch;
 }
 
 .tab-content {
-  background: white;
+  background: var(--white);
   padding: 0.5ch;
-  border-top: 2px solid #455561;
+  border-top: 2px solid var(--primary);
 }
 
 .links {

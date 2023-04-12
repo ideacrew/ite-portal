@@ -98,6 +98,7 @@
             [disabled]="!criterion.relative"
             (change)="valueSet($event)"
             [value]="criterion.value ?? ''"
+            style="width: 180px"
           >
             <option value="" disabled="true">Select Value</option>
             <ng-container *ngIf="criterion.options; else asyncOptions">
@@ -129,6 +130,7 @@
             [value]="criterion.value ?? ''"
             (change)="valueSet($event)"
             (keyup)="valueSet($event)"
+            style="width: 180px"
           />
         </ng-template>
       </div>
@@ -136,7 +138,7 @@
     <div>
       <button
         type="submit"
-        class="button-secondary"
+        class="button-outline"
         (click)="removeCondition(index)"
       >
         Remove Condition

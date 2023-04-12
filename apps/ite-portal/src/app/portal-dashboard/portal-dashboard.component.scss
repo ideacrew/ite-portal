@@ -5,8 +5,8 @@
 }
 
 .widget {
-  border: 1px solid #c8c6c4;
-  background-color: #fff;
+  border: 1px solid var(--grey-050);
+  background-color: var(--white);
   border-radius: 5px;
   display: grid;
   grid-template-rows: 2.5rem 16.75rem;
@@ -16,8 +16,7 @@
 .widget-header {
   display: flex;
   align-items: center;
-  color: #323130;
-  background-color: #edebe9;
+  background-color: var(--grey-010);
   padding: 0.5rem;
 
   h2 {
@@ -41,33 +40,8 @@
   }
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
-  position: relative;
-  border: 1px solid #8e8a86;
-  border-radius: 3px;
-  width: 100%;
-
-  input[type='text'] {
-    border: none;
-    width: calc(100% - 20px - 0.5rem);
-  }
-
-  input[type='text']:focus {
-    outline: none;
-  }
-
-  button {
-    border: 0;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-  }
-}
-
 .negative-money {
-  color: #c15800;
+  color: var(--warning-120);
 }
 
 .recent-searches {

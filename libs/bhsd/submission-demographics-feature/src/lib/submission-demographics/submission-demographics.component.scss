@@ -25,8 +25,8 @@
 .hBarChart li {
   background: linear-gradient(
     to right,
-    #cbd4da var(--percent),
-    #ffffff var(--percent)
+    var(--primary-020) var(--percent),
+    var(--white) var(--percent)
   );
   display: flex;
   align-items: center;
@@ -50,14 +50,14 @@
   width: 102ch;
   margin: 0;
   padding: 0.5ch;
-  background: white;
+  background: var(--white);
   margin-left: 1ch;
 }
 
 .vBarChart li {
   flex: 1 1;
   margin: 0 1px;
-  background: white;
+  background: var(--white);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -66,7 +66,7 @@
 }
 
 .vBarChart li .bar {
-  background: #455561;
+  background: var(--primary-050);
   width: 50%;
   margin-top: 0.5ch;
 }

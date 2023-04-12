@@ -17,12 +17,12 @@
 
 select,
 input {
-  color: #605e5c;
+  color: var(--grey-110);
 }
 
 select.selected,
 input.selected {
-  color: black;
+  color: var(--text-primary);
 }
 
 .filter input,

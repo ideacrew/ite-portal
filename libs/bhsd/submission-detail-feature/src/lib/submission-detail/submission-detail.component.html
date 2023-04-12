@@ -96,7 +96,7 @@
         </button>
         <ng-container *ngIf="data.records.length > 0">
           <button
-            class="download-button"
+            class="button-outline download-button"
             (click)="
               downloadCsv(
                 data.records,
@@ -112,7 +112,7 @@
           <ng-container *ngIf="failingDataFields$ | async as data">
             <ng-container *ngIf="data.length > 0">
               <button
-                class="download-button"
+                class="button-outline download-button"
                 (click)="
                   downloadCsv(
                     data,
@@ -136,7 +136,7 @@
         <ng-container *ngIf="viewType === 'record'">
           <ng-container *ngIf="submissionIssuesByRecords$ | async as data">
             <button
-              class="download-button"
+              class="button-outline download-button"
               (click)="
                 downloadCsv(
                   data.records,
