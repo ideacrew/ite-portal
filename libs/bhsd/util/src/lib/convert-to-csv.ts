@@ -27,5 +27,5 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
         : ''
     )
     .join('\n');
-  return columns.join(',') + '\n' + rowContent;
+  return columns.join(',') + '\r\n' + rowContent;
 };

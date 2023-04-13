@@ -31,7 +31,9 @@ button:active {
 button:focus {
   background-color: var(--primary-120);
   padding: 4px;
-  outline: 4px solid var(--grey-190);
+  outline: 2px solid var(--grey-190);
+  outline-offset: 2px;
+  border-radius: 0;
 }
 
 .button-outline {
@@ -61,7 +63,9 @@ button:focus {
   border: 2px solid var(--primary-120);
   color: var(--primary-120);
   padding: 4px;
-  outline: 4px solid var(--grey-190);
+  outline: 2px solid var(--grey-190);
+  outline-offset: 2px;
+  border-radius: 0;
 }
 
 a.button:hover {

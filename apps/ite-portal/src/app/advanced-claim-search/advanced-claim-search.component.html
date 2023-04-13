@@ -6,7 +6,7 @@
   <li>Advanced Claim Search</li>
 </ul>
 <h1>Advanced Claim Search</h1>
-<p>Show results matching all the following criteria.</p>
+<p>Show results matching all the following conditions.</p>
 <div *ngFor="let criterion of criteria; let index = index">
   <div class="criterion">
     <div>
@@ -147,7 +147,7 @@
   </div>
 </div>
 <button type="submit" class="add-button" (click)="addCondition()">
-  <span>&#43;</span> Add Additional Criteria
+  <span>&#43;</span> Add Additional Condition
 </button>
 <br />
 <button
@@ -163,7 +163,10 @@
   <hr />
   <h2>Search Results</h2>
   <ng-container *ngIf="results.claim_count === 0; else hasResults">
-    <p>Your search returned 0 results, please try a new search.</p>
+    <p>
+      Your search returned 0 results, please try a different combination of
+      search conditions.
+    </p>
   </ng-container>
 
   <ng-template #hasResults>
