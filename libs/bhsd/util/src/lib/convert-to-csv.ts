@@ -16,12 +16,14 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
         ? columns
             .map((key) => {
               const cellData = row[key as keyof typeof row] as string;
-              const quoteData =
-                cellData.search(/([\n",])/g) >= 0
-                  ? `"${cellData}"`
-                  : `${cellData}`;
-              const cell =
-                cellData === null || cellData === undefined ? '' : quoteData;
+              let cell =
+                cellData === null || cellData === undefined ? '' : cellData;
+              if (cellData) {
+                cell =
+                  cellData.search(/([\n",])/g) >= 0
+                    ? `"${cellData}"`
+                    : `${cellData}`;
+              }
               return cell;
             })
             .join(',')
