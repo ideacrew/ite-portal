@@ -8,17 +8,23 @@
 main {
   background: var(--white);
 }
-
+h1 {
+  margin: 0;
+  line-height: 1;
+}
+h2 {
+  margin: 0;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+}
 .login-form {
   background-color: var(--grey-000);
-  padding: 2rem;
+  padding: 24px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   width: 30ch;
-
-  h1 {
-    margin: 0;
-  }
 
   label {
     display: block;
@@ -27,6 +33,11 @@ main {
 
 .button-group {
   margin-top: var(--s1);
+}
+
+input,
+button {
+  width: 100%;
 }
 
 .input-group {
@@ -58,4 +69,9 @@ main {
 .error {
   color: var(--invalid-color);
   margin-bottom: 1rem;
+}
+.reset {
+  text-align: center;
+  margin-bottom: 0;
+  text-decoration: underline;
 }
