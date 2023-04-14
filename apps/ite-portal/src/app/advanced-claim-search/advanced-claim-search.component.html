@@ -17,6 +17,7 @@
           [attr.data-id]="index"
           [value]="criterion.selector ?? ''"
           (change)="selectorSet($event)"
+          required
         >
           <option value="" disabled="true">Selector</option>
           <option data-valueType="date" value="adjudication_date">
@@ -56,6 +57,7 @@
           [disabled]="!criterion.valueType"
           (change)="relativeSet($event)"
           [value]="criterion.relative ?? ''"
+          required
         >
           <option value="" disabled="true">Relative</option>
           <ng-container
@@ -99,6 +101,7 @@
             (change)="valueSet($event)"
             [value]="criterion.value ?? ''"
             style="width: 180px"
+            required
           >
             <option value="" disabled="true">Select Value</option>
             <ng-container *ngIf="criterion.options; else asyncOptions">
@@ -131,6 +134,8 @@
             (change)="valueSet($event)"
             (keyup)="valueSet($event)"
             style="width: 180px"
+            [required] = "criterion.valueType === 'date' ||
+            criterion.valueType === 'date_range'"
           />
         </ng-template>
       </div>

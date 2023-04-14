@@ -46,7 +46,7 @@
 
 select,
 input {
-  color: var(--grey-110);
+  color: var(--text-placeholder);
 }
 
 select.selected,
@@ -71,8 +71,6 @@ input.selected {
 .filter input,
 .filter select {
   width: 164px;
-  padding: 1px 2px;
-  box-sizing: border-box;
   margin: 0;
 }
 

@@ -30,7 +30,7 @@ button {
 }
 
 .button-outline,
-button.outline {
+button.outline  {
   border: 2px solid var(--primary);
   border-radius: 4px;
   color: var(--primary);
@@ -63,9 +63,18 @@ button.outline {
 }
 
 button.secondary,
-.button.secondary {
+.button.secondary, input::file-selector-button {
   background: var(--secondary);
-  color: white;
+  border-radius: 4px;
+  border: 0;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--white);
   &:visited {
     color: var(--white);
   }
@@ -117,7 +126,7 @@ button.secondary-outline,
 }
 
 button.ghost-color,
-.button.ghost-color {
+.button.ghost-color{
   border: none;
   border-radius: 4px;
   color: var(--primary);

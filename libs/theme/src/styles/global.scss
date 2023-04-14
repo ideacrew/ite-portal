@@ -102,6 +102,10 @@
   --text-disabled: var(--grey-090);
 }
 
+body, html {
+  background: var(--bg)
+}
+
 ul.breadcrumbs {
   padding: 0;
   list-style: none;
