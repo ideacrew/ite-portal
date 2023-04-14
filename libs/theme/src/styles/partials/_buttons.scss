@@ -30,7 +30,7 @@ button {
 }
 
 .button-outline,
-button.outline  {
+button.outline {
   border: 2px solid var(--primary);
   border-radius: 4px;
   color: var(--primary);
@@ -63,7 +63,8 @@ button.outline  {
 }
 
 button.secondary,
-.button.secondary, input::file-selector-button {
+.button.secondary,
+input::file-selector-button {
   background: var(--secondary);
   border-radius: 4px;
   border: 0;
@@ -126,7 +127,7 @@ button.secondary-outline,
 }
 
 button.ghost-color,
-.button.ghost-color{
+.button.ghost-color {
   border: none;
   border-radius: 4px;
   color: var(--primary);

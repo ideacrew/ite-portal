@@ -134,8 +134,10 @@
             (change)="valueSet($event)"
             (keyup)="valueSet($event)"
             style="width: 180px"
-            [required] = "criterion.valueType === 'date' ||
-            criterion.valueType === 'date_range'"
+            [required]="
+              criterion.valueType === 'date' ||
+              criterion.valueType === 'date_range'
+            "
           />
         </ng-template>
       </div>

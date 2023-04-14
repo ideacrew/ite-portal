@@ -102,8 +102,9 @@
   --text-disabled: var(--grey-090);
 }
 
-body, html {
-  background: var(--bg)
+body,
+html {
+  background: var(--bg);
 }
 
 ul.breadcrumbs {
