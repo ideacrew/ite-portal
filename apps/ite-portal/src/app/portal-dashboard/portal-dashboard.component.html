@@ -1,11 +1,11 @@
 <div class="widget">
   <div class="widget-header">
-    <h2><label for="client-search">Client Search</label></h2>
+    <h2>Client Search</h2>
   </div>
   <div class="widget-content search">
     <p>Use the search to look up client record information.</p>
     <p>Search by full name, first name or last name.</p>
-    <label for="search">Client Search</label>
+    <label for="client-search">Client Search</label>
     <input
       type="search"
       name="client-search"
@@ -14,7 +14,7 @@
       (change)="setSearchTerm($event)"
       (keyup.enter)="submitSearch()"
     />
-    <button type="submit" class="button ghost-color" (click)="submitSearch()">
+    <button type="submit" class="button" (click)="submitSearch()">
       Search
     </button>
   </div>
