@@ -11,32 +11,26 @@ button {
   text-decoration: none;
   cursor: pointer;
   color: var(--white);
+  &:visited {
+    color: var(--white);
+  }
+  &:hover {
+    background-color: var(--primary-120);
+  }
+  &:active {
+    background-color: var(--primary-140);
+  }
+  &:focus {
+    background-color: var(--primary-120);
+    padding: 4px;
+    outline: 2px solid var(--grey-190);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
 }
 
-.button:visited {
-  color: var(--white);
-}
-
-.button:hover,
-button:hover {
-  background-color: var(--primary-120);
-}
-
-.button:active,
-button:active {
-  background-color: var(--primary-140);
-}
-
-.button:focus,
-button:focus {
-  background-color: var(--primary-120);
-  padding: 4px;
-  outline: 2px solid var(--grey-190);
-  outline-offset: 2px;
-  border-radius: 0;
-}
-
-.button-outline {
+.button-outline,
+button.outline {
   border: 2px solid var(--primary);
   border-radius: 4px;
   color: var(--primary);
@@ -44,28 +38,163 @@ button:focus {
   padding: 8px 12px;
   margin: 0;
   cursor: pointer;
+  &:visited {
+    color: var(--primary);
+  }
+  &:hover {
+    background: none;
+    border: 2px solid var(--primary-120);
+    color: var(--primary-120);
+  }
+  &:active {
+    background: none;
+    border: 2px solid var(--primary-140);
+    color: var(--primary-140);
+  }
+  &:focus {
+    background: none;
+    border: 2px solid var(--primary-120);
+    color: var(--primary-120);
+    padding: 4px;
+    outline: 2px solid var(--grey-190);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
 }
 
-.button-outline:hover {
-  background: none;
-  border: 2px solid var(--primary-120);
-  color: var(--primary-120);
+button.secondary,
+.button.secondary {
+  background: var(--secondary);
+  color: white;
+  &:visited {
+    color: var(--white);
+  }
+  &:hover {
+    background: var(--secondary-120);
+  }
+  &:active {
+    background: var(--secondary-140);
+  }
+  &:focus {
+    background: var(--secondary);
+    outline: 2px solid var(--grey-190);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
 }
 
-.button-outline:active {
+button.secondary-outline,
+.button.secondary-outline {
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  color: var(--secondary);
   background: none;
-  border: 2px solid var(--primary-140);
-  color: var(--primary-140);
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+  &:visited {
+    color: var(--secondary);
+  }
+  &:hover {
+    background: none;
+    border: 2px solid var(--secondary-120);
+    color: var(--secondary-120);
+  }
+  &:active {
+    background: none;
+    border: 2px solid var(--secondary-140);
+    color: var(--secondary-140);
+  }
+  &:focus {
+    background: none;
+    border: 2px solid var(--secondary-120);
+    color: var(--secondary-120);
+    padding: 4px;
+    outline: 2px solid var(--grey-190);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
 }
 
-.button-outline:focus {
+button.ghost-color,
+.button.ghost-color {
+  border: none;
+  border-radius: 4px;
+  color: var(--primary);
   background: none;
-  border: 2px solid var(--primary-120);
-  color: var(--primary-120);
-  padding: 4px;
-  outline: 2px solid var(--grey-190);
-  outline-offset: 2px;
-  border-radius: 0;
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+  &:visited {
+    color: var(--primary);
+  }
+  &:hover {
+    background: none;
+    color: var(--primary-120);
+  }
+  &:active {
+    background: none;
+    color: var(--primary-140);
+  }
+  &:focus {
+    background: none;
+    color: var(--primary-120);
+    padding: 4px;
+    outline: 2px solid var(--grey-190);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
+}
+
+button.ghost-grayscale,
+.button.ghost-grayscale {
+  border: none;
+  border-radius: 4px;
+  color: var(--gray-130);
+  background: none;
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+  &:visited {
+    color: var(--gray-130);
+  }
+  &:hover {
+    background: none;
+    color: var(--gray-160);
+  }
+  &:active {
+    background: none;
+    color: var(--gray-190);
+  }
+  &:focus {
+    background: none;
+    color: var(--gray-130);
+    padding: 4px;
+    outline: 2px solid var(--grey-190);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
+}
+
+button.destructive,
+.button.destructive {
+  background: var(--error);
+  color: white;
+  &:visited {
+    color: var(--white);
+  }
+  &:hover {
+    background: var(--error-120);
+  }
+  &:active {
+    background: var(--error-140);
+  }
+  &:focus {
+    background: var(--error);
+    outline: 2px solid var(--grey-190);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
 }
 
 a.button:hover {

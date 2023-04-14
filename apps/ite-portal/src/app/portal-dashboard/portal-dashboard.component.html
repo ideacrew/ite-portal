@@ -14,7 +14,7 @@
       (change)="setSearchTerm($event)"
       (keyup.enter)="submitSearch()"
     />
-    <button type="submit" class="button" (click)="submitSearch()">
+    <button type="submit" class="button ghost-color" (click)="submitSearch()">
       Search
     </button>
   </div>
@@ -73,8 +73,6 @@
         </tr>
       </tbody>
     </table>
-    <div style="margin-top: 1rem; color: #605e5c">
-      Adjudicated between 10/1/2021 and 12/31/2021
-    </div>
+    <p class="secondary">Adjudicated between 10/1/2021 and 12/31/2021</p>
   </div>
 </div>
