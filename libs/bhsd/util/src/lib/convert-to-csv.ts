@@ -21,7 +21,7 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
                   ? ''
                   : // eslint-disable-next-line no-useless-escape
                   cellData.search(/([\n",])/g) >= 0
-                  ? `\"${cellData}\"`
+                  ? `"${cellData}"`
                   : `${cellData}`;
               return cell;
             })
