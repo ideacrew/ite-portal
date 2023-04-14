@@ -61,10 +61,14 @@ a:visited {
   color: var(--text-hyperlink-visited);
 }
 
+a.button:hover {
+  color: var(--white);
+}
+
 dl.parent {
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-row-gap: 1.25ch;
+  grid-row-gap: 4px;
   list-style: none;
   padding: 0;
   margin: 0;

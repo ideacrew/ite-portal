@@ -19,6 +19,10 @@ select {
     background: var(--input-background-disabled);
     color: var();
   }
+  &:active,
+  &:focus {
+    outline-color: var(--secondary);
+  }
 }
 
 input[type='file'] {
@@ -42,7 +46,7 @@ input[type='date']:invalid::-webkit-datetime-edit {
 }
 
 input[type='search'] {
-  background: var(--white) url('/assets/images/icon-search.svg') no-repeat
+  background: var(--white) url('../../assets/images/iconSearch.svg') no-repeat
     center right;
 }
 
@@ -52,6 +56,5 @@ input[type='date']::-webkit-calendar-picker-indicator {
   margin: none;
   width: 24px;
   height: 24px;
-  background-image: url('/assets/images/icon-calendar.svg') no-repeat center
-    right;
+  background: url('../../assets/images/iconCalendar.svg') no-repeat center right;
 }
