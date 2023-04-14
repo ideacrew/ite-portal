@@ -1,6 +1,7 @@
 body,
 input[type='text'] {
   font-family: 'Public Sans', 'Inter', sans-serif;
+  color: var(--text-primary);
 }
 
 main h1 {
@@ -46,4 +47,46 @@ p.bold,
 .bold,
 b {
   font-weight: 800;
+}
+
+a {
+  color: var(--text-hyperlink);
+}
+
+a:hover {
+  color: var(--text-hyperlink-hover);
+}
+
+a:visited {
+  color: var(--text-hyperlink-visited);
+}
+
+dl.parent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-row-gap: 1.25ch;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 3ch;
+}
+
+dd,
+dt {
+  margin: 0;
+  padding: 0;
+}
+
+dt {
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding-right: 1ch;
+}
+
+.secondary {
+  color: var(--text-secondary);
+}
+
+.secondary {
+  color: var(--text-primary);
 }

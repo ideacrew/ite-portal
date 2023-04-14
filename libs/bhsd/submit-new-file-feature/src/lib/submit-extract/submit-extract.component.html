@@ -65,6 +65,7 @@
       id="extract-date"
       formControlName="extracted_on"
       data-cy="extract-date"
+      required
     />
     <ng-container *ngIf="extracted_on.errors && extracted_on.dirty">
       <div class="error-message">

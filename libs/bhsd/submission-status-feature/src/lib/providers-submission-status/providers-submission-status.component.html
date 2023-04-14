@@ -11,6 +11,7 @@
           (change)="updateFilters('month', $event)"
           class="selected"
           aria-label="Select Reporting Period Month"
+          required
         >
           <option value="">Select Month</option>
           <option
@@ -26,10 +27,11 @@
           name="rpYearFilter"
           id="rpYearFilter"
           (change)="updateFilters('year', $event)"
-          class="selected"
+          class=""
           aria-label="Select Reporting Period Year"
+          required
         >
-          <option value="">Select Year</option>
+          <option value="" disabled selected hidden>Select Year</option>
           <option
             *ngFor="let year of yearList"
             [value]="year"
@@ -47,6 +49,7 @@
         name="providerFilter"
         id="providerFilter"
         (change)="updateFilters('provider', $event)"
+        required
       >
         <option value="" disabled hidden selected>Select Provider</option>
         <option value="">See All</option>
@@ -68,6 +71,7 @@
         id="serviceTypeFilter"
         (change)="updateFilters('serviceType', $event)"
         class="hasPlaceholder"
+        required
       >
         <option value="" disabled hidden selected>Select Service Type</option>
         <option value="">See All</option>
@@ -87,6 +91,7 @@
         id="statusFilter"
         (change)="updateFilters('status', $event)"
         class="hasPlaceholder"
+        required
       >
         <option value="" disabled hidden selected>Select Status</option>
         <option value="">See All</option>
@@ -154,6 +159,7 @@
             id="submission-start"
             [value]="submissionStartFilter"
             (change)="updateFilters('submission_start', $event)"
+            required
           />
         </div>
         <div>
@@ -164,6 +170,7 @@
             id="submission-end"
             [value]="submissionEndFilter"
             (change)="updateFilters('submission_end', $event)"
+            required
           />
         </div>
       </div>
@@ -213,7 +220,7 @@
     </div>
   </div>
   <button
-    class="button-secondary"
+    class="button-outline"
     *ngIf="allFilters.length > 0"
     (click)="clearFilters()"
   >

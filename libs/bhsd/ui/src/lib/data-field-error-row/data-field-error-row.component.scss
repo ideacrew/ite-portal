@@ -4,7 +4,7 @@
 
 td {
   border: none;
-  border-bottom: 0.5px solid #605e5c;
+  border-bottom: 0.5px solid var(--row-divider);
 }
 
 td.wide {
@@ -14,7 +14,7 @@ td.wide {
 
 th {
   border: none;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--header-divider);
   text-align: left;
   vertical-align: top;
 }

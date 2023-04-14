@@ -14,6 +14,7 @@
               id="coverage-start"
               [value]="coverageStartFilter"
               (change)="updateFilters('coverage_start', $event)"
+              required
             />
           </div>
           <div>
@@ -24,6 +25,7 @@
               id="coverage-end"
               [value]="coverageEndFilter"
               (change)="updateFilters('coverage_end', $event)"
+              required
             />
           </div>
         </div>
@@ -51,6 +53,7 @@
               id="submission-start"
               [value]="submissionStartFilter"
               (change)="updateFilters('submission_start', $event)"
+              required
             />
           </div>
           <div>
@@ -61,6 +64,7 @@
               id="submission-end"
               [value]="submissionEndFilter"
               (change)="updateFilters('submission_end', $event)"
+              required
             />
           </div>
         </div>
@@ -84,6 +88,7 @@
           name="providerFilter"
           id="providerFilter"
           (change)="updateFilters('provider', $event)"
+          required
         >
           <option value="" disabled hidden selected>Provider</option>
           <option value="">See All</option>
@@ -107,6 +112,7 @@
               name="trSelectorFilter"
               id="trSelectorFilter"
               (change)="updateFilters('trSelector', $event)"
+              required
             >
               <option value="" disabled hidden selected>
                 &#8804; or &#8805;
@@ -147,6 +153,7 @@
               name="prSelectorFilter"
               id="prSelectorFilter"
               (change)="updateFilters('prSelector', $event)"
+              required
             >
               <option value="" disabled hidden selected>
                 &#8804; or &#8805;
@@ -180,7 +187,7 @@
       </div>
     </div>
     <button
-      class="button-secondary"
+      class="button-outline"
       *ngIf="allFilters.length > 0"
       (click)="clearFilters()"
     >

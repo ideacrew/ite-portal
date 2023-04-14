@@ -4,4 +4,54 @@ label {
   line-height: 24px;
   font-weight: 600;
   margin-bottom: 0.5ch;
+  color: var(--text-secondary);
+}
+
+input,
+select {
+  box-sizing: border-box;
+  height: 36px;
+  padding: 6px 8px;
+  background: var(--white);
+  border: 1px solid var(--input-border);
+  border-radius: 3px;
+  &:disabled {
+    background: var(--input-background-disabled);
+    color: var();
+  }
+}
+
+input[type='file'] {
+  height: auto;
+}
+
+::placeholder,
+:-ms-input-placeholder,
+::-ms-input-placeholder,
+select:invalid {
+  color: var(--text-placeholder);
+  opacity: 1;
+}
+
+option:disabled,
+option[disabled],
+select:invalid,
+input[type='date']:invalid::-webkit-datetime-edit {
+  color: var(--text-placeholder);
+  -webkit-text-fill-color: var(--text-placeholder);
+}
+
+input[type='search'] {
+  background: var(--white) url('/assets/images/icon-search.svg') no-repeat
+    center right;
+}
+
+input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-calendar-picker-indicator {
+  padding: none;
+  margin: none;
+  width: 24px;
+  height: 24px;
+  background-image: url('/assets/images/icon-calendar.svg') no-repeat center
+    right;
 }

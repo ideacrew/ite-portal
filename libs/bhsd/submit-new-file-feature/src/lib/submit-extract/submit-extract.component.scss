@@ -43,3 +43,7 @@ fieldset {
 .submit-button {
   margin-top: 1rem;
 }
+
+input::file-selector-button {
+  margin-right: 1ch;
+}

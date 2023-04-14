@@ -5,27 +5,30 @@
   grid-template-areas: 'nav main';
   height: 100vh;
   overflow: hidden;
-  background-color: #f2f2f2;
+  background-color: var(--bg);
 }
 
 .sidebar {
-  background-color: #455561;
+  background-color: var(--primary);
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: max-content 1fr max-content max-content;
   grid-template-areas: 'title' 'nav' 'logo' 'user';
   gap: 1.5rem;
+  background-position: left bottom 36px;
+  background-repeat: no-repeat;
+  background-image: url('./assets/images/DBH_Graphic.svg');
 
   .application-title {
     padding: 1.5rem 1.5rem 0 1.5rem;
     font-size: 1.25rem;
     font-weight: 800;
-    color: white;
+    color: var(--white);
   }
 }
 
 .user-email {
-  color: white;
+  color: var(--white);
   text-decoration: none;
   cursor: pointer;
   max-width: 20ch;
@@ -43,10 +46,10 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: white;
+  color: var(--white);
   text-decoration: none;
   cursor: pointer;
-  background-color: #28323f;
+  background-color: var(--primary-140);
   font-size: 0.75rem;
   max-width: 100%;
 }
@@ -72,7 +75,7 @@
   }
 
   a {
-    color: white;
+    color: var(--white);
     text-decoration: none;
   }
 
@@ -88,7 +91,7 @@ main {
 }
 
 .menu-parent {
-  color: white;
+  color: var(--white);
 }
 
 .menu-group + .menu-group {
