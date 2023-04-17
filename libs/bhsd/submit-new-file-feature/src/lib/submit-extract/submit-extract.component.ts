@@ -41,6 +41,7 @@ export class SubmitExtractComponent {
   sendingData$ = this.sendingData.asObservable().pipe(shareReplay(1));
   result = new Subject<string | null>();
   result$ = this.result.asObservable();
+  resultsMessage = false;
 
   extractForm!: FormGroup<BHSDSubmissionForm>;
 
@@ -114,7 +115,11 @@ export class SubmitExtractComponent {
         .subscribe({
           complete: () => {
             this.sendingData.next(false);
-            this.result.next('File submitted successfully');
+            this.resultsMessage = true;
+            setTimeout(() => {
+              this.resultsMessage = false;
+              this.cdr.detectChanges();
+            }, 2000);
             this.extractForm.reset({
               provider_gateway_identifier:
                 this.authService.providerGatewayId ?? '000',

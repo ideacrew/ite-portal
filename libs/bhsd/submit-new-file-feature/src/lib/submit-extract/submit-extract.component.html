@@ -99,7 +99,7 @@
       data-cy="file-upload"
     />
   </div>
-  <ng-container *ngIf="records.errors">
+  <ng-container *ngIf="records.errors && !resultsMessage">
     <div class="error-message">
       <p *ngIf="records.errors['required']">
         A csv file must be selected to continue submission.
@@ -120,7 +120,7 @@
   </button>
 </form>
 
-<div class="result">{{ result$ | async }}</div>
+<div class="result" *ngIf="resultsMessage">File submitted successfully</div>
 
 <div *ngIf="debug" class="debug-container">
   <div class="column">
