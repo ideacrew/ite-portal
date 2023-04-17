@@ -53,7 +53,7 @@
         </button>
       </div>
     </div>
-    <div *ngIf="result$ | async as result">
+    <div *ngIf="errorMessage">
       <div class="errorResults">
         <svg
           width="24"
@@ -76,7 +76,7 @@
     </div>
 
     <button
-      [disabled]="userForm.status === 'INVALID'"
+      [disabled]="userForm.status === 'INVALID' || errorMessage"
       type="button"
       class="button"
       data-cy="login-button"

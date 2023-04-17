@@ -31,6 +31,7 @@ export class LogInComponent {
 
   showPassword = false;
   userForm!: FormGroup<UserLoginForm>;
+  errorMessage = false;
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +55,9 @@ export class LogInComponent {
         validators: [passwordDoesNotContainEmail],
       }
     );
+    this.userForm.valueChanges.subscribe((selectedValue) => {
+      this.errorMessage = false;
+    });
   }
 
   loginUser(): void {
@@ -63,9 +67,7 @@ export class LogInComponent {
       if (email && password && formLocation) {
         this.authService.login({ email, password, formLocation }).subscribe({
           error: () => {
-            this.result.next(
-              'Invalid credentials, please contact your administrator if you need help.'
-            );
+            this.errorMessage = true;
           },
         });
       }
