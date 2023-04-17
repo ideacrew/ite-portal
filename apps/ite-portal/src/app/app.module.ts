@@ -30,6 +30,10 @@ import { SearchAndQueryComponent } from './search-and-query/search-and-query.com
 import { ClientSearchComponent } from './client-search/client-search.component';
 import { ClaimSearchComponent } from './claim-search/claim-search.component';
 import { AdvancedClaimSearchComponent } from './advanced-claim-search/advanced-claim-search.component';
+import { DataGovernanceComponent } from './data-governance/data-governance.component';
+import { BusinessGlossaryComponent } from './business-glossary/business-glossary.component';
+import { DataTrackingSystemInventoryComponent } from './data-tracking-system-inventory/data-tracking-system-inventory.component';
+import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-conventions/ite-database-naming-conventions.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,10 @@ import { AdvancedClaimSearchComponent } from './advanced-claim-search/advanced-c
     ClientSearchComponent,
     ClaimSearchComponent,
     AdvancedClaimSearchComponent,
+    DataGovernanceComponent,
+    BusinessGlossaryComponent,
+    DataTrackingSystemInventoryComponent,
+    IteDatabaseNamingConventionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,7 +142,22 @@ import { AdvancedClaimSearchComponent } from './advanced-claim-search/advanced-c
             path: 'external-resources',
             component: ExternalResourcesComponent,
           },
-
+          {
+            path: 'data-governance',
+            component: DataGovernanceComponent,
+          },
+          {
+            path: 'data-governance/business-glossary',
+            component: BusinessGlossaryComponent,
+          },
+          {
+            path: 'data-governance/data-tracking-system-inventory',
+            component: DataTrackingSystemInventoryComponent,
+          },
+          {
+            path: 'data-governance/ite-database-naming-conventions',
+            component: IteDatabaseNamingConventionsComponent,
+          },
           {
             path: 'provider-gateway/submissions',
             loadChildren: () =>
