@@ -218,6 +218,7 @@
               {{ header.label }}
               <span
                 *ngIf="header.sortable"
+                [class.numeric]="header.numeric"
                 [innerHTML]="
                   sort !== header.value
                     ? '&#8597;'
@@ -248,9 +249,11 @@
             <td>{{ submission.submission_date | date: 'short' }}</td>
             <td>{{ submission.coverage_start }}</td>
             <td>{{ submission.coverage_end }}</td>
-            <td>{{ submission.number_of_records ?? 'no value' }}</td>
-            <td>{{ submission.pass_count ?? 'no value' }}</td>
-            <td>{{ submission.fail_count ?? 'no value' }}</td>
+            <td class="numeric">
+              {{ submission.number_of_records ?? 'no value' }}
+            </td>
+            <td class="numeric">{{ submission.pass_count ?? 'no value' }}</td>
+            <td class="numeric">{{ submission.fail_count ?? 'no value' }}</td>
           </tr>
         </tbody>
       </table>

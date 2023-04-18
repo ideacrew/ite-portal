@@ -188,8 +188,8 @@
           <th>Provider</th>
           <th>Provider<br />Type</th>
           <th>Status</th>
-          <th>$ Billed</th>
-          <th>$ Payed</th>
+          <th class="numeric">$ Billed</th>
+          <th class="numeric">$ Payed</th>
         </tr>
       </thead>
       <tbody>
@@ -210,8 +210,8 @@
           <td class="wide">{{ claim.billing_provider ?? '' }}</td>
           <td>{{ claim.billing_provider_type_code }}</td>
           <td>{{ claim.adjudication_status }}</td>
-          <td>{{ claim.billed_amount | currency }}</td>
-          <td>{{ claim.paid_amount | currency }}</td>
+          <td class="numeric">{{ claim.billed_amount | currency }}</td>
+          <td class="numeric">{{ claim.paid_amount | currency }}</td>
         </tr>
       </tbody>
     </table>

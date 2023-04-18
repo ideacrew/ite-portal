@@ -44,3 +44,8 @@ td:first-of-type {
   line-height: 20px;
   font-weight: 400;
 }
+
+td.numeric,
+th.numeric {
+  text-align: right;
+}

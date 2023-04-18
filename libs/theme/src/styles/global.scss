@@ -110,16 +110,26 @@ html {
 ul.breadcrumbs {
   padding: 0;
   list-style: none;
-  font-size: 0.8rem;
   margin-bottom: 3ch;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 ul.breadcrumbs li {
   display: inline;
+  a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
 }
 
 ul.breadcrumbs li:last-of-type {
   font-weight: bold;
+  a {
+    color: var(--text-primary);
+  }
 }
 
 ul.breadcrumbs li + li:before {

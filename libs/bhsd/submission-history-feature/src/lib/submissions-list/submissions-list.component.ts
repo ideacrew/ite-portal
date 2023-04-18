@@ -9,6 +9,7 @@ export type Header = {
   label: string;
   value: string;
   sortable: boolean;
+  numeric: boolean;
 };
 
 @Component({
@@ -34,13 +35,33 @@ export class SubmissionsListComponent {
   sort = 'created_at';
   sortDirection: 'asc' | 'desc' = 'desc';
   headerList: Header[] = [
-    { label: 'File Name', value: 'file_name', sortable: true },
-    { label: 'Submission Date', value: 'created_at', sortable: true },
-    { label: 'Start Date', value: 'coverage_start', sortable: true },
-    { label: 'End Date', value: 'coverage_end', sortable: true },
-    { label: 'Total Records', value: 'record_count', sortable: true },
-    { label: 'Pass', value: 'pass', sortable: false },
-    { label: 'Fail', value: 'fail', sortable: false },
+    { label: 'File Name', value: 'file_name', sortable: true, numeric: false },
+    {
+      label: 'Submission Date',
+      value: 'created_at',
+      sortable: true,
+      numeric: false,
+    },
+    {
+      label: 'Start Date',
+      value: 'coverage_start',
+      sortable: true,
+      numeric: false,
+    },
+    {
+      label: 'End Date',
+      value: 'coverage_end',
+      sortable: true,
+      numeric: false,
+    },
+    {
+      label: 'Total Records',
+      value: 'record_count',
+      sortable: true,
+      numeric: true,
+    },
+    { label: 'Pass', value: 'pass', sortable: false, numeric: true },
+    { label: 'Fail', value: 'fail', sortable: false, numeric: true },
   ];
   responseDetails$: Observable<Extracts> =
     this.bhsdService.getSubmissionsWithParams({ offset: this.offset });

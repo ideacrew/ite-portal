@@ -236,6 +236,7 @@
           <th
             *ngFor="let header of headerList"
             (click)="header.sortable && updateSort(header.value)"
+            [class.numeric]="header.numeric"
           >
             {{ header.label }}
             <span
@@ -281,10 +282,10 @@
             </a>
             <span *ngIf="submission.extractId === undefined">N/A</span>
           </td>
-          <td>{{ submission.totalRecords ?? 'N/A' }}</td>
-          <td>{{ submission.pass ?? 'N/A' }}</td>
-          <td>{{ submission.fail ?? 'N/A' }}</td>
-          <td>{{ submission | passRate }}</td>
+          <td class="numeric">{{ submission.totalRecords ?? 'N/A' }}</td>
+          <td class="numeric">{{ submission.pass ?? 'N/A' }}</td>
+          <td class="numeric">{{ submission.fail ?? 'N/A' }}</td>
+          <td class="numeric">{{ submission | passRate }}</td>
         </tr>
       </tbody>
     </table>
