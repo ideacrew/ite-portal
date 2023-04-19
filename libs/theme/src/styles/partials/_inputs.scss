@@ -24,8 +24,8 @@ select {
   }
   &:active,
   &:focus {
-    //outline-color: var(--secondary);
-    border-color: var(--grey-150);
+    border: 1px solid var(--grey-150);
+    outline: none;
   }
 }
 
