@@ -24,7 +24,7 @@ select {
   }
   &:active,
   &:focus {
-    outline-color: var(--secondary);
+    //outline-color: var(--secondary);
     border-color: var(--grey-150);
   }
 }
