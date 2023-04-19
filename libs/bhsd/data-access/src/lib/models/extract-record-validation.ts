@@ -95,6 +95,7 @@ export type ExtractRecordValidationFlatPayload = {
   phone1?: string | null;
   phone2?: string | null;
   pregnant?: string | null;
+  primary_drug_code?: string | null;
   primary_language?: string | null;
   primary_payment_source?: string | null;
   primary_su_age_at_first_use?: string | null;
@@ -106,6 +107,7 @@ export type ExtractRecordValidationFlatPayload = {
   record_type?: string | null;
   referral_source?: string | null;
   school_attendance?: string | null;
+  secondary_drug_code?: string | null;
   secondary_su_age_at_first_use?: string | null;
   secondary_su_frequency_admission?: string | null;
   secondary_su_frequency_discharge?: string | null;
@@ -121,6 +123,7 @@ export type ExtractRecordValidationFlatPayload = {
   sud_dx2?: string | null;
   sud_dx3?: string | null;
   suffix?: string | null;
+  tertiary_drug_code?: string | null;
   tertiary_su_age_at_first_use?: string | null;
   tertiary_su_frequency_admission?: string | null;
   tertiary_su_frequency_discharge?: string | null;

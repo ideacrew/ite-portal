@@ -14,8 +14,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { BehaviorSubject, EMPTY, of, Subject } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, of, Subject, throwError } from 'rxjs';
+import { catchError, shareReplay, map } from 'rxjs/operators';
 import { lastDayOfMonth } from 'date-fns';
 
 import { BHSDService, ExtractRecordData } from '@dbh/bhsd/data-access';
@@ -42,6 +42,7 @@ export class SubmitExtractComponent {
   result = new Subject<string | null>();
   result$ = this.result.asObservable();
   resultsMessage = false;
+  errorMessage: undefined | string = undefined;
 
   extractForm!: FormGroup<BHSDSubmissionForm>;
 
@@ -103,35 +104,33 @@ export class SubmitExtractComponent {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
       this.result.next(null);
-      this.bhsdService
-        .sendData(this.extractForm.value)
-        .pipe(
-          catchError((error: unknown) => {
-            console.log('catchError', { error });
-            this.result.next('Error submitting file');
-            return of(EMPTY);
-          })
-        )
-        .subscribe({
-          complete: () => {
-            this.sendingData.next(false);
-            this.resultsMessage = true;
-            setTimeout(() => {
-              this.resultsMessage = false;
-              this.cdr.detectChanges();
-            }, 2000);
-            this.extractForm.reset({
-              provider_gateway_identifier:
-                this.authService.providerGatewayId ?? '000',
-              coverage_start: this.lastMonthStart.toISOString().slice(0, 10),
-              coverage_end: this.lastMonthEnd.toISOString().slice(0, 10),
-              extracted_on: '',
-            });
-            if (this.fileInput.nativeElement) {
-              this.fileInput.nativeElement.value = '';
-            }
-          },
-        });
+      this.bhsdService.sendData(this.extractForm.value).subscribe({
+        next: () => {
+          this.sendingData.next(false);
+          this.resultsMessage = true;
+          this.errorMessage = undefined;
+          setTimeout(() => {
+            this.resultsMessage = false;
+            this.cdr.detectChanges();
+          }, 2000);
+          this.extractForm.reset({
+            provider_gateway_identifier:
+              this.authService.providerGatewayId ?? '000',
+            coverage_start: this.lastMonthStart.toISOString().slice(0, 10),
+            coverage_end: this.lastMonthEnd.toISOString().slice(0, 10),
+            extracted_on: '',
+          });
+          if (this.fileInput.nativeElement) {
+            this.fileInput.nativeElement.value = '';
+          }
+        },
+        error: (error) => {
+          this.resultsMessage = false;
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          this.errorMessage = error.message;
+          this.cdr.detectChanges();
+        },
+      });
     }
   }
 

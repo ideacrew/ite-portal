@@ -48,3 +48,15 @@ fieldset {
 input::file-selector-button {
   margin-right: 1ch;
 }
+
+.errorResults {
+  display: flex;
+  align-items: center;
+  color: var(--invalid-color);
+  margin-top: 2ch;
+  margin-bottom: 2ch;
+  span {
+    margin-left: 1ch;
+    color: var(--invalid-color);
+  }
+}
