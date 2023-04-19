@@ -36,9 +36,8 @@ export class AuthInterceptor implements HttpInterceptor {
             console.log({ error });
             await this.auth.clearCredentialsAndGoToLogin();
           }
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          if (error.error['status_text']) {
-            throw new Error(error.error['status_text']);
+          if (error.error) {
+            throw new Error(error.error as string);
           }
           throw new Error('Not authorized');
         })
