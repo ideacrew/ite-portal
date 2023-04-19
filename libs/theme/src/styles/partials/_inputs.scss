@@ -15,13 +15,17 @@ select {
   background: var(--white);
   border: 1px solid var(--input-border);
   border-radius: 3px;
+  &:hover {
+    border-color: var(--grey-120);
+  }
   &:disabled {
     background: var(--input-background-disabled);
-    color: var();
+    color: var(--input-button-disabled);
   }
   &:active,
   &:focus {
     outline-color: var(--secondary);
+    border-color: var(--grey-150);
   }
 }
 
