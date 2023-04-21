@@ -220,6 +220,13 @@ import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-con
               ),
           },
           {
+            path: 'provider-gateway/companion-guide',
+            loadChildren: () =>
+              import('@dbh/bhsd/companion-guide-page').then(
+                (m) => m.BhsdCompanionGuidePageFeatureModule
+              ),
+          },
+          {
             path: 'provider-gateway',
             loadChildren: () =>
               import('@dbh/bhsd/landing-page-feature').then(

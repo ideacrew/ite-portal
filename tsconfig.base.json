@@ -18,6 +18,9 @@
       "@dbh/api-config": ["libs/api-config/src/index.ts"],
       "@dbh/auth": ["libs/auth/src/index.ts"],
       "@dbh/bhsd/companion-guide": ["libs/bhsd/companion-guide/src/index.ts"],
+      "@dbh/bhsd/companion-guide-page": [
+        "libs/bhsd/companion-guide-page-feature/src/index.ts"
+      ],
       "@dbh/bhsd/data-access": ["libs/bhsd/data-access/src/index.ts"],
       "@dbh/bhsd/landing-page-feature": [
         "libs/bhsd/landing-page-feature/src/index.ts"

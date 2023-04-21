@@ -52,11 +52,11 @@ input::file-selector-button {
 .errorResults {
   display: flex;
   align-items: center;
-  color: var(--invalid-color);
+  color: var(--text-error);
   margin-top: 2ch;
   margin-bottom: 2ch;
   span {
     margin-left: 1ch;
-    color: var(--invalid-color);
+    color: var(--text-error);
   }
 }

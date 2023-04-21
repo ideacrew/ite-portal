@@ -5,6 +5,7 @@
     "api-config": "libs/api-config",
     "auth": "libs/auth",
     "bhsd-companion-guide": "libs/bhsd/companion-guide",
+    "bhsd-companion-guide-page-feature": "libs/bhsd/companion-guide-page-feature",
     "bhsd-data-access": "libs/bhsd/data-access",
     "bhsd-landing-page-feature": "libs/bhsd/landing-page-feature",
     "bhsd-record-detail-feature": "libs/bhsd/record-detail-feature",

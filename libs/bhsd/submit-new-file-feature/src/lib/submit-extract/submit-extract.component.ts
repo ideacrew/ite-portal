@@ -17,6 +17,7 @@ import {
 import { BehaviorSubject, EMPTY, of, Subject, throwError } from 'rxjs';
 import { catchError, shareReplay, map } from 'rxjs/operators';
 import { lastDayOfMonth } from 'date-fns';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { BHSDService, ExtractRecordData } from '@dbh/bhsd/data-access';
 import { AuthService } from '@dbh/auth';
@@ -100,6 +101,13 @@ export class SubmitExtractComponent {
     );
   }
 
+  resetMessages(): void {
+    this.sendingData.next(false);
+    this.resultsMessage = false;
+    this.errorMessage = undefined;
+    this.cdr.detectChanges();
+  }
+
   sendData(): void {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
@@ -112,7 +120,7 @@ export class SubmitExtractComponent {
           setTimeout(() => {
             this.resultsMessage = false;
             this.cdr.detectChanges();
-          }, 2000);
+          }, 10_000);
           this.extractForm.reset({
             provider_gateway_identifier:
               this.authService.providerGatewayId ?? '000',
@@ -124,9 +132,9 @@ export class SubmitExtractComponent {
             this.fileInput.nativeElement.value = '';
           }
         },
-        error: (error) => {
+        error: (error: HttpErrorResponse) => {
           this.resultsMessage = false;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          this.sendingData.next(false);
           this.errorMessage = error.message;
           this.cdr.detectChanges();
         },
