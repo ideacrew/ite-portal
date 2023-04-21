@@ -1,6 +1,6 @@
 :host {
-  --fail-color: #612c00;
-  --pass-color: #e1dfdd;
+  --fail-color: var(--warning-120);
+  --pass-color: var(--ok);
 }
 
 .summary-with-chart {
@@ -13,10 +13,12 @@
   height: 2rem;
   width: 50ch;
   border-radius: 5px;
+  border: 2px solid var(--white);
   background: linear-gradient(
     to right,
     var(--pass-color, grey) 0% var(--pass),
-    var(--fail-color, red) var(--pass) var(--fail)
+    var(--white) var(--pass) var(--border),
+    var(--fail-color, red) var(--border) var(--fail)
   );
 }
 
@@ -24,6 +26,7 @@
   display: inline-block;
   height: 1rem;
   width: 1rem;
+  border: 2px solid var(--white);
   background-color: var(--status-color);
 }
 

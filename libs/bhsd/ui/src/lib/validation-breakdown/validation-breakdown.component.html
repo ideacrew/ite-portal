@@ -2,6 +2,7 @@
 <div
   class="chart"
   [style.--pass]="passPercentage + '%'"
+  [style.--border]="passPercentage + (passPercentage > 0 ? 0.5 : 0) + '%'"
   [style.--fail]="failPercentage + '%'"
 ></div>
 <div class="legend">

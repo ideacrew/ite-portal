@@ -1,8 +1,8 @@
 :host {
-  --needs-resubmission-color: #612c00;
-  --current-color: #e1dfdd;
-  --expecting-submission-color: #e0ab7f;
-  --past-due-color: #c15800;
+  --needs-resubmission-color: var(--error-140);
+  --current-color: var(--ok);
+  --expecting-submission-color: var(--warning-120);
+  --past-due-color: var(--warning-120);
   --status-color: pink;
   display: block;
   width: 100%;
@@ -20,10 +20,13 @@
   background: linear-gradient(
     to right,
     var(--needs-resubmission-color, grey) 0% var(--needsResubmission),
-    var(--expecting-submission-color) var(--needsResubmission)
+    var(--white) var(--needsResubmission) var(--needsResubmissionBorder),
+    var(--expecting-submission-color) var(--needsResubmissionBorder)
       var(--expectingSubmission),
-    var(--past-due-color) var(--expectingSubmission) var(--pastDue),
-    var(--current-color) var(--pastDue) 100%
+    var(--white) var(--expectingSubmission) var(--expectingSubmissionBorder),
+    var(--past-due-color) var(--expectingSubmissionBorder) var(--pastDue),
+    var(--past-due-color) var(--pastDue) var(--pastDueBorder),
+    var(--current-color) var(--pastDueBorder) 100%
   );
   // outline: 5px solid white;
 }

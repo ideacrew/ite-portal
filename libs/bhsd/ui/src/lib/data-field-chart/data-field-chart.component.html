@@ -3,8 +3,11 @@
   <div
     class="chart"
     [style.--fatal]="errorPercentages.fatal"
+    [style.--fatalBorder]="errorPercentages.fatalBorder"
     [style.--critical]="errorPercentages.critical"
+    [style.--criticalBorder]="errorPercentages.criticalBorder"
     [style.--warning]="errorPercentages.warning"
+    [style.--warningBorder]="errorPercentages.warningBorder"
     [style.--valid]="'100%'"
   ></div>
   <div class="legend">

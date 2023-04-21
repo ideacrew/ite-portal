@@ -77,11 +77,34 @@ export class DataFieldChartComponent {
 
     return {
       fatal: `${fatal.relativeErrorCount}%`,
-      critical: `${fatal.relativeErrorCount + critical.relativeErrorCount}%`,
+      fatalBorder: `${
+        fatal.relativeErrorCount + (fatal.relativeErrorCount > 0 ? 0.5 : 0)
+      }%`,
+      critical: `${
+        fatal.relativeErrorCount +
+        (fatal.relativeErrorCount > 0 ? 0.5 : 0) +
+        critical.relativeErrorCount
+      }%`,
+      criticalBorder: `${
+        fatal.relativeErrorCount +
+        (fatal.relativeErrorCount > 0 ? 0.5 : 0) +
+        critical.relativeErrorCount +
+        (critical.relativeErrorCount > 0 ? 0.5 : 0)
+      }%`,
       warning: `${
         fatal.relativeErrorCount +
         critical.relativeErrorCount +
-        warning.relativeErrorCount
+        warning.relativeErrorCount +
+        (fatal.relativeErrorCount > 0 ? 0.5 : 0) +
+        (critical.relativeErrorCount > 0 ? 0.5 : 0)
+      }%`,
+      warningBorder: `${
+        fatal.relativeErrorCount +
+        critical.relativeErrorCount +
+        warning.relativeErrorCount +
+        (fatal.relativeErrorCount > 0 ? 0.5 : 0) +
+        (critical.relativeErrorCount > 0 ? 0.5 : 0) +
+        (warning.relativeErrorCount > 0 ? 0.5 : 0)
       }%`,
     };
   }

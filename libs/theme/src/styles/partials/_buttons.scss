@@ -22,10 +22,8 @@ button {
   }
   &:focus {
     background-color: var(--primary-120);
-    //padding: 4px;
     outline: 2px solid var(--grey-190);
     outline-offset: 2px;
-    //border-radius: 0;
   }
 }
 
