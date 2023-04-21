@@ -17,6 +17,7 @@
     expectingSubmissionPercentage +
     needsResubmissionPercentage +
     (needsResubmissionPercentage > 0 ? 0.5 : 0) +
+    (expectingSubmissionPercentage > 0 ? 0.5 : 0) +
     '%'
   "
   [style.--pastDue]="
@@ -28,6 +29,7 @@
     '%'
   "
   [style.--pastDueBorder]="
+    pastDuePercentage +
     expectingSubmissionPercentage +
     needsResubmissionPercentage +
     (needsResubmissionPercentage > 0 ? 0.5 : 0) +

@@ -26,10 +26,9 @@
       var(--expectingSubmission),
     var(--white) var(--expectingSubmission) var(--expectingSubmissionBorder),
     var(--past-due-color) var(--expectingSubmissionBorder) var(--pastDue),
-    var(--past-due-color) var(--pastDue) var(--pastDueBorder),
+    var(--white) var(--pastDue) var(--pastDueBorder),
     var(--current-color) var(--pastDueBorder) 100%
   );
-  // outline: 5px solid white;
 }
 
 .color-block {
