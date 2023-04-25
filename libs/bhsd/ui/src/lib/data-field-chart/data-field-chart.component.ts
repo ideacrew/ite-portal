@@ -77,35 +77,12 @@ export class DataFieldChartComponent {
 
     return {
       fatal: `${fatal.relativeErrorCount}%`,
-      fatalBorder: `${
-        fatal.relativeErrorCount + (fatal.relativeErrorCount > 0 ? 0.5 : 0)
-      }%`,
-      critical: `${
-        fatal.relativeErrorCount +
-        (fatal.relativeErrorCount > 0 ? 0.5 : 0) +
-        critical.relativeErrorCount
-      }%`,
-      criticalBorder: `${
-        fatal.relativeErrorCount +
-        (fatal.relativeErrorCount > 0 ? 0.5 : 0) +
-        critical.relativeErrorCount +
-        (critical.relativeErrorCount > 0 ? 0.5 : 0)
-      }%`,
-      warning: `${
-        fatal.relativeErrorCount +
-        critical.relativeErrorCount +
-        warning.relativeErrorCount +
-        (fatal.relativeErrorCount > 0 ? 0.5 : 0) +
-        (critical.relativeErrorCount > 0 ? 0.5 : 0)
-      }%`,
-      warningBorder: `${
-        fatal.relativeErrorCount +
-        critical.relativeErrorCount +
-        warning.relativeErrorCount +
-        (fatal.relativeErrorCount > 0 ? 0.5 : 0) +
-        (critical.relativeErrorCount > 0 ? 0.5 : 0) +
-        (warning.relativeErrorCount > 0 ? 0.5 : 0)
-      }%`,
+      critical: `${critical.relativeErrorCount}%`,
+      criticalPosition: `${this.getCriticalPosition()}%`,
+      warning: `${warning.relativeErrorCount}%`,
+      warningPosition: `${this.getWarningPosition()}%`,
+      valid: `${this.validRelativeCount}%`,
+      validPosition: `${this.getValidPosition()}%`,
     };
   }
 
@@ -113,5 +90,47 @@ export class DataFieldChartComponent {
     return (
       (this.dataFieldsWithoutErrors.length / this.totalDataFieldCount) * 100
     );
+  }
+
+  getCriticalPosition(): number {
+    let border = this.errorInformation.fatal.relativeErrorCount;
+    if (this.errorInformation.fatal.relativeErrorCount > 0) {
+      border += 0.25;
+    }
+    return (
+      (border / (100 - this.errorInformation.critical.relativeErrorCount)) * 100
+    );
+  }
+
+  getWarningPosition(): number {
+    let border =
+      this.errorInformation.fatal.relativeErrorCount +
+      this.errorInformation.critical.relativeErrorCount;
+    if (this.errorInformation.fatal.relativeErrorCount > 0) {
+      border += 0.25;
+    }
+    if (this.errorInformation.critical.relativeErrorCount > 0) {
+      border += 0.25;
+    }
+    return (
+      (border / (100 - this.errorInformation.warning.relativeErrorCount)) * 100
+    );
+  }
+
+  getValidPosition(): number {
+    let border =
+      this.errorInformation.fatal.relativeErrorCount +
+      this.errorInformation.critical.relativeErrorCount +
+      this.errorInformation.warning.relativeErrorCount;
+    if (this.errorInformation.fatal.relativeErrorCount > 0) {
+      border += 0.25;
+    }
+    if (this.errorInformation.critical.relativeErrorCount > 0) {
+      border += 0.25;
+    }
+    if (this.errorInformation.warning.relativeErrorCount > 0) {
+      border += 0.25;
+    }
+    return (border / (100 - this.validRelativeCount)) * 100;
   }
 }

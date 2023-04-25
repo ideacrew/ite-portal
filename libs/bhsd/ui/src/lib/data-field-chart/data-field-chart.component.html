@@ -3,12 +3,12 @@
   <div
     class="chart"
     [style.--fatal]="errorPercentages.fatal"
-    [style.--fatalBorder]="errorPercentages.fatalBorder"
+    [style.--criticalPosition]="errorPercentages.criticalPosition"
     [style.--critical]="errorPercentages.critical"
-    [style.--criticalBorder]="errorPercentages.criticalBorder"
+    [style.--warningPosition]="errorPercentages.warningPosition"
     [style.--warning]="errorPercentages.warning"
-    [style.--warningBorder]="errorPercentages.warningBorder"
-    [style.--valid]="'100%'"
+    [style.--validPosition]="errorPercentages.validPosition"
+    [style.--valid]="errorPercentages.valid"
   ></div>
   <div class="legend">
     <div class="fatal">

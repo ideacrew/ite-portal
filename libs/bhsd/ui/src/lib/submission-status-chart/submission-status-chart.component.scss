@@ -18,17 +18,27 @@
   height: 2rem;
   border-radius: 5px;
   border: 2px solid var(--bg);
-  background: linear-gradient(
-    to right,
-    var(--needs-resubmission-color, grey) 0% var(--needsResubmission),
-    var(--white) var(--needsResubmission) var(--needsResubmissionBorder),
-    var(--expecting-submission-color) var(--needsResubmissionBorder)
-      var(--expectingSubmission),
-    var(--white) var(--expectingSubmission) var(--expectingSubmissionBorder),
-    var(--past-due-color) var(--expectingSubmissionBorder) var(--pastDue),
-    var(--white) var(--pastDue) var(--pastDueBorder),
-    var(--current-color) var(--pastDueBorder) 100%
-  );
+  background-image: repeating-linear-gradient(
+      -45deg,
+      var(--white) 0 2px,
+      var(--needs-resubmission-color) 2px 4px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      var(--past-due-color) 0 2px,
+      var(--white) 2px 4px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      var(--expecting-submission-color) 0 3px,
+      var(--white) 2px 4px
+    ),
+    linear-gradient(to right, var(--current-color) 0 100%);
+  background-size: var(--needsResubmission) 100%, var(--pastDue) 100%,
+    var(--expectingSubmission) 100%, var(--current) 100%;
+  background-position: 0 0, var(--pastDuePosition) 0,
+    var(--expectingSubmissionPosition) 0, var(--currentPosition) 0;
+  background-repeat: no-repeat;
 }
 
 .color-block {
@@ -36,21 +46,33 @@
   height: 1rem;
   width: 1rem;
   border: 2px solid var(--bg);
-  background-color: var(--status-color);
+  background: var(--status-color);
 }
 
 .needs-resubmission {
-  --status-color: var(--needs-resubmission-color);
+  --status-color: repeating-linear-gradient(
+    -45deg,
+    transparent 0 3px,
+    var(--needs-resubmission-color) 3px 6px
+  );
 }
 
 .current {
   --status-color: var(--current-color);
 }
 .past-due {
-  --status-color: var(--past-due-color);
+  --status-color: repeating-linear-gradient(
+    180deg,
+    var(--past-due-color) 0 3px,
+    transparent 3px 6px
+  );
 }
 .expecting-submission {
-  --status-color: var(--expecting-submission-color);
+  --status-color: repeating-linear-gradient(
+    180deg,
+    var(--expecting-submission-color) 0 3px,
+    transparent 3px 6px
+  );
 }
 
 .legend {
