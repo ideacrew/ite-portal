@@ -75,43 +75,6 @@ export class DataFieldChartComponent {
   get errorPercentages() {
     const { fatal, critical, warning } = this.errorInformation;
 
-    // get expectingSubmissionPosition(): number {
-    //   let border = this.needsResubmissionPercentage;
-    //   if (this.needsResubmissionPercentage > 0) {
-    //     border += 0.25;
-    //   }
-    //   return (border / (100 - this.expectingSubmissionPercentage)) * 100;
-    // }
-
-    // get pastDuePosition(): number {
-    //   let border =
-    //     this.needsResubmissionPercentage + this.expectingSubmissionPercentage;
-    //   if (this.needsResubmissionPercentage > 0) {
-    //     border += 0.25;
-    //   }
-    //   if (this.expectingSubmissionPercentage > 0) {
-    //     border += 0.25;
-    //   }
-    //   return (border / (100 - this.pastDuePercentage)) * 100;
-    // }
-
-    // get currentPosition(): number {
-    //   let border =
-    //     this.needsResubmissionPercentage +
-    //     this.expectingSubmissionPercentage +
-    //     this.pastDuePercentage;
-    //   if (this.needsResubmissionPercentage > 0) {
-    //     border += 0.25;
-    //   }
-    //   if (this.expectingSubmissionPercentage > 0) {
-    //     border += 0.25;
-    //   }
-    //   if (this.pastDuePercentage > 0) {
-    //     border += 0.25;
-    //   }
-    //   return (border / (100 - this.currentPercentage)) * 100;
-    // }
-
     return {
       fatal: `${fatal.relativeErrorCount}%`,
       critical: `${critical.relativeErrorCount}%`,
