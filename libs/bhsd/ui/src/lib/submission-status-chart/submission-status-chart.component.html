@@ -2,42 +2,12 @@
 <div
   class="chart"
   [style.--needsResubmission]="needsResubmissionPercentage + '%'"
-  [style.--needsResubmissionBorder]="
-    needsResubmissionPercentage +
-    (needsResubmissionPercentage > 0 ? 0.5 : 0) +
-    '%'
-  "
-  [style.--expectingSubmission]="
-    expectingSubmissionPercentage +
-    needsResubmissionPercentage +
-    (needsResubmissionPercentage > 0 ? 0.5 : 0) +
-    '%'
-  "
-  [style.--expectingSubmissionBorder]="
-    expectingSubmissionPercentage +
-    needsResubmissionPercentage +
-    (needsResubmissionPercentage > 0 ? 0.5 : 0) +
-    (expectingSubmissionPercentage > 0 ? 0.5 : 0) +
-    '%'
-  "
-  [style.--pastDue]="
-    pastDuePercentage +
-    expectingSubmissionPercentage +
-    needsResubmissionPercentage +
-    (needsResubmissionPercentage > 0 ? 0.5 : 0) +
-    (expectingSubmissionPercentage > 0 ? 0.5 : 0) +
-    '%'
-  "
-  [style.--pastDueBorder]="
-    pastDuePercentage +
-    expectingSubmissionPercentage +
-    needsResubmissionPercentage +
-    (needsResubmissionPercentage > 0 ? 0.5 : 0) +
-    (pastDuePercentage > 0 ? 0.5 : 0) +
-    (expectingSubmissionPercentage > 0 ? 0.5 : 0) +
-    '%'
-  "
-  [style.--current]="'100%'"
+  [style.--expectingSubmissionPosition]="expectingSubmissionPosition + '%'"
+  [style.--expectingSubmission]="expectingSubmissionPercentage + '%'"
+  [style.--pastDuePosition]="pastDuePosition + '%'"
+  [style.--pastDue]="pastDuePercentage + '%'"
+  [style.--currentPosition]="currentPosition + '%'"
+  [style.--current]="currentPercentage + '%'"
 ></div>
 <div class="legend">
   <div *ngIf="countOfNeedsResubmission > 0" class="needs-resubmission">
