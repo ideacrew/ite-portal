@@ -1,25 +1,41 @@
+<ul class="breadcrumbs">
+  <li>
+    <a
+      routerLink="/provider-gateway/submission-status"
+      routerLinkActive="active"
+      >Submission Status</a
+    >
+  </li>
+  <li>Provider Profile</li>
+</ul>
 <h1>Provider Profile</h1>
 
 <ng-container *ngIf="profile$ | async as profile">
   <h2>{{ profile.provider_name }} ({{ serviceType(profile) }})</h2>
-  <p><strong>NPI:</strong> {{ profile.npi }}</p>
+  <dl class="parent">
+    <dt>NPI:</dt>
+    <dd>{{ profile.npi }}</dd>
+  </dl>
   <h3>Contact Info</h3>
-  <div *ngFor="let location of profile.office_locations">
-    <div>
-      <strong>Address Line 1:</strong> {{ location.address.address_line1 }}
-    </div>
-    <div *ngIf="location.address.address_line2">
-      <strong>Address Line 2:</strong> {{ location.address.address_line2 }}
-    </div>
-    <div>
-      <strong>City, State, Zip:</strong> {{ location.address.city }},
-      {{ location.address.state }} {{ location.address.zip }}
-    </div>
-    <div *ngFor="let phone of location.phones">
-      <strong>Phone:</strong> {{ phone.full_phone_number }}
-    </div>
-    <div *ngFor="let email of location.emails">
-      <strong>Email:</strong> {{ email.address }}
-    </div>
-  </div>
+  <dl *ngFor="let location of profile.office_locations" class="parent">
+    <dt>Address Line 1:</dt>
+    <dd>{{ location.address.address_line1 }}</dd>
+    <ng-container *ngIf="location.address.address_line2">
+      <dt>Address Line 2:</dt>
+      <dd>{{ location.address.address_line2 }}</dd>
+    </ng-container>
+    <dt>City, State, Zip:</dt>
+    <dd>
+      {{ location.address.city }}, {{ location.address.state }}
+      {{ location.address.zip }}
+    </dd>
+    <ng-container *ngFor="let phone of location.phones">
+      <dt>Phone:</dt>
+      <dd>{{ phone.full_phone_number }}</dd>
+    </ng-container>
+    <ng-container *ngFor="let email of location.emails">
+      <dt>Email:</dt>
+      <dd>{{ email.address }}</dd>
+    </ng-container>
+  </dl>
 </ng-container>

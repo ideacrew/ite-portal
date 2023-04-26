@@ -1,18 +1,30 @@
 import { Component } from '@angular/core';
-
-import { AuthService, TokenObject } from '@dbh/auth';
+import { Router } from '@angular/router';
+import { AuthService } from '@dbh/auth';
 
 @Component({
   templateUrl: './search-and-query.component.html',
   styleUrls: ['./search-and-query.component.scss'],
 })
 export class SearchAndQueryComponent {
-  token: TokenObject = this.authService.decodedToken;
+  searchTerm = '';
 
-  isProvider = this.authService.isProvider;
-  isDBHUser = this.authService.isDBHUser;
+  setSearchTerm(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchTerm = target.value;
+  }
 
-  applicationName = 'ITE Portal';
+  submitClientSearch() {
+    void this.router.navigate(['/search-and-query/client-search'], {
+      queryParams: { search: this.searchTerm },
+    });
+  }
 
-  constructor(private authService: AuthService) {}
+  submitClaimSearch() {
+    void this.router.navigate(['/search-and-query/claim-search'], {
+      queryParams: { search: this.searchTerm },
+    });
+  }
+
+  constructor(private authService: AuthService, private router: Router) {}
 }
