@@ -1,0 +1,65 @@
+.button + .button {
+  margin-left: 2ch;
+}
+
+li {
+  margin-bottom: 1ch;
+}
+
+thead tr:first-of-type {
+  th:nth-child(1) {
+    background: var(--primary);
+    color: var(--white);
+    border-right: 1px solid var(--header-divider);
+  }
+  th:nth-child(2) {
+    background: var(--secondary);
+    color: var(--white);
+    border-right: 1px solid var(--header-divider);
+  }
+  th:nth-child(3) {
+    background: var(--tertiary-150);
+    color: var(--white);
+    border-right: 1px solid var(--header-divider);
+  }
+  tr td:nth-child(3),
+  tr th:nth-child(3),
+  tr td:nth-child(5),
+  tr th:nth-child(5),
+  tr td:nth-child(7),
+  tr th:nth-child(7) {
+    border-right: none;
+  }
+}
+
+thead tr:nth-child(2) th:nth-child(-n + 3) {
+  color: var(--primary);
+}
+
+thead tr:nth-child(2) th:nth-child(4),
+thead tr:nth-child(2) th:nth-child(5) {
+  color: var(--secondary-120);
+}
+
+thead tr:nth-child(2) th:nth-child(6),
+thead tr:nth-child(2) th:nth-child(7) {
+  color: var(--tertiary-150);
+}
+
+tr td:nth-child(3),
+tr td:nth-child(5),
+tr td:nth-child(7) {
+  border-right: 1px solid var(--row-divider);
+}
+
+tr th:nth-child(3),
+tr th:nth-child(5),
+tr th:nth-child(7) {
+  border-right: 1px solid var(--header-divider);
+}
+
+td:first-of-type {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
+}

@@ -31,7 +31,12 @@ export class DataFieldChartComponent {
   }
 
   get totalDataFieldCount(): number {
-    return this.allDataFields.length;
+    const fieldNames = this.record.errors.map((x) => x.fieldName);
+    const unique1 = fieldNames.filter((o) => !this.allDataFields.includes(o));
+    const unique2 = this.allDataFields.filter((o) => !fieldNames.includes(o));
+    const unique = [...unique1, ...unique2];
+
+    return unique.length;
   }
 
   get dataFieldsWithErrors(): ExtractRecordField[] {

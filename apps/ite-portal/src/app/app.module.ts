@@ -34,6 +34,7 @@ import { DataGovernanceComponent } from './data-governance/data-governance.compo
 import { BusinessGlossaryComponent } from './business-glossary/business-glossary.component';
 import { DataTrackingSystemInventoryComponent } from './data-tracking-system-inventory/data-tracking-system-inventory.component';
 import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-conventions/ite-database-naming-conventions.component';
+import { DataDictionaryComponent } from './data-dictionary/data-dictionary.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-con
     BusinessGlossaryComponent,
     DataTrackingSystemInventoryComponent,
     IteDatabaseNamingConventionsComponent,
+    DataDictionaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -157,6 +159,10 @@ import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-con
           {
             path: 'data-governance/ite-database-naming-conventions',
             component: IteDatabaseNamingConventionsComponent,
+          },
+          {
+            path: 'data-governance/data-dictionary',
+            component: DataDictionaryComponent,
           },
           {
             path: 'provider-gateway/submissions',

@@ -1,0 +1,995 @@
+<ul class="breadcrumbs">
+  <li>
+    <a routerLink="/data-governance" routerLinkActive="active"
+      >Data Governance</a
+    >
+  </li>
+  <li>Data Dictionary</li>
+</ul>
+<h1>Data Dictionary</h1>
+<h2>Claims Data Table(s) in ITE DB</h2>
+<ol>
+  <li>
+    <strong>dbo.mmis_medicaid_claims</strong><br />This table is a collection of
+    Medicaid claim records integrated from the Medicaid Remittance Advice (RA)
+    835 transaction files in CSV format produced by the District's Medicaid
+    Management Information System (MMIS) through the weekly payment cycle. This
+    dataset includes all Medicaid fee-for-service (FFS) claims billed by
+    behavioral health service providers and adjudicated (paid or approved) by
+    the state.
+  </li>
+  <li>
+    <strong>dbo.dw_medicaid_claims</strong><br />This table is a collection of
+    Medicaid claim records integrated from DBH Data Warehouse (DW) that ingests
+    Medicaid claims data sent via the SQL-linked-server by DHCF Medicaid Data
+    Warehouse (MDW), which processes and reconciles MMIS claims data with the
+    eligibility system (DCAS) data. This dataset includes only paid claims,
+    including Medicaid FFS claims paid by the State and managed care claims paid
+    (and reported to MMIS) by Manage Care Organizations (MCOs).
+  </li>
+  <li>
+    <strong>dbo.master_claims</strong><br />This table combines the above two
+    claim datasets and reconciles any discrepancies for the same claims included
+    in both datasets, generating [master_claim_record_id] for each line of
+    claims as an individual record. In the future, this table will further
+    ingest locally funded non-Medicaid FFS claims adjudicated in InCedo. Claims
+    data reconciled in this table can be searched on the ‘Claim Search’ page of
+    the ITE portal.
+  </li>
+</ol>
+<p class="secondary">Updated as of 4/24/202</p>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3">ITE DB Field Names</th>
+      <th colspan="2">ITE DB Field Details</th>
+      <th colspan="2">Source Field Names</th>
+      <th colspan="2">Content</th>
+    </tr>
+    <tr>
+      <th>master_claims</th>
+      <th>mmis_claims</th>
+      <th>dw_claims</th>
+      <th>Format (size)</th>
+      <th>Allow Null</th>
+      <th>MMIS RA File</th>
+      <th>DHCF MDW</th>
+      <th>Definition</th>
+      <th>Example Value(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>id</td>
+      <td>id</td>
+      <td>bigint (Primary Key)</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>
+        A system generated unique record identifier (primary key) of each table.
+      </td>
+      <td>1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>master_claim_id</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>bigint</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>
+        A system generated identifier representing a master claim record
+        reconciled from source claim tables.
+      </td>
+      <td>1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>claim_record_id</td>
+      <td>mmis_claim_record_id</td>
+      <td>dw_claim_record_id</td>
+      <td>nvarchar (4000)</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>
+        Unique claim record identifier constructed based on the source data. For
+        a Medicaid claim record, it is a combination of [claim_tcn] - 17 digits
+        - and [tcn_line_item_number] - 3 digits (including leading zeros) -,
+        with a hyphen (-) between them. For a claim with more than one line
+        item, each line item will create an individual claim record.
+      </td>
+      <td>23100382200155227-001</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>claim_tcn</td>
+      <td>mmis_claim_tcn</td>
+      <td>dw_claim_tcn</td>
+      <td>nvachar(17)</td>
+      <td>Yes</td>
+      <td>TCN</td>
+      <td>ClaimTCN</td>
+      <td>
+        Transaction Control Number (TCN), an unique identifier of a Medicaid
+        claim (17 digit) assigned (by MMIS) to each adjudicated claim document
+        submitted to MMIS
+      </td>
+      <td>23100382200155227</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>tcn_line_item_number</td>
+      <td>mmis_tcn_line_item_number</td>
+      <td>dw_tcn_line_item_number</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>LINE</td>
+      <td>LineItemNumber</td>
+      <td>
+        Number (order) of the line item in a Medicaid claim (837) submitted by
+        provider. Most claims have only one line item. However, some claims may
+        have more than one line items.
+      </td>
+      <td>1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>claim_process_level</td>
+      <td>mmis_claim_process_level</td>
+      <td>dw_claim_process_level</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>ClaimProcessLevel</td>
+      <td>
+        Indicates if the claim was processed at the &#39;Header&#39; level (as a
+        total amount) vs. individual line (&#39;Detail&#39;) level. Only
+        pharmacy claims for certain drugs are processed at the header level.
+      </td>
+      <td>Detail</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>claim_information_source</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>nvarchar(4000)</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>
+        Information source of the respective claim record for the
+        [master_claims] table, in which most of FFS claims records are updated
+        from Remittance Advice (RA) generated from MMIS; and MCO claims records
+        are updated from DHCF Medicaid Data Warehouse via DBH Data Warehouse.
+      </td>
+      <td>MMIS RA - Medicaid FFS Claims</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>claim_coverage_type</td>
+      <td>mmis_claim_coverage_type</td>
+      <td>dw_claim_coverage_type</td>
+      <td>nvarchar(4000)</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>ClaimCoverageTypeCode</td>
+      <td>
+        Indicates if the claim is covered by Fee-for-Service (FFS) or Managed
+        Care Organization (MCO)
+      </td>
+      <td>FFS</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>claim_type</td>
+      <td>mmis_claim_type</td>
+      <td>N/A</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>CLAIM_TYPE</td>
+      <td>N/A</td>
+      <td>
+        Claim type categorizing the claim by service identity. For example, M
+        represents MHRS service; C represents ASARS/SUD service; and B
+        represents other program service submitted by MHRS or ASARS provider; 1
+        indicates Improper claims action attempted.
+      </td>
+      <td>M</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>adjudication_status</td>
+      <td>mmis_adjudication_status</td>
+      <td>dw_adjudication_status</td>
+      <td>nvarchar(4000)</td>
+      <td>No</td>
+      <td>STATUS</td>
+      <td>N/A</td>
+      <td>
+        Determined (adjudicated) status of a claim. It could be paid (approved
+        for a claim that will be or has been paid), denied, or suspended.
+      </td>
+      <td>Paid</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>claim_processing_status</td>
+      <td>mmis_claim_processing_status</td>
+      <td>N/A</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>DISP</td>
+      <td>N/A</td>
+      <td>
+        Claim processing status indicating if the respective TCN record is
+        original or has been regenerated with adjusted information. A provider
+        may resubmit a claim with updated information, for service that has been
+        already adjudicated. The updated claim will create a new TCN that may
+        result in a credit or debt if approved. If the record is an original
+        claim with no adjustment, this field will display &#39;Original.&#39;
+        Otherwise, the type of adjustment (Credit, Debit or Void) will be
+        indicated, and [original_tcn_of_adjusted_claim] will display the
+        original claim TCN associated with the adjusted claim.
+      </td>
+      <td>Credit</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>original_tcn_of_adjusted_claim</td>
+      <td>mmis_original_tcn_of_adjusted_claim</td>
+      <td>N/A</td>
+      <td>nvarchar(17)</td>
+      <td>Yes</td>
+      <td>ADJUST_TCN</td>
+      <td>N/A</td>
+      <td>
+        TCN of the previously adjudicated claim when some information on the
+        original claim changed to generate a new TCN with adjustment. A
+        successful adjustment transaction creates a credit record, which
+        reverses the original claim payment, and a debit record that replaces
+        the original payment with a corrected amount; a change submitted because
+        of a billing or processing error.
+      </td>
+      <td>122224381920033347</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>first_date_of_service</td>
+      <td>mmis_first_date_of_service</td>
+      <td>dw_first_date_of_service</td>
+      <td>Date (YYYY-MM-DD)</td>
+      <td>No</td>
+      <td>FROM_DTE</td>
+      <td>FirstDateofService</td>
+      <td>First day of the billed service coverage period</td>
+      <td>2022-11-22</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>last_date_of_service</td>
+      <td>mmis_last_date_of_service</td>
+      <td>dw_last_date_of_service</td>
+      <td>Date (YYYY-MM-DD)</td>
+      <td>Yes</td>
+      <td>THRU_DTE</td>
+      <td>LastDateofService</td>
+      <td>Last day of the billed service coverage period</td>
+      <td>2021-11-25</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>adjudication_date</td>
+      <td>mmis_adjudication_date</td>
+      <td>dw_adjudication_date</td>
+      <td>Date (YYYY-MM-DD)</td>
+      <td>No</td>
+      <td>PAID_DTE</td>
+      <td>PaidDate</td>
+      <td>Date Provider&#39;s claim was adjudicated/paid</td>
+      <td>2023-03-27</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billing_date</td>
+      <td>mmis_billing_date</td>
+      <td>dw_billing_date</td>
+      <td>Date (YYYY-MM-DD)</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>
+        Date provider&#39;s claim was submitted: Converted from the first 5
+        characters in TCN that indicates the billing date in Julian date format
+        (YYDDD)
+      </td>
+      <td>2022-03-22</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billing_provider_type_code</td>
+      <td>mmis_billing_provider_type_code</td>
+      <td>dw_billing_provider_type_code</td>
+      <td>nvarchar(4000)</td>
+      <td>No</td>
+      <td>BLNG_TYPE</td>
+      <td>BillingProviderCode</td>
+      <td>
+        Medicaid billing provider&#39;s type code (e.g., &#39;T01&#39;,
+        &#39;X02&#39;, &#39;X04&#39;, &#39;X06&#39;, &#39;X08&#39;,
+        &#39;T02&#39;, etc.)
+      </td>
+      <td>T01</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billing_provider_type</td>
+      <td>mmis_billing_provider_type</td>
+      <td>dw_billing_provider_type</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>BillingProviderDescription</td>
+      <td>
+        Medicaid billing provider&#39;s type corresponding to the
+        [billing_provider_type_code]
+      </td>
+      <td>Mental Health Rehab Services</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billing_provider_id</td>
+      <td>mmis_billing_provider_id</td>
+      <td>dw_billing_provider_id</td>
+      <td>int</td>
+      <td>No</td>
+      <td>BLNG_ID</td>
+      <td>ProviderID</td>
+      <td>Medicaid billing ID assigned to each provider by MMIS</td>
+      <td>36612200</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billing_provider</td>
+      <td>mmis_billing_provider</td>
+      <td>dw_billing_provider</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>BLNG_NAME</td>
+      <td>ProviderName</td>
+      <td>Name of provider billing the claim</td>
+      <td>PSI SERVICES III INC</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billing_provider_npi</td>
+      <td>mmis_billing_provider_npi</td>
+      <td>dw_billing_provider_npi</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>BLNG_NPI</td>
+      <td>ProviderNPINumber</td>
+      <td>NPI of provider associated with billing</td>
+      <td>1720271836</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>biling_provider_taxonomy</td>
+      <td>mmis_biling_provider_taxonomy</td>
+      <td>N/A</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>BLNG_TAXO</td>
+      <td>N/A</td>
+      <td>
+        Billing provider&#39;s taxonomy code describing provider type,
+        classification and specialization.
+      </td>
+      <td>100000000X</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billed_amount</td>
+      <td>mmis_billed_amount</td>
+      <td>dw_billed_amount</td>
+      <td>decimal(10,2)</td>
+      <td>Yes</td>
+      <td>BILLED</td>
+      <td>LineItemBilledAmount</td>
+      <td>
+        Amount billed per item in a claim submitted by provider (to State MMIS
+        for FFS coverage; and to MCO for MCO coverage)
+      </td>
+      <td>194.16</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>paid_amount</td>
+      <td>mmis_paid_amount</td>
+      <td>dw_paid_amount</td>
+      <td>decimal(10,2)</td>
+      <td>Yes</td>
+      <td>PAID</td>
+      <td>ReimbursementAmount</td>
+      <td>
+        Amount approved for payment (from state to provider for FFS claims and
+        from plan to provider for managed care claims)
+      </td>
+      <td>194.16</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>mco_encounter_paid_amount</td>
+      <td>N/A</td>
+      <td>dw_mco_encounter_paid_amount</td>
+      <td>decimal(10,2)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>MCOEncounterPaidAmount</td>
+      <td>
+        Amount MCO paid to the provider for the respective service/procedure per
+        managed care contract, as reported by MCO
+      </td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>submitted_units</td>
+      <td>mmis_submitted_units</td>
+      <td>dw_submitted_units</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>SUBM_UNTS</td>
+      <td>LineItemSubmittedUnits</td>
+      <td>
+        Number of units for the respective procedure indicated in the claim as
+        submitted by provider. The unit may be 1) number of times the service
+        was provided or 2) the total minutes divided by 15 (min).
+      </td>
+      <td>8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>paid_units</td>
+      <td>mmis_paid_units</td>
+      <td>dw_paid_units</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>PAID_UNTS</td>
+      <td>LineItemReimbursedUnits</td>
+      <td>
+        Number of units approved and paid by the State (for FFS claims) or MCO
+        (for managed care claims)
+      </td>
+      <td>8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>procedure_code</td>
+      <td>mmis_procedure_code</td>
+      <td>dw_procedure_code</td>
+      <td>nvarchar(4000)</td>
+      <td>No</td>
+      <td>PROC_CDE</td>
+      <td>ProcedureCode</td>
+      <td>
+        The Current Procedural Terminology (CPT) and Healthcare Common Procedure
+        Coding System (HCPCS) Codes (the Code List), maintained and updated by
+        CMS identify all the items and services included within certain
+        designated health services categories or that may qualify for certain
+        exceptions. Each claim should include a proper procedure code to be
+        processed.
+      </td>
+      <td>H0036</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>procedure</td>
+      <td>mmis_procedure</td>
+      <td>dw_procedure</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>PROC_DESC</td>
+      <td>ProcedureDescriptionShort</td>
+      <td>
+        Description of procedure corresponding to the selected [procedure_code]
+      </td>
+      <td>COMM PSY FACE-FACE PER 15MIN</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>modifier</td>
+      <td>mmis_modifier</td>
+      <td>dw_modifier</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>MOD1, MOD2, MOD3, MOD4</td>
+      <td>ProcedureModifierCodes</td>
+      <td>
+        (A) modifier(s) added to certain HCPCS/CPT codes providing additional
+        information necessary for processing a claim. Each modifier is composed
+        of 2 letters. If the claim has more than one modifier, multiple
+        modifiers are combined without any space or delimitator.
+      </td>
+      <td>GT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>place_of_service</td>
+      <td>mmis_place_of_service</td>
+      <td>dw_place_of_service</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>PLOS</td>
+      <td>PlaceOfServiceDescription</td>
+      <td>
+        PLOS is the MMIS abbreviation for place-of-service. This is the key
+        field that indicates where the service was rendered. (e.g., Group Home,
+        Office, Telehealth, Other, etc.)
+      </td>
+      <td>Telehealth Provided Other than in Patient’s Home</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>place_of_service_code</td>
+      <td>mmis_place_of_service_code</td>
+      <td>dw_place_of_service_code</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>PlaceOfServiceCode</td>
+      <td>Code corresponding to the [place of service]</td>
+      <td>2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>pre_authorization_number</td>
+      <td>mmis_pre_authorization_number</td>
+      <td>dw_pre_authorization_number</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>PA_NMBR</td>
+      <td>N/A</td>
+      <td>
+        Medicaid Prior Authorization (PA) number for services (ACT, CBI, Rehab
+        Day, Supported Employment, etc.) that require the prior authorization
+        for payment. Services that do not require a PA will have this field
+        blank.
+      </td>
+      <td>20221102050</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>remittance_number</td>
+      <td>mmis_remittance_number</td>
+      <td>dw_remittance_number</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>REMIT_NO</td>
+      <td>N/A</td>
+      <td>
+        Remittance number of remittance advice (RA - 835) sent by DHCF, from
+        MMIS to provider, indicating payment adjudication status (paid, denied,
+        adjusted or suspended) for all claims received during the week.
+      </td>
+      <td>1468706</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billing_patient_account</td>
+      <td>mmis_billing_patient_account</td>
+      <td>N/A</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>PAT_ACCT_NUM</td>
+      <td>N/A</td>
+      <td>
+        The patient account number included in the provider&#39;s claim,
+        identified as Client ID in the provider&#39;s EHR. This field is empty
+        when a Client ID was not added in the submitted claim.
+      </td>
+      <td>12345</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>age_as_of_first_date_of_service</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>AGE</td>
+      <td>FdosAge</td>
+      <td>
+        Age of the beneficiary client, calculated as of the first day of service
+      </td>
+      <td>64</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>eligibility_program_code</td>
+      <td>mmis_eligibility_program_code</td>
+      <td>dw_eligibility_program_code</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>PROG_CDE</td>
+      <td>EligibilityProgramCode</td>
+      <td>Medicaid eligibility program code</td>
+      <td>774D</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>billing_medicaid_id</td>
+      <td>mmis_billing_medicaid_id</td>
+      <td>dw_billing_medicaid_id</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>DCID</td>
+      <td>CurrentMedicaidID</td>
+      <td>
+        Medicaid ID of the beneficiary client, as submitted in the claim. For
+        some claim records, the value may reflect the current Medicaid ID that
+        may be different from the Medicaid ID included in the original claim if
+        updated by DHCF MDW.
+      </td>
+      <td>7######0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_name</td>
+      <td>mmis_full_name</td>
+      <td>dw_full_name</td>
+      <td>nvarchar(4000)</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Combination of [first_name], [middle_naem] and [last_name]</td>
+      <td>John L Crawford</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>first_name</td>
+      <td>mmis_first_name</td>
+      <td>dw_first_name</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>FIRST</td>
+      <td>BeneficiaryFirstName</td>
+      <td>Firs name of the beneficiary client</td>
+      <td>John</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>middle_name</td>
+      <td>mmis_middle_name</td>
+      <td>N/A</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>MIDDLE</td>
+      <td>N/A</td>
+      <td>Middle name or initial of the beneficiary client</td>
+      <td>L</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>last_name</td>
+      <td>mmis_last_name</td>
+      <td>dw_last_name</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>LAST</td>
+      <td>BeneficiaryLastName</td>
+      <td>Last name of the beneficiary client</td>
+      <td>Crawford</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>date_of_birth</td>
+      <td>mmis_date_of_birth</td>
+      <td>dw_date_of_birth</td>
+      <td>Date (YYYY-MM-DD)</td>
+      <td>No</td>
+      <td>BIRTH_DTE</td>
+      <td>BeneficiaryDateofBirth</td>
+      <td>Date of birth of the beneficiary client</td>
+      <td>YYYY-MM-DD</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>gender</td>
+      <td>mmis_gender</td>
+      <td>dw_gender</td>
+      <td>nvarchar(4000)</td>
+      <td>No</td>
+      <td>GENDER</td>
+      <td>BeneficiaryGenderCode</td>
+      <td>Biological sex of the beneficiary client</td>
+      <td>M</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>race</td>
+      <td>N/A</td>
+      <td>dw_race</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>BeneficiaryRaceDescription</td>
+      <td>
+        Race of the beneficiary client (as reported in the eligibility system
+        for Medicaid clients)
+      </td>
+      <td>African American</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>phone_number</td>
+      <td>N/A</td>
+      <td>dw_phone_number</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>BeneficiaryPhoneNumber</td>
+      <td>Phone number of the beneficiary client</td>
+      <td>202XXXXXXX</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_address</td>
+      <td>mmis_full_address</td>
+      <td>dw_full_address</td>
+      <td>nvarchar(max)</td>
+      <td>Yes</td>
+      <td>ADR1, QUAD, ADR2, CITY, ST, ZIP</td>
+      <td>BeneficiaryFullAddress</td>
+      <td>
+        Full address (street address, city, state and zip code) of the
+        beneficiary client as reported in claim
+      </td>
+      <td>### E*** RD SE, Washington DC 20020</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>ward_code</td>
+      <td>N/A</td>
+      <td>dw_ward_code</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>Ward</td>
+      <td>BeneficiaryWardCode</td>
+      <td>Ward of the client&#39;s address if it is in the District</td>
+      <td>8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>primary_diagnosis_code</td>
+      <td>mmis_primary_diagnosis_code</td>
+      <td>dw_primary_diagnosis_code</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>DIAG_CODE</td>
+      <td>PrimaryICD</td>
+      <td>
+        Primary diagnosis as identified in claim. A legitimate ICD-10 diagnosis
+        must be present in a valid claim.
+      </td>
+      <td>F33.8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>primary_diagnosis</td>
+      <td>N/A</td>
+      <td>dw_primary_diagnosis</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>PrimaryDiagnosis</td>
+      <td>Description of the primary_diagnosis_code</td>
+      <td>OTHER RECURRENT DEPRESSIVE DISORDERS</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>admitting_diagnosis_code</td>
+      <td>N/A</td>
+      <td>dw_admitting_diagnosis_code</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>AdmittingICD</td>
+      <td>
+        Admitting diagnosis as identified in claim (837). Used for inpatient
+        claims
+      </td>
+      <td>F33.8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>admitting_diagnosis</td>
+      <td>N/A</td>
+      <td>dw_admitting_diagnosis</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>AdmittingDiagnosis</td>
+      <td>Description of the admitting_diagnosis_code</td>
+      <td>OTHER RECURRENT DEPRESSIVE DISORDERS</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>emergency_diagnosis_code</td>
+      <td>N/A</td>
+      <td>dw_emergency_diagnosis_code</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>EmergencyICD</td>
+      <td>
+        Emergency diagnosis as identified in claim (837). Used for claims for
+        Emergency Room Services
+      </td>
+      <td>F31.12</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>emergency_diagnosis</td>
+      <td>N/A</td>
+      <td>dw_emergency_diagnosis</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>EmergencyDiagnosis</td>
+      <td>Description of the emergency_diagnosis_code</td>
+      <td>BIPOLAR DISORD, CRNT EPISODE MANIC W/O P</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>other_diagnosis_code</td>
+      <td>N/A</td>
+      <td>dw_other_diagnosis_code</td>
+      <td>nvarchar(200)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>OtherDiagnosis</td>
+      <td>
+        Diagnosis codes other than the primary diagnosis code. It can include
+        more than one but no more than 12. Each diagnosis code is separated by a
+        comma (,).
+      </td>
+      <td>F31.12,F31.9</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>header_diagnosis_group_key</td>
+      <td>N/A</td>
+      <td>dw_header_diagnosis_group_key</td>
+      <td>int</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>HeaderDiagnosisGroupKey</td>
+      <td>
+        Unique identifier that indicates Diagnosis Related Group (DRG), which is
+        used to group patients with similar clinical conditions and treatment
+        needs.
+      </td>
+      <td>5099905</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>drug_code</td>
+      <td>N/A</td>
+      <td>dw_drug_code</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>DrugCode</td>
+      <td>
+        Code of the drug prescribed to treat opioid dependence and billed in the
+        respective pharmacy claim
+      </td>
+      <td>54017613</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>drug_category</td>
+      <td>N/A</td>
+      <td>dw_drug_category</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>DrugCategoryDescription</td>
+      <td>Category of the respective drug</td>
+      <td>Unknown</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>drug_name</td>
+      <td>N/A</td>
+      <td>dw_drug_name</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>DrugName</td>
+      <td>Name of the drug corresponding to the code</td>
+      <td>BUPRENORP-NALOX 8-2 MG SL F</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>drug_generic_name</td>
+      <td>N/A</td>
+      <td>dw_drug_generic_name</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>DrugGenericName</td>
+      <td>Generic name of the drug</td>
+      <td>BUPRENORPHINE HCL</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>revenue_code</td>
+      <td>N/A</td>
+      <td>dw_revenue_code</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>RevenueCode</td>
+      <td>
+        Indicates what department or place a procedure or treatment was
+        performed, such as the emergency room, operating room or another
+        department. This field have value on claims billed under D00 (Hospital)
+        only.
+      </td>
+      <td>0500</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>revenue_code_description</td>
+      <td>N/A</td>
+      <td>dw_revenue_code_description</td>
+      <td>nvarchar(4000)</td>
+      <td>Yes</td>
+      <td>N/A</td>
+      <td>RevenueCodeDescription</td>
+      <td>Description of the revenue code</td>
+      <td>OUTPATIENT SERVICES - GENERAL CLASS</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>created_at</td>
+      <td>created_at</td>
+      <td>created_at</td>
+      <td>datetime</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>
+        A system generated date and time when the claim record has been added to
+        the ITE claim table
+      </td>
+      <td>4/10/2023 7:19:30 PM</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>updated_at</td>
+      <td>updated_at</td>
+      <td>updated_at</td>
+      <td>datetime</td>
+      <td>No</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>
+        A system generated date and time when the claim record has been updated
+        in the ITE claim table. It is not expected the claim information will be
+        updated unless there needs data correction due to any glitches or
+        problems that may have occurred during the data migration from source
+        systems.
+      </td>
+      <td>4/10/2023 7:19:30 PM</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
