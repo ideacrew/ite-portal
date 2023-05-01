@@ -153,6 +153,7 @@ export class SubmitExtractComponent {
         reader.readAsText(file);
         reader.addEventListener('load', () => {
           const csvText = reader.result as string;
+          console.log(csvText);
           const recordData: ExtractRecordData[] = convertCsvToJson(csvText);
           // Sheets uses a return and newline for each new row
           if (recordData.length > 0) {

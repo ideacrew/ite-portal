@@ -5,8 +5,7 @@ export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
   const csvAsObject: ExtractRecordData[] = [];
 
   // Begin by separating headers from lines
-  const [rawHeaders, ...rawLines] = csv.split('\r\n');
-
+  const [rawHeaders, ...rawLines] = csv.split('\n');
   const filteredLines = rawLines.filter((rawLine) => lineHasValue(rawLine));
 
   if (filteredLines.length > 0) {
