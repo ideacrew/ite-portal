@@ -14,8 +14,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { BehaviorSubject, EMPTY, of, Subject, throwError } from 'rxjs';
-import { catchError, shareReplay, map } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 import { lastDayOfMonth } from 'date-fns';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -153,7 +153,6 @@ export class SubmitExtractComponent {
         reader.readAsText(file);
         reader.addEventListener('load', () => {
           const csvText = reader.result as string;
-          console.log(csvText);
           const recordData: ExtractRecordData[] = convertCsvToJson(csvText);
           // Sheets uses a return and newline for each new row
           if (recordData.length > 0) {
