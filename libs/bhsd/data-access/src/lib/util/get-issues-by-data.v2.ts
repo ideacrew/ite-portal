@@ -92,7 +92,6 @@ export const convertExtractSubmissionToFailedCsv = (
   const recordsV2 = records
     .map((record) => convertRecordValidationToV3(record))
     .filter((record) => record.errors.length > 0);
-  console.log(recordsV2);
   return { ...submissionResponse, records: recordsV2 };
 };
 

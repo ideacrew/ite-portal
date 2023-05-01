@@ -40,7 +40,6 @@ export class ClaimsService {
       baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
       baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
       baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
-      console.log(baseUrl);
     }
     return this.http.get<ClaimSearch>(baseUrl);
   }

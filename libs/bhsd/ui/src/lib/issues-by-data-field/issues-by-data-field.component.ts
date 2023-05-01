@@ -63,14 +63,6 @@ export class IssuesByDataFieldComponent {
       count: this.getCountOfErrorsWithCategoryName(category, allErrors),
     }));
 
-    // console.log({
-    //   affectedRecords,
-    //   allErrors,
-    //   categories,
-    //   uniqueCategories,
-    //   categoriesWithCount,
-    // });
-
     return categoriesWithCount;
   }
 
