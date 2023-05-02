@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export type Claim = {
-  master_claim_id: string;
   claim_record_id: string;
   adjudication_date: Date;
-  adjudication_status?: string;
+  adjudication_status: string;
   admitting_diagnosis?: string;
   admitting_diagnosis_code?: string;
   age_as_of_first_date_of_service?: number;
