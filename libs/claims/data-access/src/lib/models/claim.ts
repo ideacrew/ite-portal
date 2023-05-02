@@ -48,8 +48,8 @@ export type Claim = {
   remittance_number?: string;
   revenue_code?: string;
   revenue_code_description?: string;
-  full_address: string;
-  procedure_code: string;
+  full_address?: string;
+  procedure_code?: string;
   gender: string;
   date_of_birth: Date;
   first_date_of_service: Date;
