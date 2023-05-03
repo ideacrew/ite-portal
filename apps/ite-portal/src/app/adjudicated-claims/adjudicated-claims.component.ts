@@ -4,11 +4,18 @@ import { Component } from '@angular/core';
 import { VizCreateOptions } from 'ngx-tableau';
 
 @Component({
-  template: `<ngx-tableau
-    serverUrl="https://tableau.dbh-ite.com"
-    report="Summary/D1-Summary"
-    [options]="options"
-  ></ngx-tableau>`,
+  template: `<ul class="breadcrumbs">
+      <li>
+        <a routerLink="/claims" routerLinkActive="active">Claims & Finance</a>
+      </li>
+      <li>Claims by Provider</li>
+    </ul>
+    <h1>Claims by Provider</h1>
+    <ngx-tableau
+      serverUrl="https://tableau.dbh-ite.com"
+      report="Summary/D1-Summary"
+      [options]="options"
+    ></ngx-tableau>`,
 })
 export class AdjudicatedClaimsComponent {
   options: VizCreateOptions = {

@@ -1,78 +1,81 @@
-<div class="widget">
-  <div class="widget-header">
-    <h2>Client Search</h2>
+<h1>Portal Dashboard</h1>
+<div class="widgets">
+  <div class="widget">
+    <div class="widget-header">
+      <h2>Client Search</h2>
+    </div>
+    <div class="widget-content search">
+      <p>Use the search to look up client record information.</p>
+      <p>Search by full name, first name or last name.</p>
+      <label for="client-search">Client Search</label>
+      <input
+        type="search"
+        name="client-search"
+        id="client-search"
+        placeholder="Search"
+        (change)="setSearchTerm($event)"
+        (keyup.enter)="submitSearch()"
+      />
+      <button type="submit" class="button" (click)="submitSearch()">
+        Search
+      </button>
+    </div>
   </div>
-  <div class="widget-content search">
-    <p>Use the search to look up client record information.</p>
-    <p>Search by full name, first name or last name.</p>
-    <label for="client-search">Client Search</label>
-    <input
-      type="search"
-      name="client-search"
-      id="client-search"
-      placeholder="Search"
-      (change)="setSearchTerm($event)"
-      (keyup.enter)="submitSearch()"
-    />
-    <button type="submit" class="button" (click)="submitSearch()">
-      Search
-    </button>
-  </div>
-</div>
 
-<div class="widget" (click)="navigateTo('/provider-gateway')">
-  <div class="widget-header"><h2>Provider Gateway</h2></div>
-  <div class="widget-content">
-    <h3>Reporting Period: {{ thisReportingPeriod }}</h3>
-    <ng-container *ngIf="submissionStatus$ | async as submissions">
-      <dbh-submission-status-chart
-        [submissions]="submissions"
-      ></dbh-submission-status-chart>
-    </ng-container>
+  <div class="widget" (click)="navigateTo('/provider-gateway')">
+    <div class="widget-header"><h2>Provider Gateway</h2></div>
+    <div class="widget-content">
+      <h3>Reporting Period: {{ thisReportingPeriod }}</h3>
+      <ng-container *ngIf="submissionStatus$ | async as submissions">
+        <dbh-submission-status-chart
+          [submissions]="submissions"
+        ></dbh-submission-status-chart>
+      </ng-container>
+    </div>
   </div>
-</div>
 
-<div class="widget" (click)="navigateTo('/executive-dashboards')">
-  <div class="widget-header"><h2>Executive Dashboards</h2></div>
-  <div class="widget-content">
-    <h3 style="margin-bottom: 0px">{{ thisReportingPeriod }}</h3>
-    <img
-      src="/assets/executive-dashboard.png"
-      alt="image of substance use and mental health treatment"
-    />
+  <div class="widget" (click)="navigateTo('/executive-dashboards')">
+    <div class="widget-header"><h2>Executive Dashboards</h2></div>
+    <div class="widget-content">
+      <h3 style="margin-bottom: 0px">{{ thisReportingPeriod }}</h3>
+      <img
+        src="/assets/executive-dashboard.png"
+        alt="substance use and mental health treatment graph"
+      />
+    </div>
   </div>
-</div>
 
-<div class="widget" (click)="navigateTo('/claims/adjudicated-claims')">
-  <div class="widget-header"><h2>Claims & Finance</h2></div>
-  <div class="widget-content">
-    <h3>FY21-Q1 Adjudicated FFS Claims</h3>
-    <table class="widget-table">
-      <thead>
-        <tr>
-          <th>Payor</th>
-          <th class="numeric">Total Paid</th>
-          <th class="numeric negative-money">Total Denied</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Medicaid/Alliance</td>
-          <td class="numeric">{{ '57495' | currency }}</td>
-          <td class="numeric negative-money">-$100,000</td>
-        </tr>
-        <tr>
-          <td>Medicare</td>
-          <td class="numeric">{{ '57495' | currency }}</td>
-          <td class="numeric negative-money">{{ '2016' | currency }}</td>
-        </tr>
-        <tr>
-          <td>Commercial</td>
-          <td class="numeric">{{ '57495' | currency }}</td>
-          <td class="numeric negative-money">{{ '0' | currency }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="secondary">Adjudicated between 10/1/2021 and 12/31/2021</p>
+  <div class="widget" (click)="navigateTo('/claims/adjudicated-claims')">
+    <div class="widget-header"><h2>Claims & Finance</h2></div>
+    <div class="widget-content">
+      <h3>FY21-Q1 Adjudicated FFS Claims</h3>
+      <table class="widget-table">
+        <thead>
+          <tr>
+            <th>Payor</th>
+            <th class="numeric">Total Paid</th>
+            <th class="numeric negative-money">Total Denied</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Medicaid/Alliance</td>
+            <td class="numeric">{{ '57495' | currency }}</td>
+            <td class="numeric negative-money">-$100,000</td>
+          </tr>
+          <tr>
+            <td>Medicare</td>
+            <td class="numeric">{{ '57495' | currency }}</td>
+            <td class="numeric negative-money">{{ '2016' | currency }}</td>
+          </tr>
+          <tr>
+            <td>Commercial</td>
+            <td class="numeric">{{ '57495' | currency }}</td>
+            <td class="numeric negative-money">{{ '0' | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="secondary">Adjudicated between 10/1/2021 and 12/31/2021</p>
+    </div>
   </div>
 </div>

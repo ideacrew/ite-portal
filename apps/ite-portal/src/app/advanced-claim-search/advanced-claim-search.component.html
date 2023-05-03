@@ -11,9 +11,10 @@
   <div class="criterion">
     <div>
       <div>
-        <label for="identifier">Identifier</label>
+        <label [for]="'identifier' + index">Identifier</label>
         <select
-          name="identifier"
+          [name]="'identifier' + index"
+          [id]="'identifier' + index"
           [attr.data-id]="index"
           [value]="criterion.selector ?? ''"
           (change)="selectorSet($event)"
@@ -49,10 +50,10 @@
     </div>
     <div>
       <div>
-        <label for="relative">Relative</label>
+        <label [for]="'relative' + index">Relative</label>
         <select
-          name="relative"
-          id="relative"
+          [name]="'relative' + index"
+          [id]="'relative' + index"
           [attr.data-id]="index"
           [disabled]="!criterion.valueType"
           (change)="relativeSet($event)"
@@ -91,11 +92,11 @@
     </div>
     <div>
       <div>
-        <label for="value">Value</label>
+        <label [for]="'value' + index">Value</label>
         <ng-container *ngIf="criterion.valueType === 'select'; else nonSelect">
           <select
-            name="value"
-            id="value"
+            [name]="'value' + index"
+            [id]="'value' + index"
             [attr.data-id]="index"
             [disabled]="!criterion.relative"
             (change)="valueSet($event)"
@@ -128,8 +129,8 @@
             "
             [attr.data-id]="index"
             [disabled]="!criterion.relative"
-            id="value"
-            name="value"
+            [name]="'value' + index"
+            [id]="'value' + index"
             [value]="criterion.value ?? ''"
             (change)="valueSet($event)"
             (keyup)="valueSet($event)"
