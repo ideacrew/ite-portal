@@ -4,17 +4,21 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableauModule } from 'ngx-tableau';
+import { MsalModule, MsalService, MsalGuard, MsalInterceptor, MsalBroadcastService, MsalRedirectComponent } from "@azure/msal-angular";
+import { PublicClientApplication, InteractionType, BrowserCacheLocation } from "@azure/msal-browser";
+
+const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 import { DataAccessModule } from '@dbh/bhsd/data-access';
 import { ClaimsDataAccessModule } from '@dbh/claims/data-access';
-import {
-  AuthGuard,
-  AuthInterceptor,
-  AuthModule,
-  LogInComponent,
-  UserProfileComponent,
-  ResetPasswordComponent,
-} from '@dbh/auth';
+// import {
+//   AuthGuard,
+//   AuthInterceptor,
+//   AuthModule,
+//   LogInComponent,
+//   UserProfileComponent,
+//   ResetPasswordComponent,
+// } from '@dbh/auth';
 import { APP_TITLE } from '@dbh/theme';
 import { BhsdUiModule } from '@dbh/bhsd/ui';
 import { ProviderGuard } from '@dbh/providers/util';
@@ -60,19 +64,43 @@ import { DataDictionaryComponent } from './data-dictionary/data-dictionary.compo
     ReactiveFormsModule,
     DataAccessModule,
     ClaimsDataAccessModule,
-    AuthModule,
     BhsdUiModule,
     SharedUiModule,
     TableauModule,
-    RouterModule.forRoot([
-      {
-        path: 'login',
-        component: LogInComponent,
+    MsalModule.forRoot( new PublicClientApplication({ // MSAL Configuration
+      auth: {
+          clientId: "clientid",
+          authority: "https://login.microsoftonline.com/common/",
+          redirectUri: "http://localhost:4200/",
+          postLogoutRedirectUri: "http://localhost:4200/",
+          navigateToLoginRequestUrl: true
       },
+      cache: {
+          cacheLocation : BrowserCacheLocation.LocalStorage,
+          storeAuthStateInCookie: true, // set to true for IE 11
+      },
+      system: {
+          loggerOptions: {
+              loggerCallback: () => {},
+              piiLoggingEnabled: false
+          }
+      }
+  }), {
+      interactionType: InteractionType.Popup, // MSAL Guard Configuration
+      authRequest: {
+        scopes: ['user.read']
+      },
+      loginFailedRoute: "/login-failed"
+  }, {
+      interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
+      protectedResourceMap: new Map([
+        ['Enter_the_Graph_Endpoint_Here/v1.0/me', ['user.read']]
+    ]),
+  }),
+    RouterModule.forRoot([
       {
         path: '',
         component: PortalComponent,
-        canActivate: [AuthGuard],
         children: [
           {
             path: 'home',
@@ -214,10 +242,10 @@ import { DataDictionaryComponent } from './data-dictionary/data-dictionary.compo
                 (m) => m.ProvidersProfileModule
               ),
           },
-          {
-            path: 'user-profile',
-            component: UserProfileComponent,
-          },
+          // {
+          //   path: 'user-profile',
+          //   component: UserProfileComponent,
+          // },
           {
             path: 'provider-gateway/submission-status',
             loadChildren: () =>
@@ -239,10 +267,10 @@ import { DataDictionaryComponent } from './data-dictionary/data-dictionary.compo
                 (m) => m.BhsdLandingPageFeatureModule
               ),
           },
-          {
-            path: 'reset-password',
-            component: ResetPasswordComponent,
-          },
+          // {
+          //   path: 'reset-password',
+          //   component: ResetPasswordComponent,
+          // },
           {
             path: '',
             redirectTo: 'home',
@@ -257,12 +285,17 @@ import { DataDictionaryComponent } from './data-dictionary/data-dictionary.compo
     ]),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+  },
+  MsalGuard,
     {
       provide: APP_TITLE,
       useValue: 'ITE Portal',
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, MsalRedirectComponent],
 })
 export class AppModule {}
