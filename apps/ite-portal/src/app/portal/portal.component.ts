@@ -13,7 +13,6 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./portal.component.scss'],
 })
 export class PortalComponent implements OnInit {
-
   isProvider = true;
   isDBHUser = true;
 
@@ -26,6 +25,9 @@ export class PortalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.authService.instance.getAllAccounts().length > 0) {
+      this.email = this.authService.instance.getAllAccounts()[0]['username'];
+    }
     this.msalBroadcastService.msalSubject$
       .pipe(
         filter(
@@ -35,20 +37,17 @@ export class PortalComponent implements OnInit {
       )
       .subscribe((result: EventMessage) => {
         console.log(result);
-        if (this.authService.instance.getAllAccounts().length > 0) {
-          this.email = this.authService.instance.getAllAccounts()[0]["username"]
-        }
-
-      })
+      });
   }
 
   logUsers(): void {
-    console.log(this.authService.instance.getAllAccounts())
+    console.log(this.authService.instance.getAllAccounts());
   }
 
-  logout() { // Add log out function here
+  logout() {
+    // Add log out function here
     this.authService.logoutRedirect({
-      postLogoutRedirectUri: 'http://localhost:4200'
+      postLogoutRedirectUri: 'http://localhost:4200',
     });
   }
 }
