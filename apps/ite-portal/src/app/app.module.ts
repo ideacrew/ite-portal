@@ -11,7 +11,6 @@ import {
   MsalInterceptor,
   MSAL_INTERCEPTOR_CONFIG,
   MsalInterceptorConfiguration,
-  MsalBroadcastService,
   MsalRedirectComponent,
   MSAL_INSTANCE,
   MsalGuardConfiguration,
@@ -27,14 +26,6 @@ import {
 
 import { DataAccessModule } from '@dbh/bhsd/data-access';
 import { ClaimsDataAccessModule } from '@dbh/claims/data-access';
-import //   AuthGuard,
-//   AuthInterceptor,
-//   AuthModule,
-//   LogInComponent,
-//   UserProfileComponent,
-//   ResetPasswordComponent,
-//MsalGuard,
-'@dbh/auth';
 import { APP_TITLE } from '@dbh/theme';
 import { BhsdUiModule } from '@dbh/bhsd/ui';
 import { ProviderGuard } from '@dbh/providers/util';
@@ -63,9 +54,9 @@ const isIE =
 export function msalInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: '6226576d-37e9-49eb-b201-ec1eeb0029b6',
-      authority: 'https://login.microsoftonline.com/common/',
-      redirectUri: 'http://localhost:4200/',
+      clientId: 'd3ed10b0-0280-447c-be99-869898b1ffc6',
+      authority: 'https://login.microsoftonline.com/8fe449f1-8b94-4fb7-9906-6f939da82d73/',
+      redirectUri: 'http://localhost:3000/users/auth/azure_active_directory_v2/callback',
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
@@ -81,30 +72,33 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   };
 }
 
-// export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-//   const protectedResourceMap = new Map<string, Array<string>>();
-//   protectedResourceMap.set("https://graph.microsoft.com/v1.0/me", ["user.read"]);
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  const protectedResourceMap = new Map<string, Array<string>>();
+  protectedResourceMap.set("http://localhost:4000", ["user.read"]);
 
-//   return {
-//     interactionType: InteractionType.Redirect,
-//     protectedResourceMap,
-//   };
-// }
+  return {
+    interactionType: InteractionType.Redirect,
+    protectedResourceMap,
+  };
+}
 
 const routes: Routes = [
   {
     path: '',
     component: PortalComponent,
-    canActivate: [MsalGuard],
     children: [
       {
         path: 'home',
         component: PortalDashboardComponent,
       },
-
+      {
+        path: 'users/auth/azure_active_directory_v2/callback',
+        component: PortalDashboardComponent,
+      },
       {
         path: 'search-and-query',
         component: SearchAndQueryComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'search-and-query/client-search',
@@ -237,10 +231,10 @@ const routes: Routes = [
             (m) => m.ProvidersProfileModule
           ),
       },
-      // {
-      //   path: 'user-profile',
-      //   component: UserProfileComponent,
-      // },
+      //  {
+      //    path: 'user-profile',
+      //    component: UserProfileComponent,
+      //  },
       {
         path: 'provider-gateway/submission-status',
         loadChildren: () =>
@@ -262,10 +256,6 @@ const routes: Routes = [
             (m) => m.BhsdLandingPageFeatureModule
           ),
       },
-      // {
-      //   path: 'reset-password',
-      //   component: ResetPasswordComponent,
-      // },
       {
         path: '',
         redirectTo: 'home',
@@ -331,10 +321,10 @@ const routes: Routes = [
     },
     MsalService,
     MsalGuard,
-    // {
-    //   provide: MSAL_INTERCEPTOR_CONFIG,
-    //   useFactory: MSALInterceptorConfigFactory
-    // },
+    {
+      provide: MSAL_INTERCEPTOR_CONFIG,
+      useFactory: MSALInterceptorConfigFactory
+    },
     {
       provide: APP_TITLE,
       useValue: 'ITE Portal',

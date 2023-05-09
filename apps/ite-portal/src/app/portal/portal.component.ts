@@ -13,12 +13,12 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./portal.component.scss'],
 })
 export class PortalComponent implements OnInit {
-  //token: TokenObject = this.authService.decodedToken;
 
   isProvider = true;
   isDBHUser = true;
 
   applicationName = 'ITE Portal';
+  email = '';
 
   constructor(
     private authService: MsalService,
@@ -35,6 +35,20 @@ export class PortalComponent implements OnInit {
       )
       .subscribe((result: EventMessage) => {
         console.log(result);
-      });
+        if (this.authService.instance.getAllAccounts().length > 0) {
+          this.email = this.authService.instance.getAllAccounts()[0]["username"]
+        }
+
+      })
+  }
+
+  logUsers(): void {
+    console.log(this.authService.instance.getAllAccounts())
+  }
+
+  logout() { // Add log out function here
+    this.authService.logoutRedirect({
+      postLogoutRedirectUri: 'http://localhost:4200'
+    });
   }
 }
