@@ -55,7 +55,8 @@ export function msalInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: '1598f7c5-7284-42bd-9eda-969b58d49b99',
-      authority: 'https://login.microsoftonline.com/8fe449f1-8b94-4fb7-9906-6f939da82d73/',
+      authority:
+        'https://login.microsoftonline.com/8fe449f1-8b94-4fb7-9906-6f939da82d73/',
       redirectUri: 'http://localhost:4200',
     },
     cache: {
@@ -70,14 +71,16 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     interactionType: InteractionType.Redirect,
     loginFailedRoute: './',
     authRequest: {
-      scopes: ['api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read']
+      scopes: ['api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read'],
     },
   };
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  protectedResourceMap.set("http://localhost:4000", ["api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read"]);
+  protectedResourceMap.set('http://localhost:4000', [
+    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+  ]);
 
   return {
     interactionType: InteractionType.Redirect,
@@ -322,7 +325,7 @@ const routes: Routes = [
     MsalGuard,
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfigFactory
+      useFactory: MSALInterceptorConfigFactory,
     },
     {
       provide: APP_TITLE,
