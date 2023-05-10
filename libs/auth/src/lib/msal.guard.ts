@@ -21,7 +21,9 @@ export class MsalGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.msalService.instance.getActiveAccount() != null ? true : false;
+    return this.msalService.instance.getActiveAccount() !== undefined
+      ? true
+      : false;
   }
 
   canLoad(
@@ -32,6 +34,8 @@ export class MsalGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.msalService.instance.getActiveAccount() != null ? true : false;
+    return this.msalService.instance.getActiveAccount() !== undefined
+      ? true
+      : false;
   }
 }
