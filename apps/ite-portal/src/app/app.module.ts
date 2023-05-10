@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -77,7 +78,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, Array<string>>();
+  const protectedResourceMap = new Map<string, string[]>();
   protectedResourceMap.set('http://localhost:4000', [
     'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
   ]);

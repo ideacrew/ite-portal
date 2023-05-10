@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
-import {
-  EventMessage,
-  EventType,
-  InteractionStatus,
-} from '@azure/msal-browser';
+import { EventMessage, EventType } from '@azure/msal-browser';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -26,6 +22,7 @@ export class PortalComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.instance.getAllAccounts().length > 0) {
+      console.log(this.authService.instance.getAllAccounts());
       this.email = this.authService.instance.getAllAccounts()[0]['username'];
     }
     this.msalBroadcastService.msalSubject$
