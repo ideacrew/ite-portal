@@ -69,6 +69,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
     loginFailedRoute: './',
+    authRequest: {
+      scopes: ['api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read']
+    },
   };
 }
 
