@@ -13,7 +13,13 @@
       },
       "configurations": {
         "production": {
-          "devServerTarget": "ite-portal:serve:production"
+          "devServerTarget": "ite-portal:serve:production",
+          "fileReplacements": [
+            {
+              "replace": "apps/ite-portal/src/environments/environment.ts",
+              "with": "apps/ite-portal/src/environments/environment.e2e.ts"
+            }
+          ]
         }
       }
     },

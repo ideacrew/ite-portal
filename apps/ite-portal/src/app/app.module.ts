@@ -31,7 +31,8 @@ import { APP_TITLE } from '@dbh/theme';
 import { BhsdUiModule } from '@dbh/bhsd/ui';
 import { ProviderGuard } from '@dbh/providers/util';
 import { SharedUiModule } from '@dbh/shared/ui';
-
+import { ConfigService } from '@dbh/api-config';
+import { AdUserProfileComponent } from '@dbh/auth';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
@@ -59,7 +60,7 @@ export function msalInstanceFactory(): IPublicClientApplication {
       clientId: '1598f7c5-7284-42bd-9eda-969b58d49b99',
       authority:
         'https://login.microsoftonline.com/8fe449f1-8b94-4fb7-9906-6f939da82d73/',
-      redirectUri: 'http://localhost:4200',
+      redirectUri: window.location.host,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
@@ -90,13 +91,13 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   };
 }
 
-const guards: any[] = environment.production ? [MsalGuard] : [];
+const guards: any[] = environment.msalRedirect ? [MsalGuard] : [];
 
 const routes: Routes = [
   {
     path: '',
     component: PortalComponent,
-    canActivate: [MsalGuard],
+    canActivate: guards,
     children: [
       {
         path: 'home',
@@ -237,10 +238,10 @@ const routes: Routes = [
             (m) => m.ProvidersProfileModule
           ),
       },
-      //  {
-      //    path: 'user-profile',
-      //    component: UserProfileComponent,
-      //  },
+      {
+        path: 'user-profile',
+        component: AdUserProfileComponent,
+      },
       {
         path: 'provider-gateway/submission-status',
         loadChildren: () =>

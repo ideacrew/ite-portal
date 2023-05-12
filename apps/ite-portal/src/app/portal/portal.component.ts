@@ -36,15 +36,4 @@ export class PortalComponent implements OnInit {
         console.log(result);
       });
   }
-
-  logUsers(): void {
-    console.log(this.authService.instance.getAllAccounts());
-  }
-
-  logout() {
-    // Add log out function here
-    this.authService.logoutRedirect({
-      postLogoutRedirectUri: 'http://localhost:4200',
-    });
-  }
 }
