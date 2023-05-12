@@ -32,6 +32,7 @@ import { BhsdUiModule } from '@dbh/bhsd/ui';
 import { ProviderGuard } from '@dbh/providers/util';
 import { SharedUiModule } from '@dbh/shared/ui';
 
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { PortalComponent } from './portal/portal.component';
 import { PortalDashboardComponent } from './portal-dashboard/portal-dashboard.component';
@@ -88,6 +89,8 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     protectedResourceMap,
   };
 }
+
+const guards: any[] = environment.production ? [MsalGuard] : [];
 
 const routes: Routes = [
   {
