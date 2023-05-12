@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-// import { getExtractDate } from '../support/app.po';
+import { getExtractDate } from '../support/app.po';
 
-// const cypressToken = (userType: 'dbh' | 'provider' | 'both'): string => {
-//   const exp = Date.now() + 1000 * 60 * 60 * 24 * 7;
-//   const email = `${userType}_user@example.com`;
-//   const token = JSON.stringify({
-//     dbh_user: userType === 'dbh' || userType === 'both',
-//     provider: userType === 'provider' || userType === 'both',
-//     provider_gateway_identifier: '123',
-//     provider_id: 'a1b2c3',
-//     email,
-//     iss: 'Cypress',
-//     exp,
-//   });
-//   return `cypressToken.${btoa(token)}`;
-// };
+const cypressToken = (userType: 'dbh' | 'provider' | 'both'): string => {
+  const exp = Date.now() + 1000 * 60 * 60 * 24 * 7;
+  const email = `${userType}_user@example.com`;
+  const token = JSON.stringify({
+    dbh_user: userType === 'dbh' || userType === 'both',
+    provider: userType === 'provider' || userType === 'both',
+    provider_gateway_identifier: '123',
+    provider_id: 'a1b2c3',
+    email,
+    iss: 'Cypress',
+    exp,
+  });
+  return `cypressToken.${btoa(token)}`;
+};
 
 // describe('ite-portal', () => {
 //   beforeEach(() => {
