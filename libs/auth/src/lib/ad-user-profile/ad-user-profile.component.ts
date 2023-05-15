@@ -21,7 +21,7 @@ export class AdUserProfileComponent implements OnInit {
 
   logout(): void {
     this.authService.logoutRedirect({
-      postLogoutRedirectUri: 'http://localhost:4200',
+      postLogoutRedirectUri: window.location.origin,
     });
   }
 }

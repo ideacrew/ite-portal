@@ -31,7 +31,6 @@ import { APP_TITLE } from '@dbh/theme';
 import { BhsdUiModule } from '@dbh/bhsd/ui';
 import { ProviderGuard } from '@dbh/providers/util';
 import { SharedUiModule } from '@dbh/shared/ui';
-import { ConfigService } from '@dbh/api-config';
 import { AdUserProfileComponent } from '@dbh/auth';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -60,7 +59,7 @@ export function msalInstanceFactory(): IPublicClientApplication {
       clientId: '1598f7c5-7284-42bd-9eda-969b58d49b99',
       authority:
         'https://login.microsoftonline.com/8fe449f1-8b94-4fb7-9906-6f939da82d73/',
-      redirectUri: window.location.host,
+      redirectUri: window.location.origin,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
@@ -82,6 +81,21 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, string[]>();
   protectedResourceMap.set('http://localhost:4000', [
+    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+  ]);
+  protectedResourceMap.set('http://localhost:4002', [
+    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+  ]);
+  protectedResourceMap.set('https://bff-dev.dbh-ite.com', [
+    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+  ]);
+  protectedResourceMap.set('https://portal-bff-dev.dbh-ite.com', [
+    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+  ]);
+  protectedResourceMap.set('https://bff-uat.dbh-ite.com', [
+    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+  ]);
+  protectedResourceMap.set('https://bff.dbh-ite.com', [
     'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
   ]);
 
