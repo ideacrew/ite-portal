@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { getExtractDate } from '../support/app.po';
+// import { getExtractDate } from '../support/app.po';
 
 // const cypressToken = (userType: 'dbh' | 'provider' | 'both'): string => {
 //   const exp = Date.now() + 1000 * 60 * 60 * 24 * 7;

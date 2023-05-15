@@ -105,13 +105,11 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   };
 }
 
-const guards: any[] = environment.msalRedirect ? [MsalGuard] : [];
-
 const routes: Routes = [
   {
     path: '',
     component: PortalComponent,
-    canActivate: guards,
+    canActivate: [MsalGuard],
     children: [
       {
         path: 'home',
