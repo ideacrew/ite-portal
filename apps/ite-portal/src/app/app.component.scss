@@ -1,3 +1,16 @@
 main {
-  background: var(--white);
+  background: var(--background);
+}
+
+.notAuthorized {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100vh;
+  background: var(--background);
+  > div {
+    width: 375px;
+    text-align: center;
+  }
 }
