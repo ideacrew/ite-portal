@@ -22,7 +22,6 @@ export class PortalComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.instance.getAllAccounts().length > 0) {
-      console.log(this.authService.instance.getAllAccounts());
       this.email = this.authService.instance.getAllAccounts()[0]['username'];
     }
     this.msalBroadcastService.msalSubject$

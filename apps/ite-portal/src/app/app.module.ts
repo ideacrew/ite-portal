@@ -59,7 +59,9 @@ export function msalInstanceFactory(): IPublicClientApplication {
       clientId: '1598f7c5-7284-42bd-9eda-969b58d49b99',
       authority:
         'https://login.microsoftonline.com/8fe449f1-8b94-4fb7-9906-6f939da82d73/',
-      redirectUri: window.location.origin,
+      redirectUri: environment.production
+        ? window.location.origin
+        : 'http://localhost:4200',
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
