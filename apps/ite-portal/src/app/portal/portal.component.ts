@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
 import { EventMessage, EventType } from '@azure/msal-browser';
-import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { ConfigService } from '@dbh/api-config';
@@ -57,7 +56,6 @@ export class PortalComponent implements OnInit {
       .subscribe((result) => {
         this.isProvider = result.providerStatus;
         this.isDBHUser = result.dbhStatus;
-
       });
   }
 }
