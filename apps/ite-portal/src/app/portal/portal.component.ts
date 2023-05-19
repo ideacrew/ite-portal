@@ -2,23 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
 import { EventMessage, EventType } from '@azure/msal-browser';
+import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { AuthService, TokenObject } from '@dbh/auth';
+
 import { ConfigService } from '@dbh/api-config';
 
 type ProfileStatus = {
-  token: string;
-  status: string;
+  providerStatus: boolean;
+  dbhStatus: boolean;
+  pgId?: string;
+  pId?: string;
 };
 @Component({
   templateUrl: './portal.component.html',
   styleUrls: ['./portal.component.scss'],
 })
 export class PortalComponent implements OnInit {
-  token: TokenObject = this.authInternalService.decodedToken;
-
-  isProvider = this.authInternalService.isProvider;
-  isDBHUser = this.authInternalService.isDBHUser;
+  isProvider = false;
+  isDBHUser = true;
 
   applicationName = 'ITE Portal';
   email = '';
@@ -27,8 +28,7 @@ export class PortalComponent implements OnInit {
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
     private config: ConfigService,
-    private http: HttpClient,
-    private authInternalService: AuthService
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -55,11 +55,9 @@ export class PortalComponent implements OnInit {
         `${this.config.gatewayApiUrl}/api/v1/providers/provider_status`
       )
       .subscribe((result) => {
-        this.setJwt(result.token);
-      });
-  }
+        this.isProvider = result.providerStatus;
+        this.isDBHUser = result.dbhStatus;
 
-  setJwt(currentToken: string): void {
-    localStorage.setItem('__jwt_authorization_current_token', currentToken);
+      });
   }
 }

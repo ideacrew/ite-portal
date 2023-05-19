@@ -18,7 +18,7 @@ export type Header = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubmissionsListComponent {
-  isDBHUser = this.authService.isDBHUser;
+  isDBHUser = this.authService.isDBHUser || true;
   page = '1';
   offset = '';
   perPage = 20;
