@@ -18,9 +18,9 @@ type SessionObject = {
 };
 
 export type TokenObject = {
-  exp: number;
-  iss: string;
-  auth_token: string;
+  exp?: number;
+  iss?: string;
+  auth_token?: string;
   dbh_user: boolean;
   provider: boolean;
   provider_gateway_identifier: string | null;
@@ -29,11 +29,19 @@ export type TokenObject = {
   provider_name: string | null;
 };
 
+type ProfileStatus = {
+  providerStatus: boolean;
+  dbhStatus: boolean;
+  pgId?: string;
+  pId?: string;
+};
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private token!: string;
 
   get decodedToken(): TokenObject {
+    console.log(jwt_decode<TokenObject>(this.token));
     return this.token
       ? jwt_decode<TokenObject>(this.token)
       : ({} as TokenObject);
