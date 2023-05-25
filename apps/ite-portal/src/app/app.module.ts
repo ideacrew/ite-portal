@@ -62,6 +62,9 @@ export function msalInstanceFactory(): IPublicClientApplication {
       redirectUri: environment.production
         ? window.location.origin
         : 'http://localhost:4200',
+      postLogoutRedirectUri: environment.production
+        ? window.location.origin
+        : 'http://localhost:4200',
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,

@@ -17,9 +17,10 @@ type ProfileStatus = {
   styleUrls: ['./portal.component.scss'],
 })
 export class PortalComponent implements OnInit {
-  isProvider = false;
+  isProvider = true;
   isDBHUser = true;
-
+  isIframe = false;
+  loginDisplay = false;
   applicationName = 'ITE Portal';
   email = '';
 
@@ -32,6 +33,7 @@ export class PortalComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.instance.getAllAccounts().length > 0) {
+      this.setLoginDisplay();
       this.email = this.authService.instance.getAllAccounts()[0]['username'];
       this.setProviderDetails();
     }
@@ -45,6 +47,14 @@ export class PortalComponent implements OnInit {
       .subscribe((result: EventMessage) => {
         console.log(result);
       });
+  }
+
+  login() {
+    this.authService.loginRedirect();
+  }
+
+  setLoginDisplay() {
+    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }
 
   // set provider details from the provider profile
