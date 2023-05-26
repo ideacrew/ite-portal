@@ -8,6 +8,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetForgottenPasswordComponent } from './reset-forgotten-password/reset-forgotten-password.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     UserProfileComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
+    ResetForgottenPasswordComponent,
   ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule, HttpClientModule],
   exports: [
@@ -22,6 +24,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     UserProfileComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
+    ResetForgottenPasswordComponent,
   ],
 })
 export class AuthModule {}

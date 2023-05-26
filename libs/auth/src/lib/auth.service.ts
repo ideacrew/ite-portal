@@ -149,16 +149,14 @@ export class AuthService {
   resetForgottenPassword({
     password,
     reset_password_token,
-    reset_password_sent_at,
   }: {
     password: string;
     reset_password_token: string;
-    reset_password_sent_at: Date;
   }): Observable<unknown> {
     return this.http.post(
       // Url to post to
       `${this.config.gatewayApiUrl}/password/reset_user_password`,
-      { password, reset_password_token, reset_password_sent_at }
+      { password, reset_password_token }
     );
   }
 

@@ -28,7 +28,7 @@ export class ResetForgottenPasswordComponent {
   private result = new Subject<string | null>();
   result$ = this.result.asObservable();
 
-  userForm!: FormGroup<ResetForgottenPasswordForm>;
+  resetPasswordForm!: FormGroup<ResetForgottenPasswordForm>;
   errorMessage = false;
   resetPasswordSuccess = false;
 
@@ -38,7 +38,7 @@ export class ResetForgottenPasswordComponent {
     private router: Router,
     @Inject(APP_TITLE) public appTitle: string
   ) {
-    this.userForm = this.fb.group(
+    this.resetPasswordForm = this.fb.group(
       {
         // eslint-disable-next-line @typescript-eslint/unbound-method
         password: this.fb.control('', [
@@ -62,20 +62,23 @@ export class ResetForgottenPasswordComponent {
         validators: [passwordsMatch],
       }
     );
-    this.userForm.valueChanges.subscribe(() => {
+    this.resetPasswordForm.valueChanges.subscribe(() => {
       this.errorMessage = false;
       this.resetPasswordSuccess = false;
     });
   }
 
   resetPassword(): void {
-    if (this.userForm.status === 'VALID') {
-      const { password, passwordConfirmation } = this.userForm.value;
+    if (this.resetPasswordForm.status === 'VALID') {
+      const { password, passwordConfirmation } = this.resetPasswordForm.value;
       const token = '';
-      const reset_password_token = Date.new();
       if (password && passwordConfirmation) {
         this.authService
-          .resetForgottenPassword({ password, token, reset_password_token })
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          .resetForgottenPassword({
+            password: password,
+            reset_password_token: token,
+          })
           .subscribe({
             next: () => {
               this.resetPasswordSuccess = true;
