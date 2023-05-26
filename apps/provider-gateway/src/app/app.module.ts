@@ -8,6 +8,7 @@ import {
   AuthInterceptor,
   AuthModule,
   ForgotPasswordComponent,
+  ResetForgottenPasswordComponent,
   LogInComponent,
 } from '@dbh/auth';
 import { APP_TITLE } from '@dbh/theme';
@@ -30,6 +31,10 @@ import { AppComponent } from './app.component';
         {
           path: 'forgot-password',
           component: ForgotPasswordComponent,
+        },
+        {
+          path: 'reset-forgotten-password',
+          component: ResetForgottenPasswordComponent,
         },
 
         {
