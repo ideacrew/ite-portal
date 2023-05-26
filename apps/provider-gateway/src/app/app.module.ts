@@ -7,6 +7,7 @@ import {
   AuthGuard,
   AuthInterceptor,
   AuthModule,
+  ForgotPasswordComponent,
   LogInComponent,
 } from '@dbh/auth';
 import { APP_TITLE } from '@dbh/theme';
@@ -25,6 +26,10 @@ import { AppComponent } from './app.component';
         {
           path: 'login',
           component: LogInComponent,
+        },
+        {
+          path: 'forgot-password',
+          component: ForgotPasswordComponent,
         },
 
         {

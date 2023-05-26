@@ -122,6 +122,14 @@ export class AuthService {
       );
   }
 
+  forgotPassword(email: string): Observable<unknown> {
+    return this.http.post(
+      // Url to post to
+      `${this.config.gatewayApiUrl}/password/forgot`,
+      { email }
+    );
+  }
+
   logout(): void {
     this.http.delete(`${this.config.gatewayApiUrl}/session`).subscribe({
       complete: () => {
@@ -136,6 +144,22 @@ export class AuthService {
     // await lastValueFrom(deleteCall$);
     this.clearJwt();
     await this.router.navigate(['/login']);
+  }
+
+  resetForgottenPassword({
+    password,
+    reset_password_token,
+    reset_password_sent_at,
+  }: {
+    password: string;
+    reset_password_token: string;
+    reset_password_sent_at: Date;
+  }): Observable<unknown> {
+    return this.http.post(
+      // Url to post to
+      `${this.config.gatewayApiUrl}/password/reset_user_password`,
+      { password, reset_password_token, reset_password_sent_at }
+    );
   }
 
   resetPassword({
