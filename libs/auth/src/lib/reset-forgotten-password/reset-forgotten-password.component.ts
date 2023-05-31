@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {
   FormControl,
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { filter, map, Observable, shareReplay } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
 import { APP_TITLE } from '@dbh/theme';
 import { passwordsMatch } from '../password-validator';
 import { AuthService } from '../auth.service';
@@ -27,15 +27,20 @@ export class ResetForgottenPasswordComponent {
 
   private result = new Subject<string | null>();
   result$ = this.result.asObservable();
-
+  showPassword = false;
   resetPasswordForm!: FormGroup<ResetForgottenPasswordForm>;
   errorMessage = false;
   resetPasswordSuccess = false;
+  resetToken$: Observable<string> = this.route.paramMap.pipe(
+    filter((parameters: ParamMap) => parameters.has('reset_token')),
+    map((parameters: ParamMap) => parameters.get('reset_token') ?? 'fake-value')
+  );
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
     @Inject(APP_TITLE) public appTitle: string
   ) {
     this.resetPasswordForm = this.fb.group(
@@ -71,20 +76,19 @@ export class ResetForgottenPasswordComponent {
   resetPassword(): void {
     if (this.resetPasswordForm.status === 'VALID') {
       const { password, passwordConfirmation } = this.resetPasswordForm.value;
-      const token = '';
-      if (password && passwordConfirmation) {
+      if (password && passwordConfirmation && this.resetToken$) {
         this.authService
           // eslint-disable-next-line @typescript-eslint/naming-convention
           .resetForgottenPassword({
             password: password,
-            reset_password_token: token,
+            passwordConfirmation: this.resetToken$,
           })
           .subscribe({
             next: () => {
               this.resetPasswordSuccess = true;
               setTimeout(() => {
                 void this.router.navigate(['/login']);
-              }, 10_000);
+              }, 2000);
             },
             error: () => {
               this.errorMessage = true;
