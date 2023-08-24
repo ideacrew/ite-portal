@@ -78,7 +78,7 @@ jobs:
       - name: run many deployments
         run: npx nx affected --target=deploy:dev
       - name: Debug
-        run: ls -al dist/apps/ && du -h dist/apps/
+        run: ls -al && du -h && ls -al dist/ && du -h dist/ && ls -al dist/apps/ && du -h dist/apps/
       - name: Deploy Portal to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
