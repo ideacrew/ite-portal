@@ -15,7 +15,7 @@ export class ConfigService {
     if (window.location.host.includes('localhost')) {
       this.gatewayApiUrl = 'http://localhost:4001';
       this.portalApiUrl = 'http://localhost:4000';
-    } else {
+    } else if (!window.location.hostname.includes('dbhite')) {
       // for old aws urls. this will be removed once fully migrated to azure
       this.gatewayApiUrl = 'https://bff-dev.dbh-ite.com';
       this.portalApiUrl = 'https://portal-bff-dev.dbh-ite.com/';
