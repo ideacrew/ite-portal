@@ -1,6 +1,9 @@
 name: Release to production
 
 on:
+  push:
+    tags:
+      - "*"
   release:
     types: [released]
 
