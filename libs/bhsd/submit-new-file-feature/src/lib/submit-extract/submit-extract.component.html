@@ -114,7 +114,7 @@
     </div>
   </ng-container>
   <div class="result" *ngIf="resultsMessage">File submitted successfully</div>
-  <div class="errorResults" *ngIf="errorMessage">
+  <div class="errorResults" *ngIf="errorMessage || largeFileWarning === true">
     <svg
       width="24"
       height="24"
@@ -124,16 +124,21 @@
     >
       <path
         d="M14.2779 2.40849C13.3393 0.530503 10.6607 0.530503 9.72207 2.40849L1.27353 19.312C0.426405 21.0069 1.65871 23 3.55146 23H20.4485C22.3413 23 23.5736 21.0069 22.7265 19.312L14.2779 2.40849Z"
-        stroke="#A21E1F"
         stroke-width="2"
+        [ngStyle]="{
+          stroke: largeFileWarning === true ? '#a34a00' : '#a21e1f'
+        }"
       />
       <path
+        [ngStyle]="{ fill: largeFileWarning === true ? '#a34a00' : '#a21e1f' }"
         d="M11.0073 15.8737H12.9737L13.3848 8H10.5963L11.0073 15.8737ZM13.417 18.63C13.417 18.1786 13.2961 17.8375 13.0543 17.6064C12.8126 17.3754 12.4606 17.2599 11.9986 17.2599C11.5527 17.2599 11.2088 17.3781 10.967 17.6145C10.7199 17.8509 10.5963 18.1894 10.5963 18.63C10.5963 19.0544 10.7199 19.3902 10.967 19.6373C11.2142 19.8791 11.558 20 11.9986 20C12.4499 20 12.7991 19.8818 13.0463 19.6454C13.2934 19.4036 13.417 19.0651 13.417 18.63Z"
-        fill="#A21E1F"
       /></svg
-    ><span
+    ><span *ngIf="largeFileWarning; else errorMessage" class="warning-text"
+      >You are submitting a large file. Please be patient while it
+      processes.</span
+    ><ng-template #errorMessage
       >File submission failed due to error:<br />
-      {{ errorMessage }}</span
+      {{ errorMessage }}</ng-template
     >
   </div>
   <button

@@ -89,3 +89,25 @@ details {
     font-weight: bold;
   }
 }
+
+.spin {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  border: 1px solid var(--secondary-130);
+  border-radius: 50%;
+  border-top-color: var(--white);
+  animation: spin 0.5s ease-in-out infinite;
+  -webkit-animation: spin 0.5s ease-in-out infinite;
+  margin-right: 0.5ch;
+}
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

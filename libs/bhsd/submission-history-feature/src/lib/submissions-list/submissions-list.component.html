@@ -242,15 +242,21 @@
               >
             </td>
             <td>
-              <a [routerLink]="submission.id">{{
-                submission.file_name ?? 'no file name provided'
-              }}</a>
+              <div *ngIf="submission.number_of_records; else processing">
+                <a [routerLink]="submission.id">{{
+                  submission.file_name ?? 'no file name provided'
+                }}</a>
+              </div>
+              <ng-template #processing>
+                <div class="spin"></div>
+                Processing {{ submission.file_name ?? 'no file name provided' }}
+              </ng-template>
             </td>
             <td>{{ submission.submission_date | date: 'short' }}</td>
             <td>{{ submission.coverage_start }}</td>
             <td>{{ submission.coverage_end }}</td>
             <td class="numeric">
-              {{ submission.number_of_records ?? 'no value' }}
+              {{ submission.number_of_records ?? 'Calculating' }}
             </td>
             <td class="numeric">{{ submission.pass_count ?? 'no value' }}</td>
             <td class="numeric">{{ submission.fail_count ?? 'no value' }}</td>

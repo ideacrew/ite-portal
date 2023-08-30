@@ -84,26 +84,26 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  const urls = [
+    'http://localhost:4000',
+    'http://localhost:4002',
+    'https://bff-dev.dbh-ite.com',
+    'https://portal-bff-dev.dbh-ite.com',
+    'https://bff-uat.dbh-ite.com',
+    'https://bff.dbh-ite.com',
+    'https://portal.dev.dbhite.com',
+    'https://portal.dbhite.com',
+    'https://portal.uat.dbhite.com',
+    'https://provider.dev.dbhite.com',
+    'https://provider.dbhite.com',
+    'https://provider.uat.dbhite.com',
+  ];
   const protectedResourceMap = new Map<string, string[]>();
-  protectedResourceMap.set('http://localhost:4000', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('http://localhost:4002', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://bff-dev.dbh-ite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://portal-bff-dev.dbh-ite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://bff-uat.dbh-ite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://bff.dbh-ite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-
+  for (const url of urls) {
+    protectedResourceMap.set(url, [
+      'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+    ]);
+  }
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap,
