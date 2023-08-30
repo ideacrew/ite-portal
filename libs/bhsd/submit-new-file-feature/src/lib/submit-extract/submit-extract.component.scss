@@ -62,4 +62,10 @@ input::file-selector-button {
   span.warning-text {
     color: var(--warning-120);
   }
+  .warning {
+    color: var(--warning);
+  }
+  .error {
+    color: var(--error);
+  }
 }
