@@ -13,8 +13,8 @@ export class ConfigService {
     const [urlEnvironment] = window.location.host.split('.');
     const urlSlices = window.location.host.split('.');
     if (urlSlices.includes('dev')) {
-      this.gatewayApiUrl = 'https://api.dev.provider.dbhite.com';
-      this.portalApiUrl = 'https://api.dev.portal.dbhite.com';
+      this.gatewayApiUrl = 'https://api.provider.dev.dbhite.com';
+      this.portalApiUrl = 'https://api.portal.dev.dbhite.com';
     } else if (window.location.host.includes('localhost')) {
       this.gatewayApiUrl = 'http://localhost:4001';
       this.portalApiUrl = 'http://localhost:4000';
