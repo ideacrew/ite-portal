@@ -33,12 +33,7 @@ export class ConfigService {
   }
 
   getBaseUrl(hostname: string) {
-    const urlSlices = hostname;
-    if (urlSlices) {
-      const slices = urlSlices.split('.').shift();
-      return slices && Array.isArray(slices) ? slices.join('.') : '';
-    } else {
-      return '';
-    }
+    const slices = hostname.split('.').shift();
+    return slices && Array.isArray(slices) ? slices.join('.') : '';
   }
 }
