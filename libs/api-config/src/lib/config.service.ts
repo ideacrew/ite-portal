@@ -11,7 +11,8 @@ export class ConfigService {
 
   constructor() {
     const [urlEnvironment] = window.location.host.split('.');
-    if (urlEnvironment.includes('dev')) {
+    const urlSlices = window.location.host.split('.');
+    if (urlSlices.includes('dev')) {
       this.gatewayApiUrl = 'https://api.dev.provider.dbhite.com';
       this.portalApiUrl = 'https://api.dev.portal.dbhite.com';
     } else if (window.location.host.includes('localhost')) {
