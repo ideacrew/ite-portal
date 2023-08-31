@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { url } from 'inspector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfigService {
   // By default the gatewayApiUrl is set to azure pattern of urls
-  baseUrl = this.getBaseUrl();
+  baseUrl: string = this.getBaseUrl(window.location.hostname);
   gatewayApiUrl = 'https://api.provider.' + this.baseUrl;
   portalApiUrl = 'https://api.portal.' + this.baseUrl;
 
@@ -33,9 +32,13 @@ export class ConfigService {
     }
   }
 
-  getBaseUrl() {
-    const urlSlices = window.location.hostname.split('.');
-    urlSlices.shift();
-    return urlSlices.join('.');
+  getBaseUrl(hostname: string) {
+    const urlSlices = hostname;
+    if (urlSlices) {
+      const slices = urlSlices.split('.').shift();
+      return slices && Array.isArray(slices) ? slices.join('.') : '';
+    } else {
+      return '';
+    }
   }
 }
