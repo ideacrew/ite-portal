@@ -59,4 +59,13 @@ input::file-selector-button {
     margin-left: 1ch;
     color: var(--text-error);
   }
+  span.warning-text {
+    color: var(--warning-120);
+  }
+  .warning {
+    color: var(--warning);
+  }
+  .error {
+    color: var(--error);
+  }
 }

@@ -44,6 +44,7 @@ export class SubmitExtractComponent {
   result$ = this.result.asObservable();
   resultsMessage = false;
   errorMessage: undefined | string = undefined;
+  largeFileWarning = false;
 
   extractForm!: FormGroup<BHSDSubmissionForm>;
 
@@ -105,6 +106,7 @@ export class SubmitExtractComponent {
     this.sendingData.next(false);
     this.resultsMessage = false;
     this.errorMessage = undefined;
+    this.largeFileWarning = false;
     this.cdr.detectChanges();
   }
 
@@ -112,6 +114,11 @@ export class SubmitExtractComponent {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
       this.result.next(null);
+      this.largeFileWarning =
+        this.extractForm.value.records &&
+        this.extractForm.value.records.length > 1000
+          ? true
+          : false;
       this.bhsdService.sendData(this.extractForm.value).subscribe({
         next: () => {
           this.sendingData.next(false);
@@ -134,6 +141,7 @@ export class SubmitExtractComponent {
         },
         error: (error: HttpErrorResponse) => {
           this.resultsMessage = false;
+          this.largeFileWarning = false;
           this.sendingData.next(false);
           this.errorMessage = error.message;
           this.cdr.detectChanges();
