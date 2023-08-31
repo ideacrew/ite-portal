@@ -6,14 +6,15 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
   // By default the gatewayApiUrl is set to azure pattern of urls
   baseUrl: string = this.getBaseUrl(window.location.hostname);
-  gatewayApiUrl = 'https://api.provider.' + this.baseUrl;
-  portalApiUrl = 'https://api.portal.' + this.baseUrl;
+  gatewayApiUrl = 'https://api.provider.dbhite.com';
+  portalApiUrl = 'https://api.portal.dbhite.com';
 
   constructor() {
-    // Only if the url contains uat or only the application name should we override the api url
     const [urlEnvironment] = window.location.host.split('.');
-    // for local dev
-    if (window.location.host.includes('localhost')) {
+    if (urlEnvironment.includes('dev')) {
+      this.gatewayApiUrl = 'https://api.dev.provider.dbhite.com';
+      this.portalApiUrl = 'https://api.dev.portal.dbhite.com';
+    } else if (window.location.host.includes('localhost')) {
       this.gatewayApiUrl = 'http://localhost:4001';
       this.portalApiUrl = 'http://localhost:4000';
     } else if (!window.location.hostname.includes('dbhite')) {
@@ -33,7 +34,8 @@ export class ConfigService {
   }
 
   getBaseUrl(hostname: string) {
-    const slices = hostname.split('.').shift();
+    const slices = hostname.split('.');
+    slices.shift();
     return slices && Array.isArray(slices) ? slices.join('.') : '';
   }
 }
