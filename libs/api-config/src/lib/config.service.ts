@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { url } from 'inspector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfigService {
   // By default the gatewayApiUrl is set to azure pattern of urls
-  gatewayApiUrl = 'https://api.' + window.location.hostname;
-  portalApiUrl = 'https://api.' + window.location.hostname;
+  baseUrl = this.getBaseUrl();
+  gatewayApiUrl = 'https://api.provider.' + this.baseUrl;
+  portalApiUrl = 'https://api.portal.' + this.baseUrl;
 
   constructor() {
     // Only if the url contains uat or only the application name should we override the api url
@@ -29,5 +31,11 @@ export class ConfigService {
         this.gatewayApiUrl = `https://bff.dbh-ite.com`;
       }
     }
+  }
+
+  getBaseUrl() {
+    const urlSlices = window.location.hostname.split('.');
+    urlSlices.shift();
+    return urlSlices.join('.');
   }
 }

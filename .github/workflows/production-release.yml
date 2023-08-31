@@ -3,7 +3,7 @@ name: Release to production
 on:
   push:
     tags:
-      - "*"
+      - '*'
   release:
     types: [released]
 
@@ -86,7 +86,7 @@ jobs:
         id: check_folder_portal
         uses: andstor/file-existence-action@v1
         with:
-          files: "dist/apps/ite-portal"
+          files: 'dist/apps/ite-portal'
       - name: Deploy Portal to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         if: steps.check_folder_portal.outputs.files_exists == 'true'
@@ -103,7 +103,7 @@ jobs:
         id: check_folder_provider
         uses: andstor/file-existence-action@v1
         with:
-          files: "dist/apps/provider-gateway"
+          files: 'dist/apps/provider-gateway'
       - name: Deploy Provider to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         if: steps.check_folder_provider.outputs.files_exists == 'true'
@@ -116,4 +116,3 @@ jobs:
           output_location: '' # Built app content directory
           skip_api_build: true
           skip_app_build: true
-
