@@ -116,7 +116,7 @@ export class SubmitExtractComponent {
       this.result.next(null);
       this.largeFileWarning =
         this.extractForm.value.records &&
-        this.extractForm.value.records.length > 1000
+        this.extractForm.value.records.length >= 1000
           ? true
           : false;
       this.bhsdService.sendData(this.extractForm.value).subscribe({
