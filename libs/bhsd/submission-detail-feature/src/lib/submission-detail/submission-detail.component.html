@@ -43,9 +43,9 @@
   <h2>Validation Breakdown</h2>
   <div class="summary">
     <dbh-validation-breakdown
-      [totalRecords]="submission.records.length"
-      [pass]="submission.records | recordCount: 'Pass'"
-      [fail]="submission.records | recordCount: 'Fail'"
+      [totalRecords]="submission.record_count"
+      [pass]="submission.pass_count"
+      [fail]="submission.fail_count"
     ></dbh-validation-breakdown>
     <details class="definitions">
       <summary>Definitions</summary>

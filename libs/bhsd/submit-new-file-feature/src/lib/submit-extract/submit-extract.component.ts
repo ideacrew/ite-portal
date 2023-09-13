@@ -114,11 +114,6 @@ export class SubmitExtractComponent {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
       this.result.next(null);
-      this.largeFileWarning =
-        this.extractForm.value.records &&
-        this.extractForm.value.records.length >= 1000
-          ? true
-          : false;
       this.bhsdService.sendData(this.extractForm.value).subscribe({
         next: () => {
           this.sendingData.next(false);
@@ -126,6 +121,7 @@ export class SubmitExtractComponent {
           this.errorMessage = undefined;
           setTimeout(() => {
             this.resultsMessage = false;
+            this.largeFileWarning = false;
             this.cdr.detectChanges();
           }, 10_000);
           this.extractForm.reset({
@@ -168,8 +164,10 @@ export class SubmitExtractComponent {
               records: recordData,
               file_name: fileName,
             });
+            this.largeFileWarning = recordData.length >= 1000 ? true : false;
             this.cdr.detectChanges();
           } else {
+            this.largeFileWarning = false;
             this.records.setErrors({ notValidCsv: true });
             this.cdr.detectChanges();
           }

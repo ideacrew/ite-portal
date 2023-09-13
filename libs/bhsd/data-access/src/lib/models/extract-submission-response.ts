@@ -17,6 +17,9 @@ export type ExtractSubmissionResponse = {
   status: string | null;
   updated_at: string;
   provider_name: string;
+  record_count: number;
+  fail_count: number;
+  pass_count: number;
 };
 
 export type ExtractSubmissionResponseV2 = {
@@ -32,6 +35,9 @@ export type ExtractSubmissionResponseV2 = {
   status: string | null;
   updated_at: string;
   provider_name: string;
+  record_count: number;
+  fail_count: number;
+  pass_count: number;
 };
 
 export type ExtractSubmissionResponseV3 = {
@@ -47,4 +53,7 @@ export type ExtractSubmissionResponseV3 = {
   status: string | null;
   updated_at: string;
   provider_name: string;
+  record_count: number;
+  fail_count: number;
+  pass_count: number;
 };
