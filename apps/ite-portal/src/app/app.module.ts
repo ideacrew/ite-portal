@@ -24,7 +24,6 @@ import {
   IPublicClientApplication,
   BrowserUtils,
 } from '@azure/msal-browser';
-
 import { DataAccessModule } from '@dbh/bhsd/data-access';
 import { ClaimsDataAccessModule } from '@dbh/claims/data-access';
 import { APP_TITLE } from '@dbh/theme';
@@ -53,12 +52,19 @@ const isIE =
   window.navigator.userAgent.includes('MSIE ') ||
   window.navigator.userAgent.includes('Trident/');
 
+const NX_AD_CLIENT_ID = process.env['NX_AD_CLIENT_ID'] || '';
+const NX_AD_TID = process.env['NX_AD_TID'] || '';
+const readScope = `api://${NX_AD_CLIENT_ID}/Read`;
+const gatewayApiUrl =
+  process.env['NX_GATEWAY_API'] || 'https://api.provider.dbhite.com';
+const portalApiUrl =
+  process.env['NX_PORTAL_API'] || 'https://api.portal.dbhite.com';
+
 export function msalInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: '1598f7c5-7284-42bd-9eda-969b58d49b99',
-      authority:
-        'https://login.microsoftonline.com/8fe449f1-8b94-4fb7-9906-6f939da82d73/',
+      clientId: NX_AD_CLIENT_ID,
+      authority: `https://login.microsoftonline.com/${NX_AD_TID}/`,
       redirectUri: environment.production
         ? window.location.origin
         : 'http://localhost:4200',
@@ -78,43 +84,15 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     interactionType: InteractionType.Redirect,
     loginFailedRoute: './',
     authRequest: {
-      scopes: ['api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read'],
+      scopes: [readScope],
     },
   };
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, string[]>();
-  protectedResourceMap.set('http://localhost:4000', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('http://localhost:4001', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://bff-dev.dbh-ite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://portal-bff-dev.dbh-ite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://bff-uat.dbh-ite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://bff.dbh-ite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://api.provider.dbhite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://api.portal.dbhite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://api.provider.dev.dbhite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
-  protectedResourceMap.set('https://api.portal.dev.dbhite.com', [
-    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
-  ]);
+  protectedResourceMap.set(gatewayApiUrl, [readScope]);
+  protectedResourceMap.set(portalApiUrl, [readScope]);
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap,

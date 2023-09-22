@@ -6,7 +6,7 @@
   "prefix": "dbh",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nrwl/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/provider-gateway",
@@ -15,6 +15,9 @@
         "polyfills": "apps/provider-gateway/src/polyfills.ts",
         "tsConfig": "apps/provider-gateway/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
+        "customWebpackConfig": {
+          "path": "apps/ite-portal/webpack.config.js"
+        },
         "assets": [
           "apps/provider-gateway/src/favicon.ico",
           "apps/provider-gateway/src/assets",
@@ -64,7 +67,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nrwl/angular:webpack-dev-server",
       "configurations": {
         "production": {
           "browserTarget": "provider-gateway:build:production"
