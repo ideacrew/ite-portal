@@ -20,7 +20,7 @@
             [selected]="rpMonthFilter - 1 === month.getMonth()"
             (change)="updateFilters('month', $event)"
           >
-            {{ month | date : 'MMMM' }}
+            {{ month | date: 'MMMM' }}
           </option>
         </select>
         <select
