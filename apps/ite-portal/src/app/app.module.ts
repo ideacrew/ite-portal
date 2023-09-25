@@ -115,6 +115,12 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   protectedResourceMap.set('https://api.portal.dev.dbhite.com', [
     'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
   ]);
+  protectedResourceMap.set('https://api-portal.dbh.dc.gov', [
+    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+  ]);
+  protectedResourceMap.set('https://api-provider.dbh.dc.gov', [
+    'api://1598f7c5-7284-42bd-9eda-969b58d49b99/Read',
+  ]);
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap,

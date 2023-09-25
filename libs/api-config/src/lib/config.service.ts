@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
   // By default the gatewayApiUrl is set to azure pattern of urls
   baseUrl: string = this.getBaseUrl(window.location.hostname);
-  gatewayApiUrl = 'https://api.provider.dbhite.com';
-  portalApiUrl = 'https://api.portal.dbhite.com';
+  gatewayApiUrl = 'https://api-provider.dbh.dc.gov';
+  portalApiUrl = 'https://api-portal.dbh.dc.gov';
 
   constructor() {
     const [urlEnvironment] = window.location.host.split('.');
@@ -25,12 +25,12 @@ export class ConfigService {
       if (urlEnvironment.includes('uat')) {
         this.gatewayApiUrl = `https://bff-uat.dbh-ite.com`;
       }
-      if (
-        urlEnvironment === 'portal' ||
-        urlEnvironment === 'provider-gateway'
-      ) {
-        this.gatewayApiUrl = `https://bff.dbh-ite.com`;
-      }
+      // if (
+      //   urlEnvironment === 'portal' ||
+      //   urlEnvironment === 'provider-gateway'
+      // ) {
+      //   this.gatewayApiUrl = `https://bff.dbh-ite.com`;
+      // }
     }
   }
 
