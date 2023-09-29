@@ -13,10 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class MsalGuard implements CanActivate {
   constructor(private msalService: MsalService) {}
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  canActivate():
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
@@ -26,10 +23,7 @@ export class MsalGuard implements CanActivate {
       : false;
   }
 
-  canLoad(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  canLoad():
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
