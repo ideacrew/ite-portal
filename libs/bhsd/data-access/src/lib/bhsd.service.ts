@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable, filter } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
+import { Criterion, ValueOption } from '@dbh/claims/data-access/models';
 import {
   Extracts,
   ExtractSubmissionResponse,
@@ -36,73 +37,24 @@ export class BHSDService {
       .pipe(map((extract) => extract));
   }
 
-  getSubmissionsWithParams({
-    offset,
-    coverageStart,
-    coverageEnd,
-    submissionStart,
-    submissionEnd,
-    provider,
-    trSelector,
-    trValue,
-    prSelector,
-    prValue,
-    sort,
-    sortDirection,
-  }: {
-    offset?: string;
-    coverageStart?: string;
-    coverageEnd?: string;
-    submissionStart?: string;
-    submissionEnd?: string;
-    provider?: string;
-    trSelector?: string;
-    trValue?: string;
-    prSelector?: string;
-    prValue?: string;
-    sort?: string;
-    sortDirection?: 'asc' | 'desc';
-  }): Observable<Extracts> {
-    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/extracts?`;
-    const urlParameters = [];
-    if (coverageStart && coverageStart !== '') {
-      urlParameters.push(`coverage_start=${coverageStart}`);
+  getSubmissionsWithCriteria(
+    criteria: Criterion[],
+    offset: string
+  ): Observable<Extracts> {
+    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/extracts?offset=${offset}&`;
+    for (const [index, criterion] of criteria.entries()) {
+      baseUrl += `criteria_selector[${index}]=${criterion.selector ?? ''}&`;
+      baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
+      baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
+      baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
     }
-    if (coverageEnd && coverageEnd !== '') {
-      urlParameters.push(`coverage_end=${coverageEnd}`);
-    }
-    if (submissionStart && submissionStart !== '') {
-      urlParameters.push(`submission_start=${submissionStart}`);
-    }
-    if (submissionEnd && submissionEnd !== '') {
-      urlParameters.push(`submission_end=${submissionEnd}`);
-    }
-    if (provider && provider !== '') {
-      urlParameters.push(`provider=${provider}`);
-    }
-    if (offset && offset !== '') {
-      urlParameters.push(`offset=${offset}`);
-    }
-    if (trSelector && trSelector !== '') {
-      urlParameters.push(`tr_selector=${trSelector}`);
-    }
-    if (trValue && trValue !== '') {
-      urlParameters.push(`tr_value=${trValue}`);
-    }
-    if (prSelector && prSelector !== '') {
-      urlParameters.push(`pr_selector=${prSelector}`);
-    }
-    if (prValue && prValue !== '') {
-      urlParameters.push(`pr_value=${prValue}`);
-    }
-    if (sort && sort !== '') {
-      urlParameters.push(`sort=${sort}`);
-    }
-    if (sortDirection) {
-      urlParameters.push(`sort_direction=${sortDirection}`);
-    }
-    baseUrl += urlParameters.join('&');
-    return this.http.get<Extracts>(baseUrl).pipe(map((extract) => extract));
+    return this.http.get<Extracts>(baseUrl);
+  }
+
+  getProviders(): Observable<ValueOption[]> {
+    return this.http.get<ValueOption[]>(
+      `${this.config.gatewayApiUrl}/api/v1/providers`
+    );
   }
 
   getSubmissionStatusByDate({
@@ -134,6 +86,19 @@ export class BHSDService {
           summary.map((status) => convertSummaryToStatus(status))
         )
       );
+  }
+
+  getSubmissionStatusWithCriteria(
+    criteria: Criterion[]
+  ): Observable<SubmissionStatus[]> {
+    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/providers/submission_summary?`;
+    for (const [index, criterion] of criteria.entries()) {
+      baseUrl += `criteria_selector[${index}]=${criterion.selector ?? ''}&`;
+      baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
+      baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
+      baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
+    }
+    return this.http.get<SubmissionStatus[]>(baseUrl);
   }
 
   getFilteredSubmissionStatus({

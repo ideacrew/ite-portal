@@ -1,4 +1,173 @@
-<h1 class="this-does-notthing">Provider Submission Overview</h1>
+<h1>Provider Submission Overview</h1>
+<h1>Provider Submission Overview</h1>
+<div *ngFor="let criterion of criteria; let index = index">
+  <div class="criterion">
+    <div>
+      <div>
+        <label [for]="'identifier' + index">Identifier</label>
+        <select
+          [name]="'identifier' + index"
+          [id]="'identifier' + index"
+          [attr.data-id]="index"
+          [value]="criterion.selector ?? ''"
+          (change)="selectorSet($event)"
+          required
+        >
+          <option value="" disabled="true">Selector</option>
+          <option
+            data-valueType="month"
+            value="created_at"
+          >
+            Reporting Period
+          </option>
+          <option data-valueType="select" value="provider_id">
+            Provider Name
+          </option>
+          <option data-valueType="select" value="mh">
+            MH Provider
+          </option>
+          <option data-valueType="select" value="sud">
+            SUD Provider
+          </option>
+          <option data-valueType="numeric_range" value="record_count">
+            Record Count
+          </option>
+          <option
+            data-valueType="date"
+            value="extract_at"
+          >
+            Extract Submitted
+          </option>
+          <option data-valueType="numeric_range" value="pass_count">
+            Pass Rate
+          </option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <div>
+        <label [for]="'relative' + index">Relative</label>
+        <select
+          [name]="'relative' + index"
+          [id]="'relative' + index"
+          [attr.data-id]="index"
+          [disabled]="!criterion.valueType"
+          (change)="relativeSet($event)"
+          [value]="criterion.relative ?? ''"
+          required
+        >
+          <option value="" disabled="true">Relative</option>
+          <ng-container
+            *ngIf="
+              criterion.valueType === 'date' ||
+                criterion.valueType === 'date_range';
+              else textSelect
+            "
+          >
+            <option value="=" *ngIf="criterion.valueType === 'date'">Is</option>
+            <option value="<">Is Before</option>
+            <option value=">">Is After</option>
+            <option value="><" *ngIf="criterion.valueType === 'date_range'">
+              Contains
+            </option>
+          </ng-container>
+          <ng-template #textSelect>
+            <ng-container *ngIf="criterion.valueType === 'numeric_range'; else nonNumeric">
+              <option value="<=" [selected]="criterion.relative === '<='"><=</option>
+              <option value=">=" [selected]="criterion.relative === '>='">>=</option>
+            </ng-container>
+            <ng-template #nonNumeric>
+              <option value="=">Is</option>
+              <option value="!=" *ngIf="criterion.valueType === 'select'">
+                Is Not
+              </option>
+              <option value="LIKE" *ngIf="criterion.valueType === 'text'">
+                Contains
+              </option>
+              <option value="NOT LIKE" *ngIf="criterion.valueType === 'text'">
+                Does Not Contain
+              </option>
+            </ng-template>
+          </ng-template>
+        </select>
+      </div>
+    </div>
+    <div>
+      <div>
+        <label [for]="'value' + index">Value</label>
+        <ng-container *ngIf="criterion.valueType === 'select'; else nonSelect">
+          <select
+            [name]="'value' + index"
+            [id]="'value' + index"
+            [attr.data-id]="index"
+            [disabled]="!criterion.relative"
+            (change)="valueSet($event)"
+            [value]="criterion.value ?? ''"
+            style="width: 180px"
+            required
+          >
+            <option value="" disabled="true">Select Value</option>
+            <ng-container *ngIf="criterion.options; else asyncOptions">
+              <ng-container *ngFor="let option of criterion.options">
+                <option [value]="option.value">{{ option.display }}</option>
+              </ng-container>
+            </ng-container>
+            <ng-template #asyncOptions>
+              <ng-container *ngIf="criterion.asyncOptions | async as options">
+                <ng-container *ngFor="let option of options">
+                  <option [value]="option.value">{{ option.value }}</option>
+                </ng-container>
+              </ng-container>
+            </ng-template>
+          </select>
+        </ng-container>
+        <ng-template #nonSelect>
+          <input
+            [type]="
+              criterion.valueType === 'date' ||
+              criterion.valueType === 'date_range'
+                ? 'date'
+                : 'text'
+            "
+            [attr.data-id]="index"
+            [disabled]="!criterion.relative"
+            [name]="'value' + index"
+            [id]="'value' + index"
+            [value]="criterion.value ?? ''"
+            (change)="valueSet($event)"
+            (keyup)="valueSet($event)"
+            style="width: 180px"
+            [required]="
+              criterion.valueType === 'date' ||
+              criterion.valueType === 'date_range'
+            "
+          />
+        </ng-template>
+      </div>
+    </div>
+    <div *ngIf="criteria.length > 1">
+      <button
+        type="submit"
+        class="button-outline"
+        (click)="removeCondition(index)"
+      >
+        Remove Condition
+      </button>
+    </div>
+  </div>
+</div>
+<button type="submit" class="add-button" (click)="addCondition()">
+  <span>&#43;</span> Add Additional Condition
+</button>
+<br />
+<button
+  type="submit"
+  class="button"
+  (click)="submitAdvancedSearch()"
+  [disabled]="searchDisabled"
+>
+  Filter Providers
+</button>
 <details [open]="allFilters.length > 0">
   <summary class="filter-label">Filter</summary>
   <div class="filters">

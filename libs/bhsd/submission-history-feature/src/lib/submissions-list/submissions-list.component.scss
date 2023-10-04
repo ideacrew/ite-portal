@@ -2,6 +2,7 @@
   display: flex;
   width: fit-content;
   flex-wrap: wrap;
+  margin-top: 2.5ch;
   //align-items: right;
   //justify-content: flex-end;
 }
@@ -54,42 +55,6 @@ input.selected {
   color: var(--text-primary);
 }
 
-.filters {
-  display: flex;
-  gap: 1ch;
-  margin-bottom: 1ch;
-  h2 {
-    font-size: 18px;
-    margin: 0.5ch 0;
-  }
-}
-
-.filter {
-  width: 164px;
-}
-
-.filter input,
-.filter select {
-  width: 164px;
-  margin: 0;
-}
-
-.filter.wide {
-  width: 348px;
-}
-
-.filter + .filter {
-  padding-left: 10px;
-  border-left: 1px solid var(--header-divider);
-}
-
-details {
-  margin-bottom: 2ch;
-  summary {
-    font-weight: bold;
-  }
-}
-
 .spin {
   display: inline-block;
   width: 0.75em;
@@ -109,5 +74,50 @@ details {
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
+  }
+}
+
+input,
+select,
+option {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 180px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+}
+.criterion {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  > div, ng-container {
+    margin: 1ch 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  button {
+    color: var(--error);
+    border-color: var(--error);
+    padding: 8px;
+  }
+}
+.add-button {
+  border: 1px dashed var(--primary);
+  border-radius: 6px;
+  font-weight: 600;
+  width: 560px;
+  padding: 8px;
+  color: var(--primary);
+  margin-bottom: 3ch;
+  background: none;
+  span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: var(--white);
+    background: var(--primary);
+    border-radius: 50%;
   }
 }

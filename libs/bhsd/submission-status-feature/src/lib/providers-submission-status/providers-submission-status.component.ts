@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { BHSDService, SubmissionStatus } from '@dbh/bhsd/data-access';
 import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
+import { Criterion, ValueOption } from '@dbh/claims/data-access/models';
 
 export type Header = {
   label: string;
@@ -15,6 +16,16 @@ export type Header = {
   styleUrls: ['./providers-submission-status.component.scss'],
 })
 export class ProvidersSubmissionStatusComponent {
+  criteria: Criterion[] = [{}];
+  validCriteria: Criterion[] = this.criteria.filter(
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    (criterion) =>
+      criterion.selector &&
+      criterion.valueType &&
+      criterion.relative &&
+      criterion.value
+  );
+  searchDisabled = true;
   statusFilter = '';
   trMinFilter: number | string = '';
   trMaxFilter: number | string = '';
@@ -79,13 +90,112 @@ export class ProvidersSubmissionStatusComponent {
     },
   ];
   submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
+  providers: ValueOption[] = [];
   allProviders$ = this.bhsdService.getSubmissionStatus();
+  providers$ = this.allProviders$.subscribe((response: SubmissionStatus[]) => {
+    const providersHash = response.map((provider) =>
+      ({ value: provider.providerId, display: provider.providerName })
+      );
+    this.providers = providersHash;
+  });
   constructor(private bhsdService: BHSDService) {}
 
   updateSort(criteria: string) {
     this.sort = criteria;
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    this.submitFilters();
+    this.advancedSearch();
+  }
+
+  advancedSearch() {
+    this.submissionStatus$ = this.bhsdService.getSubmissionStatusWithCriteria(
+      this.validCriteria
+    );
+  }
+
+  submitAdvancedSearch() {
+    this.checkValid();
+    this.advancedSearch();
+  }
+
+  removeCondition(index: number) {
+    this.criteria.splice(index, 1);
+    this.checkValid();
+  }
+
+  addCondition() {
+    this.criteria.push({});
+    this.checkValid();
+  }
+
+  selectorSet(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value ?? '';
+    const valueType = target.selectedOptions[0].dataset['valuetype'] ?? '';
+    const index = target.dataset['id'];
+    if (index) {
+      const criterion = this.criteria[Number(index)];
+      if (criterion) {
+        criterion.valueType = valueType;
+        criterion.selector = value;
+        criterion.value = undefined;
+        criterion.relative = undefined;
+        criterion.options = undefined;
+        criterion.asyncOptions = undefined;
+      }
+      this.checkValid();
+    }
+  }
+
+  relativeSet(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    console.log(target.value)
+    const value = target.value ?? '';
+    console.log(value)
+    const index = target.dataset['id'];
+    if (index) {
+      const criterion = this.criteria[Number(index)];
+      if (criterion) {
+        criterion.relative = value;
+        switch (criterion.selector) {
+          case 'provider_id': {
+            if (this.providers.length > 0) {
+              criterion.options = this.providers;
+            }
+            break;
+          }
+        }
+        this.checkValid();
+      }
+    }
+  }
+
+  valueSet(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value ?? '';
+    const index = target.dataset['id'];
+    if (index) {
+      const criterion = this.criteria[Number(index)];
+      if (criterion) {
+        criterion.value = value;
+        this.checkValid();
+      }
+    }
+  }
+
+  checkValid() {
+    this.validCriteria = this.criteria.filter(
+      // eslint-disable-next-line unicorn/consistent-function-scoping
+      (condition) =>
+        condition.selector &&
+        condition.valueType &&
+        condition.relative &&
+        condition.value
+    );
+    this.searchDisabled =
+      this.validCriteria.length > 0 &&
+      this.validCriteria.length === this.criteria.length
+        ? false
+        : true;
   }
 
   updateFilters(key: string, value?: Event) {

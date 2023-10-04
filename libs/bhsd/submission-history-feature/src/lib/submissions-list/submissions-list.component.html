@@ -1,199 +1,173 @@
 <h1>BHSD File Submission History</h1>
 <ng-container *ngIf="responseDetails$ | async as details">
-  <details [open]="allFilters.length > 0">
-    <summary class="filter-label">Filter</summary>
-    <div class="filters">
-      <div class="filter wide">
-        <h2>Reporting Period</h2>
-        <div class="filters">
-          <div>
-            <label for="coverage-start">Start Date</label>
-            <input
-              type="date"
-              name="coverage-start"
-              id="coverage-start"
-              [value]="coverageStartFilter"
-              (change)="updateFilters('coverage_start', $event)"
-              required
-            />
-          </div>
-          <div>
-            <label for="coverage-end">End Date</label>
-            <input
-              type="date"
-              name="coverage-end"
-              id="coverage-end"
-              [value]="coverageEndFilter"
-              (change)="updateFilters('coverage_end', $event)"
-              required
-            />
-          </div>
-        </div>
-        <p
-          *ngIf="coverageStartFilter !== '' && coverageEndFilter === ''"
-          class="break"
-        >
-          Select End Date to narrow results
-        </p>
-        <p
-          *ngIf="coverageStartFilter === '' && coverageEndFilter !== ''"
-          class="break"
-        >
-          Select Start Date to narrow results
-        </p>
-      </div>
-      <div class="filter wide">
-        <h2>Submission Range</h2>
-        <div class="filters">
-          <div>
-            <label for="submission-start">Start Date</label>
-            <input
-              type="date"
-              name="submission-start"
-              id="submission-start"
-              [value]="submissionStartFilter"
-              (change)="updateFilters('submission_start', $event)"
-              required
-            />
-          </div>
-          <div>
-            <label for="submission-end">End Date</label>
-            <input
-              type="date"
-              name="submission-end"
-              id="submission-end"
-              [value]="submissionEndFilter"
-              (change)="updateFilters('submission_end', $event)"
-              required
-            />
-          </div>
-        </div>
-        <p
-          *ngIf="submissionStartFilter !== '' && submissionEndFilter === ''"
-          class="break"
-        >
-          Select End Date to narrow results
-        </p>
-        <p
-          *ngIf="submissionStartFilter === '' && submissionEndFilter !== ''"
-          class="break"
-        >
-          Select Start Date to narrow results
-        </p>
-      </div>
-      <div class="filter" *ngIf="isDBHUser">
-        <h2>Provider</h2>
-        <label for="providerFilter">Select Provider</label>
-        <select
-          name="providerFilter"
-          id="providerFilter"
-          (change)="updateFilters('provider', $event)"
-          required
-        >
-          <option value="" disabled hidden selected>Provider</option>
-          <option value="">See All</option>
-          <option
-            *ngFor="let provider of details.providers"
-            [value]="provider.id"
-            [selected]="providerFilter.toString() === provider.id.toString()"
+  <div *ngFor="let criterion of criteria; let index = index">
+    <div class="criterion">
+      <div>
+        <div>
+          <label [for]="'identifier' + index">Identifier</label>
+          <select
+            [name]="'identifier' + index"
+            [id]="'identifier' + index"
+            [attr.data-id]="index"
+            [value]="criterion.selector ?? ''"
+            (change)="selectorSet($event)"
+            required
           >
-            {{ provider.name }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="filters">
-      <div class="filter wide">
-        <h2>Total Records</h2>
-        <div class="filters">
-          <div>
-            <label for="trSelectorFilter">Selector</label>
-            <select
-              name="trSelectorFilter"
-              id="trSelectorFilter"
-              (change)="updateFilters('trSelector', $event)"
-              required
+            <option value="" disabled="true">Selector</option>
+            <option
+              data-valueType="date"
+              value="created_at"
             >
-              <option value="" disabled hidden selected>
-                &#8804; or &#8805;
-              </option>
-              <option value="">See All</option>
-              <option value="less" [selected]="trSelectorFilter === 'less'">
-                &#8804;
-              </option>
-              <option
-                value="greater"
-                [selected]="trSelectorFilter === 'greater'"
-              >
-                &#8805;
-              </option>
-            </select>
-          </div>
-          <div>
-            <label for="trValueFilter">Total Records</label>
-            <input
-              type="number"
-              min="0"
-              step="1"
-              id="trValueFilter"
-              name="trValueFilter"
-              [value]="trValueFilter"
-              oninput="validity.valid||(value='');"
-              (change)="updateFilters('trValue', $event)"
-            />
-          </div>
+              Submission Date
+            </option>
+            <option
+              data-valueType="date"
+              value="coverage_start"
+            >
+              Coverage Start Date
+            </option>
+            <option
+              data-valueType="date"
+              value="coverage_end"
+            >
+              Coverage End Date
+            </option>
+            <option data-valueType="select" value="provider_id" *ngIf="isDBHUser">
+              Provider Name
+            </option>
+            <option data-valueType="numeric_range" value="record_count">
+              Record Count
+            </option>
+            <option data-valueType="numeric_range" value="pass_count">
+              Pass Rate
+            </option>
+          </select>
         </div>
       </div>
-      <div class="filter wide">
-        <h2>Pass Rate</h2>
-        <div class="filters">
-          <div>
-            <label for="prSelectorFilter">Selector</label>
-            <select
-              name="prSelectorFilter"
-              id="prSelectorFilter"
-              (change)="updateFilters('prSelector', $event)"
-              required
+      <div>
+        <div>
+          <label [for]="'relative' + index">Relative</label>
+          <select
+            [name]="'relative' + index"
+            [id]="'relative' + index"
+            [attr.data-id]="index"
+            [disabled]="!criterion.valueType"
+            (change)="relativeSet($event)"
+            [value]="criterion.relative ?? ''"
+            required
+          >
+            <option value="" disabled="true">Relative</option>
+            <ng-container
+              *ngIf="
+                criterion.valueType === 'date' ||
+                  criterion.valueType === 'date_range';
+                else textSelect
+              "
             >
-              <option value="" disabled hidden selected>
-                &#8804; or &#8805;
+              <option value="=" *ngIf="criterion.valueType === 'date'">Is</option>
+              <option value="<">Is Before</option>
+              <option value=">">Is After</option>
+              <option value="><" *ngIf="criterion.valueType === 'date_range'">
+                Contains
               </option>
-              <option value="">See All</option>
-              <option value="less" [selected]="prSelectorFilter === 'less'">
-                &#8804;
-              </option>
-              <option
-                value="greater"
-                [selected]="prSelectorFilter === 'greater'"
-              >
-                &#8805;
-              </option>
-            </select>
-          </div>
-          <div>
-            <label for="prValueFilter">% of Records</label>
-            <input
-              type="number"
-              min="0"
-              step="1"
-              id="prValueFilter"
-              name="prValueFilter"
-              [value]="prValueFilter"
-              oninput="validity.valid||(value='');"
-              (change)="updateFilters('prValue', $event)"
-            />
-          </div>
+            </ng-container>
+            <ng-template #textSelect>
+              <ng-container *ngIf="criterion.valueType === 'numeric_range'; else nonNumeric">
+                <option value="<=" [selected]="criterion.relative === '<='"><=</option>
+                <option value=">=" [selected]="criterion.relative === '>='">>=</option>
+              </ng-container>
+              <ng-template #nonNumeric>
+                <option value="=">Is</option>
+                <option value="!=" *ngIf="criterion.valueType === 'select'">
+                  Is Not
+                </option>
+                <option value="LIKE" *ngIf="criterion.valueType === 'text'">
+                  Contains
+                </option>
+                <option value="NOT LIKE" *ngIf="criterion.valueType === 'text'">
+                  Does Not Contain
+                </option>
+              </ng-template>
+            </ng-template>
+          </select>
         </div>
       </div>
+      <div>
+        <div>
+          <label [for]="'value' + index">Value</label>
+          <ng-container *ngIf="criterion.valueType === 'select'; else nonSelect">
+            <select
+              [name]="'value' + index"
+              [id]="'value' + index"
+              [attr.data-id]="index"
+              [disabled]="!criterion.relative"
+              (change)="valueSet($event)"
+              [value]="criterion.value ?? ''"
+              style="width: 180px"
+              required
+            >
+              <option value="" disabled="true">Select Value</option>
+              <ng-container *ngIf="criterion.options; else asyncOptions">
+                <ng-container *ngFor="let option of criterion.options">
+                  <option [value]="option.value">{{ option.display }}</option>
+                </ng-container>
+              </ng-container>
+              <ng-template #asyncOptions>
+                <ng-container *ngIf="criterion.asyncOptions | async as options">
+                  <ng-container *ngFor="let option of options">
+                    <option [value]="option.value">{{ option.value }}</option>
+                  </ng-container>
+                </ng-container>
+              </ng-template>
+            </select>
+          </ng-container>
+          <ng-template #nonSelect>
+            <input
+              [type]="
+                criterion.valueType === 'date' ||
+                criterion.valueType === 'date_range'
+                  ? 'date'
+                  : 'text'
+              "
+              [attr.data-id]="index"
+              [disabled]="!criterion.relative"
+              [name]="'value' + index"
+              [id]="'value' + index"
+              [value]="criterion.value ?? ''"
+              (change)="valueSet($event)"
+              (keyup)="valueSet($event)"
+              style="width: 180px"
+              [required]="
+                criterion.valueType === 'date' ||
+                criterion.valueType === 'date_range'
+              "
+            />
+          </ng-template>
+        </div>
+      </div>
+      <div *ngIf="criteria.length > 1">
+        <button
+          type="submit"
+          class="button-outline"
+          (click)="removeCondition(index)"
+        >
+          Remove Condition
+        </button>
+      </div>
     </div>
-    <button
-      class="button-outline"
-      *ngIf="allFilters.length > 0"
-      (click)="clearFilters()"
-    >
-      Clear All Filters
-    </button>
-  </details>
+  </div>
+  <button type="submit" class="add-button" (click)="addCondition()">
+    <span>&#43;</span> Add Additional Condition
+  </button>
+  <br />
+  <button
+    type="submit"
+    class="button"
+    (click)="submitAdvancedSearch()"
+    [disabled]="searchDisabled"
+  >
+    Filter Submissions
+  </button>
   <ng-container *ngIf="details.extract_list.length > 0; else noSubmissions">
     <div class="tableContainer">
       <table>
