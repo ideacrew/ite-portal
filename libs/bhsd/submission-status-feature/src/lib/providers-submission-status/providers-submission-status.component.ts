@@ -163,6 +163,22 @@ export class ProvidersSubmissionStatusComponent {
             }
             break;
           }
+          case 'mh': {
+            criterion.options = [
+              { value: 'TRUE', display: 'TRUE' },
+              { value: 'FALSE', display: 'FALSE' },
+            ];
+
+            break;
+          }
+          case 'sud': {
+            criterion.options = [
+              { value: 'TRUE', display: 'TRUE' },
+              { value: 'FALSE', display: 'FALSE' },
+            ];
+
+            break;
+          }
         }
         this.checkValid();
       }

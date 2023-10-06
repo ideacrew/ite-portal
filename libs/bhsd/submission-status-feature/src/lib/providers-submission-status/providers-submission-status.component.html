@@ -1,5 +1,5 @@
 <h1>Provider Submission Overview</h1>
-<h1>Provider Submission Overview</h1>
+
 <div *ngFor="let criterion of criteria; let index = index">
   <div class="criterion">
     <div>
@@ -16,7 +16,7 @@
           <option value="" disabled="true">Selector</option>
           <option
             data-valueType="month"
-            value="created_at"
+            value="reporting_period"
           >
             Reporting Period
           </option>
@@ -29,14 +29,14 @@
           <option data-valueType="select" value="sud">
             SUD Provider
           </option>
-          <option data-valueType="numeric_range" value="record_count">
-            Record Count
-          </option>
           <option
             data-valueType="date"
             value="extract_at"
           >
             Extract Submitted
+          </option>
+          <option data-valueType="numeric_range" value="record_count">
+            Record Count
           </option>
           <option data-valueType="numeric_range" value="pass_count">
             Pass Rate
@@ -127,7 +127,7 @@
               criterion.valueType === 'date' ||
               criterion.valueType === 'date_range'
                 ? 'date'
-                : 'text'
+                : (criterion.valueType === 'month' ? 'month' : 'number')
             "
             [attr.data-id]="index"
             [disabled]="!criterion.relative"
@@ -396,7 +396,7 @@
     Clear All Filters
   </button>
 </details>
-<h2>Submission Summary</h2>
+<h2>Submission Summary for {{ thisReportingPeriod }}</h2>
 <ng-container *ngIf="submissionStatus$ | async as submissions">
   <ng-container *ngIf="submissions.length > 0; else noSubmissions">
     <table>
