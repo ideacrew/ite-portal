@@ -1,43 +1,9 @@
-.filters {
-  display: flex;
-  gap: 1ch;
-  h2 {
-    font-size: 18px;
-    margin: 0.5ch 0;
-  }
+h2 select {
+  font-size: 20px;
 }
-
-.filters + .filters {
-  margin-top: 20px;
+.criteria-container {
+  margin: 2ch 0;
 }
-
-.filter {
-  width: 150px;
-}
-
-.filter input,
-.filter select {
-  width: 150px;
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.filter.wide {
-  width: 320px;
-}
-
-.filter + .filter {
-  padding-left: 10px;
-  border-left: 1px solid gray;
-}
-
-details {
-  margin-bottom: 2ch;
-  summary {
-    font-weight: bold;
-  }
-}
-
 input,
 select,
 option {

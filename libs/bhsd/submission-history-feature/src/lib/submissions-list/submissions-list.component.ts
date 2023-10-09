@@ -121,7 +121,9 @@ export class SubmissionsListComponent {
   advancedSearch() {
     this.responseDetails$ = this.bhsdService.getSubmissionsWithCriteria(
       this.validCriteria,
-      this.offset
+      this.offset,
+      this.sort,
+      this.sortDirection,
     );
   }
 

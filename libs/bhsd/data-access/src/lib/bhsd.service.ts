@@ -39,7 +39,9 @@ export class BHSDService {
 
   getSubmissionsWithCriteria(
     criteria: Criterion[],
-    offset: string
+    offset: string,
+    sort?: string,
+    sortDirection?: 'asc' | 'desc',
   ): Observable<Extracts> {
     let baseUrl = `${this.config.gatewayApiUrl}/api/v1/extracts?offset=${offset}&`;
     for (const [index, criterion] of criteria.entries()) {
@@ -47,6 +49,12 @@ export class BHSDService {
       baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
       baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
       baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
+    }
+    if (sort && sort !== '') {
+      baseUrl += `sort=${sort}&`;
+    }
+    if (sortDirection) {
+      baseUrl += `sort_direction=${sortDirection}&`;
     }
     return this.http.get<Extracts>(baseUrl);
   }
@@ -89,14 +97,24 @@ export class BHSDService {
   }
 
   getSubmissionStatusWithCriteria(
-    criteria: Criterion[]
+    criteria: Criterion[],
+    month: number,
+    year: number,
+    sort?: string,
+    sortDirection?: string,
   ): Observable<SubmissionStatus[]> {
-    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/providers/submission_summary?`;
+    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/providers/submission_summary?month=${month}&year=${year}&`;
     for (const [index, criterion] of criteria.entries()) {
       baseUrl += `criteria_selector[${index}]=${criterion.selector ?? ''}&`;
       baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
       baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
       baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
+    }
+    if (sort && sort !== '') {
+      baseUrl += `sort=${sort}&`;
+    }
+    if (sortDirection) {
+      baseUrl += `sort_direction=${sortDirection}&`;
     }
     return this.http.get<SubmissionStatus[]>(baseUrl);
   }

@@ -108,7 +108,11 @@ export class ProvidersSubmissionStatusComponent {
 
   advancedSearch() {
     this.submissionStatus$ = this.bhsdService.getSubmissionStatusWithCriteria(
-      this.validCriteria
+      this.validCriteria,
+      this.rpMonthFilter,
+      Number(this.rpYearFilter),
+      this.sort,
+      this.sortDirection
     );
   }
 
