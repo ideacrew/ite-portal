@@ -55,7 +55,7 @@ export class LogInComponent {
         validators: [passwordDoesNotContainEmail],
       }
     );
-    this.userForm.valueChanges.subscribe((selectedValue) => {
+    this.userForm.valueChanges.subscribe(() => {
       this.errorMessage = false;
     });
   }
