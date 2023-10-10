@@ -4,6 +4,10 @@
 
 export const environment = {
   production: false,
+  NX_GATEWAY_API: process.env['NX_GATEWAY_API'],
+  NX_PORTAL_API: process.env['NX_PORTAL_API'],
+  NX_AD_CLIENT_ID: process.env['NX_AD_CLIENT_ID'],
+  NX_AD_TID: process.env['NX_AD_TID'],
 };
 
 /*

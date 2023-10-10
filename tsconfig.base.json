@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@dbh/ite/env": ["apps/ite-portal/src/environments/environment"],
       "@dbh/api-config": ["libs/api-config/src/index.ts"],
       "@dbh/auth": ["libs/auth/src/index.ts"],
       "@dbh/bhsd/companion-guide": ["libs/bhsd/companion-guide/src/index.ts"],
