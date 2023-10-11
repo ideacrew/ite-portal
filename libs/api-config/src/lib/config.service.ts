@@ -5,6 +5,6 @@ import { environment } from '@dbh/ite/env';
   providedIn: 'root',
 })
 export class ConfigService {
-  gatewayApiUrl: string = environment.NX_GATEWAY_API || '';
-  portalApiUrl: string = environment.NX_PORTAL_API || '';
+  gatewayApiUrl: string = environment.gatewayApi || '';
+  portalApiUrl: string = environment.portalApi || '';
 }

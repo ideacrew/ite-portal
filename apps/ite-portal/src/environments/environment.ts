@@ -5,10 +5,10 @@
 
 export const environment = {
   production: false,
-  NX_GATEWAY_API: 'https://api.provider.dev.dbhite.com',
-  NX_PORTAL_API: 'https://api.portal.dev.dbhite.com',
-  NX_AD_CLIENT_ID: process.env['NX_AD_CLIENT_ID'],
-  NX_AD_TID: process.env['NX_AD_TID'],
+  gatewayApi: 'https://api.provider.dev.dbhite.com',
+  portalApi: 'https://api.portal.dev.dbhite.com',
+  adClientId: process.env['NX_AD_CLIENT_ID'],
+  adTid: process.env['NX_AD_TID'],
 };
 
 /*

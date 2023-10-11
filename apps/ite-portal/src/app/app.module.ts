@@ -52,11 +52,11 @@ const isIE =
   window.navigator.userAgent.includes('MSIE ') ||
   window.navigator.userAgent.includes('Trident/');
 
-const NX_AD_CLIENT_ID = environment.NX_AD_CLIENT_ID || '';
-const NX_AD_TID = environment.NX_AD_TID || '';
+const NX_AD_CLIENT_ID = environment.adClientId || '';
+const NX_AD_TID = environment.adTid || '';
 const readScope = `api://${NX_AD_CLIENT_ID}/Read`;
-const gatewayApiUrl = environment.NX_GATEWAY_API || '';
-const portalApiUrl = environment.NX_PORTAL_API || '';
+const gatewayApiUrl = environment.gatewayApi || '';
+const portalApiUrl = environment.portalApi || '';
 
 export function msalInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
