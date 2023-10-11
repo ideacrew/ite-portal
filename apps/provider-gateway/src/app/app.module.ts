@@ -11,7 +11,6 @@ import {
 } from '@dbh/auth';
 import { APP_TITLE } from '@dbh/theme';
 import { RootStoreModule } from '@dbh/shared/state/root-store';
-import {environment} from '../environments/environment';
 
 import { AppComponent } from './app.component';
 
@@ -52,7 +51,6 @@ import { AppComponent } from './app.component';
       provide: APP_TITLE,
       useValue: 'Provider Gateway',
     },
-    {provide: 'environment', useValue: environment},
   ],
   bootstrap: [AppComponent],
 })
