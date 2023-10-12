@@ -139,7 +139,10 @@ export class SubmitExtractComponent {
           this.resultsMessage = false;
           this.largeFileWarning = false;
           this.sendingData.next(false);
-          this.errorMessage = error.message;
+          if (error && error.error) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            this.errorMessage = error.error;
+          }
           this.cdr.detectChanges();
         },
       });
