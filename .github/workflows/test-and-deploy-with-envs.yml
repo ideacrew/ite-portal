@@ -37,7 +37,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v2
         with:
           main-branch-name: trunk
-      - run: npx nx affected --target=build --configuration=production --parallel=2
+      - run: npx nx affected --target=build --configuration=development --parallel=2
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
