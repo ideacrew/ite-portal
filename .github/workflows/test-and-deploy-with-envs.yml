@@ -44,8 +44,8 @@ jobs:
           name: affected-apps
           path: dist/apps
   deploy-aws:
-    environment: aws-dev
-    needs: [main, agents]
+    environment: aws-prod
+    needs: [build]
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -91,10 +91,10 @@ jobs:
         with:
           files: 'dist/apps/ite-portal'
       # - name: Deploy Portal to Azure Static Web Apps
-      #   if: steps.check_folder_portal.outputs.files_exists == 'true'
       #   uses: Azure/static-web-apps-deploy@v1
+      #   if: steps.check_folder_portal.outputs.files_exists == 'true'
       #   with:
-      #     azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BRAVE_SMOKE_0349E8F10 }}
+      #     azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_BUSH_07FCF7F0F }}
       #     # repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
       #     action: 'upload'
       #     # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
@@ -108,10 +108,10 @@ jobs:
       #   with:
       #     files: 'dist/apps/provider-gateway'
       # - name: Deploy Provider to Azure Static Web Apps
-      #   if: steps.check_folder_provider.outputs.files_exists == 'true'
       #   uses: Azure/static-web-apps-deploy@v1
+      #   if: steps.check_folder_provider.outputs.files_exists == 'true'
       #   with:
-      #     azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ASHY_SAND_0EA477C10 }}
+      #     azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_HAPPY_MUD_02A688B0F }}
       #     # repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
       #     action: 'upload'
       #     # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
