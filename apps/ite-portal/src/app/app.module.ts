@@ -59,6 +59,7 @@ const gatewayApiUrl = environment.gatewayApi || '';
 const portalApiUrl = environment.portalApi || '';
 
 export function msalInstanceFactory(): IPublicClientApplication {
+  console.log("Making sure correct branch: "+gatewayApiUrl);
   return new PublicClientApplication({
     auth: {
       clientId: NX_AD_CLIENT_ID,
