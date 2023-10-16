@@ -151,7 +151,7 @@ dbh-submission-status-chart {
 }
 
 .has-tooltip span {
-  background: #cccccc;
+  background: var(--tooltip-indicator);
   font-size: 8px;
   vertical-align: top;
   border-radius: 7px;
