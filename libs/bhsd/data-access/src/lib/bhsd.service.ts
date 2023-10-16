@@ -116,7 +116,11 @@ export class BHSDService {
     if (sortDirection) {
       baseUrl += `sort_direction=${sortDirection}&`;
     }
-    return this.http.get<SubmissionStatus[]>(baseUrl);
+    return this.http.get<SubmissionSummary[]>(baseUrl).pipe(
+      map((summary) =>
+        summary.map((status) => convertSummaryToStatus(status))
+      )
+    );
   }
 
   getFilteredSubmissionStatus({

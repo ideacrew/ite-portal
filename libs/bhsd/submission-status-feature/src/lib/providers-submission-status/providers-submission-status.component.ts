@@ -27,14 +27,6 @@ export class ProvidersSubmissionStatusComponent {
   );
   searchDisabled = true;
   statusFilter = '';
-  trMinFilter: number | string = '';
-  trMaxFilter: number | string = '';
-  prMinFilter: number | string = '';
-  prMaxFilter: number | string = '';
-  serviceTypeFilter = '';
-  providerFilter = '';
-  submissionStartFilter = '';
-  submissionEndFilter = '';
   sort = 'provider_name';
   sortDirection: 'asc' | 'desc' = 'desc';
   reportingPeriod = getReportingPeriod(1);
@@ -92,7 +84,7 @@ export class ProvidersSubmissionStatusComponent {
   submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
   providers: ValueOption[] = [];
   allProviders$ = this.bhsdService.getSubmissionStatus();
-  providers$ = this.allProviders$.subscribe((response: SubmissionStatus[]) => {
+  providers$ = this.submissionStatus$.subscribe((response: SubmissionStatus[]) => {
     const providersHash = response.map((provider) =>
       ({ value: provider.providerId, display: provider.providerName })
       );
@@ -152,19 +144,15 @@ export class ProvidersSubmissionStatusComponent {
 
   relativeSet(event: Event) {
     const target = event.target as HTMLSelectElement;
-    console.log(target.value)
     const value = target.value ?? '';
-    console.log(value)
     const index = target.dataset['id'];
     if (index) {
       const criterion = this.criteria[Number(index)];
       if (criterion) {
         criterion.relative = value;
         switch (criterion.selector) {
-          case 'provider_id': {
-            if (this.providers.length > 0) {
+          case 'id': {
               criterion.options = this.providers;
-            }
             break;
           }
           case 'mh': {
@@ -222,11 +210,8 @@ export class ProvidersSubmissionStatusComponent {
     if (value) {
       const target = value.target as HTMLInputElement;
       target.classList.add('selected');
-      if (key === 'status') {
-        this.statusFilter = target.value ?? '';
-      }
       if (key === 'year') {
-        this.rpYearFilter = target.value ?? '';
+        this.rpYearFilter = Number(target.value) ?? 0;
       }
       if (key === 'month') {
         this.rpMonthFilter = target.value
@@ -234,77 +219,8 @@ export class ProvidersSubmissionStatusComponent {
             Number(target.value) + 1
           : 0;
       }
-      if (key === 'trMin') {
-        this.trMinFilter = target.value ?? '';
-      }
-      if (key === 'trMax') {
-        this.trMaxFilter = target.value ?? '';
-      }
-      if (key === 'prMin') {
-        this.prMinFilter = target.value ?? '';
-      }
-      if (key === 'prMax') {
-        this.prMaxFilter = target.value ?? '';
-      }
-      if (key === 'serviceType') {
-        this.serviceTypeFilter = target.value ?? '';
-      }
-      if (key === 'provider') {
-        this.providerFilter = target.value ?? '';
-      }
-      if (key === 'submission_start') {
-        this.submissionStartFilter = target.value ?? '';
-      }
-      if (key === 'submission_end') {
-        this.submissionEndFilter = target.value ?? '';
-      }
     }
-    this.submitFilters();
-  }
-
-  submitFilters() {
-    this.allFilters =
-      this.statusFilter +
-      this.rpYearFilter.toString() +
-      this.rpMonthFilter.toString() +
-      this.trMaxFilter.toString() +
-      this.trMinFilter.toString() +
-      this.prMaxFilter.toString() +
-      this.prMinFilter.toString() +
-      this.serviceTypeFilter +
-      this.providerFilter +
-      this.submissionStartFilter +
-      this.submissionEndFilter;
-    this.submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
-      status: this.statusFilter,
-      year: this.rpYearFilter.toString(),
-      month: this.rpMonthFilter.toString(),
-      trMax: this.trMaxFilter.toString(),
-      trMin: this.trMinFilter.toString(),
-      prMax: this.prMaxFilter.toString(),
-      prMin: this.prMinFilter.toString(),
-      serviceType: this.serviceTypeFilter,
-      provider: this.providerFilter,
-      submissionStart: this.submissionStartFilter,
-      submissionEnd: this.submissionEndFilter,
-      sort: this.sort,
-      sortDirection: this.sortDirection,
-    });
-  }
-
-  clearFilters() {
-    this.statusFilter = '';
-    this.trMinFilter = '';
-    this.trMaxFilter = '';
-    this.prMinFilter = '';
-    this.prMaxFilter = '';
-    this.serviceTypeFilter = '';
-    this.providerFilter = '';
-    this.submissionStartFilter = '';
-    this.submissionEndFilter = '';
-    this.rpMonthFilter = this.reportingPeriod.getMonth() + 1;
-    this.rpYearFilter = this.reportingPeriod.getFullYear();
-    this.submitFilters();
+    this.advancedSearch();
   }
 
   serviceType(submission: SubmissionStatus): string {
