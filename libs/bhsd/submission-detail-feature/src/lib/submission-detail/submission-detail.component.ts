@@ -21,6 +21,10 @@ import { saveAs } from 'file-saver';
 export class SubmissionDetailComponent {
   viewType: 'record' | 'dataField' = 'dataField';
 
+  recordDefinition = `
+    Record ID is a unique identifier composed of the combination the following key fields: Client ID, Admission Date, Record Type and Treatment Setting, separated by underscores.
+  `;
+
   payloadFieldHeaders = [
     'address_city',
     'address_line1',
