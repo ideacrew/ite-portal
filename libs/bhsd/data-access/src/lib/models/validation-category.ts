@@ -8,4 +8,4 @@ export const validationCategory = [
   'Wrong Format',
 ] as const;
 
-export type ValidationCategory = typeof validationCategory[number] | null;
+export type ValidationCategory = (typeof validationCategory)[number] | null;

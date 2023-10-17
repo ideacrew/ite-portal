@@ -41,7 +41,7 @@ export class BHSDService {
     criteria: Criterion[],
     offset: string,
     sort?: string,
-    sortDirection?: 'asc' | 'desc',
+    sortDirection?: 'asc' | 'desc'
   ): Observable<Extracts> {
     let baseUrl = `${this.config.gatewayApiUrl}/api/v1/extracts?offset=${offset}&`;
     for (const [index, criterion] of criteria.entries()) {
@@ -101,7 +101,7 @@ export class BHSDService {
     month: number,
     year: number,
     sort?: string,
-    sortDirection?: string,
+    sortDirection?: string
   ): Observable<SubmissionStatus[]> {
     let baseUrl = `${this.config.gatewayApiUrl}/api/v1/providers/submission_summary?month=${month}&year=${year}&`;
     for (const [index, criterion] of criteria.entries()) {
@@ -116,11 +116,13 @@ export class BHSDService {
     if (sortDirection) {
       baseUrl += `sort_direction=${sortDirection}&`;
     }
-    return this.http.get<SubmissionSummary[]>(baseUrl).pipe(
-      map((summary) =>
-        summary.map((status) => convertSummaryToStatus(status))
-      )
-    );
+    return this.http
+      .get<SubmissionSummary[]>(baseUrl)
+      .pipe(
+        map((summary) =>
+          summary.map((status) => convertSummaryToStatus(status))
+        )
+      );
   }
 
   getFilteredSubmissionStatus({

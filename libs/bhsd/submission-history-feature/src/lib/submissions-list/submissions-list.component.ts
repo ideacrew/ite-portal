@@ -66,14 +66,15 @@ export class SubmissionsListComponent {
   ];
   providers: ValueOption[] = [];
   responseDetails$: Observable<Extracts> =
-  this.bhsdService.getSubmissionsWithCriteria(
-    this.validCriteria,
-    this.offset
-  );
+    this.bhsdService.getSubmissionsWithCriteria(
+      this.validCriteria,
+      this.offset
+    );
   providers$ = this.responseDetails$.subscribe((response: Extracts) => {
-    const providersHash = response.providers.map((provider) =>
-      ({ value: provider.id, display: provider.name })
-      );
+    const providersHash = response.providers.map((provider) => ({
+      value: provider.id,
+      display: provider.name,
+    }));
     this.providers = providersHash;
   });
 
@@ -123,7 +124,7 @@ export class SubmissionsListComponent {
       this.validCriteria,
       this.offset,
       this.sort,
-      this.sortDirection,
+      this.sortDirection
     );
   }
 
@@ -165,9 +166,9 @@ export class SubmissionsListComponent {
 
   relativeSet(event: Event) {
     const target = event.target as HTMLSelectElement;
-    console.log(target.value)
+    console.log(target.value);
     const value = target.value ?? '';
-    console.log(value)
+    console.log(value);
     const index = target.dataset['id'];
     if (index) {
       const criterion = this.criteria[Number(index)];

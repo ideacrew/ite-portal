@@ -41,11 +41,11 @@
           }}</a>
         </td>
         <td>{{ claim.claim_coverage_type }}</td>
-        <td>{{ claim.adjudication_date | date: 'MM/dd/yyyy' }}</td>
+        <td>{{ claim.adjudication_date | date : 'MM/dd/yyyy' }}</td>
         <td>{{ claim.billing_medicaid_id ?? '' }}</td>
         <td>
-          {{ claim.first_date_of_service | date: 'MM/dd/yyyy' }}&ndash;{{
-            claim.last_date_of_service | date: 'MM/dd/yyyy'
+          {{ claim.first_date_of_service | date : 'MM/dd/yyyy' }}&ndash;{{
+            claim.last_date_of_service | date : 'MM/dd/yyyy'
           }}
         </td>
         <td>{{ claim.procedure_code }}</td>

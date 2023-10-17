@@ -84,12 +84,15 @@ export class ProvidersSubmissionStatusComponent {
   submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
   providers: ValueOption[] = [];
   allProviders$ = this.bhsdService.getSubmissionStatus();
-  providers$ = this.submissionStatus$.subscribe((response: SubmissionStatus[]) => {
-    const providersHash = response.map((provider) =>
-      ({ value: provider.providerId, display: provider.providerName })
-      );
-    this.providers = providersHash;
-  });
+  providers$ = this.submissionStatus$.subscribe(
+    (response: SubmissionStatus[]) => {
+      const providersHash = response.map((provider) => ({
+        value: provider.providerId,
+        display: provider.providerName,
+      }));
+      this.providers = providersHash;
+    }
+  );
   constructor(private bhsdService: BHSDService) {}
 
   updateSort(criteria: string) {
@@ -152,7 +155,7 @@ export class ProvidersSubmissionStatusComponent {
         criterion.relative = value;
         switch (criterion.selector) {
           case 'id': {
-              criterion.options = this.providers;
+            criterion.options = this.providers;
             break;
           }
           case 'mh': {

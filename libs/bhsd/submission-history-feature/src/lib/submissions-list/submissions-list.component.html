@@ -14,25 +14,20 @@
             required
           >
             <option value="" disabled="true">Selector</option>
-            <option
-              data-valueType="date"
-              value="created_at"
-            >
+            <option data-valueType="date" value="created_at">
               Submission Date
             </option>
-            <option
-              data-valueType="date"
-              value="coverage_start"
-            >
+            <option data-valueType="date" value="coverage_start">
               Coverage Start Date
             </option>
-            <option
-              data-valueType="date"
-              value="coverage_end"
-            >
+            <option data-valueType="date" value="coverage_end">
               Coverage End Date
             </option>
-            <option data-valueType="select" value="provider_id" *ngIf="isDBHUser">
+            <option
+              data-valueType="select"
+              value="provider_id"
+              *ngIf="isDBHUser"
+            >
               Provider Name
             </option>
             <option data-valueType="numeric_range" value="record_count">
@@ -64,7 +59,9 @@
                 else textSelect
               "
             >
-              <option value="=" *ngIf="criterion.valueType === 'date'">Is</option>
+              <option value="=" *ngIf="criterion.valueType === 'date'">
+                Is
+              </option>
               <option value="<">Is Before</option>
               <option value=">">Is After</option>
               <option value="><" *ngIf="criterion.valueType === 'date_range'">
@@ -72,9 +69,15 @@
               </option>
             </ng-container>
             <ng-template #textSelect>
-              <ng-container *ngIf="criterion.valueType === 'numeric_range'; else nonNumeric">
-                <option value="<=" [selected]="criterion.relative === '<='"><=</option>
-                <option value=">=" [selected]="criterion.relative === '>='">>=</option>
+              <ng-container
+                *ngIf="criterion.valueType === 'numeric_range'; else nonNumeric"
+              >
+                <option value="<=" [selected]="criterion.relative === '<='">
+                  <=
+                </option>
+                <option value=">=" [selected]="criterion.relative === '>='">
+                  >=
+                </option>
               </ng-container>
               <ng-template #nonNumeric>
                 <option value="=">Is</option>
@@ -95,7 +98,9 @@
       <div>
         <div>
           <label [for]="'value' + index">Value</label>
-          <ng-container *ngIf="criterion.valueType === 'select'; else nonSelect">
+          <ng-container
+            *ngIf="criterion.valueType === 'select'; else nonSelect"
+          >
             <select
               [name]="'value' + index"
               [id]="'value' + index"
@@ -226,7 +231,7 @@
                 Processing {{ submission.file_name ?? 'no file name provided' }}
               </ng-template>
             </td>
-            <td>{{ submission.submission_date | date: 'short' }}</td>
+            <td>{{ submission.submission_date | date : 'short' }}</td>
             <td>{{ submission.coverage_start }}</td>
             <td>{{ submission.coverage_end }}</td>
             <td class="numeric">

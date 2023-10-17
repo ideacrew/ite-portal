@@ -1,39 +1,43 @@
 <h1>Provider Submission Overview</h1>
-<h2>Submission Summary for <select
-  name="rpMonthFilter"
-  id="rpMonthFilter"
-  (change)="updateFilters('month', $event)"
-  class="selected"
-  aria-label="Select Reporting Period Month"
-  required
->
-  <option value="">Select Month</option>
-  <option
-    *ngFor="let month of monthList"
-    [value]="month.getMonth()"
-    [selected]="rpMonthFilter - 1 === month.getMonth()"
+<h2>
+  Submission Summary for
+  <select
+    name="rpMonthFilter"
+    id="rpMonthFilter"
     (change)="updateFilters('month', $event)"
+    class="selected"
+    aria-label="Select Reporting Period Month"
+    required
   >
-    {{ month | date: 'MMMM' }}
-  </option>
-</select> <select
-name="rpYearFilter"
-id="rpYearFilter"
-(change)="updateFilters('year', $event)"
-class=""
-aria-label="Select Reporting Period Year"
-required
->
-<option value="" disabled selected hidden>Select Year</option>
-<option
-  *ngFor="let year of yearList"
-  [value]="year"
-  [selected]="year.toString() === rpYearFilter.toString()"
-  (change)="updateFilters('year', $event)"
->
-  {{ year }}
-</option>
-</select></h2>
+    <option value="">Select Month</option>
+    <option
+      *ngFor="let month of monthList"
+      [value]="month.getMonth()"
+      [selected]="rpMonthFilter - 1 === month.getMonth()"
+      (change)="updateFilters('month', $event)"
+    >
+      {{ month | date : 'MMMM' }}
+    </option>
+  </select>
+  <select
+    name="rpYearFilter"
+    id="rpYearFilter"
+    (change)="updateFilters('year', $event)"
+    class=""
+    aria-label="Select Reporting Period Year"
+    required
+  >
+    <option value="" disabled selected hidden>Select Year</option>
+    <option
+      *ngFor="let year of yearList"
+      [value]="year"
+      [selected]="year.toString() === rpYearFilter.toString()"
+      (change)="updateFilters('year', $event)"
+    >
+      {{ year }}
+    </option>
+  </select>
+</h2>
 <div class="criteria-container">
   <div *ngFor="let criterion of criteria; let index = index">
     <div class="criterion">
@@ -49,19 +53,10 @@ required
             required
           >
             <option value="" disabled="true">Selector</option>
-            <option data-valueType="select" value="id">
-              Provider Name
-            </option>
-            <option data-valueType="select" value="mh">
-              MH Provider
-            </option>
-            <option data-valueType="select" value="sud">
-              SUD Provider
-            </option>
-            <option
-              data-valueType="date"
-              value="extracted_on"
-            >
+            <option data-valueType="select" value="id">Provider Name</option>
+            <option data-valueType="select" value="mh">MH Provider</option>
+            <option data-valueType="select" value="sud">SUD Provider</option>
+            <option data-valueType="date" value="extracted_on">
               Extract Submitted
             </option>
             <option data-valueType="numeric_range" value="record_count">
@@ -93,7 +88,9 @@ required
                 else textSelect
               "
             >
-              <option value="=" *ngIf="criterion.valueType === 'date'">Is</option>
+              <option value="=" *ngIf="criterion.valueType === 'date'">
+                Is
+              </option>
               <option value="<">Is Before</option>
               <option value=">">Is After</option>
               <option value="><" *ngIf="criterion.valueType === 'date_range'">
@@ -101,9 +98,15 @@ required
               </option>
             </ng-container>
             <ng-template #textSelect>
-              <ng-container *ngIf="criterion.valueType === 'numeric_range'; else nonNumeric">
-                <option value="<=" [selected]="criterion.relative === '<='"><=</option>
-                <option value=">=" [selected]="criterion.relative === '>='">>=</option>
+              <ng-container
+                *ngIf="criterion.valueType === 'numeric_range'; else nonNumeric"
+              >
+                <option value="<=" [selected]="criterion.relative === '<='">
+                  <=
+                </option>
+                <option value=">=" [selected]="criterion.relative === '>='">
+                  >=
+                </option>
               </ng-container>
               <ng-template #nonNumeric>
                 <option value="=">Is</option>
@@ -124,7 +127,9 @@ required
       <div>
         <div>
           <label [for]="'value' + index">Value</label>
-          <ng-container *ngIf="criterion.valueType === 'select'; else nonSelect">
+          <ng-container
+            *ngIf="criterion.valueType === 'select'; else nonSelect"
+          >
             <select
               [name]="'value' + index"
               [id]="'value' + index"
@@ -156,7 +161,9 @@ required
                 criterion.valueType === 'date' ||
                 criterion.valueType === 'date_range'
                   ? 'date'
-                  : (criterion.valueType === 'month' ? 'month' : 'number')
+                  : criterion.valueType === 'month'
+                  ? 'month'
+                  : 'number'
               "
               [attr.data-id]="index"
               [disabled]="!criterion.relative"

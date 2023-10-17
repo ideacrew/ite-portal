@@ -18,7 +18,8 @@ option {
   display: flex;
   gap: 10px;
   margin: 10px 0;
-  > div, ng-container {
+  > div,
+  ng-container {
     margin: 1ch 0;
     display: flex;
     justify-content: center;
