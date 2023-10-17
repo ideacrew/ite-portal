@@ -10,7 +10,7 @@
     </thead>
     <tbody>
       <dbh-data-field-error-row
-        *ngFor="let field of fatalFields | keyvalue: originalOrder"
+        *ngFor="let field of fatalFields | keyvalue : originalOrder"
         [dataField]="field.value"
         [countOfRecordsWithIssue]="getCountOfRecordsWithFieldError(field.value)"
         [categoriesWithError]="getCategoriesWithCount(field.value)"
@@ -32,7 +32,7 @@
     </thead>
     <tbody>
       <dbh-data-field-error-row
-        *ngFor="let field of criticalFields | keyvalue: originalOrder"
+        *ngFor="let field of criticalFields | keyvalue : originalOrder"
         [dataField]="field.value"
         [countOfRecordsWithIssue]="getCountOfRecordsWithFieldError(field.value)"
         [categoriesWithError]="getCategoriesWithCount(field.value)"
@@ -54,7 +54,7 @@
     </thead>
     <tbody>
       <dbh-data-field-error-row
-        *ngFor="let field of warningFields | keyvalue: originalOrder"
+        *ngFor="let field of warningFields | keyvalue : originalOrder"
         [dataField]="field.value"
         [countOfRecordsWithIssue]="getCountOfRecordsWithFieldError(field.value)"
         [categoriesWithError]="getCategoriesWithCount(field.value)"

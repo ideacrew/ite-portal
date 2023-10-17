@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Extracts, BHSDService } from '@dbh/bhsd/data-access';
 import { AuthService } from '@dbh/auth';
+import { Criterion, ValueOption } from '@dbh/claims/data-access/models';
 
 export type Header = {
   label: string;
@@ -18,20 +19,20 @@ export type Header = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubmissionsListComponent {
+  criteria: Criterion[] = [{}];
+  validCriteria: Criterion[] = this.criteria.filter(
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    (criterion) =>
+      criterion.selector &&
+      criterion.valueType &&
+      criterion.relative &&
+      criterion.value
+  );
+  searchDisabled = true;
   isDBHUser = this.authService.isDBHUser || true;
   page = '1';
   offset = '';
   perPage = 20;
-  coverageStartFilter = '';
-  coverageEndFilter = '';
-  submissionStartFilter = '';
-  submissionEndFilter = '';
-  providerFilter = '';
-  trSelectorFilter = '';
-  trValueFilter: number | string = '';
-  prSelectorFilter = '';
-  prValueFilter: number | string = '';
-  allFilters = '';
   sort = 'created_at';
   sortDirection: 'asc' | 'desc' = 'desc';
   headerList: Header[] = [
@@ -63,8 +64,20 @@ export class SubmissionsListComponent {
     { label: 'Pass', value: 'pass', sortable: false, numeric: true },
     { label: 'Fail', value: 'fail', sortable: false, numeric: true },
   ];
+  providers: ValueOption[] = [];
   responseDetails$: Observable<Extracts> =
-    this.bhsdService.getSubmissionsWithParams({ offset: this.offset });
+    this.bhsdService.getSubmissionsWithCriteria(
+      this.validCriteria,
+      this.offset
+    );
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  providers$ = this.responseDetails$.subscribe((response: Extracts) => {
+    const providersHash = response.providers.map((provider) => ({
+      value: provider.id,
+      display: provider.name,
+    }));
+    this.providers = providersHash;
+  });
 
   getPages(count: number, active: string): Array<number | '...'> {
     const pages = Math.ceil(count / this.perPage);
@@ -98,90 +111,110 @@ export class SubmissionsListComponent {
   updatePage(pageNumber: string) {
     this.page = pageNumber;
     this.offset = String((Number(pageNumber) - 1) * this.perPage);
-    this.submitFilters();
+    this.advancedSearch();
   }
 
   updateSort(criteria: string) {
     this.sort = criteria;
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    this.submitFilters();
+    this.advancedSearch();
   }
 
-  updateFilters(key: string, event?: Event) {
-    if (event) {
-      this.page = '1';
-      this.offset = '';
-      const target = event.target as HTMLInputElement;
-      target.classList.add('selected');
-      if (key === 'coverage_start') {
-        this.coverageStartFilter = target.value ?? '';
+  advancedSearch() {
+    this.responseDetails$ = this.bhsdService.getSubmissionsWithCriteria(
+      this.validCriteria,
+      this.offset,
+      this.sort,
+      this.sortDirection
+    );
+  }
+
+  submitAdvancedSearch() {
+    this.checkValid();
+    this.page = '1';
+    this.offset = '';
+    this.advancedSearch();
+  }
+
+  removeCondition(index: number) {
+    this.criteria.splice(index, 1);
+    this.checkValid();
+  }
+
+  addCondition() {
+    this.criteria.push({});
+    this.checkValid();
+  }
+
+  selectorSet(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value ?? '';
+    const valueType = target.selectedOptions[0].dataset['valuetype'] ?? '';
+    const index = target.dataset['id'];
+    if (index) {
+      const criterion = this.criteria[Number(index)];
+      if (criterion) {
+        criterion.valueType = valueType;
+        criterion.selector = value;
+        criterion.value = undefined;
+        criterion.relative = undefined;
+        criterion.options = undefined;
+        criterion.asyncOptions = undefined;
       }
-      if (key === 'coverage_end') {
-        this.coverageEndFilter = target.value ?? '';
-      }
-      if (key === 'submission_start') {
-        this.submissionStartFilter = target.value ?? '';
-      }
-      if (key === 'submission_end') {
-        this.submissionEndFilter = target.value ?? '';
-      }
-      if (key === 'provider') {
-        this.providerFilter = target.value ?? '';
-      }
-      if (key === 'trSelector') {
-        this.trSelectorFilter = target.value ?? '';
-      }
-      if (key === 'trValue') {
-        this.trValueFilter = target.value ?? '';
-      }
-      if (key === 'prSelector') {
-        this.prSelectorFilter = target.value ?? '';
-      }
-      if (key === 'prValue') {
-        this.prValueFilter = target.value ?? '';
+      this.checkValid();
+    }
+  }
+
+  relativeSet(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    console.log(target.value);
+    const value = target.value ?? '';
+    console.log(value);
+    const index = target.dataset['id'];
+    if (index) {
+      const criterion = this.criteria[Number(index)];
+      if (criterion) {
+        criterion.relative = value;
+        switch (criterion.selector) {
+          case 'provider_id': {
+            if (this.providers.length > 0) {
+              criterion.options = this.providers;
+            }
+            break;
+          }
+        }
+        this.checkValid();
       }
     }
-    this.submitFilters();
   }
 
-  submitFilters() {
-    this.allFilters =
-      this.coverageStartFilter +
-      this.coverageEndFilter +
-      this.trSelectorFilter +
-      this.submissionStartFilter +
-      this.submissionEndFilter +
-      this.providerFilter +
-      this.trValueFilter.toString() +
-      this.prSelectorFilter +
-      this.prValueFilter.toString();
-    this.responseDetails$ = this.bhsdService.getSubmissionsWithParams({
-      coverageStart: this.coverageStartFilter,
-      coverageEnd: this.coverageEndFilter,
-      submissionStart: this.submissionStartFilter,
-      submissionEnd: this.submissionEndFilter,
-      offset: this.offset,
-      provider: this.providerFilter,
-      trSelector: this.trSelectorFilter,
-      trValue: this.trValueFilter.toString(),
-      prSelector: this.prSelectorFilter,
-      prValue: this.prValueFilter.toString(),
-      sort: this.sort,
-      sortDirection: this.sortDirection,
-    });
+  valueSet(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value ?? '';
+    const index = target.dataset['id'];
+    if (index) {
+      const criterion = this.criteria[Number(index)];
+      if (criterion) {
+        criterion.value = value;
+        this.checkValid();
+      }
+    }
   }
 
-  clearFilters() {
-    this.coverageStartFilter = '';
-    this.coverageEndFilter = '';
-    this.submissionStartFilter = '';
-    this.submissionEndFilter = '';
-    this.providerFilter = '';
-    this.trSelectorFilter = '';
-    this.trValueFilter = '';
-    this.prSelectorFilter = '';
-    this.prValueFilter = '';
-    this.submitFilters();
+  checkValid() {
+    this.validCriteria = this.criteria.filter(
+      // eslint-disable-next-line unicorn/consistent-function-scoping
+      (condition) =>
+        condition.selector &&
+        condition.valueType &&
+        condition.relative &&
+        condition.value
+    );
+    this.searchDisabled =
+      this.validCriteria.length > 0 &&
+      this.validCriteria.length === this.criteria.length
+        ? false
+        : true;
   }
 
   constructor(
