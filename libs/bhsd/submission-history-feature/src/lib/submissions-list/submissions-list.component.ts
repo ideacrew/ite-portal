@@ -70,6 +70,7 @@ export class SubmissionsListComponent {
       this.validCriteria,
       this.offset
     );
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   providers$ = this.responseDetails$.subscribe((response: Extracts) => {
     const providersHash = response.providers.map((provider) => ({
       value: provider.id,
