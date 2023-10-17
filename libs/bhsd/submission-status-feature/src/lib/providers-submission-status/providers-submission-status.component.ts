@@ -28,7 +28,7 @@ export class ProvidersSubmissionStatusComponent {
   searchDisabled = true;
   statusFilter = '';
   sort = 'provider_name';
-  sortDirection: 'asc' | 'desc' = 'desc';
+  sortDirection: 'asc' | 'desc' = 'asc';
   reportingPeriod = getReportingPeriod(1);
   thisReportingPeriod = getReportingPeriodText(this.reportingPeriod);
   rpMonthFilter: number = this.reportingPeriod.getMonth() + 1;
@@ -81,7 +81,7 @@ export class ProvidersSubmissionStatusComponent {
       numeric: true,
     },
   ];
-  submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({});
+  submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({sort: this.sort, sortDirection: this.sortDirection});
   providers: ValueOption[] = [];
   allProviders$ = this.bhsdService.getSubmissionStatus();
   providers$ = this.submissionStatus$.subscribe(
