@@ -1,5 +1,6 @@
 <h1>BHSD File Submission History</h1>
 <ng-container *ngIf="responseDetails$ | async as details">
+  <p>Show results matching all the following conditions.</p>
   <div *ngFor="let criterion of criteria; let index = index">
     <div class="criterion">
       <div>
@@ -18,10 +19,10 @@
               Submission Date
             </option>
             <option data-valueType="date" value="coverage_start">
-              Coverage Start Date
+              Reporting Period Start Date
             </option>
             <option data-valueType="date" value="coverage_end">
-              Coverage End Date
+              Reporting Period End Date
             </option>
             <option
               data-valueType="select"
