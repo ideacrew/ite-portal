@@ -46,9 +46,9 @@
             [name]="'relative' + index"
             [id]="'relative' + index"
             [attr.data-id]="index"
+            [value]="criterion.relative ?? ''"
             [disabled]="!criterion.valueType"
             (change)="relativeSet($event)"
-            [value]="criterion.relative ?? ''"
             required
           >
             <option value="" disabled="true">Relative</option>
@@ -59,12 +59,12 @@
                 else textSelect
               "
             >
-              <option value="=" *ngIf="criterion.valueType === 'date'">
+              <option value="=" *ngIf="criterion.valueType === 'date'" [selected]="criterion.relative === '='">
                 Is
               </option>
-              <option value="<">Is Before</option>
-              <option value=">">Is After</option>
-              <option value="><" *ngIf="criterion.valueType === 'date_range'">
+              <option value="<" [selected]="criterion.relative === '<'">Is Before</option>
+              <option value=">" [selected]="criterion.relative === '>'">Is After</option>
+              <option value="><" *ngIf="criterion.valueType === 'date_range'" [selected]="criterion.relative === '><'">
                 Contains
               </option>
             </ng-container>
@@ -80,14 +80,14 @@
                 </option>
               </ng-container>
               <ng-template #nonNumeric>
-                <option value="=">Is</option>
-                <option value="!=" *ngIf="criterion.valueType === 'select'">
+                <option value="=" [selected]="criterion.relative === '='">Is</option>
+                <option value="!=" *ngIf="criterion.valueType === 'select'" [selected]="criterion.relative === '!='">
                   Is Not
                 </option>
-                <option value="LIKE" *ngIf="criterion.valueType === 'text'">
+                <option value="LIKE" *ngIf="criterion.valueType === 'text'" [selected]="criterion.relative === 'LIKE'">
                   Contains
                 </option>
-                <option value="NOT LIKE" *ngIf="criterion.valueType === 'text'">
+                <option value="NOT LIKE" *ngIf="criterion.valueType === 'text'" [selected]="criterion.relative === 'Does Not Contain'">
                   Does Not Contain
                 </option>
               </ng-template>

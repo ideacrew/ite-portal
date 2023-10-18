@@ -167,9 +167,7 @@ export class SubmissionsListComponent {
 
   relativeSet(event: Event) {
     const target = event.target as HTMLSelectElement;
-    console.log(target.value);
     const value = target.value ?? '';
-    console.log(value);
     const index = target.dataset['id'];
     if (index) {
       const criterion = this.criteria[Number(index)];
