@@ -1,9 +1,14 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+/* eslint-disable @typescript-eslint/naming-convention */
 
 export const environment = {
   production: false,
+  gatewayApi: 'https://api.provider.dev.dbhite.com',
+  portalApi: 'https://api.portal.dev.dbhite.com',
+  adClientId: process.env['NX_AD_CLIENT_ID'],
+  adTid: process.env['NX_AD_TID'],
 };
 
 /*

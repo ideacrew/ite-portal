@@ -4,6 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ConfigService {
+  // only these top two lines were needed when referencing the env files
+  // however, that causes a circular dependency issue while linting.
+  // gatewayApiUrl: string = environment.gatewayApi || '';
+  // portalApiUrl: string = environment.portalApi || '';
   // By default the gatewayApiUrl is set to azure pattern of urls
   baseUrl: string = this.getBaseUrl(window.location.hostname);
   gatewayApiUrl = 'https://api-provider.dbh.dc.gov';
