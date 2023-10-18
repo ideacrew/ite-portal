@@ -56,7 +56,7 @@ export class BHSDService {
     if (sortDirection) {
       baseUrl += `sort_direction=${sortDirection}&`;
     }
-    return this.http.get<Extracts>(baseUrl);
+    return this.http.get<Extracts>(baseUrl).pipe(map((extract) => extract));
   }
 
   getProviders(): Observable<ValueOption[]> {
@@ -129,28 +129,12 @@ export class BHSDService {
     status,
     month,
     year,
-    trMax,
-    trMin,
-    prMax,
-    prMin,
-    serviceType,
-    provider,
-    submissionStart,
-    submissionEnd,
     sort,
     sortDirection,
   }: {
     status?: string;
     month?: string;
     year?: string;
-    trMin?: string;
-    trMax?: string;
-    prMin?: string;
-    prMax?: string;
-    serviceType?: string;
-    provider?: string;
-    submissionStart?: string;
-    submissionEnd?: string;
     sortDirection?: 'asc' | 'desc';
     sort?: string;
   }): Observable<SubmissionStatus[]> {
@@ -164,30 +148,6 @@ export class BHSDService {
     }
     if (year && year !== '') {
       urlParameters.push(`year=${year}`);
-    }
-    if (trMin && trMin !== '') {
-      urlParameters.push(`filter_tr_min=${trMin}`);
-    }
-    if (trMax && trMax !== '') {
-      urlParameters.push(`filter_tr_max=${trMax}`);
-    }
-    if (prMin && prMin !== '') {
-      urlParameters.push(`filter_pr_min=${prMin}`);
-    }
-    if (prMax && prMax !== '') {
-      urlParameters.push(`filter_pr_max=${prMax}`);
-    }
-    if (serviceType && serviceType !== '') {
-      urlParameters.push(`filter_service_type=${serviceType}`);
-    }
-    if (provider && provider !== '') {
-      urlParameters.push(`filter_provider=${provider}`);
-    }
-    if (submissionStart && submissionStart !== '') {
-      urlParameters.push(`filter_submission_start=${submissionStart}`);
-    }
-    if (submissionEnd && submissionEnd !== '') {
-      urlParameters.push(`filter_submission_end=${submissionEnd}`);
     }
     if (sort && sort !== '') {
       urlParameters.push(`sort=${sort}`);
