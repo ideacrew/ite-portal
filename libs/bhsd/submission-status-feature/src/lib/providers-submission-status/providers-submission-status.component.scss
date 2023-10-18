@@ -1,39 +1,51 @@
-.filters {
+h2 select {
+  font-size: 20px;
+}
+.criteria-container {
+  margin: 2ch 0;
+}
+input,
+select,
+option {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 180px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+}
+.criterion {
   display: flex;
-  gap: 1ch;
-  h2 {
-    font-size: 18px;
-    margin: 0.5ch 0;
+  gap: 10px;
+  margin: 10px 0;
+  > div,
+  ng-container {
+    margin: 1ch 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  button {
+    color: var(--error);
+    border-color: var(--error);
+    padding: 8px;
   }
 }
-
-.filters + .filters {
-  margin-top: 20px;
-}
-
-.filter {
-  width: 150px;
-}
-
-.filter input,
-.filter select {
-  width: 150px;
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.filter.wide {
-  width: 320px;
-}
-
-.filter + .filter {
-  padding-left: 10px;
-  border-left: 1px solid gray;
-}
-
-details {
-  margin-bottom: 2ch;
-  summary {
-    font-weight: bold;
+.add-button {
+  border: 1px dashed var(--primary);
+  border-radius: 6px;
+  font-weight: 600;
+  width: 560px;
+  padding: 8px;
+  color: var(--primary);
+  margin-bottom: 3ch;
+  background: none;
+  span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: var(--white);
+    background: var(--primary);
+    border-radius: 50%;
   }
 }

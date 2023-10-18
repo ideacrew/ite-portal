@@ -1,233 +1,211 @@
-<h1 class="this-does-notthing">Provider Submission Overview</h1>
-<details [open]="allFilters.length > 0">
-  <summary class="filter-label">Filter</summary>
-  <div class="filters">
-    <div class="filter wide">
-      <label for="rpMonthFilter">Reporting Period</label>
-      <div class="filters">
-        <select
-          name="rpMonthFilter"
-          id="rpMonthFilter"
-          (change)="updateFilters('month', $event)"
-          class="selected"
-          aria-label="Select Reporting Period Month"
-          required
-        >
-          <option value="">Select Month</option>
-          <option
-            *ngFor="let month of monthList"
-            [value]="month.getMonth()"
-            [selected]="rpMonthFilter - 1 === month.getMonth()"
-            (change)="updateFilters('month', $event)"
-          >
-            {{ month | date: 'MMMM' }}
-          </option>
-        </select>
-        <select
-          name="rpYearFilter"
-          id="rpYearFilter"
-          (change)="updateFilters('year', $event)"
-          class=""
-          aria-label="Select Reporting Period Year"
-          required
-        >
-          <option value="" disabled selected hidden>Select Year</option>
-          <option
-            *ngFor="let year of yearList"
-            [value]="year"
-            [selected]="year.toString() === rpYearFilter.toString()"
-            (change)="updateFilters('year', $event)"
-          >
-            {{ year }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="filter" *ngIf="allProviders$ | async as providers">
-      <label for="providerFilter">Provider</label>
-      <select
-        name="providerFilter"
-        id="providerFilter"
-        (change)="updateFilters('provider', $event)"
-        required
-      >
-        <option value="" disabled hidden selected>Select Provider</option>
-        <option value="">See All</option>
-        <option
-          *ngFor="let provider of providers"
-          [value]="provider.providerId"
-          [selected]="
-            providerFilter.toString() === provider.providerId.toString()
-          "
-        >
-          {{ provider.providerName }}
-        </option>
-      </select>
-    </div>
-    <div class="filter">
-      <label for="serviceTypeFilter">Service Type</label>
-      <select
-        name="serviceTypeFilter"
-        id="serviceTypeFilter"
-        (change)="updateFilters('serviceType', $event)"
-        class="hasPlaceholder"
-        required
-      >
-        <option value="" disabled hidden selected>Select Service Type</option>
-        <option value="">See All</option>
-        <option value="MH" [selected]="serviceTypeFilter === 'MH'">MH</option>
-        <option value="SUD" [selected]="serviceTypeFilter === 'SUD'">
-          SUD
-        </option>
-        <option value="MH_SUD" [selected]="serviceTypeFilter === 'MH_SUD'">
-          MH & SUD
-        </option>
-      </select>
-    </div>
-    <div class="filter">
-      <label for="statusFilter">Submission Status</label>
-      <select
-        name="statusFilter"
-        id="statusFilter"
-        (change)="updateFilters('status', $event)"
-        class="hasPlaceholder"
-        required
-      >
-        <option value="" disabled hidden selected>Select Status</option>
-        <option value="">See All</option>
-        <option value="Current" [selected]="statusFilter === 'Current'">
-          Current
-        </option>
-        <option
-          value="Expecting Submission"
-          [selected]="statusFilter === 'Expecting Submission'"
-        >
-          Expecting Submission
-        </option>
-        <option
-          value="Need Resubmission"
-          [selected]="statusFilter === 'Need Resubmission'"
-        >
-          Need Resubmission
-        </option>
-        <option value="Past Due" [selected]="statusFilter === 'Past Due'">
-          Past Due
-        </option>
-      </select>
-    </div>
-  </div>
-  <div class="filters">
-    <div class="filter wide">
-      <h2>Total Records</h2>
-      <div class="filters">
-        <div>
-          <label for="trMinFilter">Minimum Records</label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            id="trMinFilter"
-            name="trMinFilter"
-            [value]="trMinFilter"
-            oninput="validity.valid||(value='');"
-            (change)="updateFilters('trMin', $event)"
-          />
-        </div>
-        <div>
-          <label for="trMaxFilter">Maximum Records</label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            id="trMaxFilter"
-            name="trMaxFilter"
-            [value]="trMaxFilter"
-            oninput="validity.valid||(value='');"
-            (change)="updateFilters('trMax', $event)"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="filter wide">
-      <h2>Submission Range</h2>
-      <div class="filters">
-        <div>
-          <label for="submission-start">Start Date</label>
-          <input
-            type="date"
-            name="submission-start"
-            id="submission-start"
-            [value]="submissionStartFilter"
-            (change)="updateFilters('submission_start', $event)"
-            required
-          />
-        </div>
-        <div>
-          <label for="submission-end">End Date</label>
-          <input
-            type="date"
-            name="submission-end"
-            id="submission-end"
-            [value]="submissionEndFilter"
-            (change)="updateFilters('submission_end', $event)"
-            required
-          />
-        </div>
-      </div>
-      <p
-        *ngIf="submissionStartFilter !== '' && submissionEndFilter === ''"
-        class="break"
-      >
-        Select End Date to narrow results
-      </p>
-      <p
-        *ngIf="submissionStartFilter === '' && submissionEndFilter !== ''"
-        class="break"
-      >
-        Select Start Date to narrow results
-      </p>
-    </div>
-    <div class="filter wide">
-      <h2>Pass Rate</h2>
-      <div class="filters">
-        <div>
-          <label for="prMinFilter">Minimum %</label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            id="prMinFilter"
-            name="prMinFilter"
-            [value]="prMinFilter"
-            oninput="validity.valid||(value='');"
-            (change)="updateFilters('prMin', $event)"
-          />
-        </div>
-        <div>
-          <label for="prMaxFilter">Maximum %</label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            id="prMaxFilter"
-            name="prMaxFilter"
-            [value]="prMaxFilter"
-            oninput="validity.valid||(value='');"
-            (change)="updateFilters('prMax', $event)"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <button
-    class="button-outline"
-    *ngIf="allFilters.length > 0"
-    (click)="clearFilters()"
+<h1>Provider Submission Overview</h1>
+<h2>
+  Submission Summary for
+  <select
+    name="rpMonthFilter"
+    id="rpMonthFilter"
+    (change)="updateFilters('month', $event)"
+    class="selected"
+    aria-label="Select Reporting Period Month"
+    required
   >
-    Clear All Filters
+    <option value="">Select Month</option>
+    <option
+      *ngFor="let month of monthList"
+      [value]="month.getMonth()"
+      [selected]="rpMonthFilter - 1 === month.getMonth()"
+      (change)="updateFilters('month', $event)"
+    >
+      {{ month | date : 'MMMM' }}
+    </option>
+  </select>
+  <select
+    name="rpYearFilter"
+    id="rpYearFilter"
+    (change)="updateFilters('year', $event)"
+    class=""
+    aria-label="Select Reporting Period Year"
+    required
+  >
+    <option value="" disabled selected hidden>Select Year</option>
+    <option
+      *ngFor="let year of yearList"
+      [value]="year"
+      [selected]="year.toString() === rpYearFilter.toString()"
+      (change)="updateFilters('year', $event)"
+    >
+      {{ year }}
+    </option>
+  </select>
+</h2>
+<div class="criteria-container">
+  <p>Show results matching all the following conditions.</p>
+  <div *ngFor="let criterion of criteria; let index = index">
+    <div class="criterion">
+      <div>
+        <div>
+          <label [for]="'identifier' + index">Identifier</label>
+          <select
+            [name]="'identifier' + index"
+            [id]="'identifier' + index"
+            [attr.data-id]="index"
+            [value]="criterion.selector ?? ''"
+            (change)="selectorSet($event)"
+            required
+          >
+            <option value="" disabled="true">Selector</option>
+            <option data-valueType="select" value="id">Provider Name</option>
+            <option data-valueType="select" value="mh">MH Provider</option>
+            <option data-valueType="select" value="sud">SUD Provider</option>
+            <option data-valueType="date" value="extracted_on">
+              Extract Submitted
+            </option>
+            <option data-valueType="numeric_range" value="record_count">
+              Record Count
+            </option>
+            <option data-valueType="numeric_range" value="pass_count">
+              Pass Rate
+            </option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label [for]="'relative' + index">Relative</label>
+          <select
+            [name]="'relative' + index"
+            [id]="'relative' + index"
+            [attr.data-id]="index"
+            [disabled]="!criterion.valueType"
+            (change)="relativeSet($event)"
+            [value]="criterion.relative ?? ''"
+            required
+          >
+            <option value="" disabled="true">Relative</option>
+            <ng-container
+              *ngIf="
+                criterion.valueType === 'date' ||
+                  criterion.valueType === 'date_range';
+                else textSelect
+              "
+            >
+              <option value="=" *ngIf="criterion.valueType === 'date'">
+                Is
+              </option>
+              <option value="<">Is Before</option>
+              <option value=">">Is After</option>
+              <option value="><" *ngIf="criterion.valueType === 'date_range'">
+                Contains
+              </option>
+            </ng-container>
+            <ng-template #textSelect>
+              <ng-container
+                *ngIf="criterion.valueType === 'numeric_range'; else nonNumeric"
+              >
+                <option value="<=" [selected]="criterion.relative === '<='">
+                  <=
+                </option>
+                <option value=">=" [selected]="criterion.relative === '>='">
+                  >=
+                </option>
+              </ng-container>
+              <ng-template #nonNumeric>
+                <option value="=">Is</option>
+                <option value="!=" *ngIf="criterion.valueType === 'select'">
+                  Is Not
+                </option>
+                <option value="LIKE" *ngIf="criterion.valueType === 'text'">
+                  Contains
+                </option>
+                <option value="NOT LIKE" *ngIf="criterion.valueType === 'text'">
+                  Does Not Contain
+                </option>
+              </ng-template>
+            </ng-template>
+          </select>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label [for]="'value' + index">Value</label>
+          <ng-container
+            *ngIf="criterion.valueType === 'select'; else nonSelect"
+          >
+            <select
+              [name]="'value' + index"
+              [id]="'value' + index"
+              [attr.data-id]="index"
+              [disabled]="!criterion.relative"
+              (change)="valueSet($event)"
+              [value]="criterion.value ?? ''"
+              style="width: 180px"
+              required
+            >
+              <option value="" disabled="true">Select Value</option>
+              <ng-container *ngIf="criterion.options; else asyncOptions">
+                <ng-container *ngFor="let option of criterion.options">
+                  <option [value]="option.value">{{ option.display }}</option>
+                </ng-container>
+              </ng-container>
+              <ng-template #asyncOptions>
+                <ng-container *ngIf="criterion.asyncOptions | async as options">
+                  <ng-container *ngFor="let option of options">
+                    <option [value]="option.value">{{ option.value }}</option>
+                  </ng-container>
+                </ng-container>
+              </ng-template>
+            </select>
+          </ng-container>
+          <ng-template #nonSelect>
+            <input
+              [type]="
+                criterion.valueType === 'date' ||
+                criterion.valueType === 'date_range'
+                  ? 'date'
+                  : criterion.valueType === 'month'
+                  ? 'month'
+                  : 'number'
+              "
+              [attr.data-id]="index"
+              [disabled]="!criterion.relative"
+              [name]="'value' + index"
+              [id]="'value' + index"
+              [value]="criterion.value ?? ''"
+              (change)="valueSet($event)"
+              (keyup)="valueSet($event)"
+              style="width: 180px"
+              [required]="
+                criterion.valueType === 'date' ||
+                criterion.valueType === 'date_range'
+              "
+            />
+          </ng-template>
+        </div>
+      </div>
+      <div *ngIf="criteria.length > 1">
+        <button
+          type="submit"
+          class="button-outline"
+          (click)="removeCondition(index)"
+        >
+          Remove Condition
+        </button>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="add-button" (click)="addCondition()">
+    <span>&#43;</span> Add Additional Condition
   </button>
-</details>
-<h2>Submission Summary</h2>
+  <br />
+  <button
+    type="submit"
+    class="button"
+    (click)="submitAdvancedSearch()"
+    [disabled]="searchDisabled"
+  >
+    Filter Providers
+  </button>
+</div>
 <ng-container *ngIf="submissionStatus$ | async as submissions">
   <ng-container *ngIf="submissions.length > 0; else noSubmissions">
     <table>

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable, filter } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
+import { Criterion, ValueOption } from '@dbh/claims/data-access/models';
 import {
   Extracts,
   ExtractSubmissionResponse,
@@ -36,73 +37,32 @@ export class BHSDService {
       .pipe(map((extract) => extract));
   }
 
-  getSubmissionsWithParams({
-    offset,
-    coverageStart,
-    coverageEnd,
-    submissionStart,
-    submissionEnd,
-    provider,
-    trSelector,
-    trValue,
-    prSelector,
-    prValue,
-    sort,
-    sortDirection,
-  }: {
-    offset?: string;
-    coverageStart?: string;
-    coverageEnd?: string;
-    submissionStart?: string;
-    submissionEnd?: string;
-    provider?: string;
-    trSelector?: string;
-    trValue?: string;
-    prSelector?: string;
-    prValue?: string;
-    sort?: string;
-    sortDirection?: 'asc' | 'desc';
-  }): Observable<Extracts> {
-    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/extracts?`;
-    const urlParameters = [];
-    if (coverageStart && coverageStart !== '') {
-      urlParameters.push(`coverage_start=${coverageStart}`);
-    }
-    if (coverageEnd && coverageEnd !== '') {
-      urlParameters.push(`coverage_end=${coverageEnd}`);
-    }
-    if (submissionStart && submissionStart !== '') {
-      urlParameters.push(`submission_start=${submissionStart}`);
-    }
-    if (submissionEnd && submissionEnd !== '') {
-      urlParameters.push(`submission_end=${submissionEnd}`);
-    }
-    if (provider && provider !== '') {
-      urlParameters.push(`provider=${provider}`);
-    }
-    if (offset && offset !== '') {
-      urlParameters.push(`offset=${offset}`);
-    }
-    if (trSelector && trSelector !== '') {
-      urlParameters.push(`tr_selector=${trSelector}`);
-    }
-    if (trValue && trValue !== '') {
-      urlParameters.push(`tr_value=${trValue}`);
-    }
-    if (prSelector && prSelector !== '') {
-      urlParameters.push(`pr_selector=${prSelector}`);
-    }
-    if (prValue && prValue !== '') {
-      urlParameters.push(`pr_value=${prValue}`);
+  getSubmissionsWithCriteria(
+    criteria: Criterion[],
+    offset: string,
+    sort?: string,
+    sortDirection?: 'asc' | 'desc'
+  ): Observable<Extracts> {
+    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/extracts?offset=${offset}&`;
+    for (const [index, criterion] of criteria.entries()) {
+      baseUrl += `criteria_selector[${index}]=${criterion.selector ?? ''}&`;
+      baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
+      baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
+      baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
     }
     if (sort && sort !== '') {
-      urlParameters.push(`sort=${sort}`);
+      baseUrl += `sort=${sort}&`;
     }
     if (sortDirection) {
-      urlParameters.push(`sort_direction=${sortDirection}`);
+      baseUrl += `sort_direction=${sortDirection}&`;
     }
-    baseUrl += urlParameters.join('&');
     return this.http.get<Extracts>(baseUrl).pipe(map((extract) => extract));
+  }
+
+  getProviders(): Observable<ValueOption[]> {
+    return this.http.get<ValueOption[]>(
+      `${this.config.gatewayApiUrl}/api/v1/providers`
+    );
   }
 
   getSubmissionStatusByDate({
@@ -136,32 +96,45 @@ export class BHSDService {
       );
   }
 
+  getSubmissionStatusWithCriteria(
+    criteria: Criterion[],
+    month: number,
+    year: number,
+    sort?: string,
+    sortDirection?: string
+  ): Observable<SubmissionStatus[]> {
+    let baseUrl = `${this.config.gatewayApiUrl}/api/v1/providers/submission_summary?month=${month}&year=${year}&`;
+    for (const [index, criterion] of criteria.entries()) {
+      baseUrl += `criteria_selector[${index}]=${criterion.selector ?? ''}&`;
+      baseUrl += `criteria_relative[${index}]=${criterion.relative ?? ''}&`;
+      baseUrl += `criteria_value[${index}]=${criterion.value ?? ''}&`;
+      baseUrl += `criteria_value_type[${index}]=${criterion.valueType ?? ''}&`;
+    }
+    if (sort && sort !== '') {
+      baseUrl += `sort=${sort}&`;
+    }
+    if (sortDirection) {
+      baseUrl += `sort_direction=${sortDirection}&`;
+    }
+    return this.http
+      .get<SubmissionSummary[]>(baseUrl)
+      .pipe(
+        map((summary) =>
+          summary.map((status) => convertSummaryToStatus(status))
+        )
+      );
+  }
+
   getFilteredSubmissionStatus({
     status,
     month,
     year,
-    trMax,
-    trMin,
-    prMax,
-    prMin,
-    serviceType,
-    provider,
-    submissionStart,
-    submissionEnd,
     sort,
     sortDirection,
   }: {
     status?: string;
     month?: string;
     year?: string;
-    trMin?: string;
-    trMax?: string;
-    prMin?: string;
-    prMax?: string;
-    serviceType?: string;
-    provider?: string;
-    submissionStart?: string;
-    submissionEnd?: string;
     sortDirection?: 'asc' | 'desc';
     sort?: string;
   }): Observable<SubmissionStatus[]> {
@@ -175,30 +148,6 @@ export class BHSDService {
     }
     if (year && year !== '') {
       urlParameters.push(`year=${year}`);
-    }
-    if (trMin && trMin !== '') {
-      urlParameters.push(`filter_tr_min=${trMin}`);
-    }
-    if (trMax && trMax !== '') {
-      urlParameters.push(`filter_tr_max=${trMax}`);
-    }
-    if (prMin && prMin !== '') {
-      urlParameters.push(`filter_pr_min=${prMin}`);
-    }
-    if (prMax && prMax !== '') {
-      urlParameters.push(`filter_pr_max=${prMax}`);
-    }
-    if (serviceType && serviceType !== '') {
-      urlParameters.push(`filter_service_type=${serviceType}`);
-    }
-    if (provider && provider !== '') {
-      urlParameters.push(`filter_provider=${provider}`);
-    }
-    if (submissionStart && submissionStart !== '') {
-      urlParameters.push(`filter_submission_start=${submissionStart}`);
-    }
-    if (submissionEnd && submissionEnd !== '') {
-      urlParameters.push(`filter_submission_end=${submissionEnd}`);
     }
     if (sort && sort !== '') {
       urlParameters.push(`sort=${sort}`);

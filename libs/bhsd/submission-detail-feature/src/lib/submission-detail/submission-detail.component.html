@@ -21,7 +21,7 @@
   <dbh-file-information
     [providerName]="submission.provider_name"
     [fileName]="submission.file_name"
-    [reportingPeriod]="submission.coverage_start | date: 'MMMM, yyyy'"
+    [reportingPeriod]="submission.coverage_start | date : 'MMMM, yyyy'"
     [submissionDate]="submission.created_at"
   ></dbh-file-information>
   <div class="links">
@@ -173,7 +173,9 @@
             <table>
               <thead>
                 <tr>
-                  <th>Record ID</th>
+                  <th class="has-tooltip" title="{{ recordDefinition }}">
+                    Record ID <span>?</span>
+                  </th>
                   <th>Pass/Fail</th>
                   <th class="numeric">Fatal Errors</th>
                   <th class="numeric">Critical Errors</th>
@@ -186,11 +188,6 @@
                   [record]="record"
                 ></dbh-record-list>
               </tbody>
-              <caption>
-                Record ID is a unique identifier composed of the combination the
-                following key fields: Client ID, Admission Date, Record Type and
-                Treatment Setting, separated by underscores.
-              </caption>
             </table>
           </ng-container>
           <ng-template #dataField>
