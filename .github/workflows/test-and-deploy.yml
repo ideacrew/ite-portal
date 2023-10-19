@@ -48,7 +48,7 @@ jobs:
           name: affected-apps
           path: dist/apps
   deploy-aws:
-    environment: aws-prod
+    environment: aws-dev
     needs: [build]
     runs-on: ubuntu-latest
     permissions:
