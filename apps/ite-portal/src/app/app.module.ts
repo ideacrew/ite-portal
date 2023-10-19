@@ -59,17 +59,14 @@ const gatewayApiUrl = environment.gatewayApi || '';
 const portalApiUrl = environment.portalApi || '';
 
 export function msalInstanceFactory(): IPublicClientApplication {
-  console.log("Making sure correct branch: "+gatewayApiUrl);
+  console.log("Making sure correct branch by NX_AD_CLIENT_ID: "+NX_AD_CLIENT_ID);
+  console.log("Making sure correct branch by NX_AD_TID: "+NX_AD_TID);
   return new PublicClientApplication({
     auth: {
       clientId: NX_AD_CLIENT_ID,
       authority: `https://login.microsoftonline.com/${NX_AD_TID}/`,
-      redirectUri: environment.production
-        ? window.location.origin
-        : 'http://localhost:4200',
-      postLogoutRedirectUri: environment.production
-        ? window.location.origin
-        : 'http://localhost:4200',
+      redirectUri: window.location.origin,
+      postLogoutRedirectUri: window.location.origin,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
