@@ -10,34 +10,46 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  main:
-    name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
-    with:
-      number-of-agents: 3
-      main-branch-name: trunk
-      init-commands: |
-        npx nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
-      # parallel-commands: |
-      #   npx nx-cloud record -- npx nx workspace-lint
-      #   npx nx-cloud record -- npx nx format:write
-      #   npx nx-cloud record -- npx nx format:check
-      parallel-commands-on-agents: |
-        npx nx affected --target=lint --parallel=3
-        npx nx affected --target=test --parallel=3 --ci --code-coverage
-        npx nx affected --target=build --parallel=3
-      artifacts-path: dist/apps
-      artifacts-name: affected-apps
-
-  agents:
-    name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.2
-    with:
-      number-of-agents: 3
-
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NX_AD_CLIENT_ID: ${{ secrets.NX_AD_CLIENT_ID }}
+      NX_AD_TID: ${{ secrets.NX_AD_TID }}
+      NX_AD_CLIENT_ID_PROD: ${{ secrets.NX_AD_CLIENT_ID_PROD }}
+      NX_AD_TID_PROD: ${{ secrets.NX_AD_TID_PROD }}
+      NX_B2C_SUBDOMAIN: ${{ secrets.NX_B2C_SUBDOMAIN }}
+      NX_B2C_SUBDOMAIN_PROD: ${{ secrets.NX_B2C_SUBDOMAIN_PROD }}
+      NX_GATEWAY_C_ID: ${{ secrets.NX_GATEWAY_C_ID }}
+      NX_GATEWAY_C_ID_PROD: ${{ secrets.NX_GATEWAY_C_ID_PROD }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: actions/cache@v3
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: trunk
+      - run: npx nx affected --target=build --configuration=development --parallel=2
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: affected-apps
+          path: dist/apps
   deploy-aws:
-    environment: aws-dev
-    needs: [main, agents]
+    environment: aws-prod
+    needs: [build]
     runs-on: ubuntu-latest
     permissions:
       id-token: write
