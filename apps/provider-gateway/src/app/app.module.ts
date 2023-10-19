@@ -34,6 +34,9 @@ import { AppComponent } from './app.component';
 
 const subdomain = environment.B2C_SUBDOMAIN || '';
 const gatewayCid = environment.NX_GATEWAY_C_ID || '';
+const readScope = `https://${subdomain}.onmicrosoft.com/provider-api/provider.read`;
+const gatewayApiUrl = environment.NX_GATEWAY_API || '';
+const portalApiUrl = environment.NX_PORTAL_API || '';
 
 const isIE =
   window.navigator.userAgent.includes('MSIE ') ||
@@ -57,12 +60,8 @@ export function msalInstanceFactory(): IPublicClientApplication {
       clientId: `${gatewayCid}`,
       authority: b2cPolicies.authorities.signUpSignIn.authority,
       knownAuthorities: [b2cPolicies.authorityDomain],
-      redirectUri: environment.production
-        ? window.location.origin
-        : 'http://localhost:4201',
-      postLogoutRedirectUri: environment.production
-        ? window.location.origin
-        : 'http://localhost:4201',
+      redirectUri: window.location.origin,
+      postLogoutRedirectUri: window.location.origin,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
@@ -76,21 +75,15 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     interactionType: InteractionType.Redirect,
     loginFailedRoute: './',
     authRequest: {
-      scopes: [
-        `https://${subdomain}.onmicrosoft.com/provider-api/provider.read`,
-      ],
+      scopes: [readScope],
     },
   };
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, string[]>();
-  protectedResourceMap.set('http://localhost:4001', [
-    `https://${subdomain}.onmicrosoft.com/provider-api/provider.read`,
-  ]);
-  protectedResourceMap.set('https://provider.dev.dbhite.com/', [
-    `https://${subdomain}.onmicrosoft.com/provider-api/provider.read`,
-  ]);
+  protectedResourceMap.set(gatewayApiUrl, [readScope]);
+  protectedResourceMap.set(portalApiUrl, [readScope]);
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap,
@@ -106,11 +99,6 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     MsalModule,
     RouterModule.forRoot(
       [
-        // {
-        //   path: 'login',
-        //   component: LogInComponent,
-        // },
-
         {
           path: 'provider-gateway',
           canActivate: [MsalGuard],
