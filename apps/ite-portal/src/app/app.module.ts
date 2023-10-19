@@ -65,12 +65,8 @@ export function msalInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: NX_AD_CLIENT_ID,
       authority: `https://login.microsoftonline.com/${NX_AD_TID}/`,
-      redirectUri: environment.production
-        ? window.location.origin
-        : 'http://localhost:4200',
-      postLogoutRedirectUri: environment.production
-        ? window.location.origin
-        : 'http://localhost:4200',
+      redirectUri: window.location.origin,
+      postLogoutRedirectUri: window.location.origin,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
