@@ -9,12 +9,14 @@ export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
   const filteredLines = rawLines.filter((rawLine) => lineHasValue(rawLine));
 
   if (filteredLines.length > 0) {
+    // eslint-disable-next-line unicorn/better-regex
     const headers: ExtractRecordField[] = rawHeaders.split(
       ','
     ) as ExtractRecordField[];
     for (const line of filteredLines) {
       const record: Partial<ExtractRecordData> = {};
-      const currentLine = line.split(',');
+      const currentLine = csvToArray(line);
+      console.log(currentLine);
 
       for (const header of headers) {
         record[header] = currentLine[headers.indexOf(header)];
@@ -33,4 +35,38 @@ const lineHasValue = (rawLine: string): boolean => {
   const hasLineLength = rawLine.length > 0;
 
   return notOnlyCommas && hasLineLength;
+};
+
+const csvToArray = (text: string): string[] => {
+  const values: string[] = [''];
+  let partial = '';
+  let notQuoted = true;
+  let notSingleQuoted = true;
+
+  for (const letter of text) {
+    if ('"' === letter) {
+      notQuoted = !notQuoted;
+      if ('"' === partial) {
+        values[values.length - 1] += '"';
+        partial = '!';
+      } else if ('' === partial) {
+        partial = '!';
+      }
+    } else if (notQuoted && letter === "'") {
+      notSingleQuoted = !notSingleQuoted;
+      if ("'" === partial) {
+        values[values.length - 1] += "'";
+        partial = '!';
+      } else if ('' === partial) {
+        partial = '!';
+      }
+    } else if (notQuoted && notSingleQuoted && ',' === letter) {
+      values.push('');
+    } else {
+      values[values.length - 1] += letter;
+      partial = letter;
+    }
+  }
+
+  return values;
 };
