@@ -9,14 +9,12 @@ export const convertCsvToJson = (csv: string): ExtractRecordData[] => {
   const filteredLines = rawLines.filter((rawLine) => lineHasValue(rawLine));
 
   if (filteredLines.length > 0) {
-    // eslint-disable-next-line unicorn/better-regex
     const headers: ExtractRecordField[] = rawHeaders.split(
       ','
     ) as ExtractRecordField[];
     for (const line of filteredLines) {
       const record: Partial<ExtractRecordData> = {};
       const currentLine = csvToArray(line);
-      console.log(currentLine);
 
       for (const header of headers) {
         record[header] = currentLine[headers.indexOf(header)];
