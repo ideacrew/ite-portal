@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable unicorn/no-null */
 /* eslint-disable @typescript-eslint/unbound-method */
@@ -6,6 +10,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import {
@@ -29,13 +34,16 @@ import {
   startDateNotAfterEndDate,
 } from '@dbh/bhsd/ui';
 import { convertCsvToJson } from '@dbh/bhsd/util';
+import { Papa } from 'ngx-papaparse';
 
 @Component({
   templateUrl: './submit-extract.component.html',
   styleUrls: ['./submit-extract.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SubmitExtractComponent {
+export class SubmitExtractComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   title = 'ite-portal';
   debug = false;
   sendingData = new BehaviorSubject(false);
@@ -48,26 +56,19 @@ export class SubmitExtractComponent {
 
   extractForm!: FormGroup<BHSDSubmissionForm>;
 
-  get lastMonthStart(): Date {
-    const thisMonth = new Date().getMonth();
-
-    const lastMonth = thisMonth - 1;
-
-    return new Date(new Date().getFullYear(), lastMonth, 1);
-  }
-
-  get lastMonthEnd(): Date {
-    return lastDayOfMonth(this.lastMonthStart);
-  }
-
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private bhsdService: BHSDService,
-    private authService: AuthService
-  ) {
+    private authService: AuthService,
+    private papa: Papa
+  ) {}
+
+  ngOnInit(): void {
+    this.getFormData();
+  }
+
+  private getFormData(): void {
     this.extractForm = this.fb.group(
       {
         provider_gateway_identifier: this.fb.control(
@@ -75,7 +76,7 @@ export class SubmitExtractComponent {
           [Validators.required]
         ),
         coverage_start: this.fb.control(
-          this.lastMonthStart.toISOString().slice(0, 10), // 2022-10-01
+          this.lastMonthStart.toISOString().slice(0, 10),
           [Validators.required, dateNotInFuture]
         ),
         coverage_end: this.fb.control(
@@ -102,7 +103,7 @@ export class SubmitExtractComponent {
     );
   }
 
-  resetMessages(): void {
+  public resetMessages(): void {
     this.sendingData.next(false);
     this.resultsMessage = false;
     this.errorMessage = undefined;
@@ -110,7 +111,7 @@ export class SubmitExtractComponent {
     this.cdr.detectChanges();
   }
 
-  sendData(): void {
+  public sendData(): void {
     if (this.extractForm.status === 'VALID') {
       this.sendingData.next(true);
       this.result.next(null);
@@ -149,7 +150,7 @@ export class SubmitExtractComponent {
     }
   }
 
-  fileSelected(files: FileList | null): void {
+  public fileSelected(files: FileList | null): void {
     if (files) {
       this.records.setValue(null);
       const file: File | null = files.item(0);
@@ -160,13 +161,22 @@ export class SubmitExtractComponent {
         reader.readAsText(file);
         reader.addEventListener('load', () => {
           const csvText = reader.result as string;
-          const recordData: ExtractRecordData[] = convertCsvToJson(csvText);
+          // const recordData: ExtractRecordData[] = convertCsvToJson(csvText);
+          const recordData: ExtractRecordData[] = this.papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            complete: (results) => results.data,
+          }).data;
+
+          console.log(recordData); // TODO: remove this
+
           // Sheets uses a return and newline for each new row
           if (recordData.length > 0) {
             this.extractForm.patchValue({
               records: recordData,
               file_name: fileName,
             });
+            // console.log(recordData);
             this.largeFileWarning = recordData.length >= 1000 ? true : false;
             this.cdr.detectChanges();
           } else {
@@ -177,6 +187,17 @@ export class SubmitExtractComponent {
         });
       }
     }
+  }
+
+  get lastMonthStart(): Date {
+    const thisMonth = new Date().getMonth();
+    const lastMonth = thisMonth - 1;
+
+    return new Date(new Date().getFullYear(), lastMonth, 1);
+  }
+
+  get lastMonthEnd(): Date {
+    return lastDayOfMonth(this.lastMonthStart);
   }
 
   // These are helper methods to get at the FormControl object in the template
