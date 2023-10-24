@@ -90,8 +90,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: run many deployments
-        run: npx nx affected --target=deploy:prod
+      - name: deploy portal
+        run: npx nx ite-portal --target=deploy:prod
+      - name: deploy gateway
+        run: npx nx provider-gateway --target=deploy:prod
       - name: Check portal folder existence
         id: check_folder_portal
         uses: andstor/file-existence-action@v1

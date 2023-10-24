@@ -5,7 +5,8 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {
-  enableProdMode();
+  console.log("this is environment.production")
+  //enableProdMode();
 }
 
 platformBrowserDynamic()
