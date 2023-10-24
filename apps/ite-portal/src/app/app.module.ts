@@ -55,10 +55,14 @@ const isIE =
 const NX_AD_CLIENT_ID = environment.adClientId || '';
 const NX_AD_TID = environment.adTid || '';
 const readScope = `api://${NX_AD_CLIENT_ID}/Read`;
-const gatewayApiUrl = environment.gatewayApi || '';
-const portalApiUrl = environment.portalApi || '';
+const gatewayApiUrl = environment.NX_GATEWAY_API || '';
+const portalApiUrl = environment.NX_PORTAL_API || '';
 
 export function msalInstanceFactory(): IPublicClientApplication {
+  console.log("Making sure correct branch by NX_AD_CLIENT_ID: "+NX_AD_CLIENT_ID);
+  console.log("Making sure correct branch by NX_AD_TID: "+NX_AD_TID);
+  console.log("Making sure correct branch by gatewayApiUrl: "+gatewayApiUrl);
+  console.log("Making sure correct branch by portalApiUrl: "+portalApiUrl);
   return new PublicClientApplication({
     auth: {
       clientId: NX_AD_CLIENT_ID,
