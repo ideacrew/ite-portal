@@ -55,6 +55,10 @@ const b2cPolicies = {
 };
 
 export function msalInstanceFactory(): IPublicClientApplication {
+  console.log("Making sure correct branch by NX_AD_CLIENT_ID: "+NX_AD_CLIENT_ID);
+  console.log("Making sure correct branch by NX_AD_TID: "+NX_AD_TID);
+  console.log("Making sure correct branch by gatewayApiUrl: "+gatewayApiUrl);
+  console.log("Making sure correct branch by portalApiUrl: "+portalApiUrl);
   return new PublicClientApplication({
     auth: {
       clientId: `${gatewayCid}`,
