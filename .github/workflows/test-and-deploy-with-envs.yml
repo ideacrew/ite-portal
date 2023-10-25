@@ -1,14 +1,12 @@
-name: Release to production
+name: deploy to dev environment with env vars
 
 on:
-  push:
-    tags:
-      - '*'
-  release:
-    types: [released]
+  pull_request:
+    branches:
+      - trunk
 
 concurrency:
-  group: prod-${{ github.ref }}
+  group: dev-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -19,10 +17,6 @@ jobs:
       NX_AD_TID: ${{ secrets.NX_AD_TID }}
       NX_AD_CLIENT_ID_PROD: ${{ secrets.NX_AD_CLIENT_ID_PROD }}
       NX_AD_TID_PROD: ${{ secrets.NX_AD_TID_PROD }}
-      NX_B2C_SUBDOMAIN: ${{ secrets.NX_B2C_SUBDOMAIN }}
-      NX_B2C_SUBDOMAIN_PROD: ${{ secrets.NX_B2C_SUBDOMAIN_PROD }}
-      NX_GATEWAY_C_ID: ${{ secrets.NX_GATEWAY_C_ID }}
-      NX_GATEWAY_C_ID_PROD: ${{ secrets.NX_GATEWAY_C_ID_PROD }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -43,7 +37,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v2
         with:
           main-branch-name: trunk
-      - run: npx nx affected --target=build --configuration=production --parallel=2
+      - run: npx nx affected --target=build --configuration=development --parallel=2
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
@@ -90,38 +84,38 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: run many deployments
-        run: npx nx affected --target=deploy:prod
+        run: npx nx affected --target=deploy:dev
       - name: Check portal folder existence
         id: check_folder_portal
         uses: andstor/file-existence-action@v1
         with:
           files: 'dist/apps/ite-portal'
-      - name: Deploy Portal to Azure Static Web Apps
-        uses: Azure/static-web-apps-deploy@v1
-        if: steps.check_folder_portal.outputs.files_exists == 'true'
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_BUSH_07FCF7F0F }}
-          # repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-          action: 'upload'
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: 'dist/apps/ite-portal' # App source code path
-          output_location: '' # Built app content directory
-          skip_api_build: true
-          skip_app_build: true
-      - name: Check provider folder existence
-        id: check_folder_provider
-        uses: andstor/file-existence-action@v1
-        with:
-          files: 'dist/apps/provider-gateway'
-      - name: Deploy Provider to Azure Static Web Apps
-        uses: Azure/static-web-apps-deploy@v1
-        if: steps.check_folder_provider.outputs.files_exists == 'true'
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_HAPPY_MUD_02A688B0F }}
-          # repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-          action: 'upload'
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: 'dist/apps/provider-gateway' # App source code path
-          output_location: '' # Built app content directory
-          skip_api_build: true
-          skip_app_build: true
+      # - name: Deploy Portal to Azure Static Web Apps
+      #   uses: Azure/static-web-apps-deploy@v1
+      #   if: steps.check_folder_portal.outputs.files_exists == 'true'
+      #   with:
+      #     azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_BUSH_07FCF7F0F }}
+      #     # repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+      #     action: 'upload'
+      #     # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+      #     app_location: 'dist/apps/ite-portal' # App source code path
+      #     output_location: '' # Built app content directory
+      #     skip_api_build: true
+      #     skip_app_build: true
+      # - name: Check provider folder existence
+      #   id: check_folder_provider
+      #   uses: andstor/file-existence-action@v1
+      #   with:
+      #     files: 'dist/apps/provider-gateway'
+      # - name: Deploy Provider to Azure Static Web Apps
+      #   uses: Azure/static-web-apps-deploy@v1
+      #   if: steps.check_folder_provider.outputs.files_exists == 'true'
+      #   with:
+      #     azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_HAPPY_MUD_02A688B0F }}
+      #     # repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+      #     action: 'upload'
+      #     # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+      #     app_location: 'dist/apps/provider-gateway' # App source code path
+      #     output_location: '' # Built app content directory
+      #     skip_api_build: true
+      #     skip_app_build: true

@@ -1,27 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
+import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
-export class UserProfileComponent implements OnInit {
-  email = '';
+export class UserProfileComponent {
+  email = this.authService.email;
 
-  constructor(
-    private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
-  ) {}
-
-  ngOnInit(): void {
-    if (this.authService.instance.getAllAccounts().length > 0) {
-      this.email = this.authService.instance.getAllAccounts()[0]['username'];
-    }
-  }
+  constructor(private authService: AuthService) {}
 
   logout(): void {
-    this.authService.logoutRedirect({
-      postLogoutRedirectUri: window.location.origin,
-    });
+    this.authService.logout();
   }
 }

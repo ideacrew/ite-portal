@@ -36,7 +36,6 @@
     "date-fns": "^2.29.1",
     "file-saver": "^2.0.5",
     "jwt-decode": "^3.1.2",
-    "ngx-papaparse": "^8.0.0",
     "ngx-tableau": "^1.3.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.0.0",
