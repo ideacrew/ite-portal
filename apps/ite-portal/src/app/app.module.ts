@@ -52,8 +52,8 @@ const isIE =
   window.navigator.userAgent.includes('MSIE ') ||
   window.navigator.userAgent.includes('Trident/');
 
-const NX_AD_CLIENT_ID = environment.adClientId || '';
-const NX_AD_TID = environment.adTid || '';
+const NX_AD_CLIENT_ID = environment.NX_AD_CLIENT_ID || '';
+const NX_AD_TID = environment.NX_AD_TID_PROD || '';
 const readScope = `api://${NX_AD_CLIENT_ID}/Read`;
 const gatewayApiUrl = environment.gatewayApi || '';
 const portalApiUrl = environment.portalApi || '';

@@ -7,8 +7,8 @@ export const environment = {
   production: false,
   gatewayApi: 'https://api.provider.dev.dbhite.com',
   portalApi: 'https://api.portal.dev.dbhite.com',
-  adClientId: process.env['NX_AD_CLIENT_ID'],
-  adTid: process.env['NX_AD_TID'],
+  NX_AD_CLIENT_ID: process.env['NX_AD_CLIENT_ID'],
+  NX_AD_TID_PROD: process.env['NX_AD_TID'],
 };
 
 /*
