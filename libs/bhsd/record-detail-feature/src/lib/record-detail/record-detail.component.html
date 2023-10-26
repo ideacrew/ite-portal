@@ -4,7 +4,7 @@
   <dbh-file-information
     [providerName]="vm.submission.provider_name"
     [fileName]="vm.submission.file_name"
-    [reportingPeriod]="thisReportingPeriod"
+    [reportingPeriod]="vm.submission.coverage_start | date : 'MMMM, yyyy'"
     [submissionDate]="vm.submission.created_at"
   ></dbh-file-information>
   <dbh-data-field-chart [record]="vm.record!"></dbh-data-field-chart>
