@@ -12,7 +12,17 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "MDgwMTAyYWUtMjFkZS00OTgxLTkyODgtZDRjZDg3NWZkNjgyfHJlYWQtd3JpdGU="
+        "accessToken": "MDgwMTAyYWUtMjFkZS00OTgxLTkyODgtZDRjZDg3NWZkNjgyfHJlYWQtd3JpdGU=",
+        "runtimeCacheInputs": [
+          "echo $NX_AD_CLIENT_ID",
+          "echo $NX_AD_TID",
+          "echo $NX_AD_CLIENT_ID_PROD",
+          "echo $NX_AD_TID_PROD",
+          "echo $NX_B2C_SUBDOMAIN",
+          "echo $NX_B2C_SUBDOMAIN_PROD",
+          "echo $NX_GATEWAY_C_ID",
+          "echo $NX_GATEWAY_C_ID_PROD"
+        ]
       }
     }
   },
