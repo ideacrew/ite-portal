@@ -8,6 +8,9 @@ if (environment.production) {
   enableProdMode();
 }
 
+const gatewayApiUrl = environment.NX_GATEWAY_API || '';
+const portalApiUrl = environment.NX_PORTAL_API || '';
+
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   // eslint-disable-next-line unicorn/prefer-top-level-await
