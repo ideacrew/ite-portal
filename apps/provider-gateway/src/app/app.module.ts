@@ -57,8 +57,6 @@ const b2cPolicies = {
 export function msalInstanceFactory(): IPublicClientApplication {
   console.log("Making sure correct branch by subdomain: "+subdomain);
   console.log("Making sure correct branch by gatewayCid: "+gatewayCid);
-  console.log("Making sure correct branch by gatewayApiUrl: "+gatewayApiUrl);
-  console.log("Making sure correct branch by portalApiUrl: "+portalApiUrl);
   return new PublicClientApplication({
     auth: {
       clientId: `${gatewayCid}`,
