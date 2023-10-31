@@ -56,7 +56,8 @@ export class SubmitExtractComponent implements OnInit {
   largeFileWarning = false;
   closedFrom = '31 Oct 2023 23:00:00 UTC';
   closedUntil = '01 Nov 2023 10:00:00 UTC';
-  closedWarning = this.checkIfClosedWarning(this.closedUntil, this.closedFrom);
+  //closedWarning = this.checkIfClosedWarning(this.closedUntil, this.closedFrom);
+  closedWarning = false;
 
   extractForm!: FormGroup<BHSDSubmissionForm>;
 
