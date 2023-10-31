@@ -2,3 +2,14 @@
 .ngx-tableau-viz {
   height: calc(100vh - 3rem) !important;
 }
+
+a.external-link {
+  position: relative;
+
+  &::after {
+    content: '\e89e';
+    position: absolute;
+    left: calc(100% + 6px);
+    font-family: 'Material Symbols Outlined';
+  }
+}
