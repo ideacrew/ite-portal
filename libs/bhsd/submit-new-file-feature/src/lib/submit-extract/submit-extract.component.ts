@@ -54,6 +54,9 @@ export class SubmitExtractComponent implements OnInit {
   resultsMessage = false;
   errorMessage: undefined | string = undefined;
   largeFileWarning = false;
+  closedFrom = '31 Oct 2023 21:30:00 UTC';
+  closedUntil = '01 Nov 2023 10:00:00 UTC';
+  closedWarning = this.checkIfClosedWarning(this.closedUntil, this.closedFrom);
 
   extractForm!: FormGroup<BHSDSubmissionForm>;
 
@@ -115,6 +118,16 @@ export class SubmitExtractComponent implements OnInit {
 
   private getFormData(): void {
     this.extractForm = this.createExtractForm();
+  }
+
+  checkIfClosedWarning(closedUntil: string, closedFrom: string): boolean {
+    const now = new Date();
+    const now_utc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(),
+                now.getUTCDate(), now.getUTCHours(),
+                now.getUTCMinutes(), now.getUTCSeconds());
+    const closedFromDate = Date.parse(closedFrom);
+    const closedUntilDate = Date.parse(closedUntil);
+    return (closedFromDate <= now_utc) &&  (now_utc <= closedUntilDate);
   }
 
   public resetMessages(): void {
