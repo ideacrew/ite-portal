@@ -7,6 +7,8 @@ import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
 })
 export class UserProfileComponent implements OnInit {
   email = '';
+  provider = false;
+  providerGatewayId = '';
 
   constructor(
     private authService: MsalService,
@@ -15,7 +17,18 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.instance.getAllAccounts().length > 0) {
-      this.email = this.authService.instance.getAllAccounts()[0]['username'];
+      const account = this.authService.instance.getAllAccounts()[0];
+      if (account) {
+        this.email = account['username'];
+        if (account['idTokenClaims']) {
+          const id = account['idTokenClaims']['extension_ProviderGatewayIdentifier'] || '';
+          if (id !== '') {
+            console.log(String(id));
+            this.provider = true;
+            this.providerGatewayId = String(id);
+          }
+        }
+      }
     }
   }
 
