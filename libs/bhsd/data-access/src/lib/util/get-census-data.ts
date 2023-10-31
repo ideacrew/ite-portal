@@ -9,13 +9,11 @@ import {
 export const convertExtractToCensus = (
   submission: ExtractSubmissionResponse
 ): ExtractSubmissionCensusBreakdown => {
-  const { records, coverage_start } = submission;
+  const { records, coverage_start, coverage_end } = submission;
   const reportingPeriod = new Date(coverage_start);
-  const lastDayOfMonth = new Date(
-    reportingPeriod.getFullYear(),
-    reportingPeriod.getMonth() + 1,
-    0
-  );
+  reportingPeriod.setUTCHours(0,0,0,0)
+  const reportingPeriodEnd = new Date(coverage_end);
+  reportingPeriodEnd.setUTCHours(23,59,59,999)
   const totalEpisodes = getMetrics(records);
   const censusAtStartOfReportingPeriod = getMetrics(
     records.filter(
@@ -32,7 +30,7 @@ export const convertExtractToCensus = (
         new Date(record.payload.admission_date).getTime() >=
           reportingPeriod.getTime() &&
         new Date(record.payload.admission_date).getTime() <=
-          lastDayOfMonth.getTime()
+          reportingPeriodEnd.getTime()
     )
   );
   const countOfUniqueClientsServedDuringReportingPeriod =
@@ -45,7 +43,7 @@ export const convertExtractToCensus = (
         new Date(record.payload.discharge_date).getTime() >=
           reportingPeriod.getTime() &&
         new Date(record.payload.discharge_date).getTime() <=
-          lastDayOfMonth.getTime()
+          reportingPeriodEnd.getTime()
     )
   );
   const censusAtEndOfReportingPeriod = getMetrics(
