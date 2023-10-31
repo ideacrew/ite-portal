@@ -36,7 +36,19 @@ export class ErrorGroupComponent {
   }
 
   get errorCount(): number {
-    return this.errors.length;
+    if (!this.errors || this.errors.length === 0) {
+      return 0;
+    } else {
+      const groups: {[key: string]: ValidationV2[]} = {};
+      for (const current of this.errors) {
+        const key = current.fieldName;
+        if (!groups[key]) {
+          groups[key] = [];
+        }
+        groups[key].push(current);
+      }
+      return Object.keys(groups).length;
+    }
   }
 
   get errorHeading(): string {
