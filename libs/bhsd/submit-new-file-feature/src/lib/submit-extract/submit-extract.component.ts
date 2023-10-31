@@ -54,7 +54,7 @@ export class SubmitExtractComponent implements OnInit {
   resultsMessage = false;
   errorMessage: undefined | string = undefined;
   largeFileWarning = false;
-  closedFrom = '31 Oct 2023 21:30:00 UTC';
+  closedFrom = '31 Oct 2023 23:00:00 UTC';
   closedUntil = '01 Nov 2023 10:00:00 UTC';
   closedWarning = this.checkIfClosedWarning(this.closedUntil, this.closedFrom);
 
