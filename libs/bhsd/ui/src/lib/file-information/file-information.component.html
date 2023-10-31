@@ -2,7 +2,11 @@
   <h2>File Information</h2>
   <dl class="parent">
     <dt>Provider:</dt>
-    <dd>{{ providerName }}</dd>
+    <dd>
+      <a routerLink="/provider-gateway/provider-profile/{{ providerId }}">{{
+        providerName
+      }}</a>
+    </dd>
     <dt>Reporting Period:</dt>
     <dd>{{ reportingPeriod }}</dd>
     <dt>File Name:</dt>
