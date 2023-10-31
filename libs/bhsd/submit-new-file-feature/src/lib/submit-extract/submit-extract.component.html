@@ -1,4 +1,8 @@
 <h1>Submit New Behavioral Health Supplemental Data (BHSD) File</h1>
+<ng-container *ngIf="closedWarning; else form">
+  Submissions are currently closed. Submissions will be re-enabled at {{closedUntil | date: 'full' }}.
+</ng-container>
+<ng-template #form>
 <form [formGroup]="extractForm">
   <h2>Select BHSD Reporting Period</h2>
   <p *ngIf="extractForm.errors && extractForm.errors['coveragePeriodTooLong']">
@@ -158,7 +162,7 @@
     {{ (sendingData$ | async) ? 'Sending Extract...' : 'Submit' }}
   </button>
 </form>
-
+</ng-template>
 <div *ngIf="debug" class="debug-container">
   <div class="column">
     <h3>Form Value:</h3>
