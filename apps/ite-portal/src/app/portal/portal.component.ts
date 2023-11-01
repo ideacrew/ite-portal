@@ -50,7 +50,10 @@ export class PortalComponent implements OnInit {
   }
 
   login() {
-    this.authService.loginRedirect();
+    console.log("clicked login!");
+    this.authService.logoutRedirect({
+      postLogoutRedirectUri: window.location.origin,
+    });
   }
 
   setLoginDisplay() {

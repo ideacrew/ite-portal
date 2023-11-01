@@ -101,47 +101,56 @@ const routes: Routes = [
   {
     path: '',
     component: PortalComponent,
-    canActivate: [MsalGuard],
     children: [
       {
         path: 'home',
         component: PortalDashboardComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'search-and-query',
         component: SearchAndQueryComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'search-and-query/client-search',
         component: ClientSearchComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'search-and-query/claim-search',
         component: ClaimSearchComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'search-and-query/claim-search/advanced-search',
         component: AdvancedClaimSearchComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'executive-dashboards',
         component: FakePageComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'executive-dashboards/population-served',
         component: FakePageComponent,
+        canActivate: [MsalGuard],
       },
 
       {
         path: 'claims',
         component: FakePageComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'claims/adjudicated-claims',
         component: AdjudicatedClaimsComponent,
+        canActivate: [MsalGuard],
       },
       {
         path: 'claims/:id',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/claims/claim-detail-feature').then(
             (m) => m.ClaimsClaimDetailFeatureModule
@@ -149,6 +158,7 @@ const routes: Routes = [
       },
       {
         path: 'clients/:id',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/clients/client-feature').then(
             (m) => m.ClientsClientComponentFeatureModule
@@ -156,6 +166,7 @@ const routes: Routes = [
       },
       {
         path: 'clients/:id/demographics',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/clients/demographics-feature').then(
             (m) => m.ClientsDemographicsComponentFeatureModule
@@ -163,6 +174,7 @@ const routes: Routes = [
       },
       {
         path: 'clients/:id/claim-history',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/clients/claim-history-feature').then(
             (m) => m.ClientsClaimHistoryComponentFeatureModule
@@ -170,30 +182,37 @@ const routes: Routes = [
       },
       {
         path: 'external-resources',
+        canActivate: [MsalGuard],
         component: ExternalResourcesComponent,
       },
       {
         path: 'data-governance',
+        canActivate: [MsalGuard],
         component: DataGovernanceComponent,
       },
       {
         path: 'data-governance/business-glossary',
+        canActivate: [MsalGuard],
         component: BusinessGlossaryComponent,
       },
       {
         path: 'data-governance/data-tracking-system-inventory',
+        canActivate: [MsalGuard],
         component: DataTrackingSystemInventoryComponent,
       },
       {
         path: 'data-governance/ite-database-naming-conventions',
+        canActivate: [MsalGuard],
         component: IteDatabaseNamingConventionsComponent,
       },
       {
         path: 'data-governance/data-dictionary',
+        canActivate: [MsalGuard],
         component: DataDictionaryComponent,
       },
       {
         path: 'provider-gateway/submissions',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/submission-history-feature').then(
             (m) => m.BhsdSubmissionHistoryFeatureModule
@@ -201,6 +220,7 @@ const routes: Routes = [
       },
       {
         path: 'provider-gateway/submissions/:id/demographics',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/submission-demographics-feature').then(
             (m) => m.BhsdSubmissionDemographicsFeatureModule
@@ -208,6 +228,7 @@ const routes: Routes = [
       },
       {
         path: 'provider-gateway/submissions/:id/census',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/submission-census-feature').then(
             (m) => m.BhsdSubmissionCensusFeatureModule
@@ -215,6 +236,7 @@ const routes: Routes = [
       },
       {
         path: 'provider-gateway/submissions/:id/records/:recordId',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/record-detail-feature').then(
             (m) => m.BhsdRecordDetailFeatureModule
@@ -222,6 +244,7 @@ const routes: Routes = [
       },
       {
         path: 'provider-gateway/submissions/:id',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/submission-detail-feature').then(
             (m) => m.BhsdSubmissionDetailFeatureModule
@@ -229,6 +252,7 @@ const routes: Routes = [
       },
       {
         path: 'provider-gateway/submit-new-bhsd',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/submit-new-file-feature').then(
             (m) => m.BhsdSubmitNewFileFeatureModule
@@ -237,6 +261,7 @@ const routes: Routes = [
       },
       {
         path: 'provider-gateway/provider-profile/:id',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/providers/profile-feature').then(
             (m) => m.ProvidersProfileModule
@@ -244,10 +269,12 @@ const routes: Routes = [
       },
       {
         path: 'user-profile',
+        canActivate: [MsalGuard],
         component: AdUserProfileComponent,
       },
       {
         path: 'provider-gateway/submission-status',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/submission-status-feature').then(
             (m) => m.BhsdSubmissionStatusFeatureModule
@@ -255,6 +282,7 @@ const routes: Routes = [
       },
       {
         path: 'provider-gateway/companion-guide',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/companion-guide-page').then(
             (m) => m.BhsdCompanionGuidePageFeatureModule
@@ -262,6 +290,7 @@ const routes: Routes = [
       },
       {
         path: 'provider-gateway',
+        canActivate: [MsalGuard],
         loadChildren: () =>
           import('@dbh/bhsd/landing-page-feature').then(
             (m) => m.BhsdLandingPageFeatureModule
