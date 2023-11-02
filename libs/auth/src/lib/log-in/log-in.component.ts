@@ -23,10 +23,10 @@ export type UserLoginForm = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogInComponent {
-  private sendingData = new BehaviorSubject(false);
+  sendingData = new BehaviorSubject(false);
   sendingData$ = this.sendingData.asObservable().pipe(shareReplay(1));
 
-  private result = new Subject<string | null>();
+  result = new Subject<string | null>();
   result$ = this.result.asObservable();
 
   showPassword = false;

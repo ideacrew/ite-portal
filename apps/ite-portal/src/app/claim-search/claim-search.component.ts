@@ -14,7 +14,6 @@ export class ClaimSearchComponent {
   page = '1';
   offset = 0;
   perPage = 20;
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   parameters$ = this.route.queryParamMap.subscribe((parameters) => {
     this.searchTerm = parameters.get('search') || '';
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -24,6 +23,12 @@ export class ClaimSearchComponent {
         : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
           this.claimsService.claimSearch(this.searchTerm, this.offset);
   });
+
+  constructor(
+    private route: ActivatedRoute,
+    private claimsService: ClaimsService,
+    private router: Router
+  ) {}
 
   setSearchTerm(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -39,7 +44,6 @@ export class ClaimSearchComponent {
 
   getPages(count: number, active: string): Array<number | '...'> {
     const pages = Math.ceil(count / this.perPage);
-    // eslint-disable-next-line unicorn/new-for-builtins
     const pageArray: Array<number | '...'> = Array(pages)
       .fill(0)
       .map((x, index) => index + 1);
@@ -71,10 +75,4 @@ export class ClaimSearchComponent {
     this.offset = (Number(pageNumber) - 1) * this.perPage;
     this.submitSearch();
   }
-
-  constructor(
-    private route: ActivatedRoute,
-    private claimsService: ClaimsService,
-    private router: Router
-  ) {}
 }

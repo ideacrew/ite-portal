@@ -13,5 +13,4 @@ const portalApiUrl = environment.NX_PORTAL_API || '';
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
-  // eslint-disable-next-line unicorn/prefer-top-level-await
   .catch((error) => console.error(error));

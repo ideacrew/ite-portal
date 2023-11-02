@@ -18,6 +18,11 @@ export class ClaimDetailComponent {
     shareReplay(1)
   );
 
+  constructor(
+    private route: ActivatedRoute,
+    private claimsService: ClaimsService
+  ) {}
+
   serviceLength({
     billingDate,
     lastServiceDate,
@@ -34,9 +39,4 @@ export class ClaimDetailComponent {
     }
     return '';
   }
-
-  constructor(
-    private route: ActivatedRoute,
-    private claimsService: ClaimsService
-  ) {}
 }

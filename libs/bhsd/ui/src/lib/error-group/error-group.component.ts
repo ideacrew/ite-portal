@@ -12,14 +12,14 @@ import {
   styleUrls: ['./error-group.component.scss'],
 })
 export class ErrorGroupComponent {
+  @Input() errorType!: ErrorType | undefined;
+  @Input() record!: ExtractRecordValidationV2;
+
   fieldType: Record<ErrorType, string> = {
     Fatal: 'Key',
     Critical: 'Required',
     Warning: 'Optional',
   };
-
-  @Input() errorType!: ErrorType | undefined;
-  @Input() record!: ExtractRecordValidationV2;
 
   get errors(): ValidationV2[] {
     const { errors } = this.record;
@@ -39,7 +39,7 @@ export class ErrorGroupComponent {
     if (!this.errors || this.errors.length === 0) {
       return 0;
     } else {
-      const groups: {[key: string]: ValidationV2[]} = {};
+      const groups: { [key: string]: ValidationV2[] } = {};
       for (const current of this.errors) {
         const key = current.fieldName;
         if (!groups[key]) {

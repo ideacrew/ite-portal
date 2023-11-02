@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/consistent-function-scoping */
 import { Component } from '@angular/core';
 import { BHSDService, SubmissionStatus } from '@dbh/bhsd/data-access';
 import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
@@ -18,7 +17,6 @@ export type Header = {
 export class ProvidersSubmissionStatusComponent {
   criteria: Criterion[] = [{}];
   validCriteria: Criterion[] = this.criteria.filter(
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     (criterion) =>
       criterion.selector &&
       criterion.valueType &&
@@ -81,7 +79,10 @@ export class ProvidersSubmissionStatusComponent {
       numeric: true,
     },
   ];
-  submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({sort: this.sort, sortDirection: this.sortDirection});
+  submissionStatus$ = this.bhsdService.getFilteredSubmissionStatus({
+    sort: this.sort,
+    sortDirection: this.sortDirection,
+  });
   providers: ValueOption[] = [];
   allProviders$ = this.bhsdService.getSubmissionStatus();
   providers$ = this.submissionStatus$.subscribe(
@@ -195,7 +196,6 @@ export class ProvidersSubmissionStatusComponent {
 
   checkValid() {
     this.validCriteria = this.criteria.filter(
-      // eslint-disable-next-line unicorn/consistent-function-scoping
       (condition) =>
         condition.selector &&
         condition.valueType &&

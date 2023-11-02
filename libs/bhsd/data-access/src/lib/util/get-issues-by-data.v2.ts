@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/consistent-destructuring */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
   ErrorType,

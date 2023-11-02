@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 import {
   AbstractControl,
   FormGroup,
@@ -20,7 +19,6 @@ export const dateNotInFuture: ValidatorFn = (
     return { dateInFuture: true };
   }
 
-  // eslint-disable-next-line unicorn/no-null
   return null;
 };
 
