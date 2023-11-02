@@ -1,11 +1,12 @@
 {
   "name": "bhsd-data-access",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/bhsd/data-access/src",
   "prefix": "dbh",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/bhsd/data-access"],
       "options": {
         "jestConfig": "libs/bhsd/data-access/jest.config.ts",
@@ -13,7 +14,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
           "libs/bhsd/data-access/**/*.ts",
