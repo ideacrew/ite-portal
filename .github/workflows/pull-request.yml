@@ -44,7 +44,6 @@ jobs:
           npx cypress version --component binary
           npx cypress version --component electron
           npx cypress version --component node
-      - run: npx nx workspace-lint
       - run: npx nx format:write
       - run: npx nx format:check
       - run: npx nx affected --target=lint --parallel=3
