@@ -30,7 +30,11 @@
           "libs/theme/src/styles/global.scss",
           "apps/ite-portal/src/styles.scss"
         ],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": [
+          "file-saver",
+          "papaparse/papaparse.min.js"
+        ]
       },
       "configurations": {
         "production": {

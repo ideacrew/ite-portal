@@ -16,13 +16,13 @@ function getClientEnvironment() {
   return {
     'process.env': Object.keys(raw).reduce((env, key) => {
       env[key] = JSON.stringify(raw[key]);
-      console.log(env[key]);
+      // console.log(env[key]);
       return env;
     }, {}),
   };
 }
 
-module.exports = (config, options, context) => {
+module.exports = (config) => {
   // Overwrite the mode set by Angular if the NODE_ENV is set
   config.mode = process.env.NODE_ENV || config.mode;
   config.plugins.push(new webpack.DefinePlugin(getClientEnvironment()));
