@@ -51,24 +51,6 @@ export class DataFieldChartComponent {
     );
   }
 
-  getErrorInformation(errorType: ErrorType): {
-    errorType: ErrorType;
-    totalCountOfFieldsWithError: number;
-    relativeErrorCount: number;
-  } {
-    const errors = this.record.errors.filter(
-      (error) => error.errorType === errorType
-    );
-
-    const relativeErrorCount = (errors.length / this.totalDataFieldCount) * 100;
-
-    return {
-      errorType,
-      totalCountOfFieldsWithError: errors.length,
-      relativeErrorCount,
-    };
-  }
-
   get errorInformation() {
     return {
       fatal: this.getErrorInformation('Fatal'),
@@ -95,6 +77,24 @@ export class DataFieldChartComponent {
     return (
       (this.dataFieldsWithoutErrors.length / this.totalDataFieldCount) * 100
     );
+  }
+
+  getErrorInformation(errorType: ErrorType): {
+    errorType: ErrorType;
+    totalCountOfFieldsWithError: number;
+    relativeErrorCount: number;
+  } {
+    const errors = this.record.errors.filter(
+      (error) => error.errorType === errorType
+    );
+
+    const relativeErrorCount = (errors.length / this.totalDataFieldCount) * 100;
+
+    return {
+      errorType,
+      totalCountOfFieldsWithError: errors.length,
+      relativeErrorCount,
+    };
   }
 
   getCriticalPosition(): number {

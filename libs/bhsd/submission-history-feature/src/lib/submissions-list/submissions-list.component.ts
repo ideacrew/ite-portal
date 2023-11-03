@@ -21,7 +21,6 @@ export type Header = {
 export class SubmissionsListComponent {
   criteria: Criterion[] = [{}];
   validCriteria: Criterion[] = this.criteria.filter(
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     (criterion) =>
       criterion.selector &&
       criterion.valueType &&
@@ -70,7 +69,6 @@ export class SubmissionsListComponent {
       this.validCriteria,
       this.offset
     );
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   providers$ = this.responseDetails$.subscribe((response: Extracts) => {
     const providersHash = response.providers.map((provider) => ({
       value: provider.id,
@@ -79,9 +77,14 @@ export class SubmissionsListComponent {
     this.providers = providersHash;
   });
 
+  constructor(
+    private bhsdService: BHSDService,
+    private authService: AuthService,
+    private route: ActivatedRoute
+  ) {}
+
   getPages(count: number, active: string): Array<number | '...'> {
     const pages = Math.ceil(count / this.perPage);
-    // eslint-disable-next-line unicorn/new-for-builtins
     const pageArray: Array<number | '...'> = Array(pages)
       .fill(0)
       .map((x, index) => index + 1);
@@ -201,7 +204,6 @@ export class SubmissionsListComponent {
 
   checkValid() {
     this.validCriteria = this.criteria.filter(
-      // eslint-disable-next-line unicorn/consistent-function-scoping
       (condition) =>
         condition.selector &&
         condition.valueType &&
@@ -214,10 +216,4 @@ export class SubmissionsListComponent {
         ? false
         : true;
   }
-
-  constructor(
-    private bhsdService: BHSDService,
-    private authService: AuthService,
-    private route: ActivatedRoute
-  ) {}
 }

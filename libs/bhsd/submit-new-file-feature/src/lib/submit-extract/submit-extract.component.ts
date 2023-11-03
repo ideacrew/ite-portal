@@ -4,7 +4,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable unicorn/no-null */
 
 import {
   ChangeDetectionStrategy,
@@ -69,66 +68,53 @@ export class SubmitExtractComponent implements OnInit {
     private papa: Papa
   ) {}
 
+  get lastMonthStart(): Date {
+    const thisMonth = new Date().getMonth();
+    const lastMonth = thisMonth - 1;
+
+    return new Date(new Date().getFullYear(), lastMonth, 1);
+  }
+
+  get lastMonthEnd(): Date {
+    return lastDayOfMonth(this.lastMonthStart);
+  }
+
+  // These are helper methods to get at the FormControl object in the template
+  get coverage_start(): FormControl<string | null> {
+    return this.extractForm.get('coverage_start') as FormControl<string | null>;
+  }
+
+  get coverage_end(): FormControl<string | null> {
+    return this.extractForm.get('coverage_end') as FormControl<string | null>;
+  }
+
+  get extracted_on(): FormControl<string | null> {
+    return this.extractForm.get('extracted_on') as FormControl<string | null>;
+  }
+
+  get records(): FormControl<Array<Record<string, unknown>> | null> {
+    return this.extractForm.get('records') as FormControl<Array<
+      Record<string, unknown>
+    > | null>;
+  }
+
   ngOnInit(): void {
     this.getFormData();
   }
 
-  private createExtractForm(): FormGroup<BHSDSubmissionForm> {
-    const providerGatewayIdentifier =
-      this.authService.providerGatewayId ?? '000';
-    const coverageStart = this.lastMonthStart.toISOString().slice(0, 10);
-    const coverageEnd = this.lastMonthEnd.toISOString().slice(0, 10);
-
-    return this.fb.group<BHSDSubmissionForm>(
-      {
-        provider_gateway_identifier: new FormControl<string | null>(
-          providerGatewayIdentifier,
-          Validators.required
-        ),
-        coverage_start: new FormControl<string | null>(coverageStart, [
-          Validators.required,
-          dateNotInFuture,
-        ]),
-        coverage_end: new FormControl<string | null>(coverageEnd, [
-          Validators.required,
-          dateNotInFuture,
-        ]),
-        extracted_on: new FormControl<string | null>('', [
-          Validators.required,
-          dateNotInFuture,
-        ]),
-        records: new FormControl<ExtractRecordData[] | null>(
-          null,
-          Validators.required
-        ),
-        file_name: new FormControl<string | null>(''),
-        file_type: new FormControl<string | null>(
-          'Initial',
-          Validators.required
-        ),
-      },
-      {
-        validators: [
-          startDateNotAfterEndDate,
-          coveragePeriodNotTooLong,
-          extractDateWithinCoveragePeriod,
-        ],
-      }
-    );
-  }
-
-  private getFormData(): void {
-    this.extractForm = this.createExtractForm();
-  }
-
   checkIfClosedWarning(closedUntil: string, closedFrom: string): boolean {
     const now = new Date();
-    const now_utc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(),
-                now.getUTCDate(), now.getUTCHours(),
-                now.getUTCMinutes(), now.getUTCSeconds());
+    const now_utc = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours(),
+      now.getUTCMinutes(),
+      now.getUTCSeconds()
+    );
     const closedFromDate = Date.parse(closedFrom);
     const closedUntilDate = Date.parse(closedUntil);
-    return (closedFromDate <= now_utc) &&  (now_utc <= closedUntilDate);
+    return closedFromDate <= now_utc && now_utc <= closedUntilDate;
   }
 
   public resetMessages(): void {
@@ -215,33 +201,51 @@ export class SubmitExtractComponent implements OnInit {
     }
   }
 
-  get lastMonthStart(): Date {
-    const thisMonth = new Date().getMonth();
-    const lastMonth = thisMonth - 1;
+  private createExtractForm(): FormGroup<BHSDSubmissionForm> {
+    const providerGatewayIdentifier =
+      this.authService.providerGatewayId ?? '000';
+    const coverageStart = this.lastMonthStart.toISOString().slice(0, 10);
+    const coverageEnd = this.lastMonthEnd.toISOString().slice(0, 10);
 
-    return new Date(new Date().getFullYear(), lastMonth, 1);
+    return this.fb.group<BHSDSubmissionForm>(
+      {
+        provider_gateway_identifier: new FormControl<string | null>(
+          providerGatewayIdentifier,
+          Validators.required
+        ),
+        coverage_start: new FormControl<string | null>(coverageStart, [
+          Validators.required,
+          dateNotInFuture,
+        ]),
+        coverage_end: new FormControl<string | null>(coverageEnd, [
+          Validators.required,
+          dateNotInFuture,
+        ]),
+        extracted_on: new FormControl<string | null>('', [
+          Validators.required,
+          dateNotInFuture,
+        ]),
+        records: new FormControl<ExtractRecordData[] | null>(
+          null,
+          Validators.required
+        ),
+        file_name: new FormControl<string | null>(''),
+        file_type: new FormControl<string | null>(
+          'Initial',
+          Validators.required
+        ),
+      },
+      {
+        validators: [
+          startDateNotAfterEndDate,
+          coveragePeriodNotTooLong,
+          extractDateWithinCoveragePeriod,
+        ],
+      }
+    );
   }
 
-  get lastMonthEnd(): Date {
-    return lastDayOfMonth(this.lastMonthStart);
-  }
-
-  // These are helper methods to get at the FormControl object in the template
-  get coverage_start(): FormControl<string | null> {
-    return this.extractForm.get('coverage_start') as FormControl<string | null>;
-  }
-
-  get coverage_end(): FormControl<string | null> {
-    return this.extractForm.get('coverage_end') as FormControl<string | null>;
-  }
-
-  get extracted_on(): FormControl<string | null> {
-    return this.extractForm.get('extracted_on') as FormControl<string | null>;
-  }
-
-  get records(): FormControl<Array<Record<string, unknown>> | null> {
-    return this.extractForm.get('records') as FormControl<Array<
-      Record<string, unknown>
-    > | null>;
+  private getFormData(): void {
+    this.extractForm = this.createExtractForm();
   }
 }

@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
@@ -26,6 +25,13 @@ export class ProviderGatewayShellComponent implements OnInit {
   email = '';
   applicationName = 'Provider Gateway';
 
+  constructor(
+    private authService: MsalService,
+    private msalBroadcastService: MsalBroadcastService,
+    private config: ConfigService,
+    private http: HttpClient
+  ) {}
+
   ngOnInit(): void {
     if (this.authService.instance.getAllAccounts().length > 0) {
       this.setLoginDisplay();
@@ -51,13 +57,6 @@ export class ProviderGatewayShellComponent implements OnInit {
   setLoginDisplay() {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }
-
-  constructor(
-    private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService,
-    private config: ConfigService,
-    private http: HttpClient
-  ) {}
 
   setProviderDetails(): void {
     this.http

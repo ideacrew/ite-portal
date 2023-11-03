@@ -9,6 +9,7 @@ import { AuthService } from '@dbh/auth';
 export class SearchAndQueryComponent {
   searchTerm = '';
 
+  constructor(private authService: AuthService, private router: Router) {}
   setSearchTerm(event: Event) {
     const target = event.target as HTMLInputElement;
     this.searchTerm = target.value;
@@ -25,6 +26,4 @@ export class SearchAndQueryComponent {
       queryParams: { search: this.searchTerm },
     });
   }
-
-  constructor(private authService: AuthService, private router: Router) {}
 }

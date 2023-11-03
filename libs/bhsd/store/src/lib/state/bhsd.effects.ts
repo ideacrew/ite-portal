@@ -8,7 +8,6 @@ import * as BhsdActions from './bhsd.actions';
 @Injectable()
 export class BhsdEffects {
   init$ = createEffect(
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     () => {
       return this.actions$.pipe(
         ofType(BhsdActions.initBhsd),
