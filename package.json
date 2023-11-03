@@ -3,8 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js",
     "start:api": "concurrently -c \"auto\" \"npm:api-*\"",
     "api-portal": "cd ../provider-gateway-api/ && docker-compose up",
     "api-gateway": "cd ../ite_portal_api/ && docker-compose up",
