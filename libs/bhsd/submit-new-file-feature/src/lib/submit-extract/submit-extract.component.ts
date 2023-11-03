@@ -179,6 +179,9 @@ export class SubmitExtractComponent implements OnInit {
           const recordData: ExtractRecordData[] = this.papa.parse(csvText, {
             header: true,
             skipEmptyLines: true,
+            transformHeader:function(h) {
+              return h.trim();
+            },
             complete: (results) => results.data,
           }).data;
 
