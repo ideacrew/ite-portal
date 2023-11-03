@@ -1,12 +1,12 @@
 {
-  "name": "clients-client-feature",
+  "name": "client-feature",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/clients/client-feature/src",
   "prefix": "dbh",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/clients/client-feature"],
       "options": {
         "jestConfig": "libs/clients/client-feature/jest.config.ts",
@@ -14,7 +14,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
           "libs/clients/client-feature/**/*.ts",

@@ -1,6 +1,3 @@
-/* eslint-disable unicorn/no-useless-undefined */
-/* eslint-disable unicorn/no-null */
-/* eslint-disable unicorn/consistent-destructuring */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
   DemographicData,

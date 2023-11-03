@@ -13,7 +13,6 @@ export class AdvancedClaimSearchComponent {
   searchResults$: Observable<ClaimSearch> | undefined = undefined;
   criteria: Criterion[] = [{}];
   validCriteria: Criterion[] = this.criteria.filter(
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     (criterion) =>
       criterion.selector &&
       criterion.valueType &&
@@ -27,6 +26,12 @@ export class AdvancedClaimSearchComponent {
 
   procedureCodes$ = this.claimsService.getProcedureCodes();
   providerTypes$ = this.claimsService.getProviderTypes();
+
+  constructor(
+    private route: ActivatedRoute,
+    private claimsService: ClaimsService,
+    private router: Router
+  ) {}
 
   submitAdvancedSearch() {
     this.checkValid();
@@ -116,7 +121,6 @@ export class AdvancedClaimSearchComponent {
 
   checkValid() {
     this.validCriteria = this.criteria.filter(
-      // eslint-disable-next-line unicorn/consistent-function-scoping
       (condition) =>
         condition.selector &&
         condition.valueType &&
@@ -132,7 +136,6 @@ export class AdvancedClaimSearchComponent {
 
   getPages(count: number, active: string): Array<number | '...'> {
     const pages = Math.ceil(count / this.perPage);
-    // eslint-disable-next-line unicorn/new-for-builtins
     const pageArray: Array<number | '...'> = Array(pages)
       .fill(0)
       .map((x, index) => index + 1);
@@ -164,10 +167,4 @@ export class AdvancedClaimSearchComponent {
     this.offset = (Number(pageNumber) - 1) * this.perPage;
     this.submitAdvancedSearch();
   }
-
-  constructor(
-    private route: ActivatedRoute,
-    private claimsService: ClaimsService,
-    private router: Router
-  ) {}
 }

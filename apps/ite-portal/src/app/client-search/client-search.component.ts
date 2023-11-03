@@ -12,7 +12,6 @@ export class ClientSearchComponent {
   searchTerm = '';
   searchResults$: Observable<ClientSearch> | undefined = undefined;
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   parameters$ = this.route.queryParamMap.subscribe((parameters) => {
     this.searchTerm = parameters.get('search') || '';
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -22,6 +21,12 @@ export class ClientSearchComponent {
         : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
           this.claimsService.clientSearch(this.searchTerm);
   });
+
+  constructor(
+    private route: ActivatedRoute,
+    private claimsService: ClaimsService,
+    private router: Router
+  ) {}
 
   setSearchTerm(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -34,10 +39,4 @@ export class ClientSearchComponent {
       queryParams: { search: this.searchTerm },
     });
   }
-
-  constructor(
-    private route: ActivatedRoute,
-    private claimsService: ClaimsService,
-    private router: Router
-  ) {}
 }

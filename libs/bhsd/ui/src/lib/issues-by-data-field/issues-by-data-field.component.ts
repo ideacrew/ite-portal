@@ -22,6 +22,18 @@ export class IssuesByDataFieldComponent {
     return this.records.flatMap((record) => record.errors);
   }
 
+  get fatalFields(): ExtractRecordField[] {
+    return this.getFieldNamesInErrorGroup('Fatal');
+  }
+
+  get criticalFields(): ExtractRecordField[] {
+    return this.getFieldNamesInErrorGroup('Critical');
+  }
+
+  get warningFields(): ExtractRecordField[] {
+    return this.getFieldNamesInErrorGroup('Warning');
+  }
+
   getAllErrorsByFieldName(fieldName: ExtractRecordField): ValidationV2[] {
     return this.allErrors.filter(
       (error: ValidationV2) => error.fieldName === fieldName
@@ -82,18 +94,6 @@ export class IssuesByDataFieldComponent {
     const uniqueFieldNames: ExtractRecordField[] = [...new Set(allFieldNames)];
 
     return uniqueFieldNames;
-  }
-
-  get fatalFields(): ExtractRecordField[] {
-    return this.getFieldNamesInErrorGroup('Fatal');
-  }
-
-  get criticalFields(): ExtractRecordField[] {
-    return this.getFieldNamesInErrorGroup('Critical');
-  }
-
-  get warningFields(): ExtractRecordField[] {
-    return this.getFieldNamesInErrorGroup('Warning');
   }
 
   originalOrder(

@@ -10,9 +10,9 @@ import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 export class PortalDashboardComponent {
   submissionStatus$ = this.bhsdService.getSubmissionStatus();
   searchTerm = '';
-  constructor(private bhsdService: BHSDService, private router: Router) {}
-
   thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
+
+  constructor(private bhsdService: BHSDService, private router: Router) {}
 
   setSearchTerm(event: Event) {
     const target = event.target as HTMLInputElement;

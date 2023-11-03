@@ -33,6 +33,17 @@ export type TokenObject = {
 export class AuthService {
   private token!: string;
 
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+    private router: Router
+  ) {
+    const tokenFromStorage = this.getJwt();
+    if (tokenFromStorage) {
+      this.token = tokenFromStorage;
+    }
+  }
+
   get decodedToken(): TokenObject {
     return this.token
       ? jwt_decode<TokenObject>(this.token)
@@ -65,17 +76,6 @@ export class AuthService {
 
   get providerName(): string {
     return this.decodedToken.provider_name ?? 'Unknown';
-  }
-
-  constructor(
-    private http: HttpClient,
-    private config: ConfigService,
-    private router: Router
-  ) {
-    const tokenFromStorage = this.getJwt();
-    if (tokenFromStorage) {
-      this.token = tokenFromStorage;
-    }
   }
 
   clearJwt(): void {

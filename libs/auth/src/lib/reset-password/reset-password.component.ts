@@ -23,7 +23,7 @@ export type PasswordResetForm = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordComponent {
-  private result = new Subject<string | null>();
+  result = new Subject<string | null>();
   result$ = this.result.asObservable();
 
   showPassword = false;

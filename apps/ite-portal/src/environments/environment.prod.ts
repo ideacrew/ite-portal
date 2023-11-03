@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prevent-abbreviations */
 /* eslint-disable @typescript-eslint/naming-convention */
 
 export const environment = {
