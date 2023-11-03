@@ -1,4 +1,6 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -55,8 +57,8 @@ const b2cPolicies = {
 };
 
 export function msalInstanceFactory(): IPublicClientApplication {
-  console.log("Making sure correct branch by subdomain: "+subdomain);
-  console.log("Making sure correct branch by gatewayCid: "+gatewayCid);
+  console.log('Making sure correct branch by subdomain: ' + subdomain);
+  console.log('Making sure correct branch by gatewayCid: ' + gatewayCid);
   return new PublicClientApplication({
     auth: {
       clientId: `${gatewayCid}`,
@@ -72,7 +74,7 @@ export function msalInstanceFactory(): IPublicClientApplication {
   });
 }
 
-export function MSALGuardConfigFactory(): MsalGuardConfiguration {
+export function msalGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
     loginFailedRoute: './',
@@ -82,7 +84,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   };
 }
 
-export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+export function msalInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, string[]>();
   protectedResourceMap.set(gatewayApiUrl, [readScope]);
   protectedResourceMap.set(portalApiUrl, [readScope]);
@@ -110,8 +112,16 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
             ),
         },
         {
+          path: 'provider-gateway/login',
+          loadComponent: () =>
+            import('@dbh/provider-gateway/login').then(
+              (x) => x.ProviderGatewayLoginComponent
+            ),
+        },
+
+        {
           path: '**',
-          redirectTo: 'provider-gateway',
+          redirectTo: 'provider-gateway/login',
           pathMatch: 'full',
         },
       ],
@@ -136,13 +146,13 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     },
     {
       provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory,
+      useFactory: msalGuardConfigFactory,
     },
     MsalService,
     MsalGuard,
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfigFactory,
+      useFactory: msalInterceptorConfigFactory,
     },
     {
       provide: APP_TITLE,

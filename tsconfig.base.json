@@ -66,6 +66,9 @@
         "libs/clients/demographics-feature/src/index.ts"
       ],
       "@dbh/ite/env": ["apps/ite-portal/src/environments/environment"],
+      "@dbh/provider-gateway/login": [
+        "libs/provider-gateway/login/src/index.ts"
+      ],
       "@dbh/provider-gateway/shell": [
         "libs/provider-gateway/shell/src/index.ts"
       ],
