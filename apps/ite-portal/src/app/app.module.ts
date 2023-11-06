@@ -47,6 +47,7 @@ import { BusinessGlossaryComponent } from './business-glossary/business-glossary
 import { DataTrackingSystemInventoryComponent } from './data-tracking-system-inventory/data-tracking-system-inventory.component';
 import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-conventions/ite-database-naming-conventions.component';
 import { DataDictionaryComponent } from './data-dictionary/data-dictionary.component';
+import { ProviderLoginsComponent } from './executive/provider-logins.component';
 
 const isIE =
   window.navigator.userAgent.includes('MSIE ') ||
@@ -135,9 +136,8 @@ const routes: Routes = [
       },
       {
         path: 'executive-dashboards/provider-logins',
-        component: FakePageComponent,
+        component: ProviderLoginsComponent,
       },
-
       {
         path: 'claims',
         component: FakePageComponent,
