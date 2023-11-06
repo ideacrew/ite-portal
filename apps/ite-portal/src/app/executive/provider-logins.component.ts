@@ -11,23 +11,20 @@ import { BHSDService } from '@dbh/bhsd/data-access';
 
     <table>
       <thead>
-        <th>
-          <h2>Provider Name</h2>
-        </th>
-        <th>
-          <h2>Last Login</h2>
-        </th>
-        <th>
-          <h2>Provider Gateway Identifier</h2>
-        </th>
-        <th>
-          <h2>Email</h2>
-        </th>
+        <th>Provider Name</th>
+        <th>Last Login</th>
+        <th>Provider Gateway Identifier</th>
+        <th>Email</th>
       </thead>
       <tbody>
         <tr *ngFor="let user of mockData.users">
           <td>{{ user.providerName }}</td>
-          <td>{{ user.lastSignInAt | date : 'medium' }}</td>
+          <td *ngIf="user.lastSignInAt; else never">
+            {{ user.lastSignInAt | date : 'medium' }}
+          </td>
+          <ng-template #never>
+            <td>Never</td>
+          </ng-template>
           <td>{{ user.providerGatewayIdentifier }}</td>
           <td>{{ user.email }}</td>
         </tr>
