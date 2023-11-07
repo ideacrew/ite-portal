@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-type Provider = {
-  userId: number;
+export type Provider = {
+  user_id: number;
   email: string;
-  lastSignInAt: Date;
-  providerGatewayIdentifier: number;
-  providerName: string;
+  last_sign_in_at: Date;
+  provider_gateway_identifier: number;
+  provider_name: string;
 };
 
 export type ProvidersLog = {
