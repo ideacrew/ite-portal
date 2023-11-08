@@ -3,13 +3,23 @@ import { CommonModule } from '@angular/common';
 import { BHSDService } from '@dbh/bhsd/data-access';
 import { Observable, map } from 'rxjs';
 import { ProvidersLog } from '@dbh/providers/data-access';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'dbh-provider-logins',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
-    <h1>Provider Recent Logins</h1>
+    <ul class="breadcrumbs">
+      <li>
+        <a routerLink="/executive-dashboards" routerLinkActive="active">
+          Executive Dashboard
+        </a>
+      </li>
+      <li>Provider Logins</li>
+    </ul>
+
+    <h1>Provider Logins</h1>
 
     <small>
       <span class="material-symbols-outlined"> info </span>
@@ -19,7 +29,7 @@ import { ProvidersLog } from '@dbh/providers/data-access';
     <table *ngIf="sortedProviders$ | async as results">
       <thead>
         <th>Provider Name</th>
-        <th>Last Login</th>
+        <th>Last Activity</th>
         <th>Provider Gateway Identifier</th>
         <th>Email</th>
       </thead>
@@ -46,7 +56,6 @@ import { ProvidersLog } from '@dbh/providers/data-access';
         gap: 4px;
         font-size: 12px;
         margin-bottom: 16px;
-        background-color: var(--primary-020);
         color: var(--text-primary);
         border-radius: 4px;
         padding: 1px 4px;
