@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { RedirectRequest } from '@azure/msal-browser';
 import {
   MSAL_GUARD_CONFIG,
@@ -7,6 +8,9 @@ import {
   MsalBroadcastService,
   MsalService,
 } from '@azure/msal-angular';
+import { AuthenticationResult, EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'dbh-provider-gateway-login',
@@ -37,23 +41,74 @@ import {
   styles: [],
 })
 export class ProviderGatewayLoginComponent implements OnInit {
+  private readonly _destroying$ = new Subject<void>();
+
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
-    private broadcastService: MsalBroadcastService,
-    private authService: MsalService
+    private msalBroadcastService: MsalBroadcastService,
+    private authService: MsalService,
+    private router: Router
   ) {}
 
-  ngOnInit() {
-    this.login();
+  ngOnInit(): void {
+    this.authService.instance.enableAccountStorageEvents();
+
+    this.msalBroadcastService.inProgress$
+      .pipe(
+          filter((status: InteractionStatus) => status === InteractionStatus.None),
+          takeUntil(this._destroying$)
+      )
+      .subscribe(() => {
+        this.checkAndSetActiveAccount();
+      })
+
+    this.msalBroadcastService.msalSubject$
+        .pipe(
+            filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS
+                || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS
+                || msg.eventType === EventType.SSO_SILENT_SUCCESS),
+            takeUntil(this._destroying$)
+        )
+        .subscribe((result: EventMessage) => {
+          const payload = result.payload as AuthenticationResult;
+          this.authService.instance.setActiveAccount(payload.account);
+          this.checkAndSetActiveAccount();
+          return result;
+        });
+
+    this.msalBroadcastService.msalSubject$
+        .pipe(
+            filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_FAILURE || msg.eventType === EventType.ACQUIRE_TOKEN_FAILURE),
+            takeUntil(this._destroying$)
+        )
+        .subscribe((result: EventMessage) => {
+            // Check for forgot password error
+            // Learn more about AAD error codes at https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
+            if (result.error && result.error.message.indexOf('AADB2C90118') > -1) {
+              this.login();
+            };
+        });
+
+  }
+
+  checkAndSetActiveAccount() {
+    const activeAccount = this.authService.instance.getActiveAccount();
+
+    if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
+        const accounts = this.authService.instance.getAllAccounts();
+        this.authService.instance.setActiveAccount(accounts[0]);
+    } else if (this.authService.instance.getAllAccounts().length === 0) {
+        this.login();
+    }
+
+    void this.router.navigate(['provider-gateway'])
   }
 
   login() {
     if (this.msalGuardConfig.authRequest) {
-      this.authService.loginRedirect({
-        ...this.msalGuardConfig.authRequest,
-      } as RedirectRequest);
+      this.authService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
     } else {
-      this.authService.loginRedirect();
+      this.authService.loginRedirect(this.msalGuardConfig.authRequest);
     }
   }
 }
