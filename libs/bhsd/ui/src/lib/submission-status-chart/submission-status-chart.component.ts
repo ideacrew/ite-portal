@@ -21,8 +21,8 @@ export class SubmissionStatusChartComponent {
 
   get expectingSubmissionPercentage(): number {
     return Math.round(
-      (this.countOfExpectingSubmission / this.countOfSubmissions) * 100
-    );
+      (this.countOfExpectingSubmission / this.countOfSubmissions) * 1000
+    ) / 10;
   }
 
   get countOfNeedsResubmission(): number {
@@ -33,8 +33,8 @@ export class SubmissionStatusChartComponent {
 
   get needsResubmissionPercentage(): number {
     return Math.round(
-      (this.countOfNeedsResubmission / this.countOfSubmissions) * 100
-    );
+      (this.countOfNeedsResubmission / this.countOfSubmissions) * 1000
+    ) / 10;
   }
 
   get countOfCurrent(): number {
@@ -44,7 +44,7 @@ export class SubmissionStatusChartComponent {
   }
 
   get currentPercentage(): number {
-    return Math.round((this.countOfCurrent / this.countOfSubmissions) * 100);
+    return Math.round((this.countOfCurrent / this.countOfSubmissions) * 1000) / 10;
   }
 
   get countOfPastDue(): number {
@@ -54,7 +54,7 @@ export class SubmissionStatusChartComponent {
   }
 
   get pastDuePercentage(): number {
-    return Math.round((this.countOfPastDue / this.countOfSubmissions) * 100);
+    return Math.round((this.countOfPastDue / this.countOfSubmissions) * 1000) / 10;
   }
 
   get expectingSubmissionPosition(): number {

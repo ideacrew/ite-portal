@@ -125,7 +125,7 @@ export const getDemographics = (
   const demos: DemographicData[] = [];
   for (const option of options) {
     const count = findValueCount(values, option.dataValue);
-    const percent = Math.round((count / values.length) * 100);
+    const percent = Math.round((count / values.length) * 1000) / 10;
     demos.push({ label: option.text, count: count, percent: percent });
   }
   const missingCount =
@@ -133,7 +133,7 @@ export const getDemographics = (
   const dataMissing = {
     label: 'Missing Data',
     count: missingCount,
-    percent: Math.round((missingCount / values.length) * 100),
+    percent: Math.round((missingCount / values.length) * 1000) / 10,
   };
   if (dataMissing.count > 0) {
     demos.push(dataMissing);
@@ -147,7 +147,7 @@ export const getDemographics = (
   const dataNonValid = {
     label: 'Non-Valid Data',
     count: nonValidCount,
-    percent: Math.round((nonValidCount / values.length) * 100),
+    percent: Math.round((nonValidCount / values.length) * 1000) / 10,
   };
   if (dataNonValid.count > 0) {
     demos.push(dataNonValid);
@@ -192,7 +192,7 @@ const getAgeBreakdown = (
 
   for (const option of ageOptions) {
     const count = findAgeCount(ages, option.dataValue);
-    const percent = Math.round((count / ages.length) * 100);
+    const percent = Math.round((count / ages.length) * 1000) / 10;
     demos.push({ label: option.text, count: count, percent: percent });
   }
 
