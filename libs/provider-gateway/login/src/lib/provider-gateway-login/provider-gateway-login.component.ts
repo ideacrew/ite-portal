@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RedirectRequest } from '@azure/msal-browser';
-import { IdTokenClaims, PromptValue } from '@azure/msal-common'
 import {
   MSAL_GUARD_CONFIG,
   MsalGuardConfiguration,
@@ -71,7 +70,7 @@ export class ProviderGatewayLoginComponent implements OnInit {
             takeUntil(this._destroying$)
         )
         .subscribe((result: EventMessage) => {
-          let payload = result.payload as AuthenticationResult;
+          const payload = result.payload as AuthenticationResult;
           this.authService.instance.setActiveAccount(payload.account);
           this.checkAndSetActiveAccount();
           return result;
@@ -93,11 +92,13 @@ export class ProviderGatewayLoginComponent implements OnInit {
   }
 
   checkAndSetActiveAccount() {
-    let activeAccount = this.authService.instance.getActiveAccount();
+    const activeAccount = this.authService.instance.getActiveAccount();
 
     if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
-        let accounts = this.authService.instance.getAllAccounts();
+        const accounts = this.authService.instance.getAllAccounts();
         this.authService.instance.setActiveAccount(accounts[0]);
+    } else if (this.authService.instance.getAllAccounts().length === 0) {
+        this.login();
     }
 
     this.router.navigate(['provider-gateway'])
