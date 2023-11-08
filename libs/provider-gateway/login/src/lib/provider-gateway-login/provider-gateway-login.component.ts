@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -102,7 +101,7 @@ export class ProviderGatewayLoginComponent implements OnInit {
         this.login();
     }
 
-    this.router.navigate(['provider-gateway'])
+    void this.router.navigate(['provider-gateway'])
   }
 
   login() {
