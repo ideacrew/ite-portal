@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -106,9 +107,9 @@ export class ProviderGatewayLoginComponent implements OnInit {
 
   login() {
     if (this.msalGuardConfig.authRequest) {
-        this.authService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
+      this.authService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
     } else {
-        this.authService.loginRedirect(this.msalGuardConfig.authRequest);
+      this.authService.loginRedirect(this.msalGuardConfig.authRequest);
     }
   }
 }
