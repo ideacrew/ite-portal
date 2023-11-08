@@ -47,6 +47,7 @@ import { BusinessGlossaryComponent } from './business-glossary/business-glossary
 import { DataTrackingSystemInventoryComponent } from './data-tracking-system-inventory/data-tracking-system-inventory.component';
 import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-conventions/ite-database-naming-conventions.component';
 import { DataDictionaryComponent } from './data-dictionary/data-dictionary.component';
+import { ProviderLoginsComponent } from './executive/provider-logins.component';
 
 const isIE =
   window.navigator.userAgent.includes('MSIE ') ||
@@ -59,10 +60,12 @@ const gatewayApiUrl = environment.gatewayApi || '';
 const portalApiUrl = environment.portalApi || '';
 
 export function msalInstanceFactory(): IPublicClientApplication {
-  console.log("Making sure correct branch by NX_AD_CLIENT_ID: "+NX_AD_CLIENT_ID);
-  console.log("Making sure correct branch by NX_AD_TID: "+NX_AD_TID);
-  console.log("Making sure correct branch by gatewayApiUrl: "+gatewayApiUrl);
-  console.log("Making sure correct branch by portalApiUrl: "+portalApiUrl);
+  console.log(
+    'Making sure correct branch by NX_AD_CLIENT_ID: ' + NX_AD_CLIENT_ID
+  );
+  console.log('Making sure correct branch by NX_AD_TID: ' + NX_AD_TID);
+  console.log('Making sure correct branch by gatewayApiUrl: ' + gatewayApiUrl);
+  console.log('Making sure correct branch by portalApiUrl: ' + portalApiUrl);
   return new PublicClientApplication({
     auth: {
       clientId: NX_AD_CLIENT_ID,
@@ -131,7 +134,10 @@ const routes: Routes = [
         path: 'executive-dashboards/population-served',
         component: FakePageComponent,
       },
-
+      {
+        path: 'executive-dashboards/provider-logins',
+        component: ProviderLoginsComponent,
+      },
       {
         path: 'claims',
         component: FakePageComponent,
