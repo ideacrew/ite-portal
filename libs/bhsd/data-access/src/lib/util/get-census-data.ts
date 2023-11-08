@@ -150,8 +150,7 @@ const getGroup = (
   return groupedMap;
 };
 
-const getValidRecords = (records: ExtractRecordValidation[], reportingPeriod: Date, reportingPeriodEnd: Date): ExtractRecordValidation[] => {
-  return records.filter((record) => {
+const getValidRecords = (records: ExtractRecordValidation[], reportingPeriod: Date, reportingPeriodEnd: Date): ExtractRecordValidation[] => records.filter((record) => {
     const startsInPeriod = getDate(record.payload.admission_date) !== 'Invalid' &&
       new Date(record.payload.admission_date).getTime() <=
       reportingPeriodEnd.getTime();
@@ -160,4 +159,3 @@ const getValidRecords = (records: ExtractRecordValidation[], reportingPeriod: Da
     const endsInPeriod = hasDischargeDate && dischargeDate.getTime() >= reportingPeriod.getTime();
     return startsInPeriod || endsInPeriod;
 });
-};
