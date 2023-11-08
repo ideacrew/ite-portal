@@ -26,7 +26,7 @@ import { RouterLink } from '@angular/router';
       All times are displayed in UTC
     </small>
 
-    <table *ngIf="sortedProviders$ | async as results">
+    <table *ngIf="sortedProviders$ | async as results; else loading">
       <thead>
         <th>Provider Name</th>
         <th>Last Activity</th>
@@ -47,6 +47,10 @@ import { RouterLink } from '@angular/router';
         </tr>
       </tbody>
     </table>
+
+    <ng-template #loading>
+      <div class="loading">Loading...</div>
+    </ng-template>
   `,
   styles: [
     `
@@ -65,6 +69,14 @@ import { RouterLink } from '@angular/router';
         width: 16px;
         height: 16px;
         font-size: 16px;
+      }
+
+      .loading {
+        background: var(--grey-010);
+        height: calc(100% - 300px);
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
       }
     `,
   ],
