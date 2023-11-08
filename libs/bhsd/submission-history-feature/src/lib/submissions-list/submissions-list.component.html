@@ -15,26 +15,27 @@
             required
           >
             <option value="" disabled="true">Selector</option>
-            <option data-valueType="date" value="created_at">
+            <option data-valueType="date" value="created_at" [selected]="criterion.selector === 'created_at'">
               Submission Date
             </option>
-            <option data-valueType="date" value="coverage_start">
+            <option data-valueType="date" value="coverage_start" [selected]="criterion.selector === 'coverage_start'">
               Reporting Period Start Date
             </option>
-            <option data-valueType="date" value="coverage_end">
+            <option data-valueType="date" value="coverage_end" [selected]="criterion.selector === 'coverage_end'">
               Reporting Period End Date
             </option>
             <option
               data-valueType="select"
               value="provider_id"
+              [selected]="criterion.selector === 'provider_id'"
               *ngIf="isDBHUser"
             >
               Provider Name
             </option>
-            <option data-valueType="numeric_range" value="record_count">
+            <option data-valueType="numeric_range" value="record_count" [selected]="criterion.selector === 'record_count'">
               Record Count
             </option>
-            <option data-valueType="numeric_range" value="pass_count">
+            <option data-valueType="numeric_range" value="pass_count" [selected]="criterion.selector === 'pass_count'">
               Pass Rate
             </option>
           </select>
