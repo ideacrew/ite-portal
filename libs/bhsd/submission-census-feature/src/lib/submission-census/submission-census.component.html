@@ -29,7 +29,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>Total Episodes</td>
+          <td>Total Episodes in Reporting Period</td>
           <td class="numeric">{{ census.totalEpisodes.total }}</td>
           <td class="numeric">
             {{ census.totalEpisodes.mhInitialAdmissions }}
@@ -167,6 +167,11 @@
                 .coOccurringRecords
             }}
           </td>
+        </tr>
+        <tr *ngIf="census.invalidRecordsCount && census.invalidRecordsCount > 0">
+          <td>Episodes From Outside Reporting Period</td>
+          <td class="numeric">{{ census.invalidRecordsCount }}</td>
+          <td colspan="5"></td>
         </tr>
       </tbody>
     </table>

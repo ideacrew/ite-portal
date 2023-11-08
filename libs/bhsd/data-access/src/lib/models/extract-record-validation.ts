@@ -155,6 +155,7 @@ export type ExtractSubmissionCensusBreakdown = {
   dischargesDuringReportingPeriod: Metric;
   censusAtEndOfReportingPeriod: Metric;
   countOfUniqueClientsServedDuringReportingPeriod: Metric;
+  invalidRecordsCount?: number;
 };
 
 export type Metric = {

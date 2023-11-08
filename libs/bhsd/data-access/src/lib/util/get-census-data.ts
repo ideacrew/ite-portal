@@ -13,10 +13,15 @@ export const convertExtractToCensus = (
   const reportingPeriod = new Date(coverage_start);
   reportingPeriod.setUTCHours(0,0,0,0)
   const reportingPeriodEnd = new Date(coverage_end);
-  reportingPeriodEnd.setUTCHours(23,59,59,999)
-  const totalEpisodes = getMetrics(records);
+  reportingPeriodEnd.setUTCHours(23,59,59,999);
+  // records from outside of the reporting period should not be included in the census
+  // logic for this is in getValidRecords
+  // (exclusion : [admission_date] > [reporting_period_end_date] OR [discharge_date] < [reporting_period_start_date])
+  const validRecords = getValidRecords(records, reportingPeriod, reportingPeriodEnd);
+  const invalidRecordsCount = records.length - validRecords.length;
+  const totalEpisodes = getMetrics(validRecords);
   const censusAtStartOfReportingPeriod = getMetrics(
-    records.filter(
+    validRecords.filter(
       (record) =>
         getDate(record.payload.admission_date) !== 'Invalid' &&
         new Date(record.payload.admission_date).getTime() <
@@ -24,7 +29,7 @@ export const convertExtractToCensus = (
     )
   );
   const admissionsTransfersDuringReportingPeriod = getMetrics(
-    records.filter(
+    validRecords.filter(
       (record) =>
         getDate(record.payload.admission_date) !== 'Invalid' &&
         new Date(record.payload.admission_date).getTime() >=
@@ -34,9 +39,9 @@ export const convertExtractToCensus = (
     )
   );
   const countOfUniqueClientsServedDuringReportingPeriod =
-    getUniqueClientMetrics(records);
+    getUniqueClientMetrics(validRecords);
   const dischargesDuringReportingPeriod = getMetrics(
-    records.filter(
+    validRecords.filter(
       (record) =>
         record.payload.discharge_date &&
         getDate(record.payload.discharge_date) !== 'Invalid' &&
@@ -47,7 +52,7 @@ export const convertExtractToCensus = (
     )
   );
   const censusAtEndOfReportingPeriod = getMetrics(
-    records.filter(
+    validRecords.filter(
       (record) =>
         record.payload.discharge_date === undefined ||
         record.payload.discharge_date === null ||
@@ -61,6 +66,7 @@ export const convertExtractToCensus = (
     dischargesDuringReportingPeriod,
     censusAtEndOfReportingPeriod,
     countOfUniqueClientsServedDuringReportingPeriod,
+    invalidRecordsCount
   };
 };
 
@@ -142,4 +148,16 @@ const getGroup = (
     }
   }
   return groupedMap;
+};
+
+const getValidRecords = (records: ExtractRecordValidation[], reportingPeriod: Date, reportingPeriodEnd: Date): ExtractRecordValidation[] => {
+  return records.filter((record) => {
+    const startsInPeriod = getDate(record.payload.admission_date) !== 'Invalid' &&
+      new Date(record.payload.admission_date).getTime() <=
+      reportingPeriodEnd.getTime();
+    const dischargeDate = getDate(record.payload.discharge_date || '');
+    const hasDischargeDate = dischargeDate && dischargeDate !== 'Invalid';
+    const endsInPeriod = hasDischargeDate && dischargeDate.getTime() >= reportingPeriod.getTime();
+    return startsInPeriod || endsInPeriod;
+});
 };
