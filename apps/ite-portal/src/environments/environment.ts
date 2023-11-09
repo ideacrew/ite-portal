@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  gatewayApi: 'http://localhost:4001',
-  portalApi: 'http://localhost:4000',
+  gatewayApi: 'https://api.provider.dev.dbhite.com',
+  portalApi: 'https://api.portal.dev.dbhite.com',
   NX_AD_CLIENT_ID: process.env['NX_AD_CLIENT_ID'],
   NX_AD_TID_PROD: process.env['NX_AD_TID'],
 };
