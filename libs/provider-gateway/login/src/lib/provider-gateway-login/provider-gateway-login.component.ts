@@ -8,9 +8,9 @@ import {
   MsalBroadcastService,
   MsalService,
 } from '@azure/msal-angular';
-import { AuthenticationResult, EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
+//import { AuthenticationResult, EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+//import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'dbh-provider-gateway-login',
@@ -51,43 +51,44 @@ export class ProviderGatewayLoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.instance.enableAccountStorageEvents();
+    console.log("this is the login component");
+    // this.authService.instance.enableAccountStorageEvents();
 
-    this.msalBroadcastService.inProgress$
-      .pipe(
-          filter((status: InteractionStatus) => status === InteractionStatus.None),
-          takeUntil(this._destroying$)
-      )
-      .subscribe(() => {
-        this.checkAndSetActiveAccount();
-      })
+    // this.msalBroadcastService.inProgress$
+    //   .pipe(
+    //       filter((status: InteractionStatus) => status === InteractionStatus.None),
+    //       takeUntil(this._destroying$)
+    //   )
+    //   .subscribe(() => {
+    //     this.checkAndSetActiveAccount();
+    //   })
 
-    this.msalBroadcastService.msalSubject$
-        .pipe(
-            filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS
-                || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS
-                || msg.eventType === EventType.SSO_SILENT_SUCCESS),
-            takeUntil(this._destroying$)
-        )
-        .subscribe((result: EventMessage) => {
-          const payload = result.payload as AuthenticationResult;
-          this.authService.instance.setActiveAccount(payload.account);
-          this.checkAndSetActiveAccount();
-          return result;
-        });
+    // this.msalBroadcastService.msalSubject$
+    //     .pipe(
+    //         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS
+    //             || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS
+    //             || msg.eventType === EventType.SSO_SILENT_SUCCESS),
+    //         takeUntil(this._destroying$)
+    //     )
+    //     .subscribe((result: EventMessage) => {
+    //       const payload = result.payload as AuthenticationResult;
+    //       this.authService.instance.setActiveAccount(payload.account);
+    //       this.checkAndSetActiveAccount();
+    //       return result;
+    //     });
 
-    this.msalBroadcastService.msalSubject$
-        .pipe(
-            filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_FAILURE || msg.eventType === EventType.ACQUIRE_TOKEN_FAILURE),
-            takeUntil(this._destroying$)
-        )
-        .subscribe((result: EventMessage) => {
-            // Check for forgot password error
-            // Learn more about AAD error codes at https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
-            if (result.error && result.error.message.indexOf('AADB2C90118') > -1) {
-              this.login();
-            };
-        });
+    // this.msalBroadcastService.msalSubject$
+    //     .pipe(
+    //         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_FAILURE || msg.eventType === EventType.ACQUIRE_TOKEN_FAILURE),
+    //         takeUntil(this._destroying$)
+    //     )
+    //     .subscribe((result: EventMessage) => {
+    //         // Check for forgot password error
+    //         // Learn more about AAD error codes at https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
+    //         if (result.error && result.error.message.indexOf('AADB2C90118') > -1) {
+    //           this.login();
+    //         };
+    //     });
 
   }
 
