@@ -30,6 +30,6 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
             .join(',')
         : ''
     )
-    .join('\n');
+    .join('\r\n');
   return columns.join(',') + '\r\n' + rowContent;
 };

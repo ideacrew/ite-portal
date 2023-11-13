@@ -107,9 +107,8 @@
           <button
             class="button-outline download-button"
             (click)="
-              downloadCsv(
+                downloadFailedCsv(
                 data.records,
-                payloadFieldHeaders,
                 'failing_records.csv'
               )
             "
