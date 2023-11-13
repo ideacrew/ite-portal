@@ -16,11 +16,12 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
         ? columns
             .map((key) => {
               const cellData = row[key as keyof typeof row] as string;
+
               let cell =
                 cellData === null || cellData === undefined ? '' : cellData;
               if (cellData) {
                 cell =
-                  cellData.search(/([\n",])/g) >= 0
+                  String(cellData).search(/([\n",])/g) >= 0
                     ? `"${cellData}"`
                     : `${cellData}`;
               }
@@ -29,6 +30,6 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
             .join(',')
         : ''
     )
-    .join('\n');
+    .join('\r\n');
   return columns.join(',') + '\r\n' + rowContent;
 };
