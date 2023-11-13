@@ -10,8 +10,6 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
   if (!rows || rows.length === 0) {
     return '';
   }
-  console.log(rows);
-  console.log(columns);
   const rowContent = rows
     .map((row) =>
       typeof row == 'object'
