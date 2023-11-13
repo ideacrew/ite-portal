@@ -10,17 +10,20 @@ const convertToCsv = (rows: object[], columns: string[]): string => {
   if (!rows || rows.length === 0) {
     return '';
   }
+  console.log(rows);
+  console.log(columns);
   const rowContent = rows
     .map((row) =>
       typeof row == 'object'
         ? columns
             .map((key) => {
               const cellData = row[key as keyof typeof row] as string;
+
               let cell =
                 cellData === null || cellData === undefined ? '' : cellData;
               if (cellData) {
                 cell =
-                  cellData.search(/([\n",])/g) >= 0
+                  String(cellData).search(/([\n",])/g) >= 0
                     ? `"${cellData}"`
                     : `${cellData}`;
               }
