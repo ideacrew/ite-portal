@@ -11,10 +11,10 @@ export class ValidationBreakdownComponent {
   @Input() fail!: number;
 
   get passPercentage(): number {
-    return Math.round((this.pass / this.totalRecords) * 100);
+    return Math.round((this.pass / this.totalRecords) * 1000) / 10;
   }
 
   get failPercentage(): number {
-    return Math.round((this.fail / this.totalRecords) * 100);
+    return Math.round((this.fail / this.totalRecords) * 1000) / 10;
   }
 }

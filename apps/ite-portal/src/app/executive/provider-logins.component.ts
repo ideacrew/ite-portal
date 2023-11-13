@@ -21,7 +21,7 @@ import { RouterLink } from '@angular/router';
 
     <h1>Provider Logins</h1>
 
-    <small>
+    <small class="nonvisiblechange">
       <span class="material-symbols-outlined"> info </span>
       All times are displayed in UTC
     </small>

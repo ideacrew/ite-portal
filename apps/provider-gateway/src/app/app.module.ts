@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/naming-convention */
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -74,7 +73,7 @@ export function msalInstanceFactory(): IPublicClientApplication {
   });
 }
 
-export function msalGuardConfigFactory(): MsalGuardConfiguration {
+export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
     loginFailedRoute: './',
@@ -84,7 +83,7 @@ export function msalGuardConfigFactory(): MsalGuardConfiguration {
   };
 }
 
-export function msalInterceptorConfigFactory(): MsalInterceptorConfiguration {
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, string[]>();
   protectedResourceMap.set(gatewayApiUrl, [readScope]);
   protectedResourceMap.set(portalApiUrl, [readScope]);
@@ -121,7 +120,7 @@ export function msalInterceptorConfigFactory(): MsalInterceptorConfiguration {
 
         {
           path: '**',
-          redirectTo: 'provider-gateway/login',
+          redirectTo: 'provider-gateway',
           pathMatch: 'full',
         },
       ],
@@ -146,13 +145,13 @@ export function msalInterceptorConfigFactory(): MsalInterceptorConfiguration {
     },
     {
       provide: MSAL_GUARD_CONFIG,
-      useFactory: msalGuardConfigFactory,
+      useFactory: MSALGuardConfigFactory,
     },
     MsalService,
     MsalGuard,
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: msalInterceptorConfigFactory,
+      useFactory: MSALInterceptorConfigFactory,
     },
     {
       provide: APP_TITLE,
