@@ -141,6 +141,9 @@ export class SubmissionsListComponent {
 
   removeCondition(index: number) {
     this.criteria.splice(index, 1);
+    if (this.criteria.length === 0) {
+      this.criteria.push({});
+    }
     this.checkValid();
   }
 
