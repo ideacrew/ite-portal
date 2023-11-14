@@ -50,6 +50,9 @@ export class AdvancedClaimSearchComponent {
 
   addCondition() {
     this.criteria.push({});
+    if (this.criteria.length === 0) {
+      this.criteria.push({});
+    }
     this.checkValid();
   }
 
