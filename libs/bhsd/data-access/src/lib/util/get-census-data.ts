@@ -157,5 +157,5 @@ const getValidRecords = (records: ExtractRecordValidation[], reportingPeriod: Da
     const dischargeDate = getDate(record.payload.discharge_date || '');
     const hasDischargeDate = dischargeDate && dischargeDate !== 'Invalid';
     const endsInPeriod = hasDischargeDate && dischargeDate.getTime() >= reportingPeriod.getTime();
-    return startsInPeriod || endsInPeriod;
+    return startsInPeriod && endsInPeriod;
 });
