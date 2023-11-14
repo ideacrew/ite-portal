@@ -45,14 +45,14 @@ export class AdvancedClaimSearchComponent {
 
   removeCondition(index: number) {
     this.criteria.splice(index, 1);
+    if (this.criteria.length === 0) {
+      this.criteria.push({});
+    }
     this.checkValid();
   }
 
   addCondition() {
     this.criteria.push({});
-    if (this.criteria.length === 0) {
-      this.criteria.push({});
-    }
     this.checkValid();
   }
 
