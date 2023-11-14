@@ -180,7 +180,7 @@ export class SubmitExtractComponent implements OnInit {
             header: true,
             skipEmptyLines: true,
             transformHeader:function(h) {
-              return h.trim();
+              return h.trim().toLowerCase();
             },
             complete: (results) => results.data,
           }).data;
