@@ -14,6 +14,15 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NX_AD_CLIENT_ID: ${{ secrets.NX_AD_CLIENT_ID }}
+      NX_AD_TID: ${{ secrets.NX_AD_TID }}
+      NX_AD_CLIENT_ID_PROD: ${{ secrets.NX_AD_CLIENT_ID_PROD }}
+      NX_AD_TID_PROD: ${{ secrets.NX_AD_TID_PROD }}
+      NX_B2C_SUBDOMAIN: ${{ secrets.NX_B2C_SUBDOMAIN }}
+      NX_B2C_SUBDOMAIN_PROD: ${{ secrets.NX_B2C_SUBDOMAIN_PROD }}
+      NX_GATEWAY_C_ID: ${{ secrets.NX_GATEWAY_C_ID }}
+      NX_GATEWAY_C_ID_PROD: ${{ secrets.NX_GATEWAY_C_ID_PROD }}
     steps:
       - uses: actions/checkout@v3
         with:
