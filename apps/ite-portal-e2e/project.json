@@ -20,6 +20,15 @@
               "with": "apps/ite-portal/src/environments/environment.e2e.ts"
             }
           ]
+        },
+        "uat": {
+          "devServerTarget": "ite-portal:serve:uat",
+          "fileReplacements": [
+            {
+              "replace": "apps/ite-portal/src/environments/environment.ts",
+              "with": "apps/ite-portal/src/environments/environment.e2e.ts"
+            }
+          ]
         }
       }
     },
