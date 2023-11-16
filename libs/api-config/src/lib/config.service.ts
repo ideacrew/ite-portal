@@ -10,8 +10,8 @@ export class ConfigService {
   // portalApiUrl: string = environment.portalApi || '';
   // By default the gatewayApiUrl is set to azure pattern of urls
   baseUrl: string = this.getBaseUrl(window.location.hostname);
-  gatewayApiUrl = 'https://api-provider.dbh.dc.gov';
-  portalApiUrl = 'https://api-portal.dbh.dc.gov';
+  gatewayApiUrl = 'https://provider-gateway-api.dbh.dc.gov';
+  portalApiUrl = 'https://ite-api.dbh.dc.gov';
 
   constructor() {
     const [urlEnvironment] = window.location.host.split('.');
@@ -22,6 +22,9 @@ export class ConfigService {
     } else if (window.location.host.includes('localhost')) {
       this.gatewayApiUrl = 'http://localhost:4001';
       this.portalApiUrl = 'http://localhost:4000';
+    } else if (window.location.host.includes('uat')) {
+      this.gatewayApiUrl = 'https://api-provider.dbh.dc.gov';
+      this.portalApiUrl = 'https://api-portal.dbh.dc.gov';
     } else if (window.location.hostname.includes('dbh-ite')) {
       // for old aws deployments. this will be removed once fully migrated to azure.
       this.gatewayApiUrl = 'https://bff-dev.dbh-ite.com';
