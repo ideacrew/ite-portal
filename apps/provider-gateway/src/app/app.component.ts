@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
   envBanner() {
     const banner = document.createElement('div');
     banner.classList.add('env-banner');
-    banner.innerHTML = `<div>This is a TESTING file submission site. Visit provider-gateway.dbh.dc.gov for official data submission.</div>`;
+    banner.innerHTML = `<div>DBH BEHAVIORAL HEALTH SUPPLEMENTAL DATA (BHSD) TESTING SITE</div>`;
     document.body.prepend(banner);
   }
 }
