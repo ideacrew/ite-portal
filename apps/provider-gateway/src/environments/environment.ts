@@ -6,11 +6,8 @@
 export const environment = {
   production: false,
   UAT: false,
-  appInactiveTimeout: 900, // 15 minutes
-  NX_GATEWAY_API: 'http://localhost:4001',
-  NX_PORTAL_API: 'http://localhost:4000',
-  // NX_GATEWAY_API: 'https://api.provider.dev.dbhite.com',
-  // NX_PORTAL_API: 'https://api.portal.dev.dbhite.com',
+  NX_GATEWAY_API: 'https://api.provider.dev.dbhite.com',
+  NX_PORTAL_API: 'https://api.portal.dev.dbhite.com',
   B2C_SUBDOMAIN: process.env['NX_B2C_SUBDOMAIN'],
   NX_GATEWAY_C_ID: process.env['NX_GATEWAY_C_ID'],
 };
