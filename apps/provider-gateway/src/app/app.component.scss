@@ -1,0 +1,17 @@
+::ng-deep .env-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--warning-120);
+  color: white;
+  font-size: 12px;
+  padding: 2px;
+
+  div {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
