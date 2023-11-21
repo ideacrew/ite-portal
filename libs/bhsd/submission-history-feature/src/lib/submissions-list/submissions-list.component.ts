@@ -71,7 +71,7 @@ export class SubmissionsListComponent {
     );
   providers$ = this.responseDetails$.subscribe((response: Extracts) => {
     const providersHash = response.providers.map((provider) => ({
-      value: provider.id,
+      value: provider.id.toString(),
       display: provider.name,
     }));
     this.providers = providersHash;
