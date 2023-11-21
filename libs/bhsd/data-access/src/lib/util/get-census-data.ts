@@ -154,6 +154,9 @@ const getValidRecords = (records: ExtractRecordValidation[], reportingPeriod: Da
     const startsInPeriod = getDate(record.payload.admission_date) !== 'Invalid' &&
       new Date(record.payload.admission_date).getTime() <=
       reportingPeriodEnd.getTime();
+    if (!record.payload.discharge_date) {
+      return startsInPeriod
+    }
     const dischargeDate = getDate(record.payload.discharge_date || '');
     const hasDischargeDate = dischargeDate && dischargeDate !== 'Invalid';
     const endsInPeriod = hasDischargeDate && dischargeDate.getTime() >= reportingPeriod.getTime();
