@@ -116,13 +116,13 @@
               <option value="" disabled="true">Select Value</option>
               <ng-container *ngIf="criterion.options; else asyncOptions">
                 <ng-container *ngFor="let option of criterion.options">
-                  <option [value]="option.value">{{ option.display }}</option>
+                  <option [value]="option.value" [selected]="criterion.value === option.value">{{ option.display }}</option>
                 </ng-container>
               </ng-container>
               <ng-template #asyncOptions>
                 <ng-container *ngIf="criterion.asyncOptions | async as options">
                   <ng-container *ngFor="let option of options">
-                    <option [value]="option.value">{{ option.value }}</option>
+                    <option [value]="option.value" [selected]="criterion.value === option.value">{{ option.value }}</option>
                   </ng-container>
                 </ng-container>
               </ng-template>
