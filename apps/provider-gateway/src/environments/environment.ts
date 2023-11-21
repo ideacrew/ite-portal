@@ -5,10 +5,11 @@
 
 export const environment = {
   production: false,
+  UAT: false,
   NX_GATEWAY_API: 'https://api.provider.dev.dbhite.com',
   NX_PORTAL_API: 'https://api.portal.dev.dbhite.com',
-  B2C_SUBDOMAIN: process.env['NX_B2C_SUBDOMAIN'] || '',
-  NX_GATEWAY_C_ID: process.env['NX_GATEWAY_C_ID'] || '',
+  B2C_SUBDOMAIN: process.env['NX_B2C_SUBDOMAIN'],
+  NX_GATEWAY_C_ID: process.env['NX_GATEWAY_C_ID'],
 };
 
 /*
