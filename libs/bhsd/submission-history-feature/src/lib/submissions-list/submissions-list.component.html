@@ -152,7 +152,10 @@
           </ng-template>
         </div>
       </div>
-      <div *ngIf="!searchDisabled">
+      <div *ngIf="criterion.selector &&
+      criterion.valueType &&
+      criterion.relative &&
+      criterion.value">
         <button
           type="submit"
           class="button-outline"
