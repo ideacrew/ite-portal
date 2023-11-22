@@ -2,8 +2,8 @@ name: "SCAN: Release to production"
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - trunk
 
 concurrency:
   group: prod-${{ github.ref }}
