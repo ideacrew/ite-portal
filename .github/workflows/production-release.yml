@@ -3,7 +3,7 @@ name: "SCAN: Release to production"
 on:
   push:
     branches:
-      - trunk
+      - ite-scan
 
 concurrency:
   group: prod-${{ github.ref }}
