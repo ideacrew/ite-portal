@@ -1,11 +1,9 @@
-name: Release to production
+name: "SCAN: Release to production"
 
 on:
   push:
     tags:
       - '*'
-  release:
-    types: [released]
 
 concurrency:
   group: prod-${{ github.ref }}
@@ -14,92 +12,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NX_AD_CLIENT_ID: ${{ secrets.NX_AD_CLIENT_ID }}
-      NX_AD_TID: ${{ secrets.NX_AD_TID }}
-      NX_AD_CLIENT_ID_PROD: ${{ secrets.NX_AD_CLIENT_ID_PROD }}
-      NX_AD_TID_PROD: ${{ secrets.NX_AD_TID_PROD }}
-      NX_B2C_SUBDOMAIN: ${{ secrets.NX_B2C_SUBDOMAIN }}
-      NX_B2C_SUBDOMAIN_PROD: ${{ secrets.NX_B2C_SUBDOMAIN_PROD }}
-      NX_GATEWAY_C_ID: ${{ secrets.NX_GATEWAY_C_ID }}
-      NX_GATEWAY_C_ID_PROD: ${{ secrets.NX_GATEWAY_C_ID_PROD }}
-      NX_AD_CLIENT_ID_UAT: ${{ secrets.NX_AD_CLIENT_ID_UAT }}
-      NX_AD_TID_UAT: ${{ secrets.NX_AD_TID_UAT }}
-      NX_B2C_SUBDOMAIN_UAT: ${{ secrets.NX_B2C_SUBDOMAIN_UAT }}
-      NX_GATEWAY_C_ID_UAT: ${{ secrets.NX_GATEWAY_C_ID_UAT }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: actions/cache@v3
-        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
-      - uses: nrwl/nx-set-shas@v2
-        with:
-          main-branch-name: trunk
-      - run: NX_BASE=`git tag | tail -n 2 | head -n 1` npx nx affected --target=build --configuration=production --parallel=2
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: affected-apps
-          path: dist/apps
-  deploy:
-    environment: aws-prod
-    needs: [build]
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: actions/cache@v3
-        id: npm-cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node16-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node16-
-      - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
-      - uses: nrwl/nx-set-shas@v2
-        with:
-          main-branch-name: trunk
-      - name: Download artifact
-        id: download-artifact
-        uses: actions/download-artifact@v3
-        continue-on-error: true
-        with:
-          name: affected-apps
-          path: dist/apps
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      - name: run many deployments
-        run: npx nx affected --target=deploy:prod
-      - name: Check portal folder existence
-        id: check_folder_portal
-        uses: andstor/file-existence-action@v1
-        with:
-          files: 'dist/apps/ite-portal'
       - name: Deploy Portal to Azure Static Web Apps
         if: steps.check_folder_portal.outputs.files_exists == 'true'
         uses: Azure/static-web-apps-deploy@v1
@@ -108,24 +24,7 @@ jobs:
           # repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: 'dist/apps/ite-portal' # App source code path
-          output_location: '' # Built app content directory
-          skip_api_build: true
-          skip_app_build: true
-      - name: Check provider folder existence
-        id: check_folder_provider
-        uses: andstor/file-existence-action@v1
-        with:
-          files: 'dist/apps/provider-gateway'
-      - name: Deploy Provider to Azure Static Web Apps
-        if: steps.check_folder_provider.outputs.files_exists == 'true'
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BRAVE_OCEAN_01C470410 }}
-          # repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-          action: 'upload'
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: 'dist/apps/provider-gateway' # App source code path
+          app_location: '.' # App source code path
           output_location: '' # Built app content directory
           skip_api_build: true
           skip_app_build: true
