@@ -6,7 +6,7 @@ import { NxWelcomeComponent } from './nx-welcome.component';
   standalone: true,
   imports: [NxWelcomeComponent, RouterModule],
   selector: 'app-root',
-  template: `<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>`,
+  template: `<router-outlet></router-outlet>`,
   styles: [''],
 })
 export class AppComponent {
