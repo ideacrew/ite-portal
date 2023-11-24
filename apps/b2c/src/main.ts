@@ -37,7 +37,7 @@ import {
 } from '@azure/msal-browser';
 import { AppComponent } from './app/app.component';
 import { HomeComponent } from './app/home/home.component';
-// import { ProfileComponent } from './app/profile/profile.component';
+import { ProfileComponent } from './app/profile/profile.component';
 // import { FailedComponent } from './app/failed/failed.component';
 import { environment } from './environments/environment';
 
@@ -96,11 +96,11 @@ const initialNavigation =
     : withDisabledInitialNavigation();
 
 export const Routes: Route[] = [
-  // {
-  //   path: 'profile',
-  //   component: ProfileComponent,
-  //   canActivate: [MsalGuard],
-  // },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [MsalGuard],
+  },
   {
     path: '',
     component: HomeComponent,
