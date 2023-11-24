@@ -38,7 +38,7 @@ import {
 import { AppComponent } from './app/app.component';
 import { HomeComponent } from './app/home/home.component';
 import { ProfileComponent } from './app/profile/profile.component';
-// import { FailedComponent } from './app/failed/failed.component';
+import { FailedComponent } from './app/failed/failed.component';
 import { environment } from './environments/environment';
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
@@ -105,10 +105,10 @@ export const Routes: Route[] = [
     path: '',
     component: HomeComponent,
   },
-  // {
-  //   path: 'login-failed',
-  //   component: FailedComponent,
-  // },
+  {
+    path: 'login-failed',
+    component: FailedComponent,
+  },
 ];
 
 if (environment.production) {
