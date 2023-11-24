@@ -8,15 +8,24 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/b2c",
         "index": "apps/b2c/src/index.html",
         "main": "apps/b2c/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/b2c/tsconfig.app.json",
-        "assets": ["apps/b2c/src/favicon.ico", "apps/b2c/src/assets"],
-        "styles": ["apps/b2c/src/styles.scss"],
+        "assets": [
+          "apps/b2c/src/favicon.ico",
+          "apps/b2c/src/assets"
+        ],
+        "styles": [
+          "apps/b2c/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -41,7 +50,13 @@
           "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/b2c/src/environments/environment.ts",
+              "with": "apps/b2c/src/environments/environment.development.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -69,14 +84,21 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/b2c/**/*.ts", "apps/b2c/**/*.html"]
+        "lintFilePatterns": [
+          "apps/b2c/**/*.ts",
+          "apps/b2c/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/b2c/jest.config.ts",
         "passWithNoTests": true
