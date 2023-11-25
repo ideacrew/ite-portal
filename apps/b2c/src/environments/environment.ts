@@ -6,13 +6,14 @@ export const environment = {
   production: false,
   msalConfig: {
     auth: {
-      clientId: 'ENTER_CLIENT_ID',
-      authority: 'ENTER_AUTHORITY',
+      clientId: '37678051-8925-41c9-b29a-4f4b58165f58',
+      authority:
+        'https://login.microsoftonline.com/8c3c4b1e-9b0a-4b1a-8b7a-5b5c9d9b1b8e',
     },
   },
   apiConfig: {
-    scopes: ['ENTER_SCOPE'],
-    uri: 'ENTER_URI',
+    scopes: [],
+    uri: '',
   },
 };
 
