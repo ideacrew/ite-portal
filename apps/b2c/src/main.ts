@@ -1,4 +1,8 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  enableProdMode,
+  importProvidersFrom,
+} from '@angular/core';
 import {
   HTTP_INTERCEPTORS,
   withInterceptorsFromDi,
@@ -40,6 +44,8 @@ import { HomeComponent } from './app/home/home.component';
 import { ProfileComponent } from './app/profile/profile.component';
 import { FailedComponent } from './app/failed/failed.component';
 import { environment } from './environments/environment';
+import { LastActiveService } from './app/services/last-active.service';
+import { AuthService } from './app/services/auth.service';
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
@@ -51,7 +57,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       clientId: environment.msalConfig.auth.clientId,
       authority: environment.msalConfig.auth.authority,
       redirectUri: '/',
-      postLogoutRedirectUri: '/',
+      postLogoutRedirectUri: 'https://localhost:4202/',
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
@@ -147,5 +153,18 @@ bootstrapApplication(AppComponent, {
     MsalService,
     MsalGuard,
     MsalBroadcastService,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [LastActiveService],
+      useFactory: (lastActiveService: LastActiveService) => () =>
+        lastActiveService.setUp(),
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [AuthService],
+      useFactory: (authService: AuthService) => () => authService.setUp(),
+    },
   ],
 }).catch((err) => console.error(err));

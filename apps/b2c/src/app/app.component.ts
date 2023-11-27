@@ -20,6 +20,9 @@ import {
 } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { MessagesComponent } from './messages/messages.component';
+import { LastActiveComponent } from './last-active/last-active.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -59,6 +62,8 @@ import { filter, takeUntil } from 'rxjs/operators';
     </mat-toolbar>
     <div class="container">
       <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
+      <last-active></last-active>
+      <messages></messages>
       <router-outlet *ngIf="!isIframe"></router-outlet>
     </div>
   `,
@@ -80,6 +85,8 @@ import { filter, takeUntil } from 'rxjs/operators';
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
+    MessagesComponent,
+    LastActiveComponent,
   ],
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -90,6 +97,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
+    private ourAuthService: AuthService,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService
   ) {}
@@ -152,39 +160,42 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   loginRedirect() {
-    if (this.msalGuardConfig.authRequest) {
-      this.authService.loginRedirect({
-        ...this.msalGuardConfig.authRequest,
-      } as RedirectRequest);
-    } else {
-      this.authService.loginRedirect();
-    }
+    this.ourAuthService.login();
+    // if (this.msalGuardConfig.authRequest) {
+    //   this.authService.loginRedirect({
+    //     ...this.msalGuardConfig.authRequest,
+    //   } as RedirectRequest);
+    // } else {
+    //   this.authService.loginRedirect();
+    // }
   }
 
   loginPopup() {
-    if (this.msalGuardConfig.authRequest) {
-      this.authService
-        .loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
-        .subscribe((response: AuthenticationResult) => {
-          this.authService.instance.setActiveAccount(response.account);
-        });
-    } else {
-      this.authService
-        .loginPopup()
-        .subscribe((response: AuthenticationResult) => {
-          this.authService.instance.setActiveAccount(response.account);
-        });
-    }
+    this.ourAuthService.loginPopup();
+    // if (this.msalGuardConfig.authRequest) {
+    //   this.authService
+    //     .loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
+    //     .subscribe((response: AuthenticationResult) => {
+    //       this.authService.instance.setActiveAccount(response.account);
+    //     });
+    // } else {
+    //   this.authService
+    //     .loginPopup()
+    //     .subscribe((response: AuthenticationResult) => {
+    //       this.authService.instance.setActiveAccount(response.account);
+    //     });
+    // }
   }
 
   logout(popup?: boolean) {
-    if (popup) {
-      this.authService.logoutPopup({
-        mainWindowRedirectUri: '/',
-      });
-    } else {
-      this.authService.logoutRedirect();
-    }
+    this.ourAuthService.logout(popup);
+    // if (popup) {
+    //   this.authService.logoutPopup({
+    //     mainWindowRedirectUri: '/',
+    //   });
+    // } else {
+    //   this.authService.logoutRedirect();
+    // }
   }
 
   ngOnDestroy(): void {
