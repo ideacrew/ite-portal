@@ -10,6 +10,7 @@
   <h1>Demographic Breakdown</h1>
   <dbh-file-information
     [providerName]="submission.provider_name"
+    [providerId]="submission.provider_id"
     [fileName]="submission.file_name"
     [reportingPeriod]="submission.coverage_start | date : 'MMMM, yyyy'"
     [submissionDate]="submission.created_at"

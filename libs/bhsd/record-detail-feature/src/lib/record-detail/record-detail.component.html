@@ -3,6 +3,7 @@
   <h2>{{ vm.record!.payload | getRecordIdentifier }}</h2>
   <dbh-file-information
     [providerName]="vm.submission.provider_name"
+    [providerId]="vm.submission.provider_id"
     [fileName]="vm.submission.file_name"
     [reportingPeriod]="vm.submission.coverage_start | date : 'MMMM, yyyy'"
     [submissionDate]="vm.submission.created_at"
