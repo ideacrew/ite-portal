@@ -1,7 +1,9 @@
 {
   "routes": [
     {
-      "route": "/provider-gateway*"
+      "route": "/*",
+      "serve": "/index.html",
+      "statusCode": 200
     }
 ],
   "navigationFallback": {
