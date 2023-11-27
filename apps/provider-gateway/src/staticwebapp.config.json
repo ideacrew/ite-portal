@@ -1,6 +1,0 @@
-{
-  "globalHeaders": {
-    "content-security-policy": "base-uri 'self'; connect-src https://dcgovdbhb2cprod.b2clogin.com https://dcgovdbhb2cdev.b2clogin.com https://api-provider.dbh.dc.gov https://api-portal.dbh.dc.gov https://api.provider.dev.dbhite.com https://api.portal.dev.dbhite.com https://ite-api.dbh.dc.gov https://provider-gateway-api.dbh.dc.gov; script-src 'self'; object-src 'none'",
-    "Access-Control-Allow-Origin": "*"
-  }
-}
