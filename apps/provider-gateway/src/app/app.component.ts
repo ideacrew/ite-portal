@@ -8,6 +8,7 @@ import {
 import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'dbh-root',
@@ -39,6 +40,10 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.setLoginDisplay();
       });
+
+    if (environment.UAT) {
+      this.envBanner();
+    }
   }
 
   login() {
@@ -58,5 +63,12 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroying$.next();
     this._destroying$.complete();
+  }
+
+  envBanner() {
+    const banner = document.createElement('div');
+    banner.classList.add('env-banner');
+    banner.innerHTML = `<div>DBH BEHAVIORAL HEALTH SUPPLEMENTAL DATA (BHSD) TESTING SITE</div>`;
+    document.body.prepend(banner);
   }
 }

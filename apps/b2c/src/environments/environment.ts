@@ -1,15 +1,20 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-/* eslint-disable @typescript-eslint/naming-convention */
 
 export const environment = {
   production: false,
-  UAT: false,
-  NX_GATEWAY_API: 'https://api.provider.dev.dbhite.com',
-  NX_PORTAL_API: 'https://api.portal.dev.dbhite.com',
-  B2C_SUBDOMAIN: process.env['NX_B2C_SUBDOMAIN'],
-  NX_GATEWAY_C_ID: process.env['NX_GATEWAY_C_ID'],
+  msalConfig: {
+    auth: {
+      clientId: '37678051-8925-41c9-b29a-4f4b58165f58',
+      authority:
+        'https://login.microsoftonline.com/8c3c4b1e-9b0a-4b1a-8b7a-5b5c9d9b1b8e',
+    },
+  },
+  apiConfig: {
+    scopes: [],
+    uri: '',
+  },
 };
 
 /*
