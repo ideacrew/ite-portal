@@ -22,7 +22,7 @@ export class ConfigService {
     } else if (window.location.host.includes('localhost')) {
       this.gatewayApiUrl = 'http://localhost:4001';
       this.portalApiUrl = 'http://localhost:4000';
-    } else if (window.location.host.includes('uat')) {
+    } else if (window.location.host === "provider.dbh.dc.gov" || window.location.host === "portal.dbh.dc.gov") {
       this.gatewayApiUrl = 'https://api-provider.dbh.dc.gov';
       this.portalApiUrl = 'https://api-portal.dbh.dc.gov';
     } else if (window.location.hostname.includes('dbh-ite')) {
