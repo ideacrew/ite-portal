@@ -45,7 +45,7 @@ import { ProfileComponent } from './app/profile/profile.component';
 import { FailedComponent } from './app/failed/failed.component';
 import { environment } from './environments/environment';
 import { LastActiveService } from './app/services/last-active.service';
-import { AuthService } from './app/services/auth.service';
+import { OurAuthService } from './app/services/auth.service';
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
@@ -163,8 +163,8 @@ bootstrapApplication(AppComponent, {
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [AuthService],
-      useFactory: (authService: AuthService) => () => authService.setUp(),
+      deps: [OurAuthService],
+      useFactory: (authService: OurAuthService) => () => authService.setUp(),
     },
   ],
 }).catch((err) => console.error(err));

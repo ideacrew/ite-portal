@@ -11,10 +11,7 @@ import {
   MsalGuardConfiguration,
 } from '@azure/msal-angular';
 import {
-  AuthenticationResult,
   InteractionStatus,
-  PopupRequest,
-  RedirectRequest,
   EventMessage,
   EventType,
 } from '@azure/msal-browser';
@@ -22,7 +19,8 @@ import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { MessagesComponent } from './messages/messages.component';
 import { LastActiveComponent } from './last-active/last-active.component';
-import { AuthService } from './services/auth.service';
+import { OurAuthService } from './services/auth.service';
+import { LastActiveService } from './services/last-active.service';
 
 @Component({
   selector: 'app-root',
@@ -96,8 +94,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly _destroying$ = new Subject<void>();
 
   constructor(
-    @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
-    private ourAuthService: AuthService,
+    private ourAuthService: OurAuthService,
+    private lastActiveService: LastActiveService,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService
   ) {}
@@ -157,45 +155,32 @@ export class AppComponent implements OnInit, OnDestroy {
       let accounts = this.authService.instance.getAllAccounts();
       this.authService.instance.setActiveAccount(accounts[0]);
     }
+
+    if (activeAccount) {
+      console.log('We are logged in');
+      localStorage.setItem(this.ourAuthService.lsLoggedInKey, 'true');
+      this.ourAuthService._loggedIn.next(true);
+    } else {
+      console.log('We are not logged in');
+      localStorage.removeItem(this.ourAuthService.lsLoggedInKey);
+      localStorage.removeItem(this.lastActiveService.lsLastActiveKey);
+      if (this.ourAuthService._loggedIn === undefined) {
+        return;
+      }
+      this.ourAuthService._loggedIn.next(false);
+    }
   }
 
   loginRedirect() {
     this.ourAuthService.login();
-    // if (this.msalGuardConfig.authRequest) {
-    //   this.authService.loginRedirect({
-    //     ...this.msalGuardConfig.authRequest,
-    //   } as RedirectRequest);
-    // } else {
-    //   this.authService.loginRedirect();
-    // }
   }
 
   loginPopup() {
     this.ourAuthService.loginPopup();
-    // if (this.msalGuardConfig.authRequest) {
-    //   this.authService
-    //     .loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
-    //     .subscribe((response: AuthenticationResult) => {
-    //       this.authService.instance.setActiveAccount(response.account);
-    //     });
-    // } else {
-    //   this.authService
-    //     .loginPopup()
-    //     .subscribe((response: AuthenticationResult) => {
-    //       this.authService.instance.setActiveAccount(response.account);
-    //     });
-    // }
   }
 
   logout(popup?: boolean) {
     this.ourAuthService.logout(popup);
-    // if (popup) {
-    //   this.authService.logoutPopup({
-    //     mainWindowRedirectUri: '/',
-    //   });
-    // } else {
-    //   this.authService.logoutRedirect();
-    // }
   }
 
   ngOnDestroy(): void {

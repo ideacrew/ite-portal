@@ -12,5 +12,6 @@ export const environment = {
     uri: 'https://graph.microsoft.com/v1.0/me',
   },
   apiUrl: 'https://localhost:7103',
-  appInactiveTimeout: 900, // 15 minutes
+  // appInactiveTimeout: 900, // 15 minutes
+  appInactiveTimeout: 10, // 15 minutes
 };
