@@ -44,7 +44,6 @@
             "accessibility": "explicit"
           }
         ],
-        "@typescript-eslint/member-ordering": "error",
         "@typescript-eslint/array-type": [
           "error",
           {
