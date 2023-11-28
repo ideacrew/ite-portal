@@ -66,6 +66,27 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "uat": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ite-portal/src/environments/environment.ts",
+              "with": "apps/ite-portal/src/environments/environment.uat.ts"
+            }
+          ],
+          "outputHashing": "all"
         }
       },
       "defaultConfiguration": "production"
@@ -78,6 +99,9 @@
         },
         "development": {
           "browserTarget": "ite-portal:build:development"
+        },
+        "uat": {
+          "browserTarget": "ite-portal:build:uat"
         }
       },
       "defaultConfiguration": "development"

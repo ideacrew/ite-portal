@@ -21,6 +21,10 @@ jobs:
       NX_B2C_SUBDOMAIN_PROD: ${{ secrets.NX_B2C_SUBDOMAIN_PROD }}
       NX_GATEWAY_C_ID: ${{ secrets.NX_GATEWAY_C_ID }}
       NX_GATEWAY_C_ID_PROD: ${{ secrets.NX_GATEWAY_C_ID_PROD }}
+      NX_AD_CLIENT_ID_UAT: ${{ secrets.NX_AD_CLIENT_ID_UAT }}
+      NX_AD_TID_UAT: ${{ secrets.NX_AD_TID_UAT }}
+      NX_B2C_SUBDOMAIN_UAT: ${{ secrets.NX_B2C_SUBDOMAIN_UAT }}
+      NX_GATEWAY_C_ID_UAT: ${{ secrets.NX_GATEWAY_C_ID_UAT }}
     steps:
       - uses: actions/checkout@v3
         with:
