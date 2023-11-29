@@ -25,6 +25,7 @@ import {
   BrowserCacheLocation,
   IPublicClientApplication,
   BrowserUtils,
+  LogLevel,
 } from '@azure/msal-browser';
 
 import { APP_TITLE } from '@dbh/theme';
@@ -55,6 +56,10 @@ const b2cPolicies = {
   authorityDomain: `${subdomain}.b2clogin.com`,
 };
 
+export function loggerCallback(logLevel: LogLevel, message: string) {
+  console.log(message);
+}
+
 export function msalInstanceFactory(): IPublicClientApplication {
   console.log('Making sure correct branch by subdomain: ' + subdomain);
   console.log('Making sure correct branch by gatewayCid: ' + gatewayCid);
@@ -68,7 +73,14 @@ export function msalInstanceFactory(): IPublicClientApplication {
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
-      storeAuthStateInCookie: isIE, // set to true for IE 11
+    },
+    system: {
+      allowNativeBroker: false, // Disables WAM Broker
+      loggerOptions: {
+        loggerCallback,
+        logLevel: LogLevel.Info,
+        piiLoggingEnabled: false,
+      },
     },
   });
 }
