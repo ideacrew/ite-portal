@@ -26,6 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isIframe = false;
   loginDisplay = false;
   private readonly _destroying$ = new Subject<void>();
+  blar$ = this.ourAuthService.loggedIn$;
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
@@ -81,27 +82,35 @@ export class AppComponent implements OnInit, OnDestroy {
      */
     const activeAccount = this.authService.instance.getActiveAccount();
 
+    console.log('Checking the account now');
+
+    if (activeAccount) {
+      console.log('We have an active account');
+    }
+
     if (
       !activeAccount &&
       this.authService.instance.getAllAccounts().length > 0
     ) {
       const accounts = this.authService.instance.getAllAccounts();
       this.authService.instance.setActiveAccount(accounts[0]);
+      // This happens once when we are returned from msal login screen
+      console.log('returned from login');
     }
 
-    if (activeAccount) {
-      console.log('We are logged in');
-      localStorage.setItem(this.ourAuthService.lsLoggedInKey, 'true');
-      this.ourAuthService._loggedIn.next(true);
-    } else {
-      console.log('We are not logged in');
-      localStorage.removeItem(this.ourAuthService.lsLoggedInKey);
-      localStorage.removeItem(this.lastActiveService.lsLastActiveKey);
-      if (this.ourAuthService._loggedIn === undefined) {
-        return;
-      }
-      this.ourAuthService._loggedIn.next(false);
-    }
+    // if (activeAccount) {
+    //   console.log('We are logged in');
+    //   localStorage.setItem(this.ourAuthService.lsLoggedInKey, 'true');
+    //   this.ourAuthService._loggedIn.next(true);
+    // } else {
+    //   console.log('We are not logged in');
+    //   localStorage.removeItem(this.ourAuthService.lsLoggedInKey);
+    //   localStorage.removeItem(this.lastActiveService.lsLastActiveKey);
+    //   if (this.ourAuthService._loggedIn === undefined) {
+    //     return;
+    //   }
+    //   this.ourAuthService._loggedIn.next(false);
+    // }
   }
 
   loginRedirect() {

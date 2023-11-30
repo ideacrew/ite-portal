@@ -37,6 +37,7 @@ export class OurAuthService {
       this.getLoggedInFromLocalStorage() ?? false
     );
     this.loggedIn$ = this._loggedIn.asObservable();
+    // localStorage.setItem(this.lsLoggedInKey, false.toString());
   }
 
   public login() {
@@ -114,6 +115,7 @@ export class OurAuthService {
         map((event) => !!event.newValue)
       )
       .subscribe((loggedIn) => {
+        console.log('auth.setup.fromEvent fired');
         this._loggedIn.next(loggedIn);
       });
   }
