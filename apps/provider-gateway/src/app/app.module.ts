@@ -36,7 +36,7 @@ import { OurAuthService } from './services/auth.service';
 // const readScope = `https://${environment.subdomain}.onmicrosoft.com/provider-api/provider.read`;
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
-  console.log(message);
+  // console.log(message);
 }
 
 export function MSALInstanceFactory(): IPublicClientApplication {
