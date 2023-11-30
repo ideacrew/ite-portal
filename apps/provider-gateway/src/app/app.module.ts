@@ -1,11 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
-import { AuthModule } from '@dbh/auth';
 
 import {
   MsalModule,
@@ -34,40 +30,24 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 
-const subdomain = environment.B2C_SUBDOMAIN || '';
-const gatewayCid = environment.NX_GATEWAY_C_ID || '';
-const readScope = `https://${subdomain}.onmicrosoft.com/provider-api/provider.read`;
-const gatewayApiUrl = environment.NX_GATEWAY_API || '';
-const portalApiUrl = environment.NX_PORTAL_API || '';
-
-const isIE =
-  window.navigator.userAgent.includes('MSIE ') ||
-  window.navigator.userAgent.includes('Trident/');
-
-const b2cPolicies = {
-  names: {
-    signIn: 'b2c_1_sign_in_1',
-  },
-  authorities: {
-    signUpSignIn: {
-      authority: `https://${subdomain}.b2clogin.com/${subdomain}.onmicrosoft.com/b2c_1_sign_in_1`,
-    },
-  },
-  authorityDomain: `${subdomain}.b2clogin.com`,
-};
+// const readScope = `https://${environment.subdomain}.onmicrosoft.com/provider-api/provider.read`;
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
 }
 
 export function MSALInstanceFactory(): IPublicClientApplication {
-  console.log('Making sure correct branch by subdomain: ' + subdomain);
-  console.log('Making sure correct branch by gatewayCid: ' + gatewayCid);
+  console.log(
+    'Making sure correct branch by subdomain: ' + environment.subdomain
+  );
+  console.log(
+    'Making sure correct branch by gatewayCid: ' + environment.clientId
+  );
   return new PublicClientApplication({
     auth: {
-      clientId: `${gatewayCid}`,
-      authority: b2cPolicies.authorities.signUpSignIn.authority,
-      knownAuthorities: [b2cPolicies.authorityDomain],
+      clientId: environment.clientId,
+      authority: environment.msalConfig.auth.authority,
+      knownAuthorities: [environment.msalConfig.auth.authorityDomain],
       redirectUri: window.location.origin,
       postLogoutRedirectUri: window.location.origin,
     },
@@ -94,9 +74,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, string[]>();
-  protectedResourceMap.set(gatewayApiUrl, [readScope]);
-  protectedResourceMap.set(portalApiUrl, [readScope]);
+  const protectedResourceMap = new Map<string, Array<string>>();
+  // protectedResourceMap.set(gatewayApiUrl, [readScope]);
+
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap,
@@ -108,7 +88,6 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   imports: [
     BrowserModule,
     HttpClientModule,
-    AuthModule,
     MsalModule,
     RouterModule.forRoot(
       [
@@ -145,6 +124,10 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   ],
   providers: [
     {
+      provide: APP_TITLE,
+      useValue: 'Provider Gateway',
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
@@ -157,16 +140,12 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
       provide: MSAL_GUARD_CONFIG,
       useFactory: MSALGuardConfigFactory,
     },
-    MsalService,
-    MsalGuard,
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
       useFactory: MSALInterceptorConfigFactory,
     },
-    {
-      provide: APP_TITLE,
-      useValue: 'Provider Gateway',
-    },
+    MsalService,
+    MsalGuard,
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],
 })
