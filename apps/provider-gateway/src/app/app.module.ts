@@ -60,7 +60,7 @@ export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
 }
 
-export function msalInstanceFactory(): IPublicClientApplication {
+export function MSALInstanceFactory(): IPublicClientApplication {
   console.log('Making sure correct branch by subdomain: ' + subdomain);
   console.log('Making sure correct branch by gatewayCid: ' + gatewayCid);
   return new PublicClientApplication({
@@ -151,7 +151,7 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     },
     {
       provide: MSAL_INSTANCE,
-      useFactory: msalInstanceFactory,
+      useFactory: MSALInstanceFactory,
     },
     {
       provide: MSAL_GUARD_CONFIG,
