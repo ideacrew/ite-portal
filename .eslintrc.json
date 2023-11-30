@@ -70,7 +70,6 @@
         "id-blacklist": "off",
         "id-match": "off",
         "import/no-deprecated": "warn",
-        "import/order": "error",
         "no-bitwise": "error",
         "no-caller": "error",
         "no-console": [
