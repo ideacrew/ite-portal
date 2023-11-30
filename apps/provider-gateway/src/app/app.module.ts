@@ -109,6 +109,13 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
               (x) => x.ProviderGatewayLoginComponent
             ),
         },
+        {
+          path: 'login-failed',
+          loadComponent: () =>
+            import('./components/login-failed.component').then(
+              (x) => x.LoginFailedComponent
+            ),
+        },
 
         {
           path: '**',
