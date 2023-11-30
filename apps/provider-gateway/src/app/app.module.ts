@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -14,6 +14,7 @@ import {
   MSAL_INSTANCE,
   MsalGuardConfiguration,
   MSAL_GUARD_CONFIG,
+  MsalBroadcastService,
 } from '@azure/msal-angular';
 import {
   PublicClientApplication,
@@ -29,6 +30,7 @@ import { RootStoreModule } from '@dbh/shared/state/root-store';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
+import { LastActiveService } from './services/last-active.service';
 
 // const readScope = `https://${environment.subdomain}.onmicrosoft.com/provider-api/provider.read`;
 
@@ -146,6 +148,14 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     },
     MsalService,
     MsalGuard,
+    MsalBroadcastService,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [LastActiveService],
+      useFactory: (lastActiveService: LastActiveService) => () =>
+        lastActiveService.setUp(),
+    },
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],
 })
