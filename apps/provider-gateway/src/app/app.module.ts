@@ -31,6 +31,7 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { LastActiveService } from './services/last-active.service';
+import { OurAuthService } from './services/auth.service';
 
 // const readScope = `https://${environment.subdomain}.onmicrosoft.com/provider-api/provider.read`;
 
@@ -155,6 +156,12 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
       deps: [LastActiveService],
       useFactory: (lastActiveService: LastActiveService) => () =>
         lastActiveService.setUp(),
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [OurAuthService],
+      useFactory: (authService: OurAuthService) => () => authService.setUp(),
     },
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],
