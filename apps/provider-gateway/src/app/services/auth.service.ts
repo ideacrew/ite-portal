@@ -1,11 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject, fromEvent, Observable, timer } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import {
   MsalService,
-  MsalBroadcastService,
   MSAL_GUARD_CONFIG,
   MsalGuardConfiguration,
 } from '@azure/msal-angular';
@@ -16,7 +14,6 @@ import {
 } from '@azure/msal-browser';
 
 // services
-// import { MessageService } from './message.service';
 import { LastActiveService } from './last-active.service';
 import { environment } from '../../environments/environment';
 
@@ -34,7 +31,6 @@ export class OurAuthService {
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private msalService: MsalService,
-    // private messageService: MessageService,
     private lastActiveService: LastActiveService
   ) {
     this._loggedIn = new BehaviorSubject(
@@ -96,7 +92,6 @@ export class OurAuthService {
     timer(0, this.timerTickMs)
       .pipe(filter(() => this._loggedIn.value))
       .subscribe(() => {
-        // this.log('tick');
         console.log('tick');
         const currentDate = moment(new Date());
         const lastActiveDate = this.lastActiveService.getLastActiveDate();
@@ -105,7 +100,6 @@ export class OurAuthService {
           this.inactivityLogoutTimeoutS
         ) {
           this.logout();
-          // window.location.reload();
         }
       });
 
@@ -123,9 +117,4 @@ export class OurAuthService {
         this._loggedIn.next(loggedIn);
       });
   }
-
-  // Log a message with the MessageService
-  // private log(message: string) {
-  //   this.messageService.add(`AuthService: ${message}`);
-  // }
 }
