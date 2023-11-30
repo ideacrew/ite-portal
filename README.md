@@ -50,13 +50,13 @@ npm run start:api
 To start the UI, run the following command from the root of the `ite-portal` directory:
 
 ```bash
-nx serve provider-gateway
+npx nx serve provider-gateway
 ```
 
 or
 
 ```bash
-nx serve ite-portal
+npx nx serve ite-portal
 ```
 
 ### Initial Local API Setup
