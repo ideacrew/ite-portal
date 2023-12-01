@@ -40,12 +40,12 @@ export function loggerCallback(logLevel: LogLevel, message: string) {
 }
 
 export function MSALInstanceFactory(): IPublicClientApplication {
-  console.log(
-    'Making sure correct branch by subdomain: ' + environment.subdomain
-  );
-  console.log(
-    'Making sure correct branch by gatewayCid: ' + environment.clientId
-  );
+  // console.log(
+  //   'Making sure correct branch by subdomain: ' + environment.subdomain
+  // );
+  // console.log(
+  //   'Making sure correct branch by gatewayCid: ' + environment.clientId
+  // );
   return new PublicClientApplication({
     auth: {
       clientId: environment.clientId,
