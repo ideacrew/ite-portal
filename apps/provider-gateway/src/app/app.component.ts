@@ -6,6 +6,7 @@ import {
   MsalGuardConfiguration,
 } from '@azure/msal-angular';
 import {
+  AccountInfo,
   EventMessage,
   EventType,
   InteractionStatus,
@@ -82,11 +83,7 @@ export class AppComponent implements OnInit, OnDestroy {
      */
     const activeAccount = this.authService.instance.getActiveAccount();
 
-    console.log('Checking the account now');
-
-    if (activeAccount) {
-      console.log('We have an active account');
-    }
+    this.checkAccount(activeAccount);
 
     if (
       !activeAccount &&
@@ -96,6 +93,9 @@ export class AppComponent implements OnInit, OnDestroy {
       this.authService.instance.setActiveAccount(accounts[0]);
       // This happens once when we are returned from msal login screen
       console.log('returned from login');
+      if (this.authService.instance.getActiveAccount()) {
+        this.checkAccount(accounts[0]);
+      }
     }
 
     // if (activeAccount) {
@@ -111,6 +111,15 @@ export class AppComponent implements OnInit, OnDestroy {
     //   }
     //   this.ourAuthService._loggedIn.next(false);
     // }
+  }
+
+  private checkAccount(activeAccount: AccountInfo | null) {
+    console.log('Checking the account now');
+    if (activeAccount) {
+      console.log('We have an active account');
+    } else {
+      console.log('We do not have an active account');
+    }
   }
 
   loginRedirect() {
