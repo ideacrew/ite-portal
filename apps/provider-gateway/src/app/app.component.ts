@@ -94,6 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
       // This happens once when we are returned from msal login screen
       console.log('returned from login');
       if (this.authService.instance.getActiveAccount()) {
+        this.lastActiveService.resetLastActiveDate();
         this.checkAccount(accounts[0]);
       }
     }

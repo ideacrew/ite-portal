@@ -59,6 +59,12 @@ export class LastActiveService {
     this._lastActive.next(currentDate);
   }
 
+  public resetLastActiveDate() {
+    console.log('resetting last active date fired');
+    localStorage.removeItem(this.lsLastActiveKey);
+    this._lastActive.next(new Date());
+  }
+
   private getLastActiveFromLocalStorage(): Date | null {
     const valueFromStorage = localStorage.getItem(this.lsLastActiveKey);
     if (!valueFromStorage) {
