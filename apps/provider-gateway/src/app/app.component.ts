@@ -117,8 +117,16 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log('Checking the account now');
     if (activeAccount) {
       console.log('We have an active account');
+      localStorage.setItem(this.ourAuthService.lsLoggedInKey, 'true');
+      this.ourAuthService._loggedIn.next(true);
     } else {
       console.log('We do not have an active account');
+      localStorage.removeItem(this.ourAuthService.lsLoggedInKey);
+      localStorage.removeItem(this.lastActiveService.lsLastActiveKey);
+      if (this.ourAuthService._loggedIn === undefined) {
+        return;
+      }
+      this.ourAuthService._loggedIn.next(false);
     }
   }
 
