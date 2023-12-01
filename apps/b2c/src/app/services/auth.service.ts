@@ -1,11 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject, fromEvent, Observable, timer } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import {
   MsalService,
-  MsalBroadcastService,
   MSAL_GUARD_CONFIG,
   MsalGuardConfiguration,
 } from '@azure/msal-angular';

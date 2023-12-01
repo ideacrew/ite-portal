@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'messages',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatCardModule],

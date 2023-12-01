@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MomentModule } from 'ngx-moment';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'last-active',
   standalone: true,
   imports: [CommonModule, MomentModule],

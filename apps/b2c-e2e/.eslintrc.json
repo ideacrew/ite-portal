@@ -8,15 +8,9 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.cy.{ts,js,tsx,jsx}", "src/**/*.{ts,js,tsx,jsx}"],
-      "rules": {}
+      "parserOptions": {
+        "project": ["apps/b2c-e2e/tsconfig.json"]
+      }
     }
   ]
 }
