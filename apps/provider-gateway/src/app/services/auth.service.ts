@@ -47,7 +47,9 @@ export class OurAuthService {
         loginHint: this.msalService.instance.getActiveAccount()?.username,
       } as RedirectRequest);
     } else {
-      this.msalService.loginRedirect();
+      this.msalService.loginRedirect().subscribe({
+        error: (err: string) => new Error(err),
+      });
     }
   }
 
@@ -57,7 +59,9 @@ export class OurAuthService {
         .loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
         .pipe(filter((msg: AuthenticationResult) => msg.account !== undefined));
     } else {
-      this.msalService.loginPopup();
+      this.msalService.loginPopup().subscribe({
+        error: (err: string) => new Error(err),
+      });
     }
   }
 
@@ -67,7 +71,9 @@ export class OurAuthService {
         mainWindowRedirectUri: '/',
       });
     } else {
-      this.msalService.logoutRedirect();
+      this.msalService.logoutRedirect().subscribe({
+        error: (err: string) => new Error(err),
+      });
     }
   }
 
