@@ -55,12 +55,7 @@ export class OurAuthService {
     if (this.msalGuardConfig.authRequest) {
       this.msalService
         .loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
-        .pipe(
-          filter((msg: AuthenticationResult) => {
-            console.log(msg);
-            return msg.account !== undefined;
-          })
-        );
+        .pipe(filter((msg: AuthenticationResult) => msg.account !== undefined));
     } else {
       this.msalService.loginPopup();
     }
