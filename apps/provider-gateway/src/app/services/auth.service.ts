@@ -37,7 +37,6 @@ export class OurAuthService {
       this.getLoggedInFromLocalStorage() ?? false
     );
     this.loggedIn$ = this._loggedIn.asObservable();
-    // localStorage.setItem(this.lsLoggedInKey, false.toString());
   }
 
   public login() {
@@ -93,7 +92,7 @@ export class OurAuthService {
     timer(0, this.timerTickMs)
       .pipe(filter(() => this._loggedIn.value))
       .subscribe(() => {
-        console.log('tick');
+        // console.log('tick'); // for debugging
         const currentDate = moment(new Date());
         const lastActiveDate = this.lastActiveService.getLastActiveDate();
         if (
@@ -115,7 +114,6 @@ export class OurAuthService {
         map((event) => !!event.newValue)
       )
       .subscribe((loggedIn) => {
-        console.log('auth.setup.fromEvent fired');
         this._loggedIn.next(loggedIn);
       });
   }
