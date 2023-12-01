@@ -36,7 +36,7 @@ import { OurAuthService } from './services/auth.service';
 // const readScope = `https://${environment.subdomain}.onmicrosoft.com/provider-api/provider.read`;
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
-  // console.log(message); // Uncomment to see MSAL logs
+  console.log(message); // Uncomment to see MSAL logs
 }
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -59,9 +59,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     },
     system: {
       allowNativeBroker: false, // Disables WAM Broker
+
       loggerOptions: {
         loggerCallback,
-        logLevel: LogLevel.Info,
+        logLevel: LogLevel.Warning,
         piiLoggingEnabled: false,
       },
     },
