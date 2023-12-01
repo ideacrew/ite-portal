@@ -96,20 +96,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.checkAccount(accounts[0]);
       }
     }
-
-    // if (activeAccount) {
-    //   console.log('We are logged in');
-    //   localStorage.setItem(this.ourAuthService.lsLoggedInKey, 'true');
-    //   this.ourAuthService._loggedIn.next(true);
-    // } else {
-    //   console.log('We are not logged in');
-    //   localStorage.removeItem(this.ourAuthService.lsLoggedInKey);
-    //   localStorage.removeItem(this.lastActiveService.lsLastActiveKey);
-    //   if (this.ourAuthService._loggedIn === undefined) {
-    //     return;
-    //   }
-    //   this.ourAuthService._loggedIn.next(false);
-    // }
   }
 
   private checkAccount(activeAccount: AccountInfo | null) {
