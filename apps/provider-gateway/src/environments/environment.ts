@@ -28,11 +28,10 @@ export const environment = {
       authorityDomain: authorityDomain,
     },
   },
-  // apiConfig: {
-  //   scopes: ['user.read'],
-  //   uri: 'https://graph.microsoft.com/v1.0/me',
-  // },
-  // apiUrl: 'https://localhost:7103',
+  apiConfig: {
+    scopes: ['provider.read'],
+    uri: `https://${subdomain}.onmicrosoft.com/provider-api/`,
+  },
   appInactiveTimeout: appInactiveTimeout,
 };
 
