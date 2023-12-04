@@ -6,10 +6,7 @@ import { RouterLink } from '@angular/router';
   selector: 'dbh-login-failed',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  template: `
-    <p>login-failed works!</p>
-    <button routerLink="/provider-gateway">Home</button>
-  `,
+  template: ` <button routerLink="/provider-gateway">Home</button> `,
   styles: [],
 })
 export class LoginFailedComponent {}
