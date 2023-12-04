@@ -8,8 +8,8 @@ const gatewayApiUrl = 'https://api.provider.dev.dbhite.com';
 const portalApiUrl = 'https://api.portal.dev.dbhite.com';
 const authority = `https://${subdomain}.b2clogin.com/${subdomain}.onmicrosoft.com/b2c_1_sign_in_1`;
 const authorityDomain = `${subdomain}.b2clogin.com`;
-// const appInactiveTimeout = 900; // 15 minutes
-const appInactiveTimeout = 10; // 10 seconds
+const appInactiveTimeout = 900; // 15 minutes
+// const appInactiveTimeout = 10; // 10 seconds
 
 export const environment = {
   production: false,
