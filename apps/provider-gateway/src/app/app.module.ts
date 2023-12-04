@@ -79,7 +79,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  // protectedResourceMap.set(gatewayApiUrl, [readScope]);
+  protectedResourceMap.set(environment.NX_GATEWAY_API, [environment.apiConfig.uri+environment.apiConfig.scopes[0]]);
 
   return {
     interactionType: InteractionType.Redirect,
