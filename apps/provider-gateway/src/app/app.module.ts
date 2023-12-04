@@ -1,11 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
-import { AuthModule } from '@dbh/auth';
 
 import {
   MsalModule,
@@ -18,6 +14,7 @@ import {
   MSAL_INSTANCE,
   MsalGuardConfiguration,
   MSAL_GUARD_CONFIG,
+  MsalBroadcastService,
 } from '@azure/msal-angular';
 import {
   PublicClientApplication,
@@ -25,6 +22,7 @@ import {
   BrowserCacheLocation,
   IPublicClientApplication,
   BrowserUtils,
+  LogLevel,
 } from '@azure/msal-browser';
 
 import { APP_TITLE } from '@dbh/theme';
@@ -32,43 +30,41 @@ import { RootStoreModule } from '@dbh/shared/state/root-store';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
+import { LastActiveService } from './services/last-active.service';
+import { OurAuthService } from './services/auth.service';
 
-const subdomain = environment.B2C_SUBDOMAIN || '';
-const gatewayCid = environment.NX_GATEWAY_C_ID || '';
-const readScope = `https://${subdomain}.onmicrosoft.com/provider-api/provider.read`;
-const gatewayApiUrl = environment.NX_GATEWAY_API || '';
-const portalApiUrl = environment.NX_PORTAL_API || '';
+// const readScope = `https://${environment.subdomain}.onmicrosoft.com/provider-api/provider.read`;
 
-const isIE =
-  window.navigator.userAgent.includes('MSIE ') ||
-  window.navigator.userAgent.includes('Trident/');
+export function loggerCallback(logLevel: LogLevel, message: string) {
+  console.log(message); // Uncomment to see MSAL logs
+}
 
-const b2cPolicies = {
-  names: {
-    signIn: 'b2c_1_sign_in_1',
-  },
-  authorities: {
-    signUpSignIn: {
-      authority: `https://${subdomain}.b2clogin.com/${subdomain}.onmicrosoft.com/b2c_1_sign_in_1`,
-    },
-  },
-  authorityDomain: `${subdomain}.b2clogin.com`,
-};
-
-export function msalInstanceFactory(): IPublicClientApplication {
-  console.log('Making sure correct branch by subdomain: ' + subdomain);
-  console.log('Making sure correct branch by gatewayCid: ' + gatewayCid);
+export function MSALInstanceFactory(): IPublicClientApplication {
+  // console.log(
+  //   'Making sure correct branch by subdomain: ' + environment.subdomain
+  // );
+  // console.log(
+  //   'Making sure correct branch by gatewayCid: ' + environment.clientId
+  // );
   return new PublicClientApplication({
     auth: {
-      clientId: `${gatewayCid}`,
-      authority: b2cPolicies.authorities.signUpSignIn.authority,
-      knownAuthorities: [b2cPolicies.authorityDomain],
+      clientId: environment.clientId,
+      authority: environment.msalConfig.auth.authority,
+      knownAuthorities: [environment.msalConfig.auth.authorityDomain],
       redirectUri: window.location.origin,
       postLogoutRedirectUri: window.location.origin,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
-      storeAuthStateInCookie: isIE, // set to true for IE 11
+    },
+    system: {
+      allowNativeBroker: false, // Disables WAM Broker
+
+      loggerOptions: {
+        loggerCallback,
+        logLevel: LogLevel.Warning,
+        piiLoggingEnabled: false,
+      },
     },
   });
 }
@@ -76,17 +72,16 @@ export function msalInstanceFactory(): IPublicClientApplication {
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
-    loginFailedRoute: './',
-    authRequest: {
-      scopes: [readScope],
-    },
+    authRequest: {},
+    loginFailedRoute: '/login-failed',
   };
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, string[]>();
-  protectedResourceMap.set(gatewayApiUrl, [readScope]);
-  protectedResourceMap.set(portalApiUrl, [readScope]);
+  const protectedResourceMap = new Map<string, Array<string>>();
+  protectedResourceMap.set(environment.NX_GATEWAY_API, [
+    environment.apiConfig.uri + environment.apiConfig.scopes[0],
+  ]);
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap,
@@ -98,7 +93,6 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   imports: [
     BrowserModule,
     HttpClientModule,
-    AuthModule,
     MsalModule,
     RouterModule.forRoot(
       [
@@ -115,6 +109,13 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
           loadComponent: () =>
             import('@dbh/provider-gateway/login').then(
               (x) => x.ProviderGatewayLoginComponent
+            ),
+        },
+        {
+          path: 'login-failed',
+          loadComponent: () =>
+            import('./components/login-failed.component').then(
+              (x) => x.LoginFailedComponent
             ),
         },
 
@@ -135,27 +136,41 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   ],
   providers: [
     {
+      provide: APP_TITLE,
+      useValue: 'Provider Gateway',
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
     },
     {
       provide: MSAL_INSTANCE,
-      useFactory: msalInstanceFactory,
+      useFactory: MSALInstanceFactory,
     },
     {
       provide: MSAL_GUARD_CONFIG,
       useFactory: MSALGuardConfigFactory,
     },
-    MsalService,
-    MsalGuard,
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
       useFactory: MSALInterceptorConfigFactory,
     },
+    MsalService,
+    MsalGuard,
+    MsalBroadcastService,
     {
-      provide: APP_TITLE,
-      useValue: 'Provider Gateway',
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [LastActiveService],
+      useFactory: (lastActiveService: LastActiveService) => () =>
+        lastActiveService.setUp(),
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [OurAuthService],
+      useFactory: (authService: OurAuthService) => () => authService.setUp(),
     },
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],

@@ -15,6 +15,8 @@ export const environment = {
     scopes: [],
     uri: '',
   },
+  apiUrl: 'https://localhost:7103',
+  appInactiveTimeout: 900, // 15 minutes
 };
 
 /*
