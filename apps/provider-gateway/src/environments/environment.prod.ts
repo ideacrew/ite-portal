@@ -8,7 +8,7 @@ const appInactiveTimeout = 900; // 15 minutes
 // const appInactiveTimeout = 10; // 10 seconds
 
 export const environment = {
-  production: false,
+  production: true,
   UAT: false,
   NX_GATEWAY_API: gatewayApiUrl,
   NX_PORTAL_API: portalApiUrl,
