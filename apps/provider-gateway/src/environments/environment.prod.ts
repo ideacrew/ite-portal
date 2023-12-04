@@ -24,7 +24,10 @@ export const environment = {
       authorityDomain: authorityDomain,
     },
   },
-  // apiConfig: {
+ apiConfig: {
+    scopes: ['provider.read'],
+    uri: `https://${subdomain}.onmicrosoft.com/provider-api/`,
+  },
   //   scopes: ['user.read'],
   //   uri: 'https://graph.microsoft.com/v1.0/me',
   // },
