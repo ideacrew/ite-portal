@@ -178,6 +178,15 @@
   >
     Filter Submissions
   </button>
+  <ng-container *ngIf="showClear || validCriteria.length > 2">
+  <button
+    type="button"
+    class="button button-outline"
+    (click)="showAll()"
+  >
+    Clear All Filters
+  </button>
+  </ng-container>
   <ng-container *ngIf="details.extract_list.length > 0; else noSubmissions">
     <div class="tableContainer">
       <table>
