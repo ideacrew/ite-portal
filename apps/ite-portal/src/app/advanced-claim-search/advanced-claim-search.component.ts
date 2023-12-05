@@ -23,7 +23,7 @@ export class AdvancedClaimSearchComponent {
   page = '1';
   offset = 0;
   perPage = 20;
-
+  showClear = false;
   procedureCodes$ = this.claimsService.getProcedureCodes();
   providerTypes$ = this.claimsService.getProviderTypes();
 
@@ -169,5 +169,16 @@ export class AdvancedClaimSearchComponent {
     this.page = pageNumber;
     this.offset = (Number(pageNumber) - 1) * this.perPage;
     this.submitAdvancedSearch();
+  }
+
+  showAll() {
+    this.criteria = [{}];
+    this.validCriteria = [];
+    this.searchDisabled = true;
+    this.showClear = false;
+    this.searchResults$ = this.claimsService.advancedClaimSearch(
+      this.validCriteria,
+      this.offset
+    );
   }
 }
