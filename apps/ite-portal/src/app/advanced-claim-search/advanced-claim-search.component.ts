@@ -176,6 +176,8 @@ export class AdvancedClaimSearchComponent {
     this.validCriteria = [];
     this.searchDisabled = true;
     this.showClear = false;
+    this.page = '1';
+    this.offset = 0;
     this.searchResults$ = this.claimsService.advancedClaimSearch(
       this.validCriteria,
       this.offset

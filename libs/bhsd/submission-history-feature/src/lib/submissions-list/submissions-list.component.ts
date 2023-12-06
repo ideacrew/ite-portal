@@ -139,6 +139,8 @@ export class SubmissionsListComponent {
     this.validCriteria = [];
     this.searchDisabled = true;
     this.showClear = false;
+    this.page = '1';
+    this.offset = '';
     this.responseDetails$ = this.bhsdService.getSubmissionsWithCriteria(
       this.validCriteria,
       this.offset
