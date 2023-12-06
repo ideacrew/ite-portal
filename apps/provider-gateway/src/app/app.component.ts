@@ -63,8 +63,10 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (result: EventMessage) => {
+          // this specific error code is when the user has canceled the login, if the page is not reloaded it results in an adverse user flow
+          console.log(result);
           if (result.error && result.error.message.indexOf('AADB2C90091') > -1) {
-            window.location.reload()
+            //window.location.reload()
           }
         },
       );
