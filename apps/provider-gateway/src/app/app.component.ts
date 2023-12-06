@@ -57,6 +57,19 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       });
 
+    this.msalBroadcastService.msalSubject$
+      .pipe(
+        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_FAILURE || msg.eventType === EventType.ACQUIRE_TOKEN_FAILURE),
+      )
+      .subscribe(
+        (result: EventMessage) => {
+          // this specific error code is when the user has canceled the login, if the page is not reloaded it results in an adverse user flow
+          if (result.error && result.error.message.indexOf('AADB2C90091') > -1) {
+            window.location.reload()
+          }
+        },
+      );
+
     this.msalBroadcastService.inProgress$
       .pipe(
         filter(
