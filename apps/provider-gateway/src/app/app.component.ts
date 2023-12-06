@@ -57,6 +57,18 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       });
 
+    this.msalBroadcastService.msalSubject$
+      .pipe(
+        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_FAILURE || msg.eventType === EventType.ACQUIRE_TOKEN_FAILURE),
+      )
+      .subscribe(
+        (result: EventMessage) => {
+          if (result.error && result.error.message.indexOf('AADB2C90091') > -1) {
+            window.location.reload()
+          }
+        },
+      );
+
     this.msalBroadcastService.inProgress$
       .pipe(
         filter(
