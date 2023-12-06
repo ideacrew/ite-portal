@@ -1,4 +1,4 @@
-const subdomain = process.env['NX_B2C_SUBDOMAIN'] || '';
+const subdomain = process.env['NX_B2C_SUBDOMAIN_PROD'] || '';
 const clientId = process.env['NX_GATEWAY_C_ID_PROD'] || '';
 const gatewayApiUrl = 'https://provider-gateway-api.dbh.dc.gov';
 const portalApiUrl = 'https://ite-api.dbh.dc.gov';
