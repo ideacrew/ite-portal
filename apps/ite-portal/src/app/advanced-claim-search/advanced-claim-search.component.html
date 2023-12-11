@@ -169,7 +169,15 @@
 >
   Advanced Search
 </button>
-
+<ng-container *ngIf="showClear || validCriteria.length > 2">
+  <button
+    type="button"
+    class="button button-outline"
+    (click)="showAll()"
+  >
+    Clear All Filters
+  </button>
+  </ng-container>
 <ng-container *ngIf="searchResults$ | async as results">
   <hr />
   <h2>Search Results</h2>

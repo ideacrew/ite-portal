@@ -34,6 +34,7 @@ export class SubmissionsListComponent {
   perPage = 20;
   sort = 'created_at';
   sortDirection: 'asc' | 'desc' = 'desc';
+  showClear = false;
   headerList: Header[] = [
     { label: 'File Name', value: 'file_name', sortable: true, numeric: false },
     {
@@ -128,7 +129,21 @@ export class SubmissionsListComponent {
       this.validCriteria,
       this.offset,
       this.sort,
-      this.sortDirection
+      this.sortDirection,
+    );
+    this.showClear = true;
+  }
+
+  showAll() {
+    this.criteria = [{}];
+    this.validCriteria = [];
+    this.searchDisabled = true;
+    this.showClear = false;
+    this.page = '1';
+    this.offset = '';
+    this.responseDetails$ = this.bhsdService.getSubmissionsWithCriteria(
+      this.validCriteria,
+      this.offset
     );
   }
 

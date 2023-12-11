@@ -24,6 +24,7 @@ export class ProvidersSubmissionStatusComponent {
       criterion.value
   );
   searchDisabled = true;
+  showClear = false;
   statusFilter = '';
   sort = 'provider_name';
   sortDirection: 'asc' | 'desc' = 'asc';
@@ -245,5 +246,19 @@ export class ProvidersSubmissionStatusComponent {
     }
 
     return '';
+  }
+
+  showAll() {
+    this.criteria = [{}];
+    this.validCriteria = [];
+    this.searchDisabled = true;
+    this.showClear = false;
+    this.submissionStatus$ = this.bhsdService.getSubmissionStatusWithCriteria(
+      this.validCriteria,
+      this.rpMonthFilter,
+      Number(this.rpYearFilter),
+      this.sort,
+      this.sortDirection
+    );
   }
 }
