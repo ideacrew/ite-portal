@@ -111,6 +111,7 @@ export class ProvidersSubmissionStatusComponent {
       this.sort,
       this.sortDirection
     );
+    this.showClear = true;
   }
 
   submitAdvancedSearch() {

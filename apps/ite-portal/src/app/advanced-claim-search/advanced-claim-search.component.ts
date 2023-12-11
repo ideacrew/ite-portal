@@ -39,6 +39,7 @@ export class AdvancedClaimSearchComponent {
       this.validCriteria,
       this.offset
     );
+    this.showClear = true;
     this.page = '1';
     this.offset = 0;
   }
