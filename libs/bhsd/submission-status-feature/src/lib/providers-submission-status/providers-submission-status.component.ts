@@ -54,6 +54,12 @@ export class ProvidersSubmissionStatusComponent {
       numeric: false,
     },
     {
+      label: 'Active',
+      value: 'is_active',
+      sortable: false,
+      numeric: false,
+    },
+    {
       label: 'Submission Status',
       value: 'status',
       sortable: true,

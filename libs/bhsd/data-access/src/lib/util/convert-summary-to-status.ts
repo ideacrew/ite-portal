@@ -15,6 +15,7 @@ export const convertSummaryToStatus = (
     fail,
     extract_id: extractId,
     provider_id: providerId,
+    is_active: providerActiveStatus
   } = summary;
 
   const submissionStatus: SubmissionStatus = {
@@ -29,6 +30,7 @@ export const convertSummaryToStatus = (
     pass: pass === 'N/A' ? undefined : Number(pass),
     fail: fail === 'N/A' ? undefined : Number(fail),
     extractId: extractId === 'N/A' ? undefined : extractId,
+    providerActiveStatus
   };
 
   return submissionStatus;
