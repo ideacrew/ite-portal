@@ -26,9 +26,9 @@
     <div class="widget-header"><h2>Provider Gateway</h2></div>
     <div class="widget-content">
       <h3>Reporting Period: {{ thisReportingPeriod }}</h3>
-      <ng-container *ngIf="submissionStatus$ | async as submissions">
+      <ng-container *ngIf="activeSubmissions.length > 0">
         <dbh-submission-status-chart
-          [submissions]="submissions"
+          [submissions]="activeSubmissions"
         ></dbh-submission-status-chart>
       </ng-container>
     </div>
