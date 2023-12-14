@@ -13,6 +13,7 @@ export type SubmissionSummary = {
   pass: string | 'N/A';
   fail: string | 'N/A';
   extract_id: string;
+  is_active: boolean;
 };
 
 export type SubmissionStatus = {
@@ -27,4 +28,5 @@ export type SubmissionStatus = {
   pass?: number;
   fail?: number;
   extractId?: string;
+  providerActiveStatus?: boolean;
 };
