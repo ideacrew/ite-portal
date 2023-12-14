@@ -180,6 +180,14 @@ export class ProvidersSubmissionStatusComponent {
 
             break;
           }
+          case 'is_active': {
+            criterion.options = [
+              { value: 'TRUE', display: 'TRUE' },
+              { value: 'FALSE', display: 'FALSE' },
+            ];
+
+            break;
+          }
         }
         this.checkValid();
       }
