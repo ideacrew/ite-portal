@@ -250,11 +250,15 @@
                 '/provider-gateway/provider-profile',
                 submission.providerId
               ]"
+              [class.inactive] = "submission.providerActiveStatus === false"
               >{{ submission.providerName }}</a
             >
           </td>
           <td class="service-type">
             {{ serviceType(submission) }}
+          </td>
+          <td>
+            {{ submission.providerActiveStatus }}
           </td>
           <td>{{ submission.status }}</td>
           <td>
