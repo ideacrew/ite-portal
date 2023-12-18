@@ -151,6 +151,13 @@
               >Companion Guide (PDF)
             </a>
           </li>
+          <li *ngIf="isDBHUser">
+            <a
+              routerLink="provider-gateway/admin"
+              routerLinkActive="active"
+              >Admin Settings</a
+            >
+          </li>
         </ul>
       </div>
       <div class="menu-group">

@@ -1,0 +1,76 @@
+h2 select {
+  font-size: 20px;
+}
+.criteria-container {
+  margin: 2ch 0;
+}
+input,
+select,
+option {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 180px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+}
+.criterion {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  > div,
+  ng-container {
+    margin: 1ch 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  button {
+    color: var(--error);
+    border-color: var(--error);
+    padding: 8px;
+  }
+}
+.add-button {
+  border: 1px dashed var(--primary);
+  border-radius: 6px;
+  font-weight: 600;
+  width: 560px;
+  padding: 8px;
+  color: var(--primary);
+  margin-bottom: 3ch;
+  background: none;
+  span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: var(--white);
+    background: var(--primary);
+    border-radius: 50%;
+  }
+}
+.button-outline {
+  padding: 6px 12px;
+  margin-left: 1ch;
+}
+
+a.inactive {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.clickable-rows tr {
+  position: relative;
+}
+
+.full-row-link::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: auto;
+  content: "";
+  background-color: rgba(0,0,0,0);
+}

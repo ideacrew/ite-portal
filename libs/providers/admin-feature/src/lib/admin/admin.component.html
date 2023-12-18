@@ -1,0 +1,52 @@
+<h1>Admin Settings</h1>
+<ng-container *ngIf="providers$ | async as results;">
+  <h2>Providers</h2>
+  <dl class="parent">
+    <dt>Total Providers:</dt>
+    <dd>
+      {{ results.provider_count }}
+    </dd>
+    <dt>Active Providers:</dt>
+    <dd>{{ results.active_provider_count }}</dd>
+    <dt>Inactive Providers:</dt>
+    <dd>{{ results.inactive_provider_count }}</dd>
+  </dl>
+  <div>
+  <a class="button"
+          [routerLink]="[
+            '/provider-gateway/new',
+          ]"
+          >Create New Provider</a
+        >
+      </div>
+  <p>To view, add, or edit a provider or user, click on a provider row in the table below.</p>
+  <small class="nonvisiblechange">
+    <span class="material-symbols-outlined"> info </span>
+    All times are displayed in UTC
+  </small>
+  <table class="clickable-rows">
+    <thead>
+      <th>Provider Name</th>
+      <th>Active Users</th>
+      <th>Inactive Users</th>
+      <th>NPI</th>
+      <th>Last Activity</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let provider of results.providers">
+        <td><a class="full-row-link"
+          [routerLink]="[
+            '/provider-gateway/provider-profile',
+            provider.id
+          ]"
+          >{{ provider.provider_name }}</a
+        ></td>
+        <td>{{ provider.active_user_count }}</td>
+        <td>{{ provider.inactive_user_count }}</td>
+        <td>{{ provider.npi }}</td>
+        <td>{{ provider.last_activity | date : "L/d/yyyy 'at' h:m a" : 'UTC' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+

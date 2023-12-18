@@ -260,6 +260,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'provider-gateway/admin',
+        loadChildren: () =>
+          import('@dbh/providers/admin-feature').then(
+            (m) => m.AdminFeatureModule
+          ),
+      },
+      {
         path: 'provider-gateway/companion-guide',
         loadChildren: () =>
           import('@dbh/bhsd/companion-guide-page').then(
