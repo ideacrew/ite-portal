@@ -9,7 +9,7 @@ export const environment = {
   production: true,
   UAT: false,
   NX_AD_CLIENT_ID: clientId,
-  NX_AD_TID_PROD: tenantId,
+  NX_AD_TID: tenantId,
   NX_GATEWAY_API: gatewayApiUrl,
   NX_PORTAL_API: portalApiUrl,
   appInactiveTimeout: appInactiveTimeout,

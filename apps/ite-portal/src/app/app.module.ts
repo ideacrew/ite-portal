@@ -23,6 +23,7 @@ import {
   BrowserCacheLocation,
   IPublicClientApplication,
   BrowserUtils,
+  LogLevel,
 } from '@azure/msal-browser';
 import { DataAccessModule } from '@dbh/bhsd/data-access';
 import { ClaimsDataAccessModule } from '@dbh/claims/data-access';
@@ -51,64 +52,40 @@ import { ProviderLoginsComponent } from './executive/provider-logins.component';
 import { LastActiveService } from './services/last-active.service';
 import { OurAuthService } from './services/auth.service';
 
-const isIE =
-  window.navigator.userAgent.includes('MSIE ') ||
-  window.navigator.userAgent.includes('Trident/');
-
 const clientId = environment.NX_AD_CLIENT_ID || '';
-const tenantId = environment.NX_AD_TID_PROD || '';
 const readScope = `api://${clientId}/Read`;
 const gatewayApiUrl = environment.NX_GATEWAY_API || '';
 const portalApiUrl = environment.NX_PORTAL_API || '';
 
+export function loggerCallback(logLevel: LogLevel, message: string) {
+  // console.log(message); // Uncomment to see MSAL logs
+}
+
 export function MSALInstanceFactory(): IPublicClientApplication {
-  console.log('Making sure correct branch by NX_AD_CLIENT_ID: ' + clientId);
-  console.log('Making sure correct branch by NX_AD_TID: ' + tenantId);
-  console.log('Making sure correct branch by gatewayApiUrl: ' + gatewayApiUrl);
-  console.log('Making sure correct branch by portalApiUrl: ' + portalApiUrl);
+  // console.log('Making sure correct branch by NX_AD_CLIENT_ID: ' + clientId);
+  // console.log('Making sure correct branch by NX_AD_TID: ' + tenantId);
+  // console.log('Making sure correct branch by gatewayApiUrl: ' + gatewayApiUrl);
+  // console.log('Making sure correct branch by portalApiUrl: ' + portalApiUrl);
   return new PublicClientApplication({
     auth: {
       clientId: clientId,
-      authority: `https://login.microsoftonline.com/${tenantId}/`,
+      authority: environment.msalConfig.auth.authority,
       redirectUri: window.location.origin,
       postLogoutRedirectUri: window.location.origin,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
-      storeAuthStateInCookie: isIE, // set to true for IE 11
+    },
+    system: {
+      allowNativeBroker: false, // Disables WAM Broker
+      loggerOptions: {
+        loggerCallback,
+        logLevel: LogLevel.Info,
+        piiLoggingEnabled: false,
+      },
     },
   });
 }
-
-// export function MSALInstanceFactory(): IPublicClientApplication {
-//   // console.log(
-//   //   'Making sure correct branch by subdomain: ' + environment.subdomain
-//   // );
-//   // console.log(
-//   //   'Making sure correct branch by gatewayCid: ' + environment.clientId
-//   // );
-//   return new PublicClientApplication({
-//     auth: {
-//       clientId: environment.clientId,
-//       authority: environment.msalConfig.auth.authority,
-//       knownAuthorities: [environment.msalConfig.auth.authorityDomain],
-//       redirectUri: window.location.origin,
-//       postLogoutRedirectUri: window.location.origin,
-//     },
-//     cache: {
-//       cacheLocation: BrowserCacheLocation.LocalStorage,
-//     },
-//     system: {
-//       allowNativeBroker: false, // Disables WAM Broker
-
-//       loggerOptions: {
-//         loggerCallback,
-//         logLevel: LogLevel.Warning,
-//         piiLoggingEnabled: false,
-//       },
-//     },
-//   });
-// }
 
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {

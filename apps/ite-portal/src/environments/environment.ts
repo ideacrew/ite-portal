@@ -6,6 +6,8 @@ const clientId = process.env['NX_AD_CLIENT_ID'] || '';
 const tenantId = process.env['NX_AD_TID'] || '';
 const gatewayApiUrl = process.env['NX_GATEWAY_API'] || '';
 const portalApiUrl = process.env['NX_PORTAL_API'] || '';
+const authority = `https://login.microsoftonline.com/${tenantId}/`;
+const authorityDomain = 'login.microsoftonline.com';
 // const appInactiveTimeout = 900; // 15 minutes
 const appInactiveTimeout = 10; // 10 seconds
 
@@ -13,13 +15,20 @@ export const environment = {
   production: false,
   UAT: false,
   NX_AD_CLIENT_ID: clientId,
-  NX_AD_TID_PROD: tenantId,
+  NX_AD_TID: tenantId,
   NX_GATEWAY_API: gatewayApiUrl,
   NX_PORTAL_API: portalApiUrl,
+  msalConfig: {
+    auth: {
+      clientId: clientId,
+      authority: authority,
+      authorityDomain: authorityDomain,
+    },
+  },
   apiConfig: {
     scopes: ['provider.read'],
     // uri: `https://${subdomain}.onmicrosoft.com/provider-api/`,
-    uri: `https://login.microsoftonline.com/${tenantId}/`,
+    uri: authority,
   },
   appInactiveTimeout: appInactiveTimeout,
 };
