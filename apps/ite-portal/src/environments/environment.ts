@@ -16,6 +16,11 @@ export const environment = {
   NX_AD_TID_PROD: tenantId,
   NX_GATEWAY_API: gatewayApiUrl,
   NX_PORTAL_API: portalApiUrl,
+  apiConfig: {
+    scopes: ['provider.read'],
+    // uri: `https://${subdomain}.onmicrosoft.com/provider-api/`,
+    uri: `https://login.microsoftonline.com/${tenantId}/`,
+  },
   appInactiveTimeout: appInactiveTimeout,
 };
 

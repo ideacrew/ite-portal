@@ -91,7 +91,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, string[]>();
+  const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set(gatewayApiUrl, [readScope]);
   protectedResourceMap.set(portalApiUrl, [readScope]);
   return {
