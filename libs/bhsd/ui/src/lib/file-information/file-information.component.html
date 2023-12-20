@@ -5,7 +5,7 @@
     <dd>
       <a routerLink="/provider-gateway/provider-profile/{{ providerId }}">{{
         providerName
-      }}</a>
+      }} <ng-container *ngIf="providerActiveStatus === 'inactive'">(Inactive)</ng-container></a>
     </dd>
     <dt>Reporting Period:</dt>
     <dd>{{ reportingPeriod }}</dd>

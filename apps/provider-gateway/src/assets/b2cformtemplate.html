@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <title>Provider Gateway - Department of Behavioral Health</title>
+  <style>
+    @font-face {
+          font-family: 'Public Sans';
+          src: url(https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap);
+          font-weight: normal;
+        }
+    h1 {
+      margin: .5em 0;
+      line-height: 1;
+      font-weight: 700;
+    }
+    html, body {
+      background: #f2f2f2;
+      background-position:center;
+      font-family: 'Public Sans', 'Inter', sans-serif;
+      color: #313034;
+    }
+    main {
+      display: flex;
+      justify-content: center;
+      padding: 10em 0;
+    }
+    #api {
+      font-weight: normal;
+      text-align: left;
+      background-color: #fff;
+      padding: 24px;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+      width: 70ch;
+      font-size: 16px;
+    }
+    #api div {
+      margin-bottom: .5em;
+    }
+    #api input, select, textarea {
+      box-sizing: border-box;
+      height: 36px;
+      padding: 6px 8px;
+      background: #fff;
+      border: 1px solid #858585;
+      border-radius: 3px;
+      width: 100%;
+      margin-bottom: 1em;
+    }
+    .button,
+      button {
+        background-color: #183684;
+        border-radius: 6px;
+        border: 0;
+        padding: 8px 12px;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        color: #fff;
+        margin-top: 1em;
+        font-size: 18px;
+      }
+    #forgotPassword {
+      font-size: 16px;
+      margin-top: .5em;
+    }
+    .extension_ProviderGatewayIdentifier_li, .extension_DbhUser_li {
+      display: none;
+    }
+
+    #attributeList ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #attributeList ul li {
+      margin-bottom: 1em;
+    }
+
+    .tiny {font-size: 10px; }
+  </style>
+</head>
+<body>
+  <main>
+      <div>
+        <img src="./DBH_Logo.png">
+      <h1>Provider Gateway</h1>
+      <div id="api"></div>
+    </div>
+  </main>
+</body>
+</html>
+
+

@@ -55,6 +55,7 @@
           >
             <option value="" disabled="true">Selector</option>
             <option data-valueType="select" value="id">Provider Name</option>
+            <option data-valueType="select" value="is_active">Active</option>
             <option data-valueType="select" value="mh">MH Provider</option>
             <option data-valueType="select" value="sud">SUD Provider</option>
             <option data-valueType="date" value="extracted_on">
@@ -250,11 +251,15 @@
                 '/provider-gateway/provider-profile',
                 submission.providerId
               ]"
+              [class.inactive] = "submission.providerActiveStatus === false"
               >{{ submission.providerName }}</a
             >
           </td>
           <td class="service-type">
             {{ serviceType(submission) }}
+          </td>
+          <td>
+            {{ submission.providerActiveStatus }}
           </td>
           <td>{{ submission.status }}</td>
           <td>

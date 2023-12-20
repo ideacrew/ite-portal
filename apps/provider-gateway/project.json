@@ -21,6 +21,8 @@
         "assets": [
           "apps/provider-gateway/src/favicon.ico",
           "apps/provider-gateway/src/staticwebapp.config.json",
+          "apps/provider-gateway/src/b2cformtemplate.html",
+          "apps/provider-gateway/src/assets/DBH_Logo.png",
           "apps/provider-gateway/src/assets",
           {
             "glob": "**/*",

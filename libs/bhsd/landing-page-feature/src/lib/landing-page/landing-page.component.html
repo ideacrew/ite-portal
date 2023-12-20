@@ -2,9 +2,9 @@
 <h2>Reporting Period: {{ thisReportingPeriod }}</h2>
 <ng-container *ngIf="submissionStatus$ | async as submissions">
   <!-- DBH User -->
-  <ng-container *ngIf="submissions.length > 1">
+  <ng-container *ngIf="activeSubmissions.length > 1">
     <dbh-submission-status-chart
-      [submissions]="submissions"
+      [submissions]="activeSubmissions"
     ></dbh-submission-status-chart>
 
     <div class="action-links">

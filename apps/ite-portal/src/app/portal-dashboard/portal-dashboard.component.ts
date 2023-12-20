@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BHSDService } from '@dbh/bhsd/data-access';
 import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
+import { SubmissionStatus } from '@dbh/bhsd/data-access';
 
 @Component({
   templateUrl: './portal-dashboard.component.html',
@@ -9,6 +10,13 @@ import { getReportingPeriod, getReportingPeriodText } from '@dbh/bhsd/util';
 })
 export class PortalDashboardComponent {
   submissionStatus$ = this.bhsdService.getSubmissionStatus();
+  activeSubmissions: SubmissionStatus[] = [];
+  activeSubmissions$ = this.submissionStatus$.subscribe(
+    (response: SubmissionStatus[]) => {
+      const submissions = response.filter(submission => submission.providerActiveStatus);
+      this.activeSubmissions = submissions;
+    }
+  );
   searchTerm = '';
   thisReportingPeriod = getReportingPeriodText(getReportingPeriod(1));
 

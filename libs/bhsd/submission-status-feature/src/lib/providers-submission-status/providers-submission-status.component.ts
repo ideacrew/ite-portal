@@ -54,6 +54,12 @@ export class ProvidersSubmissionStatusComponent {
       numeric: false,
     },
     {
+      label: 'Active',
+      value: 'is_active',
+      sortable: false,
+      numeric: false,
+    },
+    {
       label: 'Submission Status',
       value: 'status',
       sortable: true,
@@ -173,6 +179,14 @@ export class ProvidersSubmissionStatusComponent {
             break;
           }
           case 'sud': {
+            criterion.options = [
+              { value: 'TRUE', display: 'TRUE' },
+              { value: 'FALSE', display: 'FALSE' },
+            ];
+
+            break;
+          }
+          case 'is_active': {
             criterion.options = [
               { value: 'TRUE', display: 'TRUE' },
               { value: 'FALSE', display: 'FALSE' },
