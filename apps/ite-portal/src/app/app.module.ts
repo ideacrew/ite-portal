@@ -61,7 +61,7 @@ const readScope = `api://${clientId}/Read`;
 const gatewayApiUrl = environment.NX_GATEWAY_API || '';
 const portalApiUrl = environment.NX_PORTAL_API || '';
 
-export function msalInstanceFactory(): IPublicClientApplication {
+export function MSALInstanceFactory(): IPublicClientApplication {
   console.log('Making sure correct branch by NX_AD_CLIENT_ID: ' + clientId);
   console.log('Making sure correct branch by NX_AD_TID: ' + tenantId);
   console.log('Making sure correct branch by gatewayApiUrl: ' + gatewayApiUrl);
@@ -79,6 +79,36 @@ export function msalInstanceFactory(): IPublicClientApplication {
     },
   });
 }
+
+// export function MSALInstanceFactory(): IPublicClientApplication {
+//   // console.log(
+//   //   'Making sure correct branch by subdomain: ' + environment.subdomain
+//   // );
+//   // console.log(
+//   //   'Making sure correct branch by gatewayCid: ' + environment.clientId
+//   // );
+//   return new PublicClientApplication({
+//     auth: {
+//       clientId: environment.clientId,
+//       authority: environment.msalConfig.auth.authority,
+//       knownAuthorities: [environment.msalConfig.auth.authorityDomain],
+//       redirectUri: window.location.origin,
+//       postLogoutRedirectUri: window.location.origin,
+//     },
+//     cache: {
+//       cacheLocation: BrowserCacheLocation.LocalStorage,
+//     },
+//     system: {
+//       allowNativeBroker: false, // Disables WAM Broker
+
+//       loggerOptions: {
+//         loggerCallback,
+//         logLevel: LogLevel.Warning,
+//         piiLoggingEnabled: false,
+//       },
+//     },
+//   });
+// }
 
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
@@ -334,7 +364,7 @@ const routes: Routes = [
     },
     {
       provide: MSAL_INSTANCE,
-      useFactory: msalInstanceFactory,
+      useFactory: MSALInstanceFactory,
     },
     {
       provide: MSAL_GUARD_CONFIG,
