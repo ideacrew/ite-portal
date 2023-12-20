@@ -83,10 +83,10 @@ export function msalInstanceFactory(): IPublicClientApplication {
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
-    loginFailedRoute: './',
     authRequest: {
       scopes: [readScope],
     },
+    loginFailedRoute: '/login-failed',
   };
 }
 
