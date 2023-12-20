@@ -56,8 +56,8 @@ const isIE =
 const NX_AD_CLIENT_ID = environment.NX_AD_CLIENT_ID || '';
 const NX_AD_TID = environment.NX_AD_TID_PROD || '';
 const readScope = `api://${NX_AD_CLIENT_ID}/Read`;
-const gatewayApiUrl = environment.gatewayApi || '';
-const portalApiUrl = environment.portalApi || '';
+const gatewayApiUrl = environment.NX_GATEWAY_API || '';
+const portalApiUrl = environment.NX_PORTAL_API || '';
 
 export function msalInstanceFactory(): IPublicClientApplication {
   console.log(
