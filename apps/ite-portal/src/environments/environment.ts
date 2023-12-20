@@ -7,7 +7,7 @@ const tenantId = process.env['NX_AD_TID'] || '';
 const gatewayApiUrl = process.env['NX_GATEWAY_API'] || '';
 const portalApiUrl = process.env['NX_PORTAL_API'] || '';
 // const appInactiveTimeout = 900; // 15 minutes
-// const appInactiveTimeout = 10; // 10 seconds
+const appInactiveTimeout = 10; // 10 seconds
 
 export const environment = {
   production: false,
@@ -16,6 +16,7 @@ export const environment = {
   NX_AD_TID_PROD: tenantId,
   NX_GATEWAY_API: gatewayApiUrl,
   NX_PORTAL_API: portalApiUrl,
+  appInactiveTimeout: appInactiveTimeout,
 };
 
 /*

@@ -49,6 +49,7 @@ import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-con
 import { DataDictionaryComponent } from './data-dictionary/data-dictionary.component';
 import { ProviderLoginsComponent } from './executive/provider-logins.component';
 import { LastActiveService } from './services/last-active.service';
+import { OurAuthService } from './services/auth.service';
 
 const isIE =
   window.navigator.userAgent.includes('MSIE ') ||
@@ -352,6 +353,12 @@ const routes: Routes = [
       deps: [LastActiveService],
       useFactory: (lastActiveService: LastActiveService) => () =>
         lastActiveService.setUp(),
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [OurAuthService],
+      useFactory: (authService: OurAuthService) => () => authService.setUp(),
     },
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],
