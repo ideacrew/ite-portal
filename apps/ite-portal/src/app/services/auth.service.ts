@@ -87,6 +87,7 @@ export class OurAuthService {
   }
 
   private inactivityLogoutTimeoutS = environment.appInactiveTimeout;
+  // private inactivityLogoutTimeoutS = 3000;
   private timerTickMs = 1000;
 
   public setUp() {

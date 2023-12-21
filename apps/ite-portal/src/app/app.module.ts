@@ -58,7 +58,7 @@ const gatewayApiUrl = environment.NX_GATEWAY_API || '';
 const portalApiUrl = environment.NX_PORTAL_API || '';
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
-  // console.log(message); // Uncomment to see MSAL logs
+  console.log(message); // Uncomment to see MSAL logs
 }
 
 export function MSALInstanceFactory(): IPublicClientApplication {
