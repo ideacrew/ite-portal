@@ -71,9 +71,13 @@ export class OurAuthService {
         mainWindowRedirectUri: '/',
       });
     } else {
-      this.msalService.logoutRedirect().subscribe({
-        error: (err: string) => new Error(err),
-      });
+      this.msalService
+        .logoutRedirect({
+          account: this.msalService.instance.getActiveAccount(),
+        })
+        .subscribe({
+          error: (err: string) => new Error(err),
+        });
     }
   }
 
@@ -87,14 +91,13 @@ export class OurAuthService {
   }
 
   private inactivityLogoutTimeoutS = environment.appInactiveTimeout;
-  // private inactivityLogoutTimeoutS = 3000;
   private timerTickMs = 1000;
 
   public setUp() {
     timer(0, this.timerTickMs)
       .pipe(filter(() => this._loggedIn.value))
       .subscribe(() => {
-        console.log('tick'); // for debugging
+        // console.log('tick'); // for debugging
         const currentDate = moment(new Date());
         const lastActiveDate = this.lastActiveService.getLastActiveDate();
         if (
