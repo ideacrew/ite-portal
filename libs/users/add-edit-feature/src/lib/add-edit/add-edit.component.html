@@ -1,0 +1,30 @@
+<ul class="breadcrumbs">
+  <li>
+    <a routerLink="/executive-dashboards/provider-logins" routerLinkActive="active"
+      >Users Log</a
+    >
+  </li>
+  <li>
+    <a routerLink="/users/provider-logins" routerLinkActive="active"
+      >Users Log</a
+    >
+  </li>
+  <li>{{ pageTile }}</li>
+</ul>
+
+<h1>{{ pageTile }}</h1>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <label>Email</label>
+  <input type="text" formControlName="email" class="form-control" />
+
+  <label>Provider</label>
+  <!-- need to add a select here with a list of all providers with a value of provider_id and a label of the provider_name -->
+
+  <label><input type="checkbox" formControlName="is_dbh" class="form-control" /> DBH Employee/Contractor</label>
+
+  <label><input type="checkbox" formControlName="is_active" class="form-control" /> Active</label>
+
+  <button class="button">
+    {{ pageTile }}
+  </button>
+</form>

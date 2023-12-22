@@ -16,26 +16,56 @@ import { RouterLink } from '@angular/router';
           Executive Dashboard
         </a>
       </li>
-      <li>Provider Logins</li>
+      <li>User Logins</li>
     </ul>
 
-    <h1>Provider Logins</h1>
+    <h1>User Logins</h1>
+    <dl class="parent" *ngIf="sortedProviders$ | async as results">
+    <dt>Active User Accounts:</dt>
+    <dd>
+      {{ results.active_user_count}}
+    </dd>
+    <dt>Inactive User Accounts:</dt>
+    <dd>
+      {{ results.inactive_user_count}}
+    </dd>
+    </dl>
+    <div>
+    <a class="button"
+          [routerLink]="[
+            '/users/new',
+          ]"
+          >Create New User</a
+        >
+      </div>
+  <h2>User Details</h2>
+  <p>To view or edit a user, click on a row in the table below.</p>
 
-    <small class="nonvisiblechange">
+    <small>
       <span class="material-symbols-outlined"> info </span>
       All times are displayed in UTC
     </small>
 
-    <table *ngIf="sortedProviders$ | async as results; else loading">
+    <table *ngIf="sortedProviders$ | async as results; else loading" class="clickable-rows">
       <thead>
         <th>Provider Name</th>
+        <th>Email</th>
+        <th>Active</th>
         <th>Last Activity</th>
         <th>Provider Gateway Identifier</th>
-        <th>Email</th>
+
       </thead>
       <tbody>
         <tr *ngFor="let user of results.users">
-          <td>{{ user.provider_name }}</td>
+          <td><span [class.inactive] = "user.is_active === false">{{ user.provider_name }}</span></td>
+          <td><a class="full-row-link"
+          [routerLink]="[
+            '/users',
+            user.user_id
+          ]"
+          >{{ user.email }}</a
+        ></td>
+          <td>{{ user.is_active? 'Yes':'No' }}</td>
           <td *ngIf="user.last_sign_in_at; else never">
             {{ user.last_sign_in_at | date : 'long' : 'UTC' }}
           </td>
@@ -43,7 +73,6 @@ import { RouterLink } from '@angular/router';
             <td>Never</td>
           </ng-template>
           <td>{{ user.provider_gateway_identifier }}</td>
-          <td>{{ user.email }}</td>
         </tr>
       </tbody>
     </table>
@@ -77,6 +106,27 @@ import { RouterLink } from '@angular/router';
         display: grid;
         place-items: center;
         border-radius: 8px;
+      }
+
+      span.inactive {
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      .clickable-rows tr {
+        position: relative;
+      }
+
+      .full-row-link::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        pointer-events: auto;
+        content: "";
+        background-color: rgba(0,0,0,0);
       }
     `,
   ],

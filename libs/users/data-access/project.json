@@ -1,0 +1,27 @@
+{
+  "name": "users-data-access",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/users/data-access/src",
+  "prefix": "dbh",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/users/data-access"],
+      "options": {
+        "jestConfig": "libs/users/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/user/data-access/**/*.ts",
+          "libs/users/data-access/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["type:data-access"]
+}

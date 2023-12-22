@@ -154,10 +154,24 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'clients/:id',
+        path: 'users/new',
         loadChildren: () =>
-          import('@dbh/clients/client-feature').then(
-            (m) => m.ClientsClientComponentFeatureModule
+          import('@dbh/users/add-edit-feature').then(
+            (m) => m.UsersAddEditFeatureModule
+          ),
+      },
+      {
+        path: 'users/:id/edit',
+        loadChildren: () =>
+          import('@dbh/users/add-edit-feature').then(
+            (m) => m.UsersAddEditFeatureModule
+          ),
+      },
+      {
+        path: 'users/:id',
+        loadChildren: () =>
+          import('@dbh/users/user-detail-feature').then(
+            (m) => m.UsersUserDetailFeatureModule
           ),
       },
       {

@@ -1,0 +1,15 @@
+form label:not(:first-of-type) {
+  margin-top: 2em;
+}
+
+input[type="checkbox"] {
+  vertical-align: middle;
+  position: relative;
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+  margin-right: 10px;
+  accent-color: var(--primary);
+}
