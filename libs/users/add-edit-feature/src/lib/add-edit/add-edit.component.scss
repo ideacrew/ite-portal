@@ -1,4 +1,8 @@
 form label:not(:first-of-type) {
+  margin-top: 1em;
+}
+
+form button {
   margin-top: 2em;
 }
 
@@ -11,5 +15,11 @@ input[type="checkbox"] {
   -o-transform: scale(2); /* Opera */
   transform: scale(2);
   margin-right: 10px;
+  margin-left: 6px;
   accent-color: var(--primary);
+}
+
+.required:after {
+  content:" *";
+  color: var(--error-140);
 }

@@ -14,7 +14,7 @@
 
 <h1>{{ pageTile }}</h1>
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <label>Email</label>
+  <label class="required">Email</label>
   <input type="text" formControlName="email" class="form-control" />
 
   <label>Provider</label>
