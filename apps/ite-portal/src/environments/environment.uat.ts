@@ -1,7 +1,7 @@
-const clientId = process.env['NX_AD_CLIENT_ID_PROD'] || '';
-const tenantId = process.env['NX_AD_TID_PROD'] || '';
-const gatewayApiUrl = process.env['NX_GATEWAY_API_PROD'] || '';
-const portalApiUrl = process.env['NX_PORTAL_API_PROD'] || '';
+const clientId = process.env['NX_AD_CLIENT_ID_UAT'] || '';
+const tenantId = process.env['NX_AD_TID_UAT'] || '';
+const gatewayApiUrl = process.env['NX_GATEWAY_API_UAT'] || '';
+const portalApiUrl = process.env['NX_PORTAL_API_UAT'] || '';
 const authority = `https://login.microsoftonline.com/${tenantId}/`;
 const appInactiveTimeout = 900; // 15 minutes
 
