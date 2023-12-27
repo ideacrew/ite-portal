@@ -1,14 +1,32 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-/* eslint-disable @typescript-eslint/naming-convention */
+
+const clientId = process.env['NX_AD_CLIENT_ID'] || '';
+const tenantId = process.env['NX_AD_TID'] || '';
+const gatewayApiUrl = process.env['NX_GATEWAY_API'] || '';
+const portalApiUrl = process.env['NX_PORTAL_API'] || '';
+const authority = `https://login.microsoftonline.com/${tenantId}/`;
+const appInactiveTimeout = 900; // 15 minutes
+// const appInactiveTimeout = 10; // 10 seconds
 
 export const environment = {
   production: false,
-  gatewayApi: 'https://api.provider.dev.dbhite.com',
-  portalApi: 'https://api.portal.dev.dbhite.com',
-  NX_AD_CLIENT_ID: process.env['NX_AD_CLIENT_ID'],
-  NX_AD_TID_PROD: process.env['NX_AD_TID'],
+  UAT: false,
+  NX_AD_CLIENT_ID: clientId,
+  NX_AD_TID: tenantId,
+  NX_GATEWAY_API: gatewayApiUrl,
+  NX_PORTAL_API: portalApiUrl,
+  msalConfig: {
+    auth: {
+      clientId: clientId,
+      authority: authority,
+    },
+  },
+  apiConfig: {
+    uri: authority,
+  },
+  appInactiveTimeout: appInactiveTimeout,
 };
 
 /*
