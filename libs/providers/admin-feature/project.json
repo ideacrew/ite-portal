@@ -1,0 +1,29 @@
+{
+  "name": "admin-feature",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/bhsd/admin-feature/src",
+  "prefix": "dbh",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/bhsd/admin-feature"
+      ],
+      "options": {
+        "jestConfig": "libs/bhsd/admin-feature/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/bhsd/admin-feature/**/*.ts",
+          "libs/bhsd/admin-feature/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

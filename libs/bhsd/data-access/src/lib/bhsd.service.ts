@@ -5,7 +5,7 @@ import { map, Observable, filter } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
 import { Criterion, ValueOption } from '@dbh/claims/data-access/models';
-import { ProvidersLog } from '@dbh/providers/data-access';
+import { ProvidersLog, ProvidersDetails } from '@dbh/providers/data-access';
 import {
   Extracts,
   ExtractSubmissionResponse,
@@ -191,6 +191,16 @@ export class BHSDService {
   getProviderLogins(): Observable<ProvidersLog> {
     return this.http.get<ProvidersLog>(
       `${this.config.gatewayApiUrl}/api/v1/providers/log`
+    );
+  }
+
+  getProvidersDetails(): Observable<ProvidersDetails> {
+    const result = this.http.get<ProvidersDetails>(
+      `${this.config.gatewayApiUrl}/api/v1/providers`
+    );
+    console.log(result);
+    return this.http.get<ProvidersDetails>(
+      `${this.config.gatewayApiUrl}/api/v1/providers`
     );
   }
 }
