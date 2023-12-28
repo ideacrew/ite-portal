@@ -67,9 +67,14 @@ export class AddEditComponent implements OnInit  {
   }
 
   createUser() {
-    this.userService.createUser(this.userForm)
-      .pipe(first())
-      .subscribe();
+    this.userService.createUser(this.userForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   updateUser() {
