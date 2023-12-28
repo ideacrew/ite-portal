@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 export type ProviderProfile = {
   id: string;
   is_active: boolean;

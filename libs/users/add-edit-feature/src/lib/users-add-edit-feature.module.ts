@@ -14,7 +14,7 @@ import { AddEditComponent } from './add-edit/add-edit.component';
     ]),
 
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
 })
 export class UsersAddEditFeatureModule {}

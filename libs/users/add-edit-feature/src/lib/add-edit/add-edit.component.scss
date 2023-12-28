@@ -6,7 +6,7 @@ form button {
   margin-top: 2em;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   vertical-align: middle;
   position: relative;
   -ms-transform: scale(2); /* IE */
@@ -20,6 +20,6 @@ input[type="checkbox"] {
 }
 
 .required:after {
-  content:" *";
+  content: ' *';
   color: var(--error-140);
 }

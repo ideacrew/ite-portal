@@ -9,7 +9,7 @@ import { UsersService } from '@dbh/users/data-access';
   styleUrls: ['./user-detail.component.scss'],
 })
 export class UserDetailComponent {
-  id = this.route.paramMap
+  id = this.route.paramMap;
   user$ = this.route.paramMap.pipe(
     filter((parameters: ParamMap) => parameters.has('id')),
     map((parameters: ParamMap) => parameters.get('id')),
@@ -23,5 +23,4 @@ export class UserDetailComponent {
     private route: ActivatedRoute,
     private userService: UsersService
   ) {}
-
 }

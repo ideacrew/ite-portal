@@ -2,7 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, shareReplay, switchMap } from 'rxjs';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { UsersService } from '@dbh/users/data-access';
 
@@ -18,7 +23,7 @@ type UserForm = {
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
 })
-export class AddEditComponent implements OnInit  {
+export class AddEditComponent implements OnInit {
   id: string | null = null; // Explicitly define the type of 'id' property
   createNew = true; // Add 'createNew' property with boolean type
   pageTile = 'Update User'; // Add 'pageTile' property with string type
@@ -28,7 +33,7 @@ export class AddEditComponent implements OnInit  {
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -46,9 +51,10 @@ export class AddEditComponent implements OnInit  {
     });
 
     if (!this.createNew) {
-      this.userService.getUser(this.id ?? 'fake-value')
-          .pipe(first())
-          .subscribe(x => this.userForm.patchValue(x));
+      this.userService
+        .getUser(this.id ?? 'fake-value')
+        .pipe(first())
+        .subscribe((x) => this.userForm.patchValue(x));
     }
   }
 
@@ -57,7 +63,7 @@ export class AddEditComponent implements OnInit  {
 
     // stop here if form is invalid
     if (this.userForm.invalid) {
-        return;
+      return;
     }
     if (this.createNew) {
       this.createUser();
@@ -78,7 +84,8 @@ export class AddEditComponent implements OnInit  {
   }
 
   updateUser() {
-    this.userService.updateUser(this.id || '', this.userForm)
+    this.userService
+      .updateUser(this.id || '', this.userForm)
       .pipe(first())
       .subscribe();
   }

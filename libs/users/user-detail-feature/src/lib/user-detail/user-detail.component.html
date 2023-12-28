@@ -1,6 +1,8 @@
 <ul class="breadcrumbs">
   <li>
-    <a routerLink="/executive-dashboards/provider-logins" routerLinkActive="active"
+    <a
+      routerLink="/executive-dashboards/provider-logins"
+      routerLinkActive="active"
       >Users Log</a
     >
   </li>
@@ -26,10 +28,7 @@
     </ng-container>
   </dl>
   <div>
-    <a class="button"
-      [routerLink]="[
-        '/users/'+user.user_id+'/edit',
-      ]"
+    <a class="button" [routerLink]="['/users/' + user.user_id + '/edit']"
       >Update User</a
     >
   </div>

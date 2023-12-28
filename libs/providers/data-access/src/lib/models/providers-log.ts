@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 export type Provider = {
   user_id: number;
   email: string;
