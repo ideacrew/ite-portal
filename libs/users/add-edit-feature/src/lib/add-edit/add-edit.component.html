@@ -16,6 +16,16 @@
 
 <h1>{{ pageTile }}</h1>
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <label>Provider</label>
+  <select formControlName="provider_id">
+    <!-- <option *ngFor="let state of states" [ngValue]="state">
+      {{ state.abbrev }}
+    </option> -->
+    <option value="">None</option>
+    <option value="559">My Provider</option>
+    <option value="558">Your Provider</option>
+  </select>
+
   <label class="required">Email</label>
   <input type="text" formControlName="email" class="form-control" />
 
