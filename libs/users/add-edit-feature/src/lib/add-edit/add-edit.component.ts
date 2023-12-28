@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { filter, map, shareReplay, switchMap } from 'rxjs';
+import { Component, OnInit, isDevMode } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -75,7 +74,8 @@ export class AddEditComponent implements OnInit {
   createUser() {
     this.userService.createUser(this.userForm.value).subscribe({
       next: (res) => {
-        console.log(res);
+        if (isDevMode()) console.log(res);
+        console.log('User created successfully');
       },
       error: (err) => {
         console.log(err);

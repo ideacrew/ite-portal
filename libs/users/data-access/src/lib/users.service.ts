@@ -17,7 +17,7 @@ export class UsersService {
 
   createUser(formValue: unknown): Observable<User> {
     return this.http.post<User>(
-      `${this.config.gatewayApiUrl}/users/new`,
+      `${this.config.gatewayApiUrl}/users`,
       formValue
     );
   }
