@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,6 +15,7 @@ import {
   MSAL_INSTANCE,
   MsalGuardConfiguration,
   MSAL_GUARD_CONFIG,
+  MsalBroadcastService,
 } from '@azure/msal-angular';
 import {
   PublicClientApplication,
@@ -23,6 +23,7 @@ import {
   BrowserCacheLocation,
   IPublicClientApplication,
   BrowserUtils,
+  LogLevel,
 } from '@azure/msal-browser';
 import { DataAccessModule } from '@dbh/bhsd/data-access';
 import { ClaimsDataAccessModule } from '@dbh/claims/data-access';
@@ -48,34 +49,40 @@ import { DataTrackingSystemInventoryComponent } from './data-tracking-system-inv
 import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-conventions/ite-database-naming-conventions.component';
 import { DataDictionaryComponent } from './data-dictionary/data-dictionary.component';
 import { ProviderLoginsComponent } from './executive/provider-logins.component';
+import { LastActiveService } from './services/last-active.service';
+import { OurAuthService } from './services/auth.service';
 
-const isIE =
-  window.navigator.userAgent.includes('MSIE ') ||
-  window.navigator.userAgent.includes('Trident/');
+const clientId = environment.NX_AD_CLIENT_ID || '';
+const readScope = `api://${clientId}/Read`;
+const gatewayApiUrl = environment.NX_GATEWAY_API || '';
+const portalApiUrl = environment.NX_PORTAL_API || '';
 
-const NX_AD_CLIENT_ID = environment.NX_AD_CLIENT_ID || '';
-const NX_AD_TID = environment.NX_AD_TID_PROD || '';
-const readScope = `api://${NX_AD_CLIENT_ID}/Read`;
-const gatewayApiUrl = environment.gatewayApi || '';
-const portalApiUrl = environment.portalApi || '';
+export function loggerCallback(logLevel: LogLevel, message: string) {
+  // console.log(message); // Uncomment to see MSAL logs
+}
 
-export function msalInstanceFactory(): IPublicClientApplication {
-  console.log(
-    'Making sure correct branch by NX_AD_CLIENT_ID: ' + NX_AD_CLIENT_ID
-  );
-  console.log('Making sure correct branch by NX_AD_TID: ' + NX_AD_TID);
-  console.log('Making sure correct branch by gatewayApiUrl: ' + gatewayApiUrl);
-  console.log('Making sure correct branch by portalApiUrl: ' + portalApiUrl);
+export function MSALInstanceFactory(): IPublicClientApplication {
+  // console.log('Making sure correct branch by NX_AD_CLIENT_ID: ' + clientId);
+  // console.log('Making sure correct branch by NX_AD_TID: ' + tenantId);
+  // console.log('Making sure correct branch by gatewayApiUrl: ' + gatewayApiUrl);
+  // console.log('Making sure correct branch by portalApiUrl: ' + portalApiUrl);
   return new PublicClientApplication({
     auth: {
-      clientId: NX_AD_CLIENT_ID,
-      authority: `https://login.microsoftonline.com/${NX_AD_TID}/`,
+      clientId: clientId,
+      authority: environment.msalConfig.auth.authority,
       redirectUri: window.location.origin,
       postLogoutRedirectUri: window.location.origin,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
-      storeAuthStateInCookie: isIE, // set to true for IE 11
+    },
+    system: {
+      allowNativeBroker: false, // Disables WAM Broker
+      loggerOptions: {
+        loggerCallback,
+        logLevel: LogLevel.Info,
+        piiLoggingEnabled: false,
+      },
     },
   });
 }
@@ -83,15 +90,15 @@ export function msalInstanceFactory(): IPublicClientApplication {
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
-    loginFailedRoute: './',
     authRequest: {
       scopes: [readScope],
     },
+    loginFailedRoute: '/login-failed',
   };
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, string[]>();
+  const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set(gatewayApiUrl, [readScope]);
   protectedResourceMap.set(portalApiUrl, [readScope]);
   return {
@@ -338,27 +345,41 @@ const routes: Routes = [
   ],
   providers: [
     {
+      provide: APP_TITLE,
+      useValue: 'ITE Portal',
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
     },
     {
       provide: MSAL_INSTANCE,
-      useFactory: msalInstanceFactory,
+      useFactory: MSALInstanceFactory,
     },
     {
       provide: MSAL_GUARD_CONFIG,
       useFactory: MSALGuardConfigFactory,
     },
-    MsalService,
-    MsalGuard,
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
       useFactory: MSALInterceptorConfigFactory,
     },
+    MsalService,
+    MsalGuard,
+    MsalBroadcastService,
     {
-      provide: APP_TITLE,
-      useValue: 'ITE Portal',
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [LastActiveService],
+      useFactory: (lastActiveService: LastActiveService) => () =>
+        lastActiveService.setUp(),
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [OurAuthService],
+      useFactory: (authService: OurAuthService) => () => authService.setUp(),
     },
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],
