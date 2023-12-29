@@ -119,9 +119,4 @@ export class AddEditComponent implements OnInit {
         },
       });
   }
-
-  showSuccess() {
-    const content = document.querySelector<HTMLDivElement>('.user-content');
-    console.log(content);
-  }
 }
