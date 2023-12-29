@@ -6,13 +6,6 @@ import { take } from 'rxjs/operators';
 import { UsersService } from '@dbh/users/data-access';
 import { BHSDService } from '@dbh/bhsd/data-access';
 
-// type UserForm = {
-//   email: FormControl<string>;
-//   is_active: FormControl<boolean>;
-//   is_dbh: FormControl<boolean>;
-//   provider_id: FormControl<string | null>;
-// };
-
 @Component({
   selector: 'users-add-edit',
   templateUrl: './add-edit.component.html',
@@ -24,7 +17,8 @@ export class AddEditComponent implements OnInit {
   pageTile = 'Update User'; // Add 'pageTile' property with string type
   userForm!: FormGroup;
   submitted = false;
-  providers: string[] = [];
+  providers: { provider_gateway_identifier: string; provider_name: string }[] =
+    [];
 
   constructor(
     private route: ActivatedRoute,
@@ -80,8 +74,9 @@ export class AddEditComponent implements OnInit {
           if (isDevMode()) console.log(res);
           console.log('User created successfully');
         },
-        error: (err) => {
+        error: (err: { error: string }) => {
           console.log(err);
+          console.error(`API Error: ${err.error}`);
         },
       });
   }
@@ -100,16 +95,25 @@ export class AddEditComponent implements OnInit {
       .subscribe({
         next: (res) => {
           const providers = res as {
-            providers: { id: string; provider_name: string }[];
+            providers: {
+              provider_gateway_identifier: string;
+              provider_name: string;
+            }[];
           };
-          const providerNames = [...providers.providers].map(
-            (x) => x.provider_name
+
+          const providerNames = providers.providers.map(
+            ({ provider_gateway_identifier, provider_name }) => ({
+              provider_gateway_identifier,
+              provider_name,
+            })
           );
+
           this.providers = [...providerNames];
           if (isDevMode()) console.log(this.providers);
         },
-        error: (err) => {
+        error: (err: { error: string }) => {
           console.log(err);
+          console.error(`API Error: ${err.error}`);
         },
       });
   }
