@@ -1,22 +1,17 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Component, OnInit, isDevMode } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-} from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { take } from 'rxjs/operators';
 import { UsersService } from '@dbh/users/data-access';
 import { BHSDService } from '@dbh/bhsd/data-access';
 
-type UserForm = {
-  email: FormControl<string>;
-  is_active: FormControl<boolean>;
-  is_dbh: FormControl<boolean>;
-  provider_id: FormControl<string | null>;
-};
+// type UserForm = {
+//   email: FormControl<string>;
+//   is_active: FormControl<boolean>;
+//   is_dbh: FormControl<boolean>;
+//   provider_id: FormControl<string | null>;
+// };
 
 @Component({
   selector: 'users-add-edit',
@@ -29,6 +24,7 @@ export class AddEditComponent implements OnInit {
   pageTile = 'Update User'; // Add 'pageTile' property with string type
   userForm!: FormGroup;
   submitted = false;
+  providers: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -54,7 +50,7 @@ export class AddEditComponent implements OnInit {
     if (!this.createNew) {
       this.userService
         .getUser(this.id ?? 'fake-value')
-        .pipe(first())
+        .pipe(take(1))
         .subscribe((x) => this.userForm.patchValue(x));
     }
 
@@ -76,32 +72,45 @@ export class AddEditComponent implements OnInit {
   }
 
   createUser() {
-    this.userService.createUser(this.userForm.value).subscribe({
-      next: (res) => {
-        if (isDevMode()) console.log(res);
-        console.log('User created successfully');
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.userService
+      .createUser(this.userForm.value)
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          if (isDevMode()) console.log(res);
+          console.log('User created successfully');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   updateUser() {
     this.userService
       .updateUser(this.id || '', this.userForm)
-      .pipe(first())
+      .pipe(take(1))
       .subscribe();
   }
 
-  getProviders() {
-    this.bhsdService.getProviders().subscribe({
-      next: (res) => {
-        if (isDevMode()) console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+  getProviders(): void {
+    this.bhsdService
+      .getProviders()
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          const providers = res as {
+            providers: { id: string; provider_name: string }[];
+          };
+          const providerNames = [...providers.providers].map(
+            (x) => x.provider_name
+          );
+          this.providers = [...providerNames];
+          if (isDevMode()) console.log(this.providers);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 }
