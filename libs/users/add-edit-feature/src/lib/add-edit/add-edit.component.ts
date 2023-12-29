@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { UsersService } from '@dbh/users/data-access';
+import { BHSDService } from '@dbh/bhsd/data-access';
 
 type UserForm = {
   email: FormControl<string>;
@@ -32,6 +33,7 @@ export class AddEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
+    private bhsdService: BHSDService,
     private formBuilder: FormBuilder
   ) {}
 
@@ -55,6 +57,8 @@ export class AddEditComponent implements OnInit {
         .pipe(first())
         .subscribe((x) => this.userForm.patchValue(x));
     }
+
+    this.getProviders();
   }
 
   onSubmit() {
@@ -88,5 +92,16 @@ export class AddEditComponent implements OnInit {
       .updateUser(this.id || '', this.userForm)
       .pipe(first())
       .subscribe();
+  }
+
+  getProviders() {
+    this.bhsdService.getProviders().subscribe({
+      next: (res) => {
+        if (isDevMode()) console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }
