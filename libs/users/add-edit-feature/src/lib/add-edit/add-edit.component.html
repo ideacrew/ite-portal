@@ -15,35 +15,67 @@
 </ul>
 
 <h1>{{ pageTile }}</h1>
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <label>Provider</label>
-  <select formControlName="provider_id">
-    <option value="">None</option>
-    <option *ngFor="let provider of providers" [ngValue]="provider.id">
-      {{ provider.provider_name }}
-    </option>
-    <!-- <option value="">None</option>
+<div class="user-content" *ngIf="!submitted">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <label>Provider</label>
+    <select formControlName="provider_id">
+      <option value="">None</option>
+      <option *ngFor="let provider of providers" [ngValue]="provider.id">
+        {{ provider.provider_name }}
+      </option>
+      <!-- <option value="">None</option>
     <option value="559">My Provider</option>
     <option value="558">Your Provider</option> -->
-  </select>
+    </select>
 
-  <label class="required">Email</label>
-  <input type="text" formControlName="email" class="form-control" />
+    <label class="required">Email</label>
+    <input type="text" formControlName="email" class="form-control" />
 
-  <label>Provider</label>
-  <!-- need to add a select here with a list of all providers with a value of provider_id and a label of the provider_name -->
+    <label>Provider</label>
+    <!-- need to add a select here with a list of all providers with a value of provider_id and a label of the provider_name -->
 
-  <label
-    ><input type="checkbox" formControlName="is_dbh" class="form-control" /> DBH
-    Employee/Contractor</label
-  >
+    <label
+      ><input type="checkbox" formControlName="is_dbh" class="form-control" />
+      DBH Employee/Contractor</label
+    >
 
-  <label
-    ><input type="checkbox" formControlName="is_active" class="form-control" />
-    Active</label
-  >
+    <label
+      ><input
+        type="checkbox"
+        formControlName="is_active"
+        class="form-control"
+      />
+      Active</label
+    >
 
-  <button class="button">
-    {{ pageTile }}
-  </button>
-</form>
+    <button class="button">
+      {{ pageTile }}
+    </button>
+  </form>
+</div>
+
+<div class="user-content" *ngIf="submitted">
+  <h2>User Successfully Created</h2>
+
+  <p>
+    Please send an email to the provider with the following details to allow
+    them to set a password and finish the process:
+  </p>
+
+  <ul>
+    <li>Link to finish finish sign up: {{ currentUser.email }}</li>
+    <li>Provider Gateway Identifier: {{ currentUser.id }}</li>
+  </ul>
+
+  <div class="cta">
+    <button
+      class="button outline"
+      routerLink="/executive-dashboards/provider-logins"
+    >
+      Return to Admin Settings
+    </button>
+    <button class="button" routerLink="/users/{{ currentUser.id }}">
+      View User
+    </button>
+  </div>
+</div>

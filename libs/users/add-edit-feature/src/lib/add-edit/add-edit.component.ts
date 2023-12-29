@@ -18,6 +18,7 @@ export class AddEditComponent implements OnInit {
   userForm!: FormGroup;
   submitted = false;
   providers: { id: string; provider_name: string }[] = [];
+  currentUser: { id?: string; email?: string } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -72,6 +73,8 @@ export class AddEditComponent implements OnInit {
         next: (res) => {
           if (isDevMode()) console.log(res);
           console.log('User created successfully');
+          this.submitted = true;
+          this.currentUser = res;
         },
         error: (err: { error: string }) => {
           console.log(err);
@@ -115,5 +118,10 @@ export class AddEditComponent implements OnInit {
           console.error(`API Error: ${err.error}`);
         },
       });
+  }
+
+  showSuccess() {
+    const content = document.querySelector<HTMLDivElement>('.user-content');
+    console.log(content);
   }
 }

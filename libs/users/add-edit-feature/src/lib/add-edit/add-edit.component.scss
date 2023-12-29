@@ -23,3 +23,22 @@ input[type='checkbox'] {
 select {
   min-width: 205px;
 }
+
+.user-content {
+  h2 {
+    margin-bottom: 8px;
+  }
+  p {
+    margin: 0;
+  }
+  ul {
+    margin: 4px 0 16px;
+    padding: 0 24px;
+    // list-style: none;
+  }
+}
+
+.cta {
+  display: flex;
+  gap: 8px;
+}
