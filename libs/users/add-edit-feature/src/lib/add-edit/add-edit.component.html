@@ -19,10 +19,7 @@
   <label>Provider</label>
   <select formControlName="provider_id">
     <option value="">None</option>
-    <option
-      *ngFor="let provider of providers"
-      [ngValue]="provider.provider_gateway_identifier"
-    >
+    <option *ngFor="let provider of providers" [ngValue]="provider.id">
       {{ provider.provider_name }}
     </option>
     <!-- <option value="">None</option>

@@ -17,8 +17,7 @@ export class AddEditComponent implements OnInit {
   pageTile = 'Update User'; // Add 'pageTile' property with string type
   userForm!: FormGroup;
   submitted = false;
-  providers: { provider_gateway_identifier: string; provider_name: string }[] =
-    [];
+  providers: { id: string; provider_name: string }[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -96,14 +95,14 @@ export class AddEditComponent implements OnInit {
         next: (res) => {
           const providers = res as {
             providers: {
-              provider_gateway_identifier: string;
+              id: string;
               provider_name: string;
             }[];
           };
 
           const providerNames = providers.providers.map(
-            ({ provider_gateway_identifier, provider_name }) => ({
-              provider_gateway_identifier,
+            ({ id, provider_name }) => ({
+              id,
               provider_name,
             })
           );
