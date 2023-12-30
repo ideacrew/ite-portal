@@ -18,7 +18,12 @@
 <h1>{{ pageTile }}</h1>
 <div class="user-content" *ngIf="!submitted">
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <label for="provider_id">Provider</label>
+    <label for="provider_id" [ngClass]="providerRequired ? 'required' : ''">
+      Provider
+      <small *ngIf="providerRequired">
+        (Required if not creating DBH Employee/Contractor)
+      </small>
+    </label>
     <select id="provider_id" formControlName="provider_id">
       <option value="">None</option>
       <option *ngFor="let provider of providers" [ngValue]="provider.id">
@@ -26,7 +31,7 @@
       </option>
     </select>
 
-    <label for="email">Email</label>
+    <label for="email" class="required">Email</label>
     <input id="email" type="text" formControlName="email" />
 
     <label for="dbh">

@@ -19,6 +19,7 @@ export class AddEditComponent implements OnInit {
   submitted = false;
   providers: { id: string; provider_name: string }[] = [];
   currentUser: { id?: string; email?: string } = {};
+  providerRequired = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,24 +39,11 @@ export class AddEditComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       is_active: [true],
       is_dbh: [false],
-      provider_id: [''],
+      provider_id: ['', [Validators.required]],
     });
 
     // Set up the dynamic validation based on the value of 'is_dbh'
-    this.userForm.get('is_dbh')?.valueChanges.subscribe((isDbh: boolean) => {
-      const providerIdControl = this.userForm.get('provider_id');
-
-      if (!isDbh) {
-        // If 'is_dbh' is true, set 'provider_id' as required
-        providerIdControl?.setValidators([Validators.required]);
-      } else {
-        // If 'is_dbh' is false, remove the required validator
-        providerIdControl?.clearValidators();
-      }
-
-      // Update the validation status
-      providerIdControl?.updateValueAndValidity();
-    });
+    this.checkProviderValidation();
 
     if (!this.createNew) {
       this.userService
@@ -65,6 +53,25 @@ export class AddEditComponent implements OnInit {
     }
 
     this.getProviders();
+  }
+
+  private checkProviderValidation() {
+    this.userForm.get('is_dbh')?.valueChanges.subscribe((isDbh: boolean) => {
+      const providerIdControl = this.userForm.get('provider_id');
+
+      if (!isDbh) {
+        // If 'is_dbh' is false, set 'provider_id' as required
+        providerIdControl?.setValidators([Validators.required]);
+        this.providerRequired = true;
+      } else {
+        // If 'is_dbh' is true, remove the required validator
+        providerIdControl?.clearValidators();
+        this.providerRequired = false;
+      }
+
+      // Update the validation status
+      providerIdControl?.updateValueAndValidity();
+    });
   }
 
   onSubmit() {
