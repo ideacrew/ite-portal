@@ -3,13 +3,14 @@
     <a
       routerLink="/executive-dashboards/provider-logins"
       routerLinkActive="active"
-      >Users Log</a
     >
+      Users Log
+    </a>
   </li>
   <li>
-    <a routerLink="/users/provider-logins" routerLinkActive="active"
-      >Users Log</a
-    >
+    <a routerLink="/users/provider-logins" routerLinkActive="active">
+      Users Log
+    </a>
   </li>
   <li>{{ pageTile }}</li>
 </ul>
@@ -23,30 +24,20 @@
       <option *ngFor="let provider of providers" [ngValue]="provider.id">
         {{ provider.provider_name }}
       </option>
-      <!-- <option value="">None</option>
-    <option value="559">My Provider</option>
-    <option value="558">Your Provider</option> -->
     </select>
 
     <label class="required">Email</label>
     <input type="text" formControlName="email" class="form-control" />
 
-    <label>Provider</label>
-    <!-- need to add a select here with a list of all providers with a value of provider_id and a label of the provider_name -->
+    <label>
+      <input type="checkbox" formControlName="is_dbh" class="form-control" />
+      DBH Employee/Contractor
+    </label>
 
-    <label
-      ><input type="checkbox" formControlName="is_dbh" class="form-control" />
-      DBH Employee/Contractor</label
-    >
-
-    <label
-      ><input
-        type="checkbox"
-        formControlName="is_active"
-        class="form-control"
-      />
-      Active</label
-    >
+    <label>
+      <input type="checkbox" formControlName="is_active" class="form-control" />
+      Active
+    </label>
 
     <button class="button" [disabled]="userForm.invalid">
       {{ pageTile }}
