@@ -47,6 +47,8 @@
     <button class="button" [disabled]="userForm.invalid">
       {{ pageTile }}
     </button>
+
+    <div *ngIf="showError" class="error-message">{{ errorMessage }}</div>
   </form>
 </div>
 

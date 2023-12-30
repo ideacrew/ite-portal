@@ -8,4 +8,5 @@ export type User = {
   is_provider: boolean;
   provider_gateway_identifier: string;
   provider_name: string;
+  error?: string;
 };

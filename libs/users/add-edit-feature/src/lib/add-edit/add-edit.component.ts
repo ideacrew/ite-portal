@@ -17,6 +17,8 @@ export class AddEditComponent implements OnInit {
   pageTile = 'Update User'; // Add 'pageTile' property with string type
   userForm!: FormGroup;
   submitted = false;
+  showError = false;
+  errorMessage = '';
   providers: { id: string; provider_name: string }[] = [];
   currentUser: { id?: string; email?: string } = {};
   providerRequired = true;
@@ -75,8 +77,6 @@ export class AddEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
     // stop here if form is invalid
     if (this.userForm.invalid) {
       return;
@@ -94,14 +94,22 @@ export class AddEditComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (res) => {
-          if (isDevMode()) console.log(res);
-          console.log('User created successfully');
+          if (isDevMode()) {
+            console.log(res);
+            console.log('User created successfully');
+          }
+
           this.submitted = true;
           this.currentUser = res;
         },
         error: (err: { error: string }) => {
-          console.log(err);
-          console.error(`API Error: ${err.error}`);
+          if (isDevMode()) {
+            console.log(err);
+            console.error(`API Error: ${err.error}`);
+          }
+
+          this.showError = true;
+          this.errorMessage = err.error;
         },
       });
   }

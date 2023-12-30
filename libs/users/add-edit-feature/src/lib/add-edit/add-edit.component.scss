@@ -15,9 +15,20 @@ input[type='checkbox'] {
   accent-color: var(--primary);
 }
 
+label {
+  width: max-content;
+  position: relative;
+}
+
 .required:after {
   content: ' *';
   color: var(--error-140);
+}
+
+.required small {
+  position: absolute;
+  left: calc(100% + 8px);
+  width: max-content;
 }
 
 select {
@@ -41,4 +52,15 @@ select {
 .cta {
   display: flex;
   gap: 8px;
+}
+
+.error-message {
+  border: 1px solid var(--error);
+  max-width: 400px;
+  margin-top: 16px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(var(--error-rgb), 0.15);
+  font-size: 14px;
+  line-height: 1;
 }
