@@ -18,24 +18,24 @@
 <h1>{{ pageTile }}</h1>
 <div class="user-content" *ngIf="!submitted">
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <label>Provider</label>
-    <select formControlName="provider_id">
+    <label for="provider_id">Provider</label>
+    <select id="provider_id" formControlName="provider_id">
       <option value="">None</option>
       <option *ngFor="let provider of providers" [ngValue]="provider.id">
         {{ provider.provider_name }}
       </option>
     </select>
 
-    <label class="required">Email</label>
-    <input type="text" formControlName="email" class="form-control" />
+    <label for="email">Email</label>
+    <input id="email" type="text" formControlName="email" />
 
-    <label>
-      <input type="checkbox" formControlName="is_dbh" class="form-control" />
+    <label for="dbh">
+      <input id="dbh" type="checkbox" formControlName="is_dbh" />
       DBH Employee/Contractor
     </label>
 
-    <label>
-      <input type="checkbox" formControlName="is_active" class="form-control" />
+    <label for="active">
+      <input id="active" type="checkbox" formControlName="is_active" />
       Active
     </label>
 
