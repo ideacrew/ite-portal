@@ -39,9 +39,18 @@
       Active
     </label>
 
-    <button class="button" [disabled]="userForm.invalid">
-      {{ pageTile }}
-    </button>
+    <div class="cta">
+      <button
+        class="button-outline"
+        routerLink="/executive-dashboards/user-logins"
+      >
+        Cancel
+      </button>
+
+      <button class="button" [disabled]="userForm.invalid">
+        {{ pageTile }}
+      </button>
+    </div>
 
     <div *ngIf="showError" class="error-message">{{ errorMessage }}</div>
   </form>
