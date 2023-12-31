@@ -12,16 +12,15 @@ import { RouterLink } from '@angular/router';
   template: `
     <ul class="breadcrumbs">
       <li>
-        <a routerLink="/executive-dashboards" routerLinkActive="active">
-          Executive Dashboard
-        </a>
+        <a routerLink="/executive-dashboards"> Executive Dashboards </a>
       </li>
       <li>User Logins</li>
     </ul>
 
     <h1>User Logins</h1>
     <div *ngIf="sortedProviders$ | async as results; else loading">
-      <dl class="parent">
+      <!-- TODO: Implement the following: -->
+      <dl class="parent" *ngIf="false">
         <dt>Active User Accounts:</dt>
         <dd>
           {{ results.active_user_count }}
@@ -32,7 +31,7 @@ import { RouterLink } from '@angular/router';
         </dd>
       </dl>
       <div>
-        <a class="button" [routerLink]="['/users/new']">Create New User</a>
+        <button routerLink="/users/new">Create New User</button>
       </div>
       <h2>User Details</h2>
       <p>To view or edit a user, click on a row in the table below.</p>
@@ -144,5 +143,10 @@ export class ProviderLoginsComponent {
     }))
   );
 
-  constructor(private bhsdService: BHSDService) {}
+  constructor(private bhsdService: BHSDService) {
+    // this.bhsdService
+    //   .getUsers()
+    //   .pipe(map((results) => results))
+    //   .subscribe((results) => console.log(results));
+  }
 }

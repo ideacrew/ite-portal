@@ -1,16 +1,15 @@
 <ul class="breadcrumbs">
   <li>
-    <a
-      routerLink="/executive-dashboards/provider-logins"
-      routerLinkActive="active"
-      >Users Log</a
-    >
+    <a routerLink="/executive-dashboards"> Executive Dashboards </a>
+  </li>
+  <li>
+    <a routerLink="/executive-dashboards/provider-logins"> Users Logins </a>
   </li>
   <li>User Detail</li>
 </ul>
 
 <h1>User Details</h1>
-<ng-container *ngIf="user$ | async as user">
+<ng-container *ngIf="user$ | async as user; else loading">
   <dl class="parent">
     <dt>Email:</dt>
     <dd>{{ user.email }}</dd>
@@ -28,8 +27,14 @@
     </ng-container>
   </dl>
   <div>
-    <a class="button" [routerLink]="['/users/' + user.user_id + '/edit']"
-      >Update User</a
-    >
+    <button disabled [routerLink]="['/users/' + user.user_id + '/edit']">
+      Update User
+    </button>
+
+    <small>Update not Implemented</small>
   </div>
 </ng-container>
+
+<ng-template #loading>
+  <div class="loading">Loading...</div>
+</ng-template>
