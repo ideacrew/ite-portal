@@ -81,11 +81,8 @@ export class AddEditComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-    if (this.createNew) {
-      this.createUser();
-    } else {
-      this.updateUser();
-    }
+
+    this.createNew ? this.createUser() : this.updateUser();
   }
 
   createUser() {

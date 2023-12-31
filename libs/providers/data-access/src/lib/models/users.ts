@@ -1,4 +1,4 @@
-export type Provider = {
+export type User = {
   user_id: number;
   email: string;
   last_sign_in_at: Date;
@@ -7,8 +7,8 @@ export type Provider = {
   is_active: boolean;
 };
 
-export type ProvidersLog = {
-  users: [Provider];
+export type UserLogins = {
+  users: [User];
   active_user_count: number;
   inactive_user_count: number;
 };

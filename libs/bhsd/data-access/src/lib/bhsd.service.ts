@@ -5,7 +5,7 @@ import { map, Observable, filter } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
 import { Criterion } from '@dbh/claims/data-access/models';
-import { ProvidersLog } from '@dbh/providers/data-access';
+import { UserLogins } from '@dbh/providers/data-access';
 import {
   Extracts,
   ExtractSubmissionResponse,
@@ -186,8 +186,8 @@ export class BHSDService {
       .pipe(filter((extract: FailingDataField[]) => Array.isArray(extract)));
   }
 
-  getProviderLogins(): Observable<ProvidersLog> {
-    return this.http.get<ProvidersLog>(
+  getUserLogins(): Observable<UserLogins> {
+    return this.http.get<UserLogins>(
       `${this.config.gatewayApiUrl}/api/v1/providers/log`
     );
   }

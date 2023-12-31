@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BHSDService } from '@dbh/bhsd/data-access';
 import { Observable, map } from 'rxjs';
-import { ProvidersLog } from '@dbh/providers/data-access';
+import { UserLogins } from '@dbh/providers/data-access';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'dbh-provider-logins',
+  selector: 'dbh-user-logins',
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
@@ -18,7 +18,7 @@ import { RouterLink } from '@angular/router';
     </ul>
 
     <h1>User Logins</h1>
-    <div *ngIf="sortedProviders$ | async as results; else loading">
+    <div *ngIf="sortedLoggedUsers$ | async as results; else loading">
       <!-- TODO: Implement the following: -->
       <dl class="parent" *ngIf="false">
         <dt>Active User Accounts:</dt>
@@ -131,10 +131,10 @@ import { RouterLink } from '@angular/router';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProviderLoginsComponent {
-  providers$: Observable<ProvidersLog> = this.bhsdService.getProviderLogins();
+export class UserLoginsComponent {
+  loggedUsers$: Observable<UserLogins> = this.bhsdService.getUserLogins();
   // Sort by the provider name
-  sortedProviders$ = this.providers$.pipe(
+  sortedLoggedUsers$ = this.loggedUsers$.pipe(
     map((results) => ({
       ...results,
       users: results.users.sort((a, b) =>
@@ -143,10 +143,5 @@ export class ProviderLoginsComponent {
     }))
   );
 
-  constructor(private bhsdService: BHSDService) {
-    // this.bhsdService
-    //   .getUsers()
-    //   .pipe(map((results) => results))
-    //   .subscribe((results) => console.log(results));
-  }
+  constructor(private bhsdService: BHSDService) {}
 }

@@ -3,11 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { ProviderLoginsComponent } from './provider-logins.component';
+import { UserLoginsComponent } from './user-logins';
 
-describe('ProviderLoginsComponent', () => {
-  let component: ProviderLoginsComponent;
-  let fixture: ComponentFixture<ProviderLoginsComponent>;
+describe('UserLoginsComponent', () => {
+  let component: UserLoginsComponent;
+  let fixture: ComponentFixture<UserLoginsComponent>;
 
   const activatedRouteMock = {
     paramMap: of({ get: () => '1' }),
@@ -15,11 +15,11 @@ describe('ProviderLoginsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProviderLoginsComponent, HttpClientTestingModule],
+      imports: [UserLoginsComponent, HttpClientTestingModule],
       providers: [{ provide: ActivatedRoute, useValue: activatedRouteMock }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProviderLoginsComponent);
+    fixture = TestBed.createComponent(UserLoginsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
