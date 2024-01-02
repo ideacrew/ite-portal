@@ -30,6 +30,9 @@
         font-weight: 700;
         font-size: 32px;
       }
+      h2 {
+        font-size: 24px;
+      }
       html,
       body {
         background: #f2f2f2;
@@ -49,7 +52,7 @@
         padding: 24px;
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
         border-radius: 5px;
-        width: 70ch;
+        width: 500px;
         font-size: 16px;
       }
       #api div {
@@ -83,6 +86,10 @@
         margin-top: 1em;
         font-size: 18px;
       }
+      .buttons {
+        display: flex;
+        gap: 8px;
+      }
       #forgotPassword {
         font-size: 16px;
         margin-top: 0.5em;
@@ -101,6 +108,29 @@
       }
       .tiny {
         font-size: 10px;
+      }
+      .helpLink {
+        display: none;
+      }
+      .error.itemLevel {
+        font-size: 12px;
+        line-height: 1;
+        color: maroon;
+      }
+      #emailVerificationControl_error_message,
+      #claimVerificationServerError {
+        box-shadow: 0 0 0 2px #800000;
+        padding: 4px;
+        font-size: 12px;
+        border-radius: 2px;
+        background-color: #80000070;
+      }
+      #emailVerificationControl_success_message {
+        box-shadow: 0 0 0 2px #008013;
+        padding: 4px;
+        font-size: 12px;
+        border-radius: 2px;
+        background-color: #00801370;
       }
     </style>
   </head>
