@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Component, OnInit, isDevMode } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -22,13 +23,27 @@ export class AddEditComponent implements OnInit {
   providers: { id: string; provider_name: string }[] = [];
   currentUser: { user_id?: string; email?: string } = {};
   providerRequired = true;
+  loginUrl = '';
+
+  // These values are updated in the constructor based on the environment
+  b2cSubdomain: string = process.env['NX_B2C_SUBDOMAIN'] as unknown as string;
+  b2cClientId: string = process.env['NX_GATEWAY_C_ID'] as unknown as string;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
     private bhsdService: BHSDService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    if (process.env['NX_PROD']) {
+      this.b2cSubdomain = process.env[
+        'NX_B2C_SUBDOMAIN_PROD'
+      ] as unknown as string;
+      this.b2cClientId = process.env[
+        'NX_GATEWAY_C_ID_PROD'
+      ] as unknown as string;
+    }
+  }
 
   ngOnInit() {
     if (this.route.snapshot.params['id']) {
@@ -98,6 +113,7 @@ export class AddEditComponent implements OnInit {
 
           this.submitted = true;
           this.currentUser = res;
+          this.loginUrl = this.buildLoginUrl();
         },
         error: (err: { error: string }) => {
           if (isDevMode()) {
@@ -146,5 +162,13 @@ export class AddEditComponent implements OnInit {
           console.error(`API Error: ${err.error}`);
         },
       });
+  }
+
+  buildLoginUrl(): string {
+    const { user_id } = this.currentUser;
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const link = `https://${this.b2cSubdomain}.b2clogin.com/${this.b2cSubdomain}.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_sign_up_1&client_id=${this.b2cClientId}&nonce=defaultNonce&redirect_uri=&scope=openid&response_type=${user_id}&prompt=sign_in`;
+
+    return link;
   }
 }
