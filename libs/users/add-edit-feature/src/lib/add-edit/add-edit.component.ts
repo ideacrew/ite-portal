@@ -12,7 +12,7 @@ import { BHSDService } from '@dbh/bhsd/data-access';
   styleUrls: ['./add-edit.component.scss'],
 })
 export class AddEditComponent implements OnInit {
-  id: string | null = null; // Explicitly define the type of 'id' property
+  user_id: string | null = null; // Explicitly define the type of 'id' property
   createNew = true; // Add 'createNew' property with boolean type
   pageTile = 'Update User'; // Add 'pageTile' property with string type
   userForm!: FormGroup;
@@ -20,7 +20,7 @@ export class AddEditComponent implements OnInit {
   showError = false;
   errorMessage = '';
   providers: { id: string; provider_name: string }[] = [];
-  currentUser: { id?: string; email?: string } = {};
+  currentUser: { user_id?: string; email?: string } = {};
   providerRequired = true;
 
   constructor(
@@ -32,9 +32,9 @@ export class AddEditComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.params['id']) {
-      this.id = this.route.snapshot.params['id'] as string; // Explicitly cast the value to string
+      this.user_id = this.route.snapshot.params['id'] as string; // Explicitly cast the value to string
     }
-    this.createNew = !this.id;
+    this.createNew = !this.user_id;
     this.pageTile = this.createNew ? 'Create User' : 'Update User';
 
     this.userForm = this.fb.group({
@@ -49,7 +49,7 @@ export class AddEditComponent implements OnInit {
 
     if (!this.createNew) {
       this.userService
-        .getUser(this.id ?? 'fake-value')
+        .getUser(this.user_id ?? 'fake-value')
         .pipe(take(1))
         .subscribe((x) => this.userForm.patchValue(x));
     }
@@ -113,7 +113,7 @@ export class AddEditComponent implements OnInit {
 
   updateUser() {
     this.userService
-      .updateUser(this.id || '', this.userForm)
+      .updateUser(this.user_id || '', this.userForm)
       .pipe(take(1))
       .subscribe();
   }

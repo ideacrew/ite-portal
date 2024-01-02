@@ -66,7 +66,7 @@
 
   <ul>
     <li>Link to finish finish sign up: {{ currentUser.email }}</li>
-    <li>Provider Gateway Identifier: {{ currentUser.id }}</li>
+    <li>Provider Gateway Identifier: {{ currentUser.user_id }}</li>
   </ul>
 
   <div class="cta">
@@ -76,7 +76,7 @@
     >
       Return to Admin Settings
     </button>
-    <button class="button" routerLink="/users/{{ currentUser.id }}">
+    <button class="button" routerLink="/users/{{ currentUser.user_id }}">
       View User
     </button>
   </div>
