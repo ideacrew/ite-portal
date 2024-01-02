@@ -17,6 +17,7 @@ jobs:
       NX_AD_TID: ${{ secrets.NX_AD_TID }}
       NX_AD_CLIENT_ID_PROD: ${{ secrets.NX_AD_CLIENT_ID_PROD }}
       NX_AD_TID_PROD: ${{ secrets.NX_AD_TID_PROD }}
+      NX_PROD: false
     steps:
       - uses: actions/checkout@v3
         with:

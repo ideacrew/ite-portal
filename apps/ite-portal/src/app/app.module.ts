@@ -48,7 +48,7 @@ import { BusinessGlossaryComponent } from './business-glossary/business-glossary
 import { DataTrackingSystemInventoryComponent } from './data-tracking-system-inventory/data-tracking-system-inventory.component';
 import { IteDatabaseNamingConventionsComponent } from './ite-database-naming-conventions/ite-database-naming-conventions.component';
 import { DataDictionaryComponent } from './data-dictionary/data-dictionary.component';
-import { ProviderLoginsComponent } from './executive/provider-logins.component';
+import { UserLoginsComponent } from './executive/user-logins';
 import { LastActiveService } from './services/last-active.service';
 import { OurAuthService } from './services/auth.service';
 
@@ -57,9 +57,9 @@ const readScope = `api://${clientId}/Read`;
 const gatewayApiUrl = environment.NX_GATEWAY_API || '';
 const portalApiUrl = environment.NX_PORTAL_API || '';
 
-export function loggerCallback(logLevel: LogLevel, message: string) {
-  // console.log(message); // Uncomment to see MSAL logs
-}
+// export function loggerCallback(logLevel: LogLevel, message: string) {
+//   console.log(message); // Uncomment to see MSAL logs
+// }
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   // console.log('Making sure correct branch by NX_AD_CLIENT_ID: ' + clientId);
@@ -79,7 +79,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     system: {
       allowNativeBroker: false, // Disables WAM Broker
       loggerOptions: {
-        loggerCallback,
+        // loggerCallback,
         logLevel: LogLevel.Info,
         piiLoggingEnabled: false,
       },
@@ -142,8 +142,8 @@ const routes: Routes = [
         component: FakePageComponent,
       },
       {
-        path: 'executive-dashboards/provider-logins',
-        component: ProviderLoginsComponent,
+        path: 'executive-dashboards/user-logins',
+        component: UserLoginsComponent,
       },
       {
         path: 'claims',
@@ -161,10 +161,24 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'clients/:id',
+        path: 'users/new',
         loadChildren: () =>
-          import('@dbh/clients/client-feature').then(
-            (m) => m.ClientsClientComponentFeatureModule
+          import('@dbh/users/add-edit-feature').then(
+            (m) => m.UsersAddEditFeatureModule
+          ),
+      },
+      {
+        path: 'users/:id/edit',
+        loadChildren: () =>
+          import('@dbh/users/add-edit-feature').then(
+            (m) => m.UsersAddEditFeatureModule
+          ),
+      },
+      {
+        path: 'users/:id',
+        loadChildren: () =>
+          import('@dbh/users/user-detail-feature').then(
+            (m) => m.UsersUserDetailFeatureModule
           ),
       },
       {

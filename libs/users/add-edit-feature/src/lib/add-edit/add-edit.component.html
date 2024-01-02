@@ -1,0 +1,84 @@
+<ul class="breadcrumbs">
+  <li>
+    <a routerLink="/executive-dashboards"> Executive Dashboards </a>
+  </li>
+  <li>
+    <a routerLink="/executive-dashboards/user-logins" routerLinkActive="active">
+      Users Logins
+    </a>
+  </li>
+  <li>{{ pageTile }}</li>
+</ul>
+
+<h1>{{ pageTile }}</h1>
+<div class="user-content" *ngIf="!submitted">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <label for="provider_id" [ngClass]="providerRequired ? 'required' : ''">
+      Provider
+      <small *ngIf="providerRequired">
+        (Required if not creating DBH Employee/Contractor)
+      </small>
+    </label>
+    <select id="provider_id" formControlName="provider_id">
+      <option value="">None</option>
+      <option *ngFor="let provider of providers" [ngValue]="provider.id">
+        {{ provider.provider_name }}
+      </option>
+    </select>
+
+    <label for="email" class="required">Email</label>
+    <input id="email" type="text" formControlName="email" />
+
+    <label for="dbh">
+      <input id="dbh" type="checkbox" formControlName="is_dbh" />
+      DBH Employee/Contractor
+    </label>
+
+    <label for="active">
+      <input id="active" type="checkbox" formControlName="is_active" />
+      Active
+    </label>
+
+    <div class="cta">
+      <button
+        class="button-outline"
+        routerLink="/executive-dashboards/user-logins"
+      >
+        Cancel
+      </button>
+
+      <button class="button" [disabled]="userForm.invalid">
+        {{ pageTile }}
+      </button>
+    </div>
+
+    <div *ngIf="showError" class="error-message">{{ errorMessage }}</div>
+  </form>
+</div>
+
+<div class="user-content" *ngIf="submitted">
+  <h2>User Successfully Created</h2>
+
+  <p>
+    Please send an email to the provider with the following details to allow
+    them to set a password and finish the process:
+  </p>
+
+  <ul>
+    <li>
+      Link to finish finish sign up: <a href="{{ loginUrl }}">Login Link</a>
+    </li>
+  </ul>
+
+  <div class="cta">
+    <button
+      class="button outline"
+      routerLink="/executive-dashboards/user-logins"
+    >
+      Return to Admin Settings
+    </button>
+    <button class="button" routerLink="/users/{{ currentUser.user_id }}">
+      View User
+    </button>
+  </div>
+</div>

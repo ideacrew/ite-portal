@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable, filter } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
-import { Criterion, ValueOption } from '@dbh/claims/data-access/models';
-import { ProvidersLog } from '@dbh/providers/data-access';
+import { Criterion } from '@dbh/claims/data-access/models';
+import { UserLogins } from '@dbh/providers/data-access';
 import {
   Extracts,
   ExtractSubmissionResponse,
@@ -60,10 +60,8 @@ export class BHSDService {
     return this.http.get<Extracts>(baseUrl).pipe(map((extract) => extract));
   }
 
-  getProviders(): Observable<ValueOption[]> {
-    return this.http.get<ValueOption[]>(
-      `${this.config.gatewayApiUrl}/api/v1/providers`
-    );
+  getProviders() {
+    return this.http.get(`${this.config.gatewayApiUrl}/api/v1/providers`);
   }
 
   getSubmissionStatusByDate({
@@ -188,8 +186,8 @@ export class BHSDService {
       .pipe(filter((extract: FailingDataField[]) => Array.isArray(extract)));
   }
 
-  getProviderLogins(): Observable<ProvidersLog> {
-    return this.http.get<ProvidersLog>(
+  getUserLogins(): Observable<UserLogins> {
+    return this.http.get<UserLogins>(
       `${this.config.gatewayApiUrl}/api/v1/providers/log`
     );
   }
