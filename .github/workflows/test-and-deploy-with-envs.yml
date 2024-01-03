@@ -19,7 +19,7 @@ jobs:
       NX_AD_TID_PROD: ${{ secrets.NX_AD_TID_PROD }}
       NX_PROD: false
       NX_REDIRECT_URI: 'https://portal.dev.dbhite.com'
-      NX_REDIRECT_URI_PROD: 'https://ite.dbh.dc.gov'
+      NX_REDIRECT_URI_PROD: 'https://portal.dbh.dc.gov'
     steps:
       - uses: actions/checkout@v3
         with:
