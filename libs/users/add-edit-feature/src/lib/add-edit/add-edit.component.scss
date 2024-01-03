@@ -64,3 +64,15 @@ select {
   font-size: 14px;
   line-height: 1;
 }
+
+code {
+  font-family: monospace, monospace;
+  font-size: 1em;
+  display: block;
+  padding: 16px;
+  background: #cbcbcb;
+  box-shadow: 0 0 0 1px;
+  border-radius: 4px;
+  margin-top: 8px;
+  cursor: pointer;
+}

@@ -35,7 +35,7 @@ export class AddEditComponent implements OnInit {
     private bhsdService: BHSDService,
     private fb: FormBuilder
   ) {
-    if (process.env['NX_PROD']) {
+    if (process.env['NX_PROD'] === 'true') {
       this.b2cSubdomain = process.env[
         'NX_B2C_SUBDOMAIN_PROD'
       ] as unknown as string;
@@ -170,5 +170,16 @@ export class AddEditComponent implements OnInit {
     const link = `https://${this.b2cSubdomain}.b2clogin.com/${this.b2cSubdomain}.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_sign_up_1&client_id=${this.b2cClientId}&nonce=defaultNonce&redirect_uri=&scope=openid&response_type=${user_id}&prompt=sign_in`;
 
     return link;
+  }
+
+  copyToClipboard() {
+    navigator.clipboard
+      .writeText(this.loginUrl)
+      .then(() => {
+        alert('Copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Could not copy text: ', err);
+      });
   }
 }
