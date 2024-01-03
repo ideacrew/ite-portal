@@ -24,6 +24,7 @@ export class AddEditComponent implements OnInit {
   currentUser: { user_id?: string; email?: string } = {};
   providerRequired = true;
   loginUrl = '';
+  redirectUri = 'https://provider.dev.dbhite.com'
 
   // These values are updated in the constructor based on the environment
   b2cSubdomain: string = process.env['NX_B2C_SUBDOMAIN'] as unknown as string;
@@ -42,6 +43,7 @@ export class AddEditComponent implements OnInit {
       this.b2cClientId = process.env[
         'NX_GATEWAY_C_ID_PROD'
       ] as unknown as string;
+      this.redirectUri = 'https://provider.dbh.dc.gov'
     }
   }
 
@@ -167,8 +169,7 @@ export class AddEditComponent implements OnInit {
   buildLoginUrl(): string {
     const { user_id } = this.currentUser;
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const link = `https://${this.b2cSubdomain}.b2clogin.com/${this.b2cSubdomain}.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_sign_up_1&client_id=${this.b2cClientId}&nonce=defaultNonce&redirect_uri=&scope=openid&response_type=${user_id}&prompt=sign_in`;
-
+    const link = `https://${this.b2cSubdomain}.b2clogin.com/${this.b2cSubdomain}.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_sign_up_1&client_id=${this.b2cClientId}&nonce=defaultNonce&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=openid&response_type=id_token&prompt=login`;
     return link;
   }
 
