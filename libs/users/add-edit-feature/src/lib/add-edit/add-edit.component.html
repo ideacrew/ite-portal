@@ -65,8 +65,10 @@
   </p>
 
   <ul>
-    <li>
-      Link to complete signup: <code>{{ loginUrl }}</code>
+    <li (click)="copyToClipboard()">
+      Link to complete signup:
+      <small>(Click inside the box to copy the link to clipboard)</small>
+      <code>{{ loginUrl }}</code>
     </li>
   </ul>
 

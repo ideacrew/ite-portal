@@ -171,4 +171,15 @@ export class AddEditComponent implements OnInit {
 
     return link;
   }
+
+  copyToClipboard() {
+    navigator.clipboard
+      .writeText(this.loginUrl)
+      .then(() => {
+        alert('Copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Could not copy text: ', err);
+      });
+  }
 }
