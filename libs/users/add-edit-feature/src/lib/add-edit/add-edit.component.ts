@@ -35,7 +35,7 @@ export class AddEditComponent implements OnInit {
     private bhsdService: BHSDService,
     private fb: FormBuilder
   ) {
-    if (process.env['NX_PROD']) {
+    if (process.env['NX_PROD'] === 'true') {
       this.b2cSubdomain = process.env[
         'NX_B2C_SUBDOMAIN_PROD'
       ] as unknown as string;
