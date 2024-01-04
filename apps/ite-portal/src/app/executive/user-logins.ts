@@ -34,7 +34,7 @@ import { RouterLink } from '@angular/router';
         <button routerLink="/users/new">Create New User</button>
       </div>
       <h2>User Details</h2>
-      <p>To view or edit a user, click on a row in the table below.</p>
+      <p>To view a user, click on a row in the table below.</p>
 
       <small>
         <span class="material-symbols-outlined"> info </span>
