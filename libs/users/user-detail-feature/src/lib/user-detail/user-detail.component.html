@@ -19,12 +19,10 @@
     <dd>{{ user.last_sign_in_at | date : "L/d/yyyy 'at' h:m a" : 'UTC' }}</dd>
     <dt>DBH Employee/Contractor</dt>
     <dd>{{ user.is_dbh }}</dd>
-    <ng-container *ngIf="user.is_provider">
-      <dt>Provider Name:</dt>
-      <dd>{{ user.provider_name }}</dd>
-      <dt>Provider Gateway Identifier:</dt>
-      <dd>{{ user.provider_gateway_identifier }}</dd>
-    </ng-container>
+    <dt>Provider Name:</dt>
+    <dd>{{ user.provider_name }}</dd>
+    <dt>Provider Gateway Identifier:</dt>
+    <dd>{{ user.provider_gateway_identifier }}</dd>
   </dl>
   <div>
     <button disabled [routerLink]="['/users/' + user.user_id + '/edit']">
