@@ -76,6 +76,10 @@ export class AddEditComponent implements OnInit {
     this.getProviders();
   }
 
+  get email() {
+    return this.userForm.get('email');
+  }
+
   private checkProviderValidation() {
     this.userForm.get('is_dbh')?.valueChanges.subscribe((isDbh: boolean) => {
       const providerIdControl = this.userForm.get('provider_id');
