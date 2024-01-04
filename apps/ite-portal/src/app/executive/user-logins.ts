@@ -133,7 +133,7 @@ import { RouterLink } from '@angular/router';
 })
 export class UserLoginsComponent {
   loggedUsers$: Observable<UserLogins> = this.bhsdService.getUserLogins();
-  // Sort by the provider name
+  // Sort by the provider name //  NX CACHE CLEAR COMMENT
   sortedLoggedUsers$ = this.loggedUsers$.pipe(
     map((results) => ({
       ...results,

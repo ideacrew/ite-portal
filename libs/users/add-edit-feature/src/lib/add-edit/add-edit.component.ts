@@ -13,7 +13,7 @@ import { BHSDService } from '@dbh/bhsd/data-access';
   styleUrls: ['./add-edit.component.scss'],
 })
 export class AddEditComponent implements OnInit {
-  user_id: string | null = null; // Explicitly define the type of 'id' property
+  user_id: string | null = null; // Explicitly define the type of 'id' property // NX CACHE CLEAR COMMENT
   createNew = true; // Add 'createNew' property with boolean type
   pageTile = 'Update User'; // Add 'pageTile' property with string type
   userForm!: FormGroup;
