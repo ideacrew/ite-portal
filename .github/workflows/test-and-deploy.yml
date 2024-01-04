@@ -26,8 +26,8 @@ jobs:
       NX_B2C_SUBDOMAIN_UAT: ${{ secrets.NX_B2C_SUBDOMAIN_UAT }}
       NX_GATEWAY_C_ID_UAT: ${{ secrets.NX_GATEWAY_C_ID_UAT }}
       NX_PROD: false
-      NX_REDIRECT_URI: 'https://portal.dev.dbhite.com'
-      NX_REDIRECT_URI_PROD: 'https://portal.dbh.dc.gov'
+      NX_REDIRECT_URI: 'https://provider.dev.dbhite.com'
+      NX_REDIRECT_URI_PROD: 'https://provider.dbh.dc.gov'
     steps:
       - uses: actions/checkout@v3
         with:
