@@ -187,8 +187,6 @@ export class BHSDService {
   }
 
   getUserLogins(): Observable<UserLogins> {
-    return this.http.get<UserLogins>(
-      `${this.config.gatewayApiUrl}/api/v1/providers/log`
-    );
+    return this.http.get<UserLogins>(`${this.config.gatewayApiUrl}/users`);
   }
 }

@@ -20,7 +20,7 @@ import { RouterLink } from '@angular/router';
     <h1>User Logins</h1>
     <div *ngIf="sortedLoggedUsers$ | async as results; else loading">
       <!-- TODO: Implement the following: -->
-      <dl class="parent" *ngIf="false">
+      <dl class="parent" *ngIf="true">
         <dt>Active User Accounts:</dt>
         <dd>
           {{ results.active_user_count }}
