@@ -1,0 +1,83 @@
+form label:not(:first-of-type) {
+  margin-top: 1em;
+}
+
+form button {
+  margin-top: 2em;
+}
+
+input[type='checkbox'] {
+  vertical-align: middle;
+  position: relative;
+  scale: 2;
+  margin-right: 10px;
+  margin-left: 6px;
+  accent-color: var(--primary);
+}
+
+label {
+  width: max-content;
+  position: relative;
+}
+
+.required:after {
+  content: ' *';
+  color: var(--error-140);
+}
+
+.required small {
+  position: absolute;
+  left: calc(100% + 8px);
+  width: max-content;
+}
+
+select {
+  min-width: 205px;
+}
+
+.user-content {
+  h2 {
+    margin-bottom: 8px;
+  }
+  p {
+    margin: 0;
+  }
+  ul {
+    margin: 4px 0 16px;
+    padding: 0 24px;
+    // list-style: none;
+  }
+}
+
+.cta {
+  display: flex;
+  gap: 8px;
+}
+
+.error-message {
+  border: 1px solid var(--error);
+  max-width: 400px;
+  margin-top: 16px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(var(--error-rgb), 0.15);
+  font-size: 14px;
+  line-height: 1;
+}
+
+code {
+  font-family: monospace, monospace;
+  font-size: 1em;
+  display: block;
+  padding: 16px;
+  background: #cbcbcb;
+  box-shadow: 0 0 0 1px;
+  border-radius: 4px;
+  margin-top: 8px;
+  cursor: pointer;
+  word-wrap: break-word;
+}
+
+input#email.ng-dirty.ng-invalid {
+  box-shadow: 0 0 3px 1px var(--error);
+}

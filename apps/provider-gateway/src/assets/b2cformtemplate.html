@@ -1,57 +1,76 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <title>Provider Gateway - Department of Behavioral Health</title>
-  <style>
-    @font-face {
-          font-family: 'Public Sans';
-          src: url(https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap);
-          font-weight: normal;
-        }
-    h1 {
-      margin: .5em 0;
-      line-height: 1;
-      font-weight: 700;
-    }
-    html, body {
-      background: #f2f2f2;
-      background-position:center;
-      font-family: 'Public Sans', 'Inter', sans-serif;
-      color: #313034;
-    }
-    main {
-      display: flex;
-      justify-content: center;
-      padding: 10em 0;
-    }
-    #api {
-      font-weight: normal;
-      text-align: left;
-      background-color: #fff;
-      padding: 24px;
-      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 5px;
-      width: 70ch;
-      font-size: 16px;
-    }
-    #api div {
-      margin-bottom: .5em;
-    }
-    #api input, select, textarea {
-      box-sizing: border-box;
-      height: 36px;
-      padding: 6px 8px;
-      background: #fff;
-      border: 1px solid #858585;
-      border-radius: 3px;
-      width: 100%;
-      margin-bottom: 1em;
-    }
-    .button,
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <title>Provider Gateway - Department of Behavioral Health</title>
+    <style>
+      @font-face {
+        font-family: 'Public Sans';
+        src: url(https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap);
+        font-weight: normal;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 2em;
+      }
+      img {
+        width: 200px;
+      }
+      h1 {
+        margin: 0.5em 0;
+        line-height: 1;
+        font-weight: 700;
+        font-size: 32px;
+      }
+      h2 {
+        font-size: 24px;
+      }
+      html,
+      body {
+        background: #f2f2f2;
+        background-position: center;
+        font-family: 'Public Sans', 'Inter', sans-serif;
+        color: #313034;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        padding: 10em 0;
+      }
+      #api {
+        font-weight: normal;
+        text-align: left;
+        background-color: #fff;
+        padding: 24px;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        width: 500px;
+        font-size: 16px;
+      }
+      #api div {
+        margin-bottom: 0.5em;
+      }
+      #api input,
+      select,
+      textarea {
+        box-sizing: border-box;
+        height: 36px;
+        padding: 6px 8px;
+        background: #fff;
+        border: 1px solid #858585;
+        border-radius: 3px;
+        width: 100%;
+        margin-bottom: 1em;
+      }
+      .button,
       button {
         background-color: #183684;
         border-radius: 6px;
@@ -67,35 +86,66 @@
         margin-top: 1em;
         font-size: 18px;
       }
-    #forgotPassword {
-      font-size: 16px;
-      margin-top: .5em;
-    }
-    .extension_ProviderGatewayIdentifier_li, .extension_DbhUser_li {
-      display: none;
-    }
-
-    #attributeList ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    #attributeList ul li {
-      margin-bottom: 1em;
-    }
-
-    .tiny {font-size: 10px; }
-  </style>
-</head>
-<body>
-  <main>
+      .buttons {
+        display: flex;
+        gap: 8px;
+      }
+      #forgotPassword {
+        font-size: 16px;
+        margin-top: 0.5em;
+      }
+      .extension_ProviderGatewayIdentifier_li,
+      .extension_DbhUser_li {
+        display: none;
+      }
+      #attributeList ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      #attributeList ul li {
+        margin-bottom: 1em;
+      }
+      .tiny {
+        font-size: 10px;
+      }
+      .helpLink {
+        display: none;
+      }
+      .error.itemLevel {
+        font-size: 12px;
+        line-height: 1;
+        color: maroon;
+      }
+      #emailVerificationControl_error_message,
+      #claimVerificationServerError {
+        box-shadow: 0 0 0 2px #800000;
+        padding: 4px;
+        font-size: 12px;
+        border-radius: 2px;
+        background-color: #80000070;
+      }
+      #emailVerificationControl_success_message {
+        box-shadow: 0 0 0 2px #008013;
+        padding: 4px;
+        font-size: 12px;
+        border-radius: 2px;
+        background-color: #00801370;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
       <div>
-        <img src="./DBH_Logo.png">
-      <h1>Provider Gateway</h1>
-      <div id="api"></div>
-    </div>
-  </main>
-</body>
+        <header>
+          <img
+            src="https://provider.dev.dbhite.com/assets/DBH_Logo.png"
+            alt="Department of Behavioral Health Logo"
+          />
+          <h1>Provider Gateway</h1>
+        </header>
+        <div id="api"></div>
+      </div>
+    </main>
+  </body>
 </html>
-
-

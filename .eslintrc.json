@@ -60,7 +60,6 @@
             "hoist": "all"
           }
         ],
-        "@typescript-eslint/no-unused-expressions": "error",
         "@typescript-eslint/prefer-function-type": "error",
         "@typescript-eslint/unified-signatures": "error",
         "arrow-body-style": "error",

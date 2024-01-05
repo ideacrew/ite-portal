@@ -81,7 +81,17 @@
         "libs/shared/state/root-store/src/index.ts"
       ],
       "@dbh/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "@dbh/theme": ["libs/theme/src/index.ts"]
+      "@dbh/theme": ["libs/theme/src/index.ts"],
+      "@dbh/users/user-detail-feature": [
+        "libs/users/user-detail-feature/src/index.ts"
+      ],
+      "@dbh/users/add-edit-feature": [
+        "libs/users/add-edit-feature/src/index.ts"
+      ],
+      "@dbh/users/data-access": ["libs/users/data-access/src/index.ts"],
+      "@dbh/users/data-access/models": [
+        "libs/users/data-access/src/lib/models/index.ts"
+      ],
     }
   },
   "exclude": ["node_modules", "tmp"]

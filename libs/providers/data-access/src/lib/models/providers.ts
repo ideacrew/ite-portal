@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-export type ProviderProfile = {
+export type Provider = {
   id: string;
   is_active: boolean;
   adult_care: boolean;
@@ -31,8 +30,8 @@ export type OfficeLocation = {
     dc_ward: string;
     state: string;
     zip: string;
-    created_at: string | null;
-    updated_at: string | null;
+    created_at?: string;
+    updated_at?: string;
   };
   phones: Phone[];
   emails: Email[];
@@ -40,6 +39,6 @@ export type OfficeLocation = {
 
 export type Email = {
   address: string;
-  created_at: string | null;
-  updated_at: string | null;
+  created_at?: string;
+  updated_at?: string;
 };

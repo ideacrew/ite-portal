@@ -1,0 +1,16 @@
+.loading {
+  background: var(--grey-010);
+  height: calc(100% - 300px);
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+}
+
+small {
+  margin-left: 8px;
+  opacity: 0.8;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+}

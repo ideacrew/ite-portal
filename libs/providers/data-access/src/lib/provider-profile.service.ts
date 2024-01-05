@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ConfigService } from '@dbh/api-config';
 
-import { ProviderProfile } from './models';
+import { Provider } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,8 @@ import { ProviderProfile } from './models';
 export class ProviderProfileService {
   constructor(private config: ConfigService, private http: HttpClient) {}
 
-  getProviderProfile(id: string): Observable<ProviderProfile> {
-    return this.http.get<ProviderProfile>(
+  getProviderProfile(id: string): Observable<Provider> {
+    return this.http.get<Provider>(
       `${this.config.gatewayApiUrl}/api/v1/providers/${id}`
     );
   }
