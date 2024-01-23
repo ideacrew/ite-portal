@@ -34,7 +34,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - uses: actions/cache@v3
         id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
         with:
@@ -67,14 +67,14 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - uses: actions/cache@v3
         id: npm-cache
         with:
           path: node_modules
-          key: ${{ runner.os }}-node16-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node18-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node16-
+            ${{ runner.os }}-node18-
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
