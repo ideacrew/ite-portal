@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/users/add-edit-feature"],
       "options": {
-        "jestConfig": "libs/users/add-edit-feature/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/users/add-edit-feature/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/users/add-edit-feature/**/*.ts",
-          "libs/users/add-edit-feature/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

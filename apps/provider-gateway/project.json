@@ -91,16 +91,16 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nx/angular:webpack-dev-server",
+      "executor": "@nx/angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "provider-gateway:build:production"
+          "buildTarget": "provider-gateway:build:production"
         },
         "development": {
-          "browserTarget": "provider-gateway:build:development"
+          "buildTarget": "provider-gateway:build:development"
         },
         "uat": {
-          "browserTarget": "provider-gateway:build:uat"
+          "buildTarget": "provider-gateway:build:uat"
         }
       },
       "defaultConfiguration": "development",
@@ -111,24 +111,17 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "provider-gateway:build"
+        "buildTarget": "provider-gateway:build"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/provider-gateway/**/*.ts",
-          "apps/provider-gateway/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/provider-gateway"],
       "options": {
-        "jestConfig": "apps/provider-gateway/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/provider-gateway/jest.config.ts"
       }
     },
     "deploy:dev": {

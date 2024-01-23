@@ -11,18 +11,11 @@
         "{workspaceRoot}/coverage/libs/bhsd/companion-guide-page-feature"
       ],
       "options": {
-        "jestConfig": "libs/bhsd/companion-guide-page-feature/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/bhsd/companion-guide-page-feature/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/bhsd/companion-guide-page-feature/**/*.ts",
-          "libs/bhsd/companion-guide-page-feature/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

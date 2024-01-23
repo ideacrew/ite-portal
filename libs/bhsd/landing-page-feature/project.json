@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/bhsd/landing-page-feature"],
       "options": {
-        "jestConfig": "libs/bhsd/landing-page-feature/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/bhsd/landing-page-feature/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/bhsd/landing-page-feature/**/*.ts",
-          "libs/bhsd/landing-page-feature/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

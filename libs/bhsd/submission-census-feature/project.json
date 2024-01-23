@@ -11,18 +11,11 @@
         "{workspaceRoot}/coverage/libs/bhsd/submission-census-feature"
       ],
       "options": {
-        "jestConfig": "libs/bhsd/submission-census-feature/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/bhsd/submission-census-feature/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/bhsd/submission-census-feature/**/*.ts",
-          "libs/bhsd/submission-census-feature/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []
