@@ -23,20 +23,13 @@ jobs:
       - uses: nrwl/nx-set-shas@v2
         with:
           main-branch-name: trunk
-      - name: Cache Cypress binary
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-cypress-
       - name: install dependencies and verify Cypress
         env:
           # make sure every Cypress install prints minimal information
           CI: 1
         # print Cypress and OS info
         run: |
-          npm i
+          npm ci
           npx cypress verify
           npx cypress info
           npx cypress version
