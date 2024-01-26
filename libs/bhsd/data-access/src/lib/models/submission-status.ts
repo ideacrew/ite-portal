@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 export type SubmissionSummary = {
   provider_name: string;
   provider_id: string;
