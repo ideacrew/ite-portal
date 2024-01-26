@@ -1,6 +1,6 @@
 {
   "name": "dbh",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "start:api": "concurrently -c \"auto\" \"npm:api-*\"",
