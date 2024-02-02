@@ -1,6 +1,7 @@
 {
   "name": "dbh",
   "version": "0.0.1",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "start:api": "concurrently -c \"auto\" \"npm:api-*\"",
@@ -13,7 +14,9 @@
     "build:pg-dev": "nx build provider-gateway -c development",
     "test": "nx test"
   },
-  "private": true,
+  "engines": {
+    "node": ">=18 <20"
+  },
   "dependencies": {
     "@angular/animations": "17.1.2",
     "@angular/cdk": "17.1.2",
