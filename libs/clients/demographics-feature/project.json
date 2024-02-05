@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/clients/demographics-feature"],
       "options": {
-        "jestConfig": "libs/clients/demographics-feature/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/clients/demographics-feature/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/clients/demographics-feature/**/*.ts",
-          "libs/clients/demographics-feature/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

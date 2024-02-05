@@ -15,14 +15,17 @@ export class ConfigService {
 
   constructor() {
     const [urlEnvironment] = window.location.host.split('.');
-    const urlSlices = window.location.host.split('.');
+    // const urlSlices = window.location.host.split('.');
     if (window.location.host.includes('dev')) {
       this.gatewayApiUrl = 'https://api.provider.dev.dbhite.com';
       this.portalApiUrl = 'https://api.portal.dev.dbhite.com';
     } else if (window.location.host.includes('localhost')) {
       this.gatewayApiUrl = 'http://localhost:4001';
       this.portalApiUrl = 'http://localhost:4000';
-    } else if (window.location.host === "provider.dbh.dc.gov" || window.location.host === "portal.dbh.dc.gov") {
+    } else if (
+      window.location.host === 'provider.dbh.dc.gov' ||
+      window.location.host === 'portal.dbh.dc.gov'
+    ) {
       this.gatewayApiUrl = 'https://api-provider.dbh.dc.gov';
       this.portalApiUrl = 'https://api-portal.dbh.dc.gov';
     } else if (window.location.hostname.includes('dbh-ite')) {

@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/providers/data-access"],
       "options": {
-        "jestConfig": "libs/providers/data-access/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/providers/data-access/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/providers/data-access/**/*.ts",
-          "libs/providers/data-access/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:providers", "type:data-access"]

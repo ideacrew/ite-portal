@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/bhsd/companion-guide"],
       "options": {
-        "jestConfig": "libs/bhsd/companion-guide/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/bhsd/companion-guide/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/bhsd/companion-guide/**/*.ts",
-          "libs/bhsd/companion-guide/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

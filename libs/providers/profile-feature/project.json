@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/providers/profile-feature"],
       "options": {
-        "jestConfig": "libs/providers/profile-feature/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/providers/profile-feature/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/providers/profile-feature/**/*.ts",
-          "libs/providers/profile-feature/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

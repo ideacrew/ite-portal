@@ -9,15 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/theme"],
       "options": {
-        "jestConfig": "libs/theme/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/theme/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["libs/theme/**/*.ts", "libs/theme/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

@@ -9,6 +9,7 @@ import { CategoryWithCount } from '../interfaces';
   styleUrls: ['./data-field-error-row.component.scss'],
 })
 export class DataFieldErrorRowComponent {
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   @Input() dataField!: ExtractRecordField | string;
   @Input() countOfRecordsWithIssue!: number;
   @Input() categoriesWithError!: CategoryWithCount[];

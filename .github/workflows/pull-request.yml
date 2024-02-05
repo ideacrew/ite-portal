@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - uses: nrwl/nx-set-shas@v2
         with:
@@ -36,7 +36,7 @@ jobs:
           CI: 1
         # print Cypress and OS info
         run: |
-          npm ci
+          npm i
           npx cypress verify
           npx cypress info
           npx cypress version

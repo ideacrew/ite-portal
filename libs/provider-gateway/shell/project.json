@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/provider-gateway/shell"],
       "options": {
-        "jestConfig": "libs/provider-gateway/shell/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/provider-gateway/shell/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/provider-gateway/shell/**/*.ts",
-          "libs/provider-gateway/shell/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:provider-gateway", "type:shell"]

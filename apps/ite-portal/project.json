@@ -34,6 +34,7 @@
         "scripts": [],
         "allowedCommonJsDependencies": [
           "file-saver",
+          "moment",
           "papaparse/papaparse.min.js"
         ]
       },
@@ -92,16 +93,16 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nx/angular:webpack-dev-server",
+      "executor": "@nx/angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "ite-portal:build:production"
+          "buildTarget": "ite-portal:build:production"
         },
         "development": {
-          "browserTarget": "ite-portal:build:development"
+          "buildTarget": "ite-portal:build:development"
         },
         "uat": {
-          "browserTarget": "ite-portal:build:uat"
+          "buildTarget": "ite-portal:build:uat"
         }
       },
       "defaultConfiguration": "development"
@@ -109,24 +110,17 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "ite-portal:build"
+        "buildTarget": "ite-portal:build"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/ite-portal/**/*.ts",
-          "apps/ite-portal/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/ite-portal"],
       "options": {
-        "jestConfig": "apps/ite-portal/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/ite-portal/jest.config.ts"
       }
     },
     "deploy:dev": {
